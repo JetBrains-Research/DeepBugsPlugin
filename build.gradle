@@ -4,7 +4,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.2.51'
 }
 
-group 'ru.jetbrains.bogomolov'
+group 'com.jetbrains.bogomolov'
 version '1.0'
 
 compileKotlin {
