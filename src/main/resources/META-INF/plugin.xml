@@ -1,6 +1,6 @@
 <idea-plugin>
-    <id>com.jetbrains.bogomolov.DeepBugsPlugin</id>
-    <name>Deep Bugs</name>
+    <id>com.jetbrains.bogomolov.DeepBugs</id>
+    <name>DeepBugs</name>
     <vendor email="dummy" url="dummy">dummy</vendor>
 
     <description><![CDATA[
@@ -18,9 +18,9 @@
     </extensions>
 
     <actions>
-        <group id="DeepBugsPlugin.SampleMenu" text="Greeting" description="Greeting menu">
+        <group id="DeepBugs.SampleMenu" text="Greeting" description="Greeting menu">
         <add-to-group group-id="MainMenu" anchor="last"/>
-        <action id="DeepBugsPlugin.Textboxes" class="HelloAction" text="Hello" description="Says hello"/>
+        <action id="DeepBugs.Textboxes" class="HelloAction" text="Hello" description="Says hello"/>
     </group>
     </actions>
 </idea-plugin>
