@@ -7,19 +7,20 @@ plugins {
 group 'com.jetbrains.bogomolov'
 version '1.0'
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+compileKotlin  {
+    kotlinOptions.jvmTarget = javaVersion
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = javaVersion
 }
 intellij {
-    version '2018.1.5'
+    version ideaVersion
+    plugins 'python'
 }
 patchPluginXml {
     changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+                Plugin created
+                """
 }
 
 repositories {

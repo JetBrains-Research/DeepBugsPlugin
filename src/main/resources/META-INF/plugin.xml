@@ -9,18 +9,21 @@
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <!-- uncomment to enable plugin in all products
+    <!-- uncomment to enable plugin in all products -->
     <depends>com.intellij.modules.lang</depends>
-    -->
+    <depends>com.intellij.modules.python</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+        <inspectionToolProvider implementation="com.jetbrains.bogomolov.DeepBugsProvider"/>
     </extensions>
 
     <actions>
-        <group id="DeepBugs.SampleMenu" text="Greeting" description="Greeting menu">
-        <add-to-group group-id="MainMenu" anchor="last"/>
-        <action id="DeepBugs.Textboxes" class="HelloAction" text="Hello" description="Says hello"/>
-    </group>
+        <action id="DeepBugs.com.jetbrains.bogomolov.AnalyzeAction"
+                class="com.jetbrains.bogomolov.AnalyzeAction"
+                text="Warn about possible bugs"
+                description="Warn about possible bugs in python binary operations">
+            <keyboard-shortcut first-keystroke="shift alt B" keymap="$default"/>
+        </action>
     </actions>
 </idea-plugin>
