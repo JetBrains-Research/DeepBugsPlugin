@@ -9,6 +9,7 @@ import com.jetbrains.bogomolov.extraction.extractPyNodeType
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyBinaryExpression
+import org.deeplearning4j.nn.modelimport.keras.KerasModelImport
 
 class DeepBugsInspection : PyInspection() {
 
