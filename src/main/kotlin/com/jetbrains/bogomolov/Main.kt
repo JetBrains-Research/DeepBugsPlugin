@@ -1,13 +1,16 @@
 package com.jetbrains.bogomolov
 
 import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Klaxon
 import com.beust.klaxon.Parser
 import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiManager
+import com.jetbrains.bogomolov.datatypes.BinOp
 import com.jetbrains.python.psi.PyFile
 import org.deeplearning4j.nn.modelimport.keras.KerasModelImport
 import java.io.File
+import java.io.InputStream
 
 fun loadModel(path: String) {
     val model = KerasModelImport.importKerasSequentialModelAndWeights(
@@ -26,6 +29,12 @@ fun loadJson(path: String) {
     println(result.string("something"))
 }
 
+fun loadJsonBinOps(path: String) {
+    val result = Klaxon().parseArray<BinOp>(File(path).inputStream()) ?: return
+    println(result.size)
+    println(result[0])
+}
+
 fun loadPsiFile(path: String) {
     println(ProjectManager.getInstance().openProjects.size)
     val file = LocalFileSystem.getInstance().findFileByIoFile(File(path)) ?: return
@@ -40,5 +49,6 @@ fun main(args: Array<String>) {
     val path = System.getProperty("user.dir")
 //    loadModel(path)
 //    loadJson(path)
-    loadPsiFile("$path/data/SampleFile.py")
+//    loadPsiFile("$path/data/SampleFile.py")
+    loadJsonBinOps("$path/data/binOps_sample.json")
 }
