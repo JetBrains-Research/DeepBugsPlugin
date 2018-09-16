@@ -17,4 +17,15 @@
         <!-- Add your extensions here -->
         <inspectionToolProvider implementation="com.jetbrains.bogomolov.DeepBugsProvider"/>
     </extensions>
+    <actions>
+        <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
+            <add-to-group group-id="MainMenu" anchor="last"  />
+            <action
+                    class="com.jetbrains.bogomolov.CollectAction"
+                    id="DeepBugs.CollectAction"
+                    text="Collect Data"
+                    description="Collect Data from files under project root"
+            />
+        </group>
+    </actions>
 </idea-plugin>
