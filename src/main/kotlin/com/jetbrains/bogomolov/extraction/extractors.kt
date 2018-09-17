@@ -19,6 +19,6 @@ fun extractPyNodeName(node: PyElement?): String? = when (node) {
     else -> null
 }
 
-fun extractPyNodeType(node: PyElement?): String? = when (node) {
-    else -> null
+fun extractPyNodeType(node: PyElement?): String = when (node) {
+    else -> "unknown"
 }

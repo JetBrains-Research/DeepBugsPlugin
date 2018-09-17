@@ -1,5 +1,6 @@
 package com.jetbrains.bogomolov
 
+import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Klaxon
 import com.beust.klaxon.Parser
@@ -33,6 +34,10 @@ fun loadJsonBinOps(path: String) {
     val result = Klaxon().parseArray<BinOp>(File(path).inputStream()) ?: return
     println(result.size)
     println(result[0])
+    println(Klaxon().toJsonString(result))
+    val str = StringBuilder(Klaxon().toJsonString(result))
+    val parsed = Parser().parse(str) as JsonArray<*>
+    println(parsed.toJsonString(true))
 }
 
 fun loadPsiFile(path: String) {
