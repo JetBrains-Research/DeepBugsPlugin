@@ -40,8 +40,8 @@ class CollectAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent?) {
         if (e == null) return
         val project = e.project ?: return
-        val root = project.basePath + "/data/python/python_all"
-        val saveRoot = project.basePath + "/data/tech/idea"
+        val root = project.basePath + "/data/python/python_30"
+        val saveRoot = project.basePath + "/data/tech/ideaShort"
         val encounteredOperations = mutableListOf<BinOp>()
         var totalOps = 0
         var totalFiles = 0

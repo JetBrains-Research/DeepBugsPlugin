@@ -12,6 +12,8 @@ fun String.asStandardString() = "STD:$this"
 fun extractPyNodeName(node: PyElement?): String? = when (node) {
     is PyNumericLiteralExpression -> node.text.asLiteralString()
     is PyStringLiteralExpression -> node.stringValue.asLiteralString()
+    is PyBoolLiteralExpression -> node.text.asLiteralString()
+    is PyNoneLiteralExpression -> node.text.asLiteralString()
     is PyReferenceExpression -> node.referencedName?.asIdentifierString()
     is PyCallExpression -> extractPyNodeName(node.callee)
     is PySubscriptionExpression -> extractPyNodeName(node.operand)
@@ -20,5 +22,9 @@ fun extractPyNodeName(node: PyElement?): String? = when (node) {
 }
 
 fun extractPyNodeType(node: PyElement?): String = when (node) {
+    is PyNumericLiteralExpression -> "number"
+    is PyStringLiteralExpression -> "string"
+    is PyBoolLiteralExpression -> "boolean"
+    is PyNoneLiteralExpression -> "null"
     else -> "unknown"
 }
