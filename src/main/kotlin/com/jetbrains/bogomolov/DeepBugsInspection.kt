@@ -26,16 +26,14 @@ class DeepBugsInspection : PyInspection() {
             holder: ProblemsHolder,
             isOnTheFly: Boolean,
             session: LocalInspectionToolSession
-    ): PsiElementVisitor = Visitor(holder, session, model)
+    ): PsiElementVisitor = Visitor(holder, session)
 
-    class Visitor(holder: ProblemsHolder,
-                  session: LocalInspectionToolSession,
-                  model: MultiLayerNetwork) : PyInspectionVisitor(holder, session) {
+    class Visitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : PyInspectionVisitor(holder, session) {
 
         override fun visitPyBinaryExpression(node: PyBinaryExpression?) {
             node?.let {
                 BinOp.collectFromPyNode(it)?.let { binOp ->
-                    val vector = binOp.vectorize()
+                    val vector = binOp.vectorize(nodeTypeMapping, tokenMapping, typeMapping)
                     vector?.let { input ->
                         val result = model.output(input)
                     }
