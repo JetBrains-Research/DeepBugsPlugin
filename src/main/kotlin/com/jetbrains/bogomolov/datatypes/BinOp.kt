@@ -1,11 +1,15 @@
 package com.jetbrains.bogomolov.datatypes
 
+import com.beust.klaxon.JsonArray
 import com.beust.klaxon.Klaxon
 import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.bogomolov.extraction.extractPyNodeName
 import com.jetbrains.bogomolov.extraction.extractPyNodeType
+import com.jetbrains.bogomolov.utils.Mapping
 import java.io.File
 import com.jetbrains.python.psi.PyBinaryExpression
+import org.nd4j.linalg.api.ndarray.INDArray
+import org.nd4j.linalg.factory.Nd4j
 
 data class BinOp(val left: String,
                  val right: String,
@@ -28,7 +32,7 @@ data class BinOp(val left: String,
             var firstElement = node.psiOperator ?: return null
             val lastElement = node.rightExpression?.prevSibling ?: return firstElement.text
             var result = ""
-            while(firstElement != lastElement) {
+            while (firstElement != lastElement) {
                 if (firstElement is PsiWhiteSpace) result += " "
                 else result += firstElement.text
                 firstElement = firstElement.nextSibling
@@ -59,6 +63,34 @@ data class BinOp(val left: String,
          */
         fun readBinOps(path: String) = Klaxon().parseArray<BinOp>(File(path).inputStream())
                 ?: throw ParsingFailedException(path)
+    }
+
+    private fun putToRange(array: INDArray, arrDouble: JsonArray<Double>, offset: Int) {
+        for (i in 0 until arrDouble.size) {
+            array.putScalar(offset + i, arrDouble[offset + i])
+        }
+    }
+
+    private fun vectorizeListOfArrays(arrayList: List<JsonArray<Double>>): INDArray {
+        var size = 0
+        for (array in arrayList) size += array.size
+        val result = Nd4j.create(size)
+        var offset = 0
+        for (array in arrayList) {
+            putToRange(result, array, offset)
+            offset += array.size
+        }
+        return result
+    }
+
+    fun vectorize(token: Mapping, nodeType: Mapping, type: Mapping): INDArray? {
+        val leftVector = token.get(left) ?: return null
+        val rightVector = token.get(left) ?: return null
+        val leftTypeVector = type.get(left) ?: return null
+        val rightTypeVector = type.get(left) ?: return null
+        val parentVector = nodeType.get(left) ?: return null
+        val grandParentVector = nodeType.get(grandParent) ?: return null
+        return vectorizeListOfArrays(listOf(leftVector, rightVector, leftTypeVector, rightTypeVector, parentVector, grandParentVector))
     }
 }
 
