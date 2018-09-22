@@ -14,7 +14,16 @@ fun extractPyNodeName(node: PyElement?): String? = when (node) {
     is PyStringLiteralExpression -> node.stringValue.asLiteralString()
     is PyBoolLiteralExpression -> node.text.asLiteralString()
     is PyNoneLiteralExpression -> node.text.asLiteralString()
-    is PyReferenceExpression -> node.referencedName?.asIdentifierString()
+    is PyReferenceExpression -> {
+        var referencedName = node.referencedName
+        referencedName?.let {
+            referencedName = when(referencedName) {
+                "True", "False", "None" -> referencedName?.asLiteralString()
+                else -> referencedName?.asIdentifierString()
+            }
+        }
+        referencedName
+    }
     is PyCallExpression -> extractPyNodeName(node.callee)
     is PySubscriptionExpression -> extractPyNodeName(node.operand)
     is PyLambdaExpression -> PyNames.LAMBDA.asIdentifierString()
@@ -26,5 +35,16 @@ fun extractPyNodeType(node: PyElement?): String = when (node) {
     is PyStringLiteralExpression -> "string"
     is PyBoolLiteralExpression -> "boolean"
     is PyNoneLiteralExpression -> "null"
+    is PyReferenceExpression -> {
+        var referencedName = node.referencedName
+        referencedName?.let {
+            referencedName = when(referencedName) {
+                "True", "False" -> "boolean"
+                "None" -> "null"
+                else -> "unknown"
+            }
+        }
+        referencedName ?: "unknown"
+    }
     else -> "unknown"
 }
