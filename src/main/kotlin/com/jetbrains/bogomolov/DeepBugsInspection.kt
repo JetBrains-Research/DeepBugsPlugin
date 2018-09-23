@@ -1,6 +1,7 @@
 package com.jetbrains.bogomolov
 
 import com.intellij.codeInspection.LocalInspectionToolSession
+import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.bogomolov.datatypes.BinOp
@@ -14,13 +15,16 @@ import org.deeplearning4j.nn.multilayer.MultiLayerNetwork
 class DeepBugsInspection : PyInspection() {
 
     companion object {
-        private val root =  System.getProperty("user.dir")
-        private val model = KerasModelImport.importKerasSequentialModelAndWeights(
-                "$root/models/binOpsDetectionModel.h5")
+        private const val root =  "/home/egor/Work/DeepBugsPlugin"
+//        private val model = KerasModelImport.importKerasSequentialModelAndWeights(
+//                "$root/models/binOpsDetectionModel.h5")
         private val nodeTypeMapping = loadMapping("$root/models/nodeTypeToVector.json")
         private val tokenMapping = loadMapping("$root/models/tokenToVector.json")
         private val typeMapping = loadMapping("$root/models/typeToVector.json")
+        private val operatorMapping = loadMapping("$root/models/operatorToVector.json")
     }
+
+    override fun getDisplayName() = "DeepBugs"
 
     override fun buildVisitor(
             holder: ProblemsHolder,
@@ -31,11 +35,13 @@ class DeepBugsInspection : PyInspection() {
     class Visitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : PyInspectionVisitor(holder, session) {
 
         override fun visitPyBinaryExpression(node: PyBinaryExpression?) {
+            var result = 0.0
             node?.let {
                 BinOp.collectFromPyNode(it)?.let { binOp ->
-                    val vector = binOp.vectorize(nodeTypeMapping, tokenMapping, typeMapping)
+                    val vector = binOp.vectorize(tokenMapping, nodeTypeMapping, typeMapping, operatorMapping)
                     vector?.let { input ->
-                        val result = model.output(input)
+                        registerProblem(node, "Probability: $result", ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+//                        result = model.output(input).getDouble(0)
                     }
                 }
             }
