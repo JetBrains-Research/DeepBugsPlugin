@@ -2,6 +2,7 @@ package com.jetbrains.bogomolov.datatypes
 
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.Klaxon
+import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.bogomolov.extraction.extractPyNodeName
 import com.jetbrains.bogomolov.extraction.extractPyNodeType
@@ -30,11 +31,18 @@ data class BinOp(val left: String,
          */
         private fun extractOperatorText(node: PyBinaryExpression): String? {
             var firstElement = node.psiOperator ?: return null
-            val lastElement = node.rightExpression?.prevSibling ?: return firstElement.text
+            val lastElement = if (node.rightExpression?.prevSibling is PsiWhiteSpace) {
+                node.rightExpression?.prevSibling
+            } else {
+                node.rightExpression
+            } ?: return firstElement.text
+
             var result = ""
             while (firstElement != lastElement) {
-                if (firstElement is PsiWhiteSpace) result += " "
-                else result += firstElement.text
+                if (firstElement !is PsiWhiteSpace && firstElement !is PsiComment) {
+                    if (result != "") result += " "
+                    result += firstElement.text
+                }
                 firstElement = firstElement.nextSibling
             }
             return result
@@ -83,14 +91,19 @@ data class BinOp(val left: String,
         return result
     }
 
-    fun vectorize(token: Mapping, nodeType: Mapping, type: Mapping): INDArray? {
+    fun vectorize(token: Mapping, nodeType: Mapping, type: Mapping, operator: Mapping): INDArray? {
         val leftVector = token.get(left) ?: return null
-        val rightVector = token.get(left) ?: return null
-        val leftTypeVector = type.get(left) ?: return null
-        val rightTypeVector = type.get(left) ?: return null
-        val parentVector = nodeType.get(left) ?: return null
+        val rightVector = token.get(right) ?: return null
+        val leftTypeVector = type.get(leftType) ?: return null
+        val rightTypeVector = type.get(rightType) ?: return null
+        val operatorVector = operator.get(op) ?: return null
+        val parentVector = nodeType.get(parent) ?: return null
         val grandParentVector = nodeType.get(grandParent) ?: return null
-        return vectorizeListOfArrays(listOf(leftVector, rightVector, leftTypeVector, rightTypeVector, parentVector, grandParentVector))
+        return vectorizeListOfArrays(listOf(
+                leftVector, rightVector,
+                operatorVector,
+                leftTypeVector, rightTypeVector,
+                parentVector, grandParentVector))
     }
 }
 
