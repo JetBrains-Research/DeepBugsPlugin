@@ -1,12 +1,12 @@
-package com.jetbrains.bogomolov.datatypes
+package com.jetbrains.deepbugs.datatypes
 
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.Klaxon
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
-import com.jetbrains.bogomolov.extraction.extractPyNodeName
-import com.jetbrains.bogomolov.extraction.extractPyNodeType
-import com.jetbrains.bogomolov.utils.Mapping
+import com.jetbrains.deepbugs.extraction.extractPyNodeName
+import com.jetbrains.deepbugs.extraction.extractPyNodeType
+import com.jetbrains.deepbugs.utils.Mapping
 import java.io.File
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.nd4j.linalg.api.ndarray.INDArray
@@ -75,7 +75,7 @@ data class BinOp(val left: String,
 
     private fun putToRange(array: INDArray, arrDouble: JsonArray<Double>, offset: Int) {
         for (i in 0 until arrDouble.size) {
-            array.putScalar(offset + i, arrDouble[offset + i])
+            array.putScalar(offset + i, arrDouble[i])
         }
     }
 

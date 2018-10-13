@@ -1,4 +1,4 @@
-package com.jetbrains.bogomolov.utils
+package com.jetbrains.deepbugs.utils
 
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject

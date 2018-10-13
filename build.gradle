@@ -4,7 +4,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.2.51'
 }
 
-group 'com.jetbrains.bogomolov'
+group 'com.jetbrains.deepbugs'
 version '1.0'
 
 apply plugin: 'kotlin'
@@ -12,13 +12,20 @@ apply plugin: 'kotlin'
 compileKotlin {
     kotlinOptions.jvmTarget = javaVersion
 }
+
 compileTestKotlin {
     kotlinOptions.jvmTarget = javaVersion
 }
+
 intellij {
     version ideaVersion
     plugins 'python-ce'
 }
+
+runIde {
+    jvmArgs '-Xms1024m', '-Xmx10g'
+}
+
 patchPluginXml {
     changeNotes """
                 Plugin created

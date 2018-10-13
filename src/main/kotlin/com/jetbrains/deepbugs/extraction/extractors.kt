@@ -1,4 +1,4 @@
-package com.jetbrains.bogomolov.extraction
+package com.jetbrains.deepbugs.extraction
 
 import com.jetbrains.python.PyNames
 import com.jetbrains.python.psi.*

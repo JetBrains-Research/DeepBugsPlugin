@@ -1,4 +1,4 @@
-package com.jetbrains.bogomolov
+package com.jetbrains.deepbugs
 
 import com.intellij.codeInspection.InspectionToolProvider
 

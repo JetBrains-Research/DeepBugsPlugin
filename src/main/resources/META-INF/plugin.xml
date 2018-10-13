@@ -1,12 +1,12 @@
 <idea-plugin>
-    <id>com.jetbrains.bogomolov.DeepBugs</id>
+    <id>com.jetbrains.deepbugs.DeepBugs</id>
     <name>DeepBugs</name>
     <vendor email="dummy" url="dummy">dummy</vendor>
 
     <description><![CDATA[
     Deep Bugs framework implementation
     ]]></description>
-
+    <idea-version since-build="171"/>
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <!-- uncomment to enable plugin in all products -->
@@ -15,13 +15,15 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <inspectionToolProvider implementation="com.jetbrains.bogomolov.DeepBugsProvider"/>
+        <inspectionToolProvider implementation="com.jetbrains.deepbugs.DeepBugsProvider"/>
+        <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="com.jetbrains.deepbugs.DeepBugsInspection"/>
+
     </extensions>
     <actions>
         <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
             <add-to-group group-id="MainMenu" anchor="last"  />
             <action
-                    class="com.jetbrains.bogomolov.CollectAction"
+                    class="com.jetbrains.deepbugs.CollectAction"
                     id="DeepBugs.CollectAction"
                     text="Collect Data"
                     description="Collect Data from files under project root"

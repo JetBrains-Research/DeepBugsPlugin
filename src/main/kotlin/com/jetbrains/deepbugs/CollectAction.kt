@@ -1,4 +1,4 @@
-package com.jetbrains.bogomolov
+package com.jetbrains.deepbugs
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -8,8 +8,8 @@ import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiManager
-import com.jetbrains.bogomolov.datatypes.BinOp
-import com.jetbrains.bogomolov.utils.toJson
+import com.jetbrains.deepbugs.datatypes.BinOp
+import com.jetbrains.deepbugs.utils.toJson
 import com.jetbrains.python.psi.*
 import java.io.File
 import javax.swing.Icon
