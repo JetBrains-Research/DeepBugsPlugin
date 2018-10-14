@@ -22,14 +22,24 @@ intellij {
     plugins 'python-ce'
 }
 
-runIde {
-    jvmArgs '-Xms1024m', '-Xmx10g'
-}
-
 patchPluginXml {
     changeNotes """
                 Plugin created
                 """
+}
+
+prepareSandbox {
+    from("${projectDir}/models") {
+        exclude "tokenToVector.zip"
+        into "${pluginName}/models"
+    }
+    from(zipTree("${projectDir}/models/tokenToVector.zip")) {
+        into "${pluginName}/models"
+    }
+}
+
+runIde {
+    jvmArgs '-Xms1024m', '-Xmx10g'
 }
 
 repositories {

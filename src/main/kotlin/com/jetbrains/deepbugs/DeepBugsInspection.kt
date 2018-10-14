@@ -3,6 +3,7 @@ package com.jetbrains.deepbugs
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
+import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.options.Configurable
 import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.deepbugs.datatypes.BinOp
@@ -19,8 +20,7 @@ class DeepBugsInspection : PyInspection(), Configurable {
 
     companion object {
         private var threshold = 0.89
-        // TODO rewrite
-        private const val root =  "/Users/username/DeepBugsPlugin"
+        private val root =  PathManager.getPluginsPath() + "/DeepBugs"
         private val model = KerasModelImport.importKerasSequentialModelAndWeights(
                 "$root/models/binOpsDetectionModel.h5")
         private val nodeTypeMapping = loadMapping("$root/models/nodeTypeToVector.json")
