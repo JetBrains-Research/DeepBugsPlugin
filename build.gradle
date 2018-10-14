@@ -19,7 +19,7 @@ compileTestKotlin {
 
 intellij {
     version ideaVersion
-    plugins 'python-ce'
+    plugins 'PythonCore:2018.2.182.4505.22'
 }
 
 patchPluginXml {
