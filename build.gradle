@@ -42,10 +42,6 @@ runIde {
     jvmArgs '-Xms1024m', '-Xmx10g'
 }
 
-repositories {
-    mavenCentral()
-}
-
 sourceCompatibility = 1.8
 
 repositories {

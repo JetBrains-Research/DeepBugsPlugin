@@ -4,22 +4,18 @@ import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.openapi.application.PathManager
-import com.intellij.openapi.options.Configurable
 import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.deepbugs.datatypes.BinOp
-import com.jetbrains.deepbugs.gui.DeepBugsGUI
+import com.jetbrains.deepbugs.settings.DeepBugsInspectionConfig
 import com.jetbrains.deepbugs.utils.loadMapping
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.deeplearning4j.nn.modelimport.keras.KerasModelImport
-import javax.swing.JComponent
 
-// TODO way to save customized plugin settings?
-class DeepBugsInspection : PyInspection(), Configurable {
+class DeepBugsInspection : PyInspection() {
 
     companion object {
-        private var threshold = 0.89
         private val root =  PathManager.getPluginsPath() + "/DeepBugs"
         private val model = KerasModelImport.importKerasSequentialModelAndWeights(
                 "$root/models/binOpsDetectionModel.h5")
@@ -29,29 +25,7 @@ class DeepBugsInspection : PyInspection(), Configurable {
         private val operatorMapping = loadMapping("$root/models/operatorToVector.json")
     }
 
-    private var deepBugsGUI : DeepBugsGUI? = null
-
     override fun getDisplayName() = "DeepBugs"
-
-    override fun isModified() = deepBugsGUI!!.threshold != threshold
-
-    override fun apply() {
-        threshold = deepBugsGUI!!.threshold
-    }
-
-    override fun reset() {
-        deepBugsGUI!!.threshold = threshold
-    }
-
-    override fun disposeUIResources() {
-        deepBugsGUI = null
-    }
-
-    override fun createComponent() : JComponent? {
-        deepBugsGUI = DeepBugsGUI()
-        deepBugsGUI!!.threshold = threshold
-        return deepBugsGUI!!.rootPanel
-    }
 
     override fun buildVisitor(
             holder: ProblemsHolder,
@@ -63,13 +37,19 @@ class DeepBugsInspection : PyInspection(), Configurable {
 
         override fun visitPyBinaryExpression(node: PyBinaryExpression?) {
             var result = 0.0
+
             node?.let {
                 BinOp.collectFromPyNode(it)?.let { binOp ->
                     val vector = binOp.vectorize(tokenMapping, nodeTypeMapping, typeMapping, operatorMapping)
                     vector?.let { input ->
-                        // TODO fix null input exception while reinspecting the code
-                        result = model.output(input).getDouble(0)
-                        if (result > threshold) {
+                        // TODO catch keras exceptions, but mb rewrite???
+                        try {
+                            result = model.output(input).getDouble(0)
+                        }
+                        catch (ex : Exception) {
+                            result = 0.0
+                        }
+                        if (result > DeepBugsInspectionConfig.getInstance().threshold) {
                             registerProblem(node, "Probability: $result", ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
                         }
                     }

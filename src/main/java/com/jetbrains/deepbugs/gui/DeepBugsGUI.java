@@ -11,8 +11,10 @@ public class DeepBugsGUI {
     private JLabel thresholdLabel;
     private JPanel rootPanel;
     private JSlider thresholdSlider;
+    private JButton setDefault;
 
     public DeepBugsGUI() {
+        setDefault.addActionListener( e -> thresholdSlider.setValue(89));
     }
 
     public JComponent getRootPanel() {
@@ -71,4 +73,5 @@ public class DeepBugsGUI {
     public JComponent $$$getRootComponent$$$() {
         return rootPanel;
     }
+
 }

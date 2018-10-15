@@ -16,7 +16,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <inspectionToolProvider implementation="com.jetbrains.deepbugs.DeepBugsProvider"/>
-        <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="com.jetbrains.deepbugs.DeepBugsInspection"/>
+        <applicationService serviceInterface="com.jetbrains.deepbugs.settings.DeepBugsInspectionConfig" serviceImplementation="com.jetbrains.deepbugs.settings.DeepBugsInspectionConfig"/>
+        <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="com.jetbrains.deepbugs.settings.DeepBugsInspectionConfigurable"/>
 
     </extensions>
     <actions>
