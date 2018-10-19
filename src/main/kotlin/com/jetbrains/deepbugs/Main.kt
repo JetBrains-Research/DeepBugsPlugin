@@ -9,16 +9,16 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiManager
 import com.jetbrains.deepbugs.datatypes.BinOp
 import com.jetbrains.python.psi.PyFile
-import org.deeplearning4j.nn.modelimport.keras.KerasModelImport
+//import org.deeplearning4j.nn.modelimport.keras.KerasModelImport
 import java.io.File
 
-fun loadModel(path: String) {
-    val model = KerasModelImport.importKerasSequentialModelAndWeights(
-            "$path/models/binOpsDetectionModel.h5")
-    println(model.layerNames)
-    println(model.labels)
-    model.printConfiguration()
-}
+//fun loadModel(path: String) {
+    //val model = KerasModelImport.importKerasSequentialModelAndWeights(
+            //"$path/models/binOpsDetectionModel.h5")
+    //println(model.layerNames)
+    //println(model.labels)
+    //model.printConfiguration()
+//}
 
 fun loadJson(path: String) {
     val parser = Parser()
@@ -50,7 +50,7 @@ fun loadPsiFile(path: String) {
 }
 
 fun main(args: Array<String>) {
-    //val path = System.getProperty("user.dir")
+    val path = System.getProperty("user.dir")
     //loadModel(path)
     //loadJson(path)
     //loadPsiFile("$path/data/SampleFile.py")

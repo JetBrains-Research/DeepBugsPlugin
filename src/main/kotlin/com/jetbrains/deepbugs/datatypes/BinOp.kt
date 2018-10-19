@@ -9,8 +9,12 @@ import com.jetbrains.deepbugs.extraction.extractPyNodeType
 import com.jetbrains.deepbugs.utils.Mapping
 import java.io.File
 import com.jetbrains.python.psi.PyBinaryExpression
-import org.nd4j.linalg.api.ndarray.INDArray
-import org.nd4j.linalg.factory.Nd4j
+import org.tensorflow.DataType
+import org.tensorflow.Tensor
+import java.nio.ByteBuffer
+import java.nio.FloatBuffer
+import javax.xml.crypto.Data
+
 
 data class BinOp(val left: String,
                  val right: String,
@@ -73,25 +77,13 @@ data class BinOp(val left: String,
                 ?: throw ParsingFailedException(path)
     }
 
-    private fun putToRange(array: INDArray, arrDouble: JsonArray<Double>, offset: Int) {
-        for (i in 0 until arrDouble.size) {
-            array.putScalar(offset + i, arrDouble[i])
-        }
+    private fun vectorizeListOfArrays(arrayList: List<JsonArray<Float>>): Tensor<Float> {
+        var resArray = FloatArray(0)
+        for (array in arrayList) resArray += array
+        return Tensor.create(longArrayOf(1, resArray.size.toLong()), FloatBuffer.wrap(resArray))
     }
 
-    private fun vectorizeListOfArrays(arrayList: List<JsonArray<Double>>): INDArray {
-        var size = 0
-        for (array in arrayList) size += array.size
-        val result = Nd4j.create(size)
-        var offset = 0
-        for (array in arrayList) {
-            putToRange(result, array, offset)
-            offset += array.size
-        }
-        return result
-    }
-
-    fun vectorize(token: Mapping, nodeType: Mapping, type: Mapping, operator: Mapping): INDArray? {
+    fun vectorize(token: Mapping, nodeType: Mapping, type: Mapping, operator: Mapping): Tensor<Float>? {
         val leftVector = token.get(left) ?: return null
         val rightVector = token.get(right) ?: return null
         val leftTypeVector = type.get(leftType) ?: return null

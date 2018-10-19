@@ -12,7 +12,7 @@ class DeepBugsInspectionConfig : PersistentStateComponent<DeepBugsInspectionConf
         XmlSerializerUtil.copyBean(state, this)
     }
 
-    var threshold = 0.89
+    var threshold = 0.89f
 
     companion object {
         fun getInstance(): DeepBugsInspectionConfig = ServiceManager.getService(DeepBugsInspectionConfig::class.java)

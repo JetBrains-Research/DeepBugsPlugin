@@ -6,6 +6,10 @@ import javax.swing.JComponent
 
 class DeepBugsInspectionConfigurable(private val settings : DeepBugsInspectionConfig) : Configurable {
 
+    companion object {
+        const val defaultConfig = 0.89f
+    }
+
     private var deepBugsGUI : DeepBugsGUI? = null
 
     override fun getDisplayName() = "DeepBugs"

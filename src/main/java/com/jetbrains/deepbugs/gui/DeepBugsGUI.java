@@ -3,6 +3,7 @@ package com.jetbrains.deepbugs.gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import com.jetbrains.deepbugs.settings.DeepBugsInspectionConfigurable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,19 +15,19 @@ public class DeepBugsGUI {
     private JButton setDefault;
 
     public DeepBugsGUI() {
-        setDefault.addActionListener( e -> thresholdSlider.setValue(89));
+        setDefault.addActionListener( e -> setThreshold(DeepBugsInspectionConfigurable.defaultConfig));
     }
 
     public JComponent getRootPanel() {
         return rootPanel;
     }
 
-    public double getThreshold() {
-        return (double) thresholdSlider.getValue() / 100.0;
+    public float getThreshold() {
+        return (float) thresholdSlider.getValue() / 100.0f;
     }
 
-    public void setThreshold(double value) {
-        thresholdSlider.setValue((int) (value * 100.0));
+    public void setThreshold(float value) {
+        thresholdSlider.setValue((int) (value * 100.0f));
     }
 
     {
