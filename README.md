@@ -6,7 +6,7 @@ This plugin provides several code inspections which objectives are to analyze th
 
 ## Usage
 After the plugin is installed and enabled, code inspections become available.
-They are enabled by default and can be disabled in `Preferences|Settings|Editor|Inspections|Python|...` subcategory.
+They are enabled by default and can be disabled in `Preferences/Settings|Editor|Inspections|Python|...` subcategory.
 
 ## Supported inspections
 ### Incorrect binary operator inspection
