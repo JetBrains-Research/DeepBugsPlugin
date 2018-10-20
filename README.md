@@ -15,4 +15,4 @@ _Inspection_ _name:_ `DeepBugs: Possibly incorrect binary operator`
 Code inspection, intended to detect and report any possibly incorrect binary operators.
 
 ## Configuration
-DeepBugs plugin computes the probability that a piece of code is an instance of a particular bug pattern. Then it reports possible bugS, if the computed value is above a threshold. Threshold is configurable and can be set manually in `Preferences/Settings|Tools|DeepBugs` or reset to the default state with the `Default` button.
+DeepBugsPlugin computes the probability that a piece of code is an instance of a particular bug pattern. Then it reports possible bugs, if the computed value is above a threshold. Threshold is configurable and can be set manually in `Preferences/Settings|Tools|DeepBugs` or reset to the default state with the `Default` button.
