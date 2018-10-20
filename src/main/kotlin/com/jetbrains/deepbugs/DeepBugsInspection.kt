@@ -11,8 +11,8 @@ import com.jetbrains.deepbugs.utils.loadMapping
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyBinaryExpression
-import org.tensorflow.*
-import org.tensorflow.types.UInt8
+import org.tensorflow.SavedModelBundle
+import org.tensorflow.Tensor
 
 class DeepBugsInspection : PyInspection() {
 
@@ -50,7 +50,7 @@ class DeepBugsInspection : PyInspection() {
                         val tensor = modelSession.runner().feed("dropout_1_input:0", input).fetch("dense_2/Sigmoid:0").run()[0]
                         val result = getResult(tensor)
                         if (result > DeepBugsInspectionConfig.getInstance().threshold) {
-                            registerProblem(node, "Probability: $result", ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                            registerProblem(node, "Possibly incorrect binary operator(Probability: $result)", ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
                         }
                     }
                 }

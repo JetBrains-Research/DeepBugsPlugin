@@ -1,0 +1,29 @@
+{
+  "name": "models",
+  "classpath": [
+    {
+      "name": "nodeTypeToVector.json",
+      "url": "https://www.dropbox.com/s/1z0gnegpmaxgztf/nodeTypeToVector.json?dl=1"
+    },
+
+    {
+      "name": "typeToVector.json",
+      "url": "https://www.dropbox.com/s/uuvubnhe22zf6t6/typeToVector.json?dl=1"
+    },
+
+    {
+      "name": "operatorToVector.json",
+      "url":  "https://www.dropbox.com/s/wugwzm8dp5wwvh3/operatorToVector.json?dl=1"
+    },
+
+    {
+      "name": "tokenToVector",
+      "url": "https://www.dropbox.com/s/qvhwehxceq4cks5/tokenToVector.zip?dl=1"
+    },
+
+    {
+      "name": "binOpsDetectionModel",
+      "url": "https://www.dropbox.com/s/r8wbv2nthopend4/binOpsDetectionModel.zip?dl=1"
+    }
+  ]
+}
