@@ -23,12 +23,6 @@ intellij {
     plugins 'PythonCore:2018.2.182.4505.22'
 }
 
-patchPluginXml {
-    changeNotes """
-                Plugin created
-                """
-}
-
 runIde {
     jvmArgs '-Xms1024m', '-Xmx10g'
 }

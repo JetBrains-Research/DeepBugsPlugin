@@ -1,10 +1,40 @@
-<idea-plugin>
-    <id>com.jetbrains.deepbugs.DeepBugs</id>
-    <name>DeepBugs</name>
-    <vendor email="dummy" url="dummy">dummy</vendor>
+<!--
+  ~  Copyright 2005-2016 Sixth and Red River Software, Bas Leijdekkers
+  ~  Copyright 2007 Machine Learning Methods in Software Engineering Group of JetBrains Research
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
 
+<idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
+    <name>DeepBugsPlugin</name>
+    <id>DeepBugsPlugin</id>
+    <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey Bryksin</vendor>
+    <version>0.1</version>
+    <change-notes></change-notes>
     <description><![CDATA[
-    Deep Bugs framework implementation
+    DeepBugsPlugin provides several code inspections for bug detection
+
+    <h4>Using inspections</h4>
+    <ol>
+        <li>Select the <code>Analyze | Run inspection by name...</code> menu item</li>
+        <li>Select the desired code inspection</li>
+        <li>Set inspection options and click OK</li>
+    </ol>
+    <h4>Available code inspections</h4>
+    <ul>
+        <li>DeepBugs: Possibly incorrect binary operator</li>
+    </ul>
+    Threshold is configurable and can be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>
     ]]></description>
     <idea-version since-build="171"/>
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -15,18 +45,18 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <inspectionToolProvider implementation="com.jetbrains.deepbugs.DeepBugsProvider"/>
-        <localInspection implementationClass="com.jetbrains.deepbugs.DeepBugsBinOperatorInspection"
+        <inspectionToolProvider implementation="org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsProvider"/>
+        <localInspection implementationClass="org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsBinOperatorInspection"
                          displayName="DeepBugs: Possibly incorrect binary operator" enabledByDefault="true"/>
-        <applicationService serviceInterface="com.jetbrains.deepbugs.settings.DeepBugsInspectionConfig" serviceImplementation="com.jetbrains.deepbugs.settings.DeepBugsInspectionConfig"/>
-        <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="com.jetbrains.deepbugs.settings.DeepBugsInspectionConfigurable"/>
+        <applicationService serviceInterface="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig" serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig"/>
+        <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfigurable"/>
 
     </extensions>
     <actions>
         <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
             <add-to-group group-id="MainMenu" anchor="last"  />
             <action
-                    class="com.jetbrains.deepbugs.CollectAction"
+                    class="org.jetbrains.research.groups.ml_methods.deepbugs.CollectAction"
                     id="DeepBugs.CollectAction"
                     text="Collect Data"
                     description="Collect Data from files under project root"
