@@ -10,6 +10,6 @@ class DeepBugsProvider : InspectionToolProvider {
         DownloaderClient.downloadModelsAndEmbeddings(configStr, SimpleDownloadProgress())
     }
     override fun getInspectionClasses(): Array<Class<*>> {
-        return arrayOf(DeepBugsInspection::class.java)
+        return arrayOf(DeepBugsBinOperatorInspection::class.java)
     }
 }

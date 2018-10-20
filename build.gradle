@@ -19,6 +19,7 @@ compileTestKotlin {
 
 intellij {
     version ideaVersion
+    pluginName 'DeepBugs'
     plugins 'PythonCore:2018.2.182.4505.22'
 }
 
@@ -27,16 +28,6 @@ patchPluginXml {
                 Plugin created
                 """
 }
-
-//prepareSandbox {
- //   from("${projectDir}/models") {
-  //      exclude "tokenToVector.zip"
-  //      into "${pluginName}/models"
-  //  }
-    //from(zipTree("${projectDir}/models/tokenToVector.zip")) {
-        //into "${pluginName}/models"
-    //}
-//}
 
 runIde {
     jvmArgs '-Xms1024m', '-Xmx10g'

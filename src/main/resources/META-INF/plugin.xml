@@ -16,6 +16,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <inspectionToolProvider implementation="com.jetbrains.deepbugs.DeepBugsProvider"/>
+        <localInspection implementationClass="com.jetbrains.deepbugs.DeepBugsBinOperatorInspection"
+                         displayName="DeepBugs: Possibly incorrect binary operator" enabledByDefault="true"/>
         <applicationService serviceInterface="com.jetbrains.deepbugs.settings.DeepBugsInspectionConfig" serviceImplementation="com.jetbrains.deepbugs.settings.DeepBugsInspectionConfig"/>
         <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="com.jetbrains.deepbugs.settings.DeepBugsInspectionConfigurable"/>
 

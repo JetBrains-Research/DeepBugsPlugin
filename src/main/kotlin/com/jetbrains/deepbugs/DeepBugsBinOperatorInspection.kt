@@ -14,7 +14,7 @@ import com.jetbrains.python.psi.PyBinaryExpression
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Tensor
 
-class DeepBugsInspection : PyInspection() {
+class DeepBugsBinOperatorInspection : PyInspection() {
 
     companion object {
         private val root =  PathManager.getPluginsPath() + "/DeepBugs"
@@ -26,7 +26,8 @@ class DeepBugsInspection : PyInspection() {
         private val operatorMapping = loadMapping("$root/models/operatorToVector.json")
     }
 
-    override fun getDisplayName() = "DeepBugs"
+    override fun getDisplayName() = "DeepBugs: Possibly incorrect binary operator"
+    override fun getShortName(): String = "DeepBugsBinOperator"
 
     override fun buildVisitor(
             holder: ProblemsHolder,
