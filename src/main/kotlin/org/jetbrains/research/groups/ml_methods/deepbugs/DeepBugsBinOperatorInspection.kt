@@ -19,8 +19,7 @@ import org.tensorflow.Tensor
 class DeepBugsBinOperatorInspection : PyInspection() {
 
     companion object {
-        //private val root =  PathManager.getPluginsPath() + "/DeepBugsPlugin"
-        private val root = "/Users/username/Documents/"
+        private val root =  PathManager.getPluginsPath() + "/DeepBugsPlugin"
         private val saved = SavedModelBundle.load("$root/models/binOpsDetectionModel", "serve")
         private val modelSession = saved.session()
         private val nodeTypeMapping = loadMapping("$root/models/nodeTypeToVector.json")
