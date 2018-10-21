@@ -17,8 +17,8 @@ data class RepositoryRecord(val target: String, val name: String, val printableN
 object Downloader {
 
     private val modelsPath: String = PathManager.getPluginsPath()
-    private fun getRootPath(name: String) = Paths.get(modelsPath, "DeepBugs", name)
-    private fun getTargetPath(target: String, name: String) = Paths.get(modelsPath, "DeepBugs", target, name)
+    private fun getRootPath(name: String) = Paths.get(modelsPath, "DeepBugsPlugin", name)
+    private fun getTargetPath(target: String, name: String) = Paths.get(modelsPath, "DeepBugsPlugin", target, name)
     private val repositoryFile = getRootPath("repository.json").toFile()
     private var repository: MutableList<RepositoryRecord>
 

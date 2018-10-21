@@ -17,7 +17,7 @@
 
 <idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
     <name>DeepBugsPlugin</name>
-    <id>DeepBugsPlugin</id>
+    <id>org.jetbrains.research.groups.ml_methods.deepbugs</id>
     <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey Bryksin</vendor>
     <version>0.1</version>
     <change-notes></change-notes>
@@ -36,7 +36,7 @@
     </ul>
     Threshold is configurable and can be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>
     ]]></description>
-    <idea-version since-build="171"/>
+    <idea-version since-build="181"/>
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <!-- uncomment to enable plugin in all products -->
@@ -48,12 +48,13 @@
         <inspectionToolProvider implementation="org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsProvider"/>
         <localInspection implementationClass="org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsBinOperatorInspection"
                          displayName="DeepBugs: Possibly incorrect binary operator" enabledByDefault="true"/>
+        <errorHandler implementation="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.GitHubErrorReporter"/>
         <applicationService serviceInterface="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig" serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig"/>
         <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfigurable"/>
 
     </extensions>
     <actions>
-        <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
+        <!--<group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
             <add-to-group group-id="MainMenu" anchor="last"  />
             <action
                     class="org.jetbrains.research.groups.ml_methods.deepbugs.CollectAction"
@@ -61,6 +62,13 @@
                     text="Collect Data"
                     description="Collect Data from files under project root"
             />
-        </group>
+        </group>-->
+
+        <!--Action for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if needed-->
+
+       <!-- <action id="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction"
+                class="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction" text="FireArtificialException">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>-->
     </actions>
 </idea-plugin>

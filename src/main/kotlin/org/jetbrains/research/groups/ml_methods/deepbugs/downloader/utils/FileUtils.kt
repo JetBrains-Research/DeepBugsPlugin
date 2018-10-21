@@ -1,10 +1,13 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils
 
 import java.io.*
+import org.apache.logging.log4j.LogManager
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 object Zip {
+
+    private val logger = LogManager.getLogger(Zip::class.java)
 
     fun extractFolder(zipFile: File, extractFolder: File): File {
         try {
@@ -47,7 +50,7 @@ object Zip {
                 }
             }
         } catch (e: Exception) {
-            print("Zipping error" + e.toString())
+            logger.error("Zipping error", e)
         }
         return extractFolder
     }
