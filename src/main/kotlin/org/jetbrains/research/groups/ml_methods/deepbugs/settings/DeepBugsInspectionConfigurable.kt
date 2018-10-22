@@ -12,6 +12,8 @@ class DeepBugsInspectionConfigurable(private val settings : DeepBugsInspectionCo
 
     private var deepBugsGUI : DeepBugsUI? = null
 
+    override fun getHelpTopic(): String? = null
+
     override fun getDisplayName() = "DeepBugs"
 
     override fun isModified() = deepBugsGUI!!.threshold != settings.threshold

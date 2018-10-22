@@ -20,14 +20,20 @@ compileTestKotlin {
 intellij {
     version ideaVersion
     pluginName 'DeepBugsPlugin'
-    plugins 'PythonCore:2018.2.182.4505.22'
+    plugins 'PythonCore:2018.1.181.4203.550'
 }
 
 runIde {
     jvmArgs '-Xms1024m', '-Xmx10g'
 }
 
+patchPluginXml {
+    sinceBuild '171'
+    untilBuild ''
+}
+
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -37,11 +43,9 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile "org.tensorflow:tensorflow:${tfVersion}"
-    compile "org.slf4j:slf4j-simple:1.7.25"
-    compile "org.slf4j:slf4j-api:1.7.25"
+    compile 'org.slf4j:slf4j-log4j12:1.7.7'
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+"
     compile "com.beust:klaxon:3.0.1"
     compile group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.0'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

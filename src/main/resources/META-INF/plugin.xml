@@ -26,7 +26,8 @@
 
     <h4>Using inspections</h4>
     <ol>
-        <li>Select the <code>Analyze | Run inspection by name...</code> menu item</li>
+        <li>Select  <code>Analyze | Run inspection by name...</code>
+            or <code>Code | Run inspection by name...</code>menu item</li>
         <li>Select the desired code inspection</li>
         <li>Set inspection options and click OK</li>
     </ol>
@@ -36,7 +37,7 @@
     </ul>
     Threshold is configurable and can be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>
     ]]></description>
-    <idea-version since-build="181"/>
+
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <!-- uncomment to enable plugin in all products -->

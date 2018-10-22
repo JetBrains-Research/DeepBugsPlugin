@@ -31,7 +31,7 @@ class DeepBugsBinOperatorInspection : PyInspection() {
         private val operatorMapping = loadMapping("$root/models/operatorToVector.json")
     }
 
-    override fun getDisplayName() = "DeepBugs: Possibly incorrect binary operator"
+    override fun getDisplayName() = DeepBugsPluginBundle.message("binary.operator.inspection.display")
     override fun getShortName(): String = "DeepBugsBinOperator"
 
     override fun buildVisitor(
