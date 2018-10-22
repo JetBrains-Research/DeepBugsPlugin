@@ -12,6 +12,9 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.utils.loadMapping
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyBinaryExpression
+import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.Downloader
+import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.DownloaderClient
+import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.SimpleDownloadProgress
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Tensor

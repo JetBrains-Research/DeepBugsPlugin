@@ -5,7 +5,7 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.DownloaderCl
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.SimpleDownloadProgress
 
 class DeepBugsProvider : InspectionToolProvider {
-    init {
+    init{
         val configStr = DeepBugsProvider::class.java.classLoader.getResource("config.json").readText()
         DownloaderClient.downloadModelsAndEmbeddings(configStr, SimpleDownloadProgress())
     }
