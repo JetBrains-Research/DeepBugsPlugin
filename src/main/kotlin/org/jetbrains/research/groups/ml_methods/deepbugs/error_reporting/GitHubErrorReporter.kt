@@ -48,9 +48,9 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
             bean.pluginVersion = "0.1"
             //val pluginId = IdeErrorsDialog.findPluginId(throwable)
             //if (pluginId != null) {
-               // val ideaPluginDescriptor = PluginManager.getPlugin(pluginId)
+                //val ideaPluginDescriptor = PluginManager.getPlugin(pluginId)
                 //if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled) {
-                   // bean.pluginName = ideaPluginDescriptor.name
+                    //bean.pluginName = ideaPluginDescriptor.name
                     //bean.pluginVersion = ideaPluginDescriptor.version
                 //}
             //}
