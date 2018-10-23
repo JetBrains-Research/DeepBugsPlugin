@@ -8,7 +8,6 @@ group 'org.jetbrains.research.groups.ml_methods.deepbugs'
 version '0.1'
 
 apply plugin: 'kotlin'
-apply plugin: 'distribution'
 
 compileKotlin {
     kotlinOptions.jvmTarget = javaVersion

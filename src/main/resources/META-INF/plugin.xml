@@ -54,8 +54,8 @@
         <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfigurable"/>
 
     </extensions>
-    <actions>
-        <!--<group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
+    <!--<actions>
+        <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
             <add-to-group group-id="MainMenu" anchor="last"  />
             <action
                     class="org.jetbrains.research.groups.ml_methods.deepbugs.CollectAction"
@@ -65,11 +65,11 @@
             />
         </group>-->
 
-        <!--Action for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if needed-->
+        <!-- Action for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if needed-->
 
-        <action id="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction"
+        <!--<action id="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction"
                 class="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction" text="FireArtificialException">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
         </action>
-    </actions>
+    </actions>-->
 </idea-plugin>
