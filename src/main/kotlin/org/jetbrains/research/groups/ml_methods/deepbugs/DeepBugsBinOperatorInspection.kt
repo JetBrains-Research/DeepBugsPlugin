@@ -3,7 +3,6 @@ package org.jetbrains.research.groups.ml_methods.deepbugs
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.diagnostic.PluginException
 import com.intellij.openapi.application.PathManager
 import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.BinOp
@@ -12,9 +11,6 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.utils.loadMapping
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyBinaryExpression
-import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.Downloader
-import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.DownloaderClient
-import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.SimpleDownloadProgress
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Tensor
@@ -22,7 +18,7 @@ import org.tensorflow.Tensor
 class DeepBugsBinOperatorInspection : PyInspection() {
 
     companion object {
-        private val root =  PathManager.getPluginsPath() + "/DeepBugsPlugin"
+        private val root = PathManager.getPluginsPath() + "/DeepBugsPlugin"
         private val saved = SavedModelBundle.load("$root/models/binOpsDetectionModel", "serve")
         private val modelSession = saved.session()
         private val nodeTypeMapping = loadMapping("$root/models/nodeTypeToVector.json")

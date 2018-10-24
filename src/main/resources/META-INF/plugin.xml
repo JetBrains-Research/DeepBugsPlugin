@@ -20,7 +20,6 @@
     <id>org.jetbrains.research.groups.ml_methods.deepbugs</id>
     <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey Bryksin</vendor>
     <version>0.1</version>
-    <change-notes></change-notes>
     <description><![CDATA[
     DeepBugsPlugin provides several code inspections for bug detection
 
@@ -45,10 +44,9 @@
     <depends>com.intellij.modules.python</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
         <inspectionToolProvider implementation="org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsProvider"/>
         <localInspection implementationClass="org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsBinOperatorInspection"
-                         displayName="DeepBugs: Possibly incorrect binary operator" enabledByDefault="true"/>
+                         displayName="DeepBugs: Possibly incorrect binary operator" enabledByDefault="true" groupPath="Python/Probable Bugs"/>
         <errorHandler implementation="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.GitHubErrorReporter"/>
         <applicationService serviceInterface="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig" serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig"/>
         <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfigurable"/>
