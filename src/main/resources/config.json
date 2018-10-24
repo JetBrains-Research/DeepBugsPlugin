@@ -13,7 +13,7 @@
 
     {
       "name": "operatorToVector.json",
-      "url":  "https://www.dropbox.com/s/wugwzm8dp5wwvh3/operatorToVector.json?dl=1"
+      "url":  "https://www.dropbox.com/s/2aminckhxjt3fjr/operatorToVector.json?dl=1"
     },
 
     {
@@ -23,7 +23,7 @@
 
     {
       "name": "binOpsDetectionModel",
-      "url": "https://www.dropbox.com/s/r8wbv2nthopend4/binOpsDetectionModel.zip?dl=1"
+      "url": "https://www.dropbox.com/s/6lczomgkk6gm5pb/binOpsDetectionModel.zip?dl=1"
     }
   ]
 }
