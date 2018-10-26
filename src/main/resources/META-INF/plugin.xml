@@ -16,6 +16,7 @@
     <h4>Available code inspections</h4>
     <ul>
         <li>DeepBugs: Possibly incorrect binary operator</li>
+        <li>DeepBugs: Possibly incorrect binary operand</li>
     </ul>
     Threshold is configurable and can be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>
     ]]></description>
