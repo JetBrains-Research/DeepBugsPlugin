@@ -7,32 +7,38 @@ import javax.swing.JComponent
 class DeepBugsInspectionConfigurable(private val settings : DeepBugsInspectionConfig) : Configurable {
 
     companion object {
-        const val defaultConfig = 0.89f
+        const val defaultBinOperatorConfig = 0.9f
+        const val defaultBinOperandConfig = 0.92f
     }
 
-    private var deepBugsGUI : DeepBugsUI? = null
+    private var deepBugsUI : DeepBugsUI? = null
 
     override fun getHelpTopic(): String? = null
 
     override fun getDisplayName() = "DeepBugs"
 
-    override fun isModified() = deepBugsGUI!!.threshold != settings.threshold
+    override fun isModified() =
+            (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
+                    (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold)
 
     override fun apply() {
-        settings.threshold = deepBugsGUI!!.threshold
+        settings.curBinOperatorThreshold = deepBugsUI!!.binOperatorThreshold
+        settings.curBinOperandThreshold = deepBugsUI!!.binOperandThreshold
     }
 
     override fun reset() {
-        deepBugsGUI!!.threshold = settings.threshold
+        deepBugsUI!!.binOperatorThreshold = settings.curBinOperatorThreshold
+        deepBugsUI!!.binOperandThreshold = settings.curBinOperandThreshold
     }
 
     override fun disposeUIResources() {
-        deepBugsGUI = null
+        deepBugsUI = null
     }
 
     override fun createComponent() : JComponent? {
-        deepBugsGUI = DeepBugsUI()
-        deepBugsGUI!!.threshold = settings.threshold
-        return deepBugsGUI!!.rootPanel
+        deepBugsUI = DeepBugsUI()
+        deepBugsUI!!.binOperatorThreshold = settings.curBinOperatorThreshold
+        deepBugsUI!!.binOperandThreshold = settings.curBinOperandThreshold
+        return deepBugsUI!!.rootPanel
     }
 }

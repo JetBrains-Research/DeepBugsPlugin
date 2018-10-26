@@ -22,8 +22,12 @@
     },
 
     {
-      "name": "binOpsDetectionModel",
-      "url": "https://www.dropbox.com/s/6lczomgkk6gm5pb/binOpsDetectionModel.zip?dl=1"
+      "name": "binOperatorDetectionModel",
+      "url": "https://www.dropbox.com/s/byqh9bwm2s2nnax/binOperatorDetectionModel.zip?dl=1"
+    },
+    {
+      "name": "binOperandDetectionModel",
+      "url": "https://www.dropbox.com/s/6lbrucp87fhbx01/binOperandDetectionModel.zip?dl=1"
     }
   ]
 }

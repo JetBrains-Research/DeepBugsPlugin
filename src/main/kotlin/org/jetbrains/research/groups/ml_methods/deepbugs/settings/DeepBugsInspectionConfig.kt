@@ -6,13 +6,14 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 @State( name = "deepbugs_config", storages = [Storage("deepbugs_config.xml")])
 class DeepBugsInspectionConfig : PersistentStateComponent<DeepBugsInspectionConfig>{
 
+    var curBinOperatorThreshold = DeepBugsInspectionConfigurable.defaultBinOperatorConfig
+    var curBinOperandThreshold = DeepBugsInspectionConfigurable.defaultBinOperandConfig
+
     override fun getState(): DeepBugsInspectionConfig = this
 
     override fun loadState(state: DeepBugsInspectionConfig) {
         XmlSerializerUtil.copyBean(state, this)
     }
-
-    var threshold = 0.89f
 
     companion object {
         fun getInstance(): DeepBugsInspectionConfig = ServiceManager.getService(DeepBugsInspectionConfig::class.java)
