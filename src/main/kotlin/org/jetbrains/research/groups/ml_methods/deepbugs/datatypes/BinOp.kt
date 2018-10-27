@@ -86,13 +86,13 @@ data class BinOp(val left: String,
         return Tensor.create(longArrayOf(1, resArray.size.toLong()), FloatBuffer.wrap(resArray))
     }
 
-    fun vectorize(token: Mapping, nodeType: Mapping, type: Mapping, operator: Mapping): Tensor<Float>? {
-        val leftVector = token.get(left) ?: return null
+    fun vectorize(token: Mapping?, nodeType: Mapping?, type: Mapping?, operator: Mapping?): Tensor<Float>? {
+        val leftVector = token?.get(left) ?: return null
         val rightVector = token.get(right) ?: return null
-        val leftTypeVector = type.get(leftType) ?: return null
+        val leftTypeVector = type?.get(leftType) ?: return null
         val rightTypeVector = type.get(rightType) ?: return null
-        val operatorVector = operator.get(op) ?: return null
-        val parentVector = nodeType.get(parent) ?: return null
+        val operatorVector = operator?.get(op) ?: return null
+        val parentVector = nodeType?.get(parent) ?: return null
         val grandParentVector = nodeType.get(grandParent) ?: return null
         return vectorizeListOfArrays(listOf(
                 leftVector, rightVector,
