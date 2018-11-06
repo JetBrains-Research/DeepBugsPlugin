@@ -9,11 +9,8 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.extractPyNod
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import java.io.File
 import com.jetbrains.python.psi.PyBinaryExpression
-import org.tensorflow.DataType
 import org.tensorflow.Tensor
-import java.nio.ByteBuffer
 import java.nio.FloatBuffer
-import javax.xml.crypto.Data
 
 
 data class BinOp(val left: String,
@@ -101,6 +98,5 @@ data class BinOp(val left: String,
                 parentVector, grandParentVector))
     }
 }
-
 
 class ParsingFailedException(path: String) : Exception("Unable to parse file at:\n$path")
