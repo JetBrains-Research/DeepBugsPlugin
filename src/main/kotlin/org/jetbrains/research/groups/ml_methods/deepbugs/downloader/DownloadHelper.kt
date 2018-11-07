@@ -4,6 +4,7 @@ import com.intellij.openapi.application.runReadAction
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
+import com.intellij.openapi.progress.runModalTask
 import org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsProvider
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils.JsonUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
@@ -27,15 +28,10 @@ object DownloadHelper {
 
     fun downloadModelsAndEmbeddings() : Boolean {
         var success = false
-        ProgressManager.getInstance().run(object : Task.Modal(null, DeepBugsPluginBundle.message("download.task.title"), false) {
-            override fun run(indicator: ProgressIndicator) {
-                val config = DeepBugsProvider::class.java.classLoader.getResource("config.json").readText()
-                runReadAction {
-                    if (download(config, DownloadProgressWrapper(ProgressManager.getInstance().progressIndicator)))
-                        success = true
-                }
-            }
-        })
+        val config = DeepBugsProvider::class.java.classLoader.getResource("config.json").readText()
+        runModalTask(DeepBugsPluginBundle.message("download.task.title"), null, false,
+                { if (download(config, DownloadProgressWrapper(ProgressManager.getInstance().progressIndicator)))
+                      success = true } )
         return success
     }
 }

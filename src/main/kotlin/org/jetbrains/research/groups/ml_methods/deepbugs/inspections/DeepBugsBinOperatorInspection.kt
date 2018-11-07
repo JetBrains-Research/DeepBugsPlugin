@@ -4,10 +4,11 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspec
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Session
+import java.nio.file.Paths
 
 class DeepBugsBinOperatorInspection : DeepBugsBinExprInspection() {
 
-    override val model: SavedModelBundle = SavedModelBundle.load("$root/models/binOperatorDetectionModel", "serve")
+    override val model: SavedModelBundle = SavedModelBundle.load(Paths.get(root, "models", "binOperatorDetectionModel").toString(), "serve")
     override val modelSession: Session = model.session()
     override val keyMessage: String = "binary.operator.inspection.warning"
     override fun getThreshold(): Float = DeepBugsInspectionConfig.getInstance().curBinOperatorThreshold
