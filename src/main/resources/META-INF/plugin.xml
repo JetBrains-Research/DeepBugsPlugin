@@ -17,6 +17,7 @@
     <ul>
         <li>DeepBugs: Possibly incorrect binary operator</li>
         <li>DeepBugs: Possibly incorrect binary operand</li>
+        <li>DeepBugs: Possibly swapped function arguments</li>
     </ul>
     Threshold is configurable and can be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>
     ]]></description>
@@ -38,12 +39,13 @@
         <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
             <add-to-group group-id="MainMenu" anchor="last"  />
             <action
-                    class="org.jetbrains.research.groups.ml_methods.deepbugs.CollectAction"
-                    id="DeepBugs.CollectAction"
+                    class="org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
+                    id="DeepBugs.org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
                     text="Collect Data"
                     description="Collect Data from files under project root"
             />
-        </group>-->
+        </group>
+    </actions>-->
 
         <!-- Action for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if needed-->
 

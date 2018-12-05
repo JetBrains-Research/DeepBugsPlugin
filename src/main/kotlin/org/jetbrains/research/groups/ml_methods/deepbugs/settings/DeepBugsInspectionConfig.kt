@@ -8,6 +8,7 @@ class DeepBugsInspectionConfig : PersistentStateComponent<DeepBugsInspectionConf
 
     var curBinOperatorThreshold = DeepBugsInspectionConfigurable.defaultBinOperatorConfig
     var curBinOperandThreshold = DeepBugsInspectionConfigurable.defaultBinOperandConfig
+    var curSwappedArgsThreshold = DeepBugsInspectionConfigurable.defaultSwappedArgsConfig
 
     override fun getState(): DeepBugsInspectionConfig = this
 

@@ -7,8 +7,9 @@ import javax.swing.JComponent
 class DeepBugsInspectionConfigurable(private val settings : DeepBugsInspectionConfig) : Configurable {
 
     companion object {
-        const val defaultBinOperatorConfig = 0.9f
-        const val defaultBinOperandConfig = 0.92f
+        const val defaultBinOperatorConfig = 0.93f
+        const val defaultBinOperandConfig = 0.94f
+        const val defaultSwappedArgsConfig = 0.95f
     }
 
     private var deepBugsUI : DeepBugsUI? = null
@@ -19,16 +20,20 @@ class DeepBugsInspectionConfigurable(private val settings : DeepBugsInspectionCo
 
     override fun isModified() =
             (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
-                    (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold)
+                    (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
+                    (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
+
 
     override fun apply() {
         settings.curBinOperatorThreshold = deepBugsUI!!.binOperatorThreshold
         settings.curBinOperandThreshold = deepBugsUI!!.binOperandThreshold
+        settings.curSwappedArgsThreshold = deepBugsUI!!.swappedArgsThreshold
     }
 
     override fun reset() {
         deepBugsUI!!.binOperatorThreshold = settings.curBinOperatorThreshold
         deepBugsUI!!.binOperandThreshold = settings.curBinOperandThreshold
+        deepBugsUI!!.swappedArgsThreshold = settings.curSwappedArgsThreshold
     }
 
     override fun disposeUIResources() {
@@ -39,6 +44,7 @@ class DeepBugsInspectionConfigurable(private val settings : DeepBugsInspectionCo
         deepBugsUI = DeepBugsUI()
         deepBugsUI!!.binOperatorThreshold = settings.curBinOperatorThreshold
         deepBugsUI!!.binOperandThreshold = settings.curBinOperandThreshold
+        deepBugsUI!!.swappedArgsThreshold = settings.curSwappedArgsThreshold
         return deepBugsUI!!.rootPanel
     }
 }
