@@ -4,11 +4,11 @@ import com.beust.klaxon.JsonArray
 import com.beust.klaxon.Klaxon
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
-import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.extractPyNodeName
-import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.extractPyNodeType
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import java.io.File
 import com.jetbrains.python.psi.PyBinaryExpression
+import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.Extractor
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Utils
 import org.tensorflow.Tensor
 import java.nio.FloatBuffer
 
@@ -55,14 +55,14 @@ data class BinOp(val left: String,
          * @return [BinOp] with collected information.
          */
         fun collectFromPyNode(node: PyBinaryExpression, src: String = ""): BinOp? {
-            val leftName = extractPyNodeName(node.leftExpression)
+            val leftName = Extractor.extractPyNodeName(node.leftExpression)
                     ?: return null
-            val rightName = extractPyNodeName(node.rightExpression)
+            val rightName = Extractor.extractPyNodeName(node.rightExpression)
                     ?: return null
             val op = extractOperatorText(node)
                     ?: return null
-            val leftType = extractPyNodeType(node.leftExpression)
-            val rightType = extractPyNodeType(node.rightExpression)
+            val leftType = Extractor.extractPyNodeType(node.leftExpression)
+            val rightType = Extractor.extractPyNodeType(node.rightExpression)
             val parent = node.parent.javaClass.simpleName ?: ""
             val grandParent = node.parent.parent.javaClass.simpleName ?: ""
             return BinOp(leftName, rightName, op, leftType, rightType, parent, grandParent, src)
@@ -77,12 +77,6 @@ data class BinOp(val left: String,
                 ?: throw ParsingFailedException(path)
     }
 
-    private fun vectorizeListOfArrays(arrayList: List<JsonArray<Float>>): Tensor<Float> {
-        var resArray = FloatArray(0)
-        for (array in arrayList) resArray += array
-        return Tensor.create(longArrayOf(1, resArray.size.toLong()), FloatBuffer.wrap(resArray))
-    }
-
     fun vectorize(token: Mapping?, nodeType: Mapping?, type: Mapping?, operator: Mapping?): Tensor<Float>? {
         val leftVector = token?.get(left) ?: return null
         val rightVector = token.get(right) ?: return null
@@ -91,7 +85,7 @@ data class BinOp(val left: String,
         val operatorVector = operator?.get(op) ?: return null
         val parentVector = nodeType?.get(parent) ?: return null
         val grandParentVector = nodeType.get(grandParent) ?: return null
-        return vectorizeListOfArrays(listOf(
+        return Utils.vectorizeListOfArrays(listOf(
                 leftVector, rightVector,
                 operatorVector,
                 leftTypeVector, rightTypeVector,

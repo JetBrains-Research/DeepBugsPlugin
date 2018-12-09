@@ -1,23 +1,12 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.datatypes
 
 import com.beust.klaxon.JsonArray
-import com.google.protobuf.Internal
-import com.intellij.psi.PsiReferenceContributor
-import com.intellij.psi.PsiReferenceProvider
-import com.intellij.util.containers.isNullOrEmpty
-import com.jetbrains.python.psi.PyBinaryExpression
 import com.jetbrains.python.psi.PyCallExpression
-import com.jetbrains.python.psi.PyCallSiteExpression
-import com.jetbrains.python.psi.PyFunction
-import com.jetbrains.python.psi.impl.PyCallExpressionHelper
-import com.jetbrains.python.psi.impl.PyReferenceExpressionImpl
-import com.jetbrains.python.psi.resolve.PyReferenceResolveProvider
 import com.jetbrains.python.psi.resolve.PyResolveContext
 import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.*
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import org.tensorflow.Tensor
-import java.nio.FloatBuffer
-import java.util.*
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Utils
 
 data class Call( val name: String,
                  val fstArg: String,
@@ -39,13 +28,13 @@ data class Call( val name: String,
         fun collectFromPyNode(node: PyCallExpression, src: String = ""): Call? {
             if (node.arguments.size != 2)
                 return null
-            val name = extractPyNodeName(node.callee)
+            val name = Extractor.extractPyNodeName(node.callee)
                     ?: return null
-            val fstArg = extractPyNodeName(node.arguments[0]) ?: return null
-            val sndArg = extractPyNodeName(node.arguments[1]) ?: return null
-            val fstArgType = extractPyNodeType(node.arguments[0])
-            val sndArgType = extractPyNodeType(node.arguments[1])
-            val base = extractPyNodeBase(node)
+            val fstArg = Extractor.extractPyNodeName(node.arguments[0]) ?: return null
+            val sndArg = Extractor.extractPyNodeName(node.arguments[1]) ?: return null
+            val fstArgType = Extractor.extractPyNodeType(node.arguments[0])
+            val sndArgType = Extractor.extractPyNodeType(node.arguments[1])
+            val base = Extractor.extractPyNodeBase(node)
             val resolved = node.resolveCalleeFunction(PyResolveContext.defaultContext())
             val params = resolved?.parameterList?.parameters
             var fstParam = ""
@@ -63,12 +52,6 @@ data class Call( val name: String,
         }
     }
 
-    private fun vectorizeListOfArrays(arrayList: List<JsonArray<Float>>): Tensor<Float> {
-        var resArray = FloatArray(0)
-        for (array in arrayList) resArray += array
-        return Tensor.create(longArrayOf(1, resArray.size.toLong()), FloatBuffer.wrap(resArray))
-    }
-
     fun vectorize(token: Mapping?, type: Mapping?): Tensor<Float>? {
         val nameVector = token?.get(name) ?: return null
         val fstArgVector = token.get(fstArg) ?: return null
@@ -78,7 +61,7 @@ data class Call( val name: String,
         val baseVector = token.get(base) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
         val fstParamVector = token.get(fstParam) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
         val sndParamVector = token.get(sndParam) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
-        return vectorizeListOfArrays(listOf(
+        return Utils.vectorizeListOfArrays(listOf(
                 nameVector, fstArgVector, sndArgVector,
                 fstArgTypeVector, sndArgTypeVector,
                 baseVector, fstParamVector, sndParamVector))
