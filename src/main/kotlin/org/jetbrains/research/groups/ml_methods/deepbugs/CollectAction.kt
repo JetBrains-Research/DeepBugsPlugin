@@ -9,8 +9,8 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.BinOp
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.toJson
 import com.jetbrains.python.psi.*
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 import java.io.File
 import javax.swing.Icon
 
@@ -33,7 +33,7 @@ class CollectAction : AnAction() {
         private const val BIN_OPS_PER_FILE = 30000
 
         private fun save(encounteredOperations: MutableList<BinOp>, saveRoot: String) {
-            File("$saveRoot/binOps_${System.currentTimeMillis()}.json").writeText(toJson(encounteredOperations))
+            File("$saveRoot/binOps_${System.currentTimeMillis()}.json").writeText(DeepBugsUtils.toJson(encounteredOperations))
         }
     }
 

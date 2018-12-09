@@ -1,6 +1,5 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.datatypes
 
-import com.beust.klaxon.JsonArray
 import com.beust.klaxon.Klaxon
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
@@ -8,9 +7,8 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import java.io.File
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Utils
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 import org.tensorflow.Tensor
-import java.nio.FloatBuffer
 
 
 data class BinOp(val left: String,
@@ -85,7 +83,7 @@ data class BinOp(val left: String,
         val operatorVector = operator?.get(op) ?: return null
         val parentVector = nodeType?.get(parent) ?: return null
         val grandParentVector = nodeType.get(grandParent) ?: return null
-        return Utils.vectorizeListOfArrays(listOf(
+        return DeepBugsUtils.vectorizeListOfArrays(listOf(
                 leftVector, rightVector,
                 operatorVector,
                 leftTypeVector, rightTypeVector,

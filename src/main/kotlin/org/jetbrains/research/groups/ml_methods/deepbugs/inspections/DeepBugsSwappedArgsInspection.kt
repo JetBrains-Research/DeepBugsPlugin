@@ -11,7 +11,7 @@ import com.jetbrains.python.psi.PyCallExpression
 import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.Call
 import org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.loadMapping
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Tensor
 import java.nio.file.Paths
@@ -20,8 +20,8 @@ class DeepBugsSwappedArgsInspection : PyInspection() {
 
     companion object {
         private val root = Paths.get(PathManager.getPluginsPath(), "DeepBugsPlugin").toString()
-        private val tokenMapping = loadMapping(Paths.get(root, "models", "tokenToVector.json").toString())
-        private val typeMapping = loadMapping(Paths.get(root, "models","typeToVector.json").toString())
+        private val tokenMapping = DeepBugsUtils.loadMapping(Paths.get(root, "models", "tokenToVector.json").toString())
+        private val typeMapping = DeepBugsUtils.loadMapping(Paths.get(root, "models","typeToVector.json").toString())
         private val model = SavedModelBundle.load(Paths.get(DeepBugsBinExprInspection.root, "models", "swappedArgsDetectionModel").toString(), "serve")
         private val modelSession = model.session()
         private const val keyMessage = "swapped.args.inspection.warning"

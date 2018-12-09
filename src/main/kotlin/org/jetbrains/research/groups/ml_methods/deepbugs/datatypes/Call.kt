@@ -6,7 +6,7 @@ import com.jetbrains.python.psi.resolve.PyResolveContext
 import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.*
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import org.tensorflow.Tensor
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Utils
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 
 data class Call( val name: String,
                  val fstArg: String,
@@ -61,7 +61,7 @@ data class Call( val name: String,
         val baseVector = token.get(base) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
         val fstParamVector = token.get(fstParam) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
         val sndParamVector = token.get(sndParam) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
-        return Utils.vectorizeListOfArrays(listOf(
+        return DeepBugsUtils.vectorizeListOfArrays(listOf(
                 nameVector, fstArgVector, sndArgVector,
                 fstArgTypeVector, sndArgTypeVector,
                 baseVector, fstParamVector, sndParamVector))

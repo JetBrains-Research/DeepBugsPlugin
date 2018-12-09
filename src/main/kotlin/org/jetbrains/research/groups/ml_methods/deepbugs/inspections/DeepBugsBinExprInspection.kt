@@ -10,7 +10,7 @@ import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.BinOp
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.loadMapping
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Session
 import org.tensorflow.Tensor
@@ -24,10 +24,10 @@ abstract class DeepBugsBinExprInspection : PyInspection() {
 
     companion object {
         val root = Paths.get(PathManager.getPluginsPath(), "DeepBugsPlugin").toString()
-        private val nodeTypeMapping = loadMapping(Paths.get(root, "models", "nodeTypeToVector.json").toString())
-        private val tokenMapping = loadMapping(Paths.get(root, "models", "tokenToVector.json").toString())
-        private val typeMapping = loadMapping(Paths.get(root, "models","typeToVector.json").toString())
-        private val operatorMapping = loadMapping(Paths.get(root, "models", "operatorToVector.json").toString())
+        private val nodeTypeMapping = DeepBugsUtils.loadMapping(Paths.get(root, "models", "nodeTypeToVector.json").toString())
+        private val tokenMapping = DeepBugsUtils.loadMapping(Paths.get(root, "models", "tokenToVector.json").toString())
+        private val typeMapping = DeepBugsUtils.loadMapping(Paths.get(root, "models","typeToVector.json").toString())
+        private val operatorMapping = DeepBugsUtils.loadMapping(Paths.get(root, "models", "operatorToVector.json").toString())
     }
 
     protected abstract fun getThreshold(): Float

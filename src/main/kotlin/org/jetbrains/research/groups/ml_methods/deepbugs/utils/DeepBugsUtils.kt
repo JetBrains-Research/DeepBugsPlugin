@@ -7,7 +7,7 @@ import com.beust.klaxon.Parser
 import org.tensorflow.Tensor
 import java.nio.FloatBuffer
 
-object Utils {
+object DeepBugsUtils {
 
     fun toJson(obj: Any): String {
         val sb = StringBuilder(Klaxon().toJsonString(obj))
