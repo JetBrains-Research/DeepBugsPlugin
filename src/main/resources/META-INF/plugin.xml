@@ -1,7 +1,9 @@
 <idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
     <name>DeepBugsPlugin</name>
-    <id>org.jetbrains.research.groups.ml_methods.deepbugs</id>
-    <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey Bryksin</vendor>
+    <id>DeepBugsPlugin</id>
+    <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey
+        Bryksin
+    </vendor>
     <version>0.1</version>
     <description><![CDATA[
     DeepBugsPlugin provides several code inspections for bug detection
@@ -30,14 +32,19 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <inspectionToolProvider implementation="org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsProvider"/>
-        <errorHandler implementation="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.GitHubErrorReporter"/>
-        <applicationService serviceInterface="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig" serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig"/>
-        <applicationConfigurable groupId="tools" displayName="DeepBugs" instance="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfigurable"/>
+        <errorHandler
+                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.GitHubErrorReporter"/>
+        <applicationService
+                serviceInterface="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig"
+                serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig"/>
+        <applicationConfigurable groupId="tools" displayName="DeepBugs"
+                                 instance="org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfigurable"/>
 
     </extensions>
-    <!--<actions>
+    <!--
+    <actions>
         <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
-            <add-to-group group-id="MainMenu" anchor="last"  />
+            <add-to-group group-id="MainMenu" anchor="last"/>
             <action
                     class="org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
                     id="DeepBugs.org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
@@ -45,13 +52,11 @@
                     description="Collect Data from files under project root"
             />
         </group>
-    </actions>-->
+    Action for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if needed-->
 
-        <!-- Action for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if needed-->
-
-        <!--<action id="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction"
-                class="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction" text="FireArtificialException">
-            <add-to-group group-id="ToolsMenu" anchor="first"/>
-        </action>
+    <!--<action id="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction"
+            class="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction" text="FireArtificialException">
+        <add-to-group group-id="ToolsMenu" anchor="first"/>
+       </action>
     </actions>-->
 </idea-plugin>

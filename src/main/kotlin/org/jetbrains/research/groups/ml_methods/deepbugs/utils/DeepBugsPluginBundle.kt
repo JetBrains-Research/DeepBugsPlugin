@@ -3,9 +3,8 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.utils
 import com.intellij.CommonBundle
 import com.intellij.reference.SoftReference
 import org.jetbrains.annotations.PropertyKey
-
 import java.lang.ref.Reference
-import java.util.ResourceBundle
+import java.util.*
 
 object DeepBugsPluginBundle {
     private const val BUNDLE = "DeepBugsPluginBundle"

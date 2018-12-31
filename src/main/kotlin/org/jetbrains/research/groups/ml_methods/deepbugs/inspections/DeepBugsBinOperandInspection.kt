@@ -5,11 +5,10 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBun
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.ModelsHolder
 
 class DeepBugsBinOperandInspection : DeepBugsBinExprInspection() {
-
     override val keyMessage: String = "binary.operand.inspection.warning"
 
-    override fun getModel() = ModelsHolder.binOperandModelSession
-    override fun getThreshold(): Float = DeepBugsInspectionConfig.getInstance().curBinOperandThreshold
+    override fun getModel() = ModelsHolder.binOperandModel
+    override fun getThreshold(): Double = DeepBugsInspectionConfig.getInstance().curBinOperandThreshold
 
     override fun getDisplayName() = DeepBugsPluginBundle.message("binary.operand.inspection.display")
     override fun getShortName(): String = "DeepBugsBinOperand"

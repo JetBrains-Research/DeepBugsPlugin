@@ -8,9 +8,11 @@ import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiManager
+import com.jetbrains.python.psi.PyBinaryExpression
+import com.jetbrains.python.psi.PyFile
+import com.jetbrains.python.psi.PyRecursiveElementVisitor
 import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.BinOp
-import com.jetbrains.python.psi.*
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.JsonUtils
 import java.io.File
 import javax.swing.Icon
 
@@ -33,12 +35,11 @@ class CollectAction : AnAction() {
         private const val BIN_OPS_PER_FILE = 30000
 
         private fun save(encounteredOperations: MutableList<BinOp>, saveRoot: String) {
-            File("$saveRoot/binOps_${System.currentTimeMillis()}.json").writeText(DeepBugsUtils.toJson(encounteredOperations))
+            File("$saveRoot/binOps_${System.currentTimeMillis()}.json").writeText(JsonUtils.toJson(encounteredOperations))
         }
     }
 
-    override fun actionPerformed(e: AnActionEvent?) {
-        if (e == null) return
+    override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         val root = project.basePath + "/data/python/python_all"
         val saveRoot = project.basePath + "/data/tech/idea"

@@ -4,15 +4,14 @@ import com.intellij.openapi.options.Configurable
 import org.jetbrains.research.groups.ml_methods.deepbugs.ui.DeepBugsUI
 import javax.swing.JComponent
 
-class DeepBugsInspectionConfigurable(private val settings : DeepBugsInspectionConfig) : Configurable {
-
+class DeepBugsInspectionConfigurable(private val settings: DeepBugsInspectionConfig) : Configurable {
     companion object {
-        const val defaultBinOperatorConfig = 0.93f
-        const val defaultBinOperandConfig = 0.94f
-        const val defaultSwappedArgsConfig = 0.95f
+        const val defaultBinOperatorConfig: Double = 0.93
+        const val defaultBinOperandConfig: Double = 0.94
+        const val defaultSwappedArgsConfig: Double = 0.95
     }
 
-    private var deepBugsUI : DeepBugsUI? = null
+    private var deepBugsUI: DeepBugsUI? = null
 
     override fun getHelpTopic(): String? = null
 
@@ -40,7 +39,7 @@ class DeepBugsInspectionConfigurable(private val settings : DeepBugsInspectionCo
         deepBugsUI = null
     }
 
-    override fun createComponent() : JComponent? {
+    override fun createComponent(): JComponent? {
         deepBugsUI = DeepBugsUI()
         deepBugsUI!!.binOperatorThreshold = settings.curBinOperatorThreshold
         deepBugsUI!!.binOperandThreshold = settings.curBinOperandThreshold

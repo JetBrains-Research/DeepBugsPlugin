@@ -2,7 +2,6 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.diagnostic.IdeaLoggingEvent
 
 /**
  * Provides functionality to throw a runtime exception when the action is invoked. It is used to test the error reporting

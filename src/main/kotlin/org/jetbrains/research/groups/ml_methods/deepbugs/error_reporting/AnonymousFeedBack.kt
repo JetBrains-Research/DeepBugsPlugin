@@ -8,10 +8,9 @@ import org.eclipse.egit.github.core.RepositoryId
 import org.eclipse.egit.github.core.client.GitHubClient
 import org.eclipse.egit.github.core.service.IssueService
 import org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.ErrorReportInformation.InformationType
-import java.util.*
-
 import org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.ErrorReportInformation.InformationType.*
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
+import java.util.*
 
 /**
  * Provides functionality to create and send GitHub issues when an exception is thrown by a plugin.
@@ -80,8 +79,8 @@ internal object AnonymousFeedback {
             return result
         } catch (e: Exception) {
             return SubmittedReportInfo(HTML_URL_TO_CREATE_NEW_ISSUE,
-                                       DeepBugsPluginBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE),
-                                       SubmissionStatus.FAILED)
+                    DeepBugsPluginBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE),
+                    SubmissionStatus.FAILED)
         }
 
     }

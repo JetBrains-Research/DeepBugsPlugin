@@ -7,18 +7,17 @@ import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyBinaryExpression
+import org.deeplearning4j.nn.multilayer.MultiLayerNetwork
 import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.BinOp
+import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.utils.InspectionUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.ModelsHolder
-import org.tensorflow.Session
 
 abstract class DeepBugsBinExprInspection : PyInspection() {
+    protected abstract val keyMessage: String
 
-    protected abstract val keyMessage : String
-
-    protected abstract fun getThreshold(): Float
-    protected abstract fun getModel() : Session?
+    protected abstract fun getThreshold(): Double
+    protected abstract fun getModel(): MultiLayerNetwork?
 
     override fun buildVisitor(
             holder: ProblemsHolder,
@@ -33,16 +32,16 @@ abstract class DeepBugsBinExprInspection : PyInspection() {
                 BinOp.collectFromPyNode(it)?.let { binOp ->
                     val vector = binOp.vectorize(ModelsHolder.tokenMapping, ModelsHolder.nodeTypeMapping, ModelsHolder.typeMapping, ModelsHolder.operatorMapping)
                     vector?.let { input ->
-                        val tensor = getModel()?.runner()?.feed("dropout_1_input:0", input)?.fetch("dense_2/Sigmoid:0")?.run()!![0]
-                        val result = DeepBugsUtils.getResult(tensor)
-                        if (result > getThreshold()) {
-                            registerProblem(node, DeepBugsPluginBundle.message(keyMessage, result),
-                                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                        InspectionUtils.getResult(getModel(), input)?.let { res ->
+                            if (res > getThreshold()) {
+                                registerProblem(node, DeepBugsPluginBundle.message(keyMessage, res),
+                                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                            }
                         }
                     }
                 }
+                super.visitPyBinaryExpression(node)
             }
-            super.visitPyBinaryExpression(node)
         }
     }
 }

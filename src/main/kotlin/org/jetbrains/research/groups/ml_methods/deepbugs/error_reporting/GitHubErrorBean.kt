@@ -1,7 +1,7 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting
 
 import com.intellij.errorreport.bean.ErrorBean
-import java.util.Arrays
+import java.util.*
 
 /**
  * Extends the standard class to provide the hash of the thrown exception stack trace.

@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.intellij' version '0.3.7'
-    id 'org.jetbrains.kotlin.jvm' version '1.2.51'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.10'
 }
 
 group 'org.jetbrains.research.groups.ml_methods.deepbugs'
@@ -20,7 +20,7 @@ compileTestKotlin {
 intellij {
     version ideaVersion
     pluginName 'DeepBugsPlugin'
-    plugins 'PythonCore:2018.1.181.4203.550'
+    plugins 'PythonCore:2018.3.183.4886.3'
 }
 
 runIde {
@@ -32,9 +32,13 @@ patchPluginXml {
     untilBuild ''
 }
 
-buildPlugin{
+buildPlugin {
     exclude('models')
     exclude('repository.json')
+    exclude("**/*android*.jar")
+    exclude("**/*-ios-*.jar")
+    exclude("**/*armhf.jar")
+    exclude("**/*ppc64le.jar")
 }
 
 sourceCompatibility = 1.8
@@ -45,12 +49,32 @@ repositories {
     jcenter()
 }
 
+configurations {
+    provided
+}
+
+sourceSets {
+    main { compileClasspath += configurations.provided }
+}
+
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile "org.tensorflow:tensorflow:${tfVersion}"
-    compile "org.apache.logging.log4j:log4j-core:2.8.2"
-    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+"
-    compile "com.beust:klaxon:3.0.1"
+    compile ("org.deeplearning4j:deeplearning4j-nn:$dl4j_version") {
+        transitive = false
+    }
+    compile ([group: 'org.deeplearning4j', name: 'deeplearning4j-modelimport', version: dl4j_version]) {
+        transitive = false
+    }
+    compile ([group: 'org.nd4j', name: 'nd4j-native-platform', version: dl4j_version]){
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+
+    runtime ('ch.qos.logback:logback-classic:1.2.3')
+    compile group: 'org.bytedeco.javacpp-presets', name: 'hdf5-platform', version: '1.10.3-1.4.3'
+
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.+'
+    compile group: 'com.beust', name: 'klaxon', version: '3.0.1'
     compile group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    //testCompile group: 'junit', name: 'junit', version: '4.12'
 }

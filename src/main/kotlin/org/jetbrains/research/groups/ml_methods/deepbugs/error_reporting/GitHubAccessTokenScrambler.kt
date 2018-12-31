@@ -1,14 +1,13 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting
 
 import org.apache.commons.codec.binary.Base64
-
-import javax.crypto.Cipher
-import javax.crypto.spec.IvParameterSpec
-import javax.crypto.spec.SecretKeySpec
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
+import javax.crypto.Cipher
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
 /**
  * Provides functionality to encode and decode secret tokens to make them not directly readable. Let me be clear:

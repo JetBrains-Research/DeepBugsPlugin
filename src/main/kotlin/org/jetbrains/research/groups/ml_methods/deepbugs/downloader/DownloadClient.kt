@@ -1,12 +1,16 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.downloader
 
-import com.intellij.notification.*
-import com.intellij.openapi.progress.*
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.Notifications
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.ProjectManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsProvider
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils.JsonUtils
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.ModelsHolder
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.ModelsHolder
 
 object DownloadClient {
 
@@ -15,7 +19,7 @@ object DownloadClient {
         DownloadProgressProvider.getProgress = { progress }
 
         val config = JsonUtils.readValue(configStr, Config::class)
-        config.classpath.forEach{
+        config.classpath.forEach {
             if (it.url.contains(".zip"))
                 Downloader.downloadZip(config.name, it.name, it.url)
             else
@@ -24,9 +28,9 @@ object DownloadClient {
         DownloadProgressProvider.getProgress = progressFuncLast
     }
 
-    fun downloadModelsAndEmbeddings() {
+    fun downloadModels() {
         val config = DeepBugsProvider::class.java.classLoader.getResource("models.json").readText()
-        ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject, "Download models and embeddings", true) {
+        ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject, DeepBugsPluginBundle.message("download.task.title"), true) {
             override fun run(indicator: ProgressIndicator) {
                 download(config, DownloadProgressWrapper(ProgressManager.getInstance().progressIndicator))
             }
@@ -38,7 +42,7 @@ object DownloadClient {
             override fun onSuccess() {
                 Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("notification.group.id"),
                         DeepBugsPluginBundle.message("notification.title"), DeepBugsPluginBundle.message("success.notification.message"),
-                        NotificationType.INFORMATION).setImportant(true))
+                        NotificationType.INFORMATION))
             }
 
             override fun onThrowable(error: Throwable) {

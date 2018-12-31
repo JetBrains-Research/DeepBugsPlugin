@@ -1,7 +1,10 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils
 
 import org.apache.log4j.LogManager
-import java.io.*
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
@@ -48,8 +51,7 @@ object Zip {
                     `is`.close()
                 }
             }
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             logger.error("Unzipping error", e)
             return null
         }

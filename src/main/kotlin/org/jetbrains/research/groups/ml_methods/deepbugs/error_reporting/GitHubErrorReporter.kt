@@ -1,16 +1,12 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting
 
-import com.intellij.diagnostic.IdeErrorsDialog
 import com.intellij.diagnostic.LogMessageEx
 import com.intellij.diagnostic.ReportMessages
 import com.intellij.ide.DataManager
-import com.intellij.ide.plugins.IdeaPluginDescriptor
-import com.intellij.ide.plugins.PluginManager
 import com.intellij.idea.IdeaLogger
 import com.intellij.notification.NotificationListener
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.application.ApplicationNamesInfo
 import com.intellij.openapi.application.ex.ApplicationInfoEx
@@ -22,8 +18,7 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
 import com.intellij.util.Consumer
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
-
-import java.awt.*
+import java.awt.Component
 
 class GitHubErrorReporter : ErrorReportSubmitter() {
     override fun submit(events: Array<IdeaLoggingEvent>, additionalInfo: String?, parentComponent: Component, consumer: Consumer<SubmittedReportInfo>): Boolean {
@@ -48,11 +43,11 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
             bean.pluginVersion = "0.1"
             //val pluginId = IdeErrorsDialog.findPluginId(throwable)
             //if (pluginId != null) {
-                //val ideaPluginDescriptor = PluginManager.getPlugin(pluginId)
-                //if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled) {
-                    //bean.pluginName = ideaPluginDescriptor.name
-                    //bean.pluginVersion = ideaPluginDescriptor.version
-                //}
+            //val ideaPluginDescriptor = PluginManager.getPlugin(pluginId)
+            //if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled) {
+            //bean.pluginName = ideaPluginDescriptor.name
+            //bean.pluginVersion = ideaPluginDescriptor.version
+            //}
             //}
         }
 
