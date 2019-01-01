@@ -7,7 +7,6 @@ import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
-import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.reflect.KClass
@@ -18,7 +17,7 @@ object Downloader {
 
     private val modelsPath: String = PathManager.getPluginsPath()
     private fun getRootPath(name: String) = Paths.get(modelsPath, "DeepBugsPlugin", name)
-    private fun getTargetPath(target: String, name: String) = Paths.get(modelsPath, "DeepBugsPlugin", target, name)
+    fun getTargetPath(target: String, name: String) = Paths.get(modelsPath, "DeepBugsPlugin", target, name)
     private val repositoryFile = getRootPath("repository.json").toFile()
     private var repository: MutableList<RepositoryRecord>
 
@@ -49,7 +48,6 @@ object Downloader {
         }
                 ?: downloadTo(printableName, URL(url), getTargetPath(target, "$name.zip"), DownloadProgressProvider.getProgress())?.let {
                     val zip = Zip.extractFolder(it, getTargetPath(target, "").toFile()) ?: return null
-                    Files.deleteIfExists(getTargetPath(target, "$name.zip"))
                     repository.add(RepositoryRecord(target, name, printableName))
                     saveRepository()
                     zip

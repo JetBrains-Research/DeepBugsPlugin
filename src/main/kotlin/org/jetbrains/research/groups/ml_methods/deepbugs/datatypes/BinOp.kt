@@ -12,13 +12,13 @@ import java.io.File
 
 
 data class BinOp(val left: String,
-                 val right: String,
-                 val op: String,
-                 val leftType: String,
-                 val rightType: String,
-                 val parent: String,
-                 val grandParent: String,
-                 val src: String) {
+        val right: String,
+        val op: String,
+        val leftType: String,
+        val rightType: String,
+        val parent: String,
+        val grandParent: String,
+        val src: String) {
 
     companion object {
 

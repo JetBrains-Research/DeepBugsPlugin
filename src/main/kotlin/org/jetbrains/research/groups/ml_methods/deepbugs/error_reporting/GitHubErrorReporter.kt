@@ -27,10 +27,10 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
     }
 
     private fun doSubmit(event: IdeaLoggingEvent,
-                         parentComponent: Component,
-                         callback: Consumer<SubmittedReportInfo>,
-                         bean: GitHubErrorBean,
-                         description: String?): Boolean {
+            parentComponent: Component,
+            callback: Consumer<SubmittedReportInfo>,
+            bean: GitHubErrorBean,
+            description: String?): Boolean {
         val dataContext = DataManager.getInstance().getDataContext(parentComponent)
 
         bean.description = description

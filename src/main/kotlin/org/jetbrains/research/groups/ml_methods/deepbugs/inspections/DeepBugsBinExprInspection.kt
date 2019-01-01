@@ -10,8 +10,8 @@ import com.jetbrains.python.psi.PyBinaryExpression
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork
 import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.BinOp
 import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.utils.InspectionUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.models_manager.ModelsHolder
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.ModelsHolder
 
 abstract class DeepBugsBinExprInspection : PyInspection() {
     protected abstract val keyMessage: String

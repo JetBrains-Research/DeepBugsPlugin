@@ -49,28 +49,19 @@ repositories {
     jcenter()
 }
 
-configurations {
-    provided
-}
-
-sourceSets {
-    main { compileClasspath += configurations.provided }
-}
-
-
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile ("org.deeplearning4j:deeplearning4j-nn:$dl4j_version") {
+    compile("org.deeplearning4j:deeplearning4j-nn:$dl4j_version") {
         transitive = false
     }
-    compile ([group: 'org.deeplearning4j', name: 'deeplearning4j-modelimport', version: dl4j_version]) {
+    compile([group: 'org.deeplearning4j', name: 'deeplearning4j-modelimport', version: dl4j_version]) {
         transitive = false
     }
-    compile ([group: 'org.nd4j', name: 'nd4j-native-platform', version: dl4j_version]){
+    compile([group: 'org.nd4j', name: 'nd4j-native-platform', version: dl4j_version]) {
         exclude group: 'org.slf4j', module: 'slf4j-api'
     }
 
-    runtime ('ch.qos.logback:logback-classic:1.2.3')
+    runtime('ch.qos.logback:logback-classic:1.2.3')
     compile group: 'org.bytedeco.javacpp-presets', name: 'hdf5-platform', version: '1.10.3-1.4.3'
 
     compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.+'

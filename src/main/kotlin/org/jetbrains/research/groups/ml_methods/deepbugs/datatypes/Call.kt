@@ -10,14 +10,14 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import org.nd4j.linalg.api.ndarray.INDArray
 
 data class Call(val name: String,
-                val fstArg: String,
-                val sndArg: String,
-                val fstArgType: String,
-                val sndArgType: String,
-                val base: String,
-                var fstParam: String,
-                var sndParam: String,
-                val src: String) {
+        val fstArg: String,
+        val sndArg: String,
+        val fstArgType: String,
+        val sndArgType: String,
+        val base: String,
+        var fstParam: String,
+        var sndParam: String,
+        val src: String) {
 
     companion object {
 

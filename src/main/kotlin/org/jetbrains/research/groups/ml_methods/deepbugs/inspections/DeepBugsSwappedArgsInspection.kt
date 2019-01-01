@@ -8,9 +8,10 @@ import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyCallExpression
 import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.Call
+import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.utils.InspectionUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.models_manager.ModelsHolder
 import org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspectionConfig
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.ModelsHolder
 
 class DeepBugsSwappedArgsInspection : PyInspection() {
     val keyMessage = "swapped.args.inspection.warning"
@@ -34,10 +35,11 @@ class DeepBugsSwappedArgsInspection : PyInspection() {
                 Call.collectFromPyNode(it)?.let { call ->
                     val vector = call.vectorize(ModelsHolder.tokenMapping, ModelsHolder.typeMapping)
                     vector?.let { input ->
-                        val result = getModel()?.output(input)?.getDouble(0) ?: 0.0
-                        if (result > getThreshold()) {
-                            registerProblem(node, DeepBugsPluginBundle.message(keyMessage, result),
-                                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                        InspectionUtils.getResult(getModel(), input)?.let { res ->
+                            if (res > getThreshold()) {
+                                registerProblem(node, DeepBugsPluginBundle.message(keyMessage, res),
+                                        ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                            }
                         }
                     }
                 }

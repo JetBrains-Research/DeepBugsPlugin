@@ -12,7 +12,7 @@ import com.jetbrains.python.psi.PyBinaryExpression
 import com.jetbrains.python.psi.PyFile
 import com.jetbrains.python.psi.PyRecursiveElementVisitor
 import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.BinOp
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.JsonUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsJsonUtils
 import java.io.File
 import javax.swing.Icon
 
@@ -35,7 +35,7 @@ class CollectAction : AnAction() {
         private const val BIN_OPS_PER_FILE = 30000
 
         private fun save(encounteredOperations: MutableList<BinOp>, saveRoot: String) {
-            File("$saveRoot/binOps_${System.currentTimeMillis()}.json").writeText(JsonUtils.toJson(encounteredOperations))
+            File("$saveRoot/binOps_${System.currentTimeMillis()}.json").writeText(DeepBugsJsonUtils.toJson(encounteredOperations))
         }
     }
 
@@ -74,8 +74,8 @@ class CollectAction : AnAction() {
     }
 
     class Visitor(private val encounteredOperations: MutableList<BinOp>,
-                  private val path: String,
-                  private val document: Document?) : PyRecursiveElementVisitor() {
+            private val path: String,
+            private val document: Document?) : PyRecursiveElementVisitor() {
 
         override fun visitPyBinaryExpression(node: PyBinaryExpression?) {
             node?.let {
