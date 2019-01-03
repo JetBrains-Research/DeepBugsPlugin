@@ -67,7 +67,6 @@ object DownloadClient {
         config.classpath.forEach {
             if (it.url.contains(".zip")) {
                 Downloader.downloadZip(config.name, it.name, it.url)
-                Files.deleteIfExists(Downloader.getTargetPath(config.name, it.name + ".zip"))
             } else
                 Downloader.downloadFile(config.name, it.name, it.url)
         }
