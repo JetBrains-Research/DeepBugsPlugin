@@ -27,6 +27,8 @@ runIde {
     jvmArgs '-Xms1024m', '-Xmx10g'
 }
 
+
+
 patchPluginXml {
     sinceBuild '171'
     untilBuild ''
@@ -35,10 +37,6 @@ patchPluginXml {
 buildPlugin {
     exclude('models')
     exclude('repository.json')
-    exclude("**/*android*.jar")
-    exclude("**/*-ios-*.jar")
-    exclude("**/*armhf.jar")
-    exclude("**/*ppc64le.jar")
 }
 
 sourceCompatibility = 1.8
@@ -51,19 +49,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile("org.deeplearning4j:deeplearning4j-nn:$dl4j_version") {
-        transitive = false
-    }
-    compile([group: 'org.deeplearning4j', name: 'deeplearning4j-modelimport', version: dl4j_version]) {
-        transitive = false
-    }
-    compile([group: 'org.nd4j', name: 'nd4j-native-platform', version: dl4j_version]) {
-        exclude group: 'org.slf4j', module: 'slf4j-api'
-    }
-
-    runtime('ch.qos.logback:logback-classic:1.2.3')
-    compile group: 'org.bytedeco.javacpp-presets', name: 'hdf5-platform', version: '1.10.3-1.4.3'
-
+    compile "org.tensorflow:tensorflow:${tf_version}"
     compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.+'
     compile group: 'com.beust', name: 'klaxon', version: '3.0.1'
     compile group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'
