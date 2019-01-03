@@ -7,7 +7,7 @@ import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.Extractor
 import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.utils.InspectionUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
-import org.nd4j.linalg.api.ndarray.INDArray
+import org.tensorflow.Tensor
 import java.io.File
 
 
@@ -75,7 +75,7 @@ data class BinOp(val left: String,
                 ?: throw ParsingFailedException(path)
     }
 
-    fun vectorize(token: Mapping?, nodeType: Mapping?, type: Mapping?, operator: Mapping?): INDArray? {
+    fun vectorize(token: Mapping?, nodeType: Mapping?, type: Mapping?, operator: Mapping?): Tensor<Float>? {
         val leftVector = token?.get(left) ?: return null
         val rightVector = token.get(right) ?: return null
         val leftTypeVector = type?.get(leftType) ?: return null

@@ -1,24 +1,27 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.downloader
 
-import com.intellij.notification.Notification
-import com.intellij.notification.NotificationListener
-import com.intellij.notification.NotificationType
-import com.intellij.notification.Notifications
+import com.intellij.notification.*
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.ProjectManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsProvider
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils.JsonUtils
-import org.jetbrains.research.groups.ml_methods.deepbugs.models_manager.ModelsHolder
+import org.jetbrains.research.groups.ml_methods.deepbugs.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
 import java.nio.file.Files
 import javax.swing.event.HyperlinkEvent
 
 object DownloadClient {
 
+    init {
+        NotificationGroup(DeepBugsPluginBundle.message("success.notification.group.id"), NotificationDisplayType.BALLOON, false)
+        NotificationGroup(DeepBugsPluginBundle.message("error.notification.group.id"), NotificationDisplayType.STICKY_BALLOON, true)
+        NotificationGroup(DeepBugsPluginBundle.message("notification.group.id"), NotificationDisplayType.STICKY_BALLOON, true)
+    }
+
     fun showDownloadNotification() {
-        Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("download.notification"),
+        Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("notification.group.id"),
                 DeepBugsPluginBundle.message("notification.title"), DeepBugsPluginBundle.message("download.notification.message"),
                 NotificationType.INFORMATION, object : NotificationListener.Adapter() {
             override fun hyperlinkActivated(notification: Notification, e: HyperlinkEvent) {
@@ -29,13 +32,13 @@ object DownloadClient {
     }
 
     private fun showSuccessNotification() {
-        Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("notification.group.id"),
+        Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("success.notification.group.id"),
                 DeepBugsPluginBundle.message("notification.title"), DeepBugsPluginBundle.message("success.notification.message"),
                 NotificationType.INFORMATION))
     }
 
     private fun showErrorNotification() {
-        Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("notification.group.id"),
+        Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("error.notification.group.id"),
                 DeepBugsPluginBundle.message("notification.title"), DeepBugsPluginBundle.message("error.notification.message"),
                 NotificationType.ERROR, object : NotificationListener.Adapter() {
             override fun hyperlinkActivated(notification: Notification, e: HyperlinkEvent) {
@@ -73,13 +76,14 @@ object DownloadClient {
 
     private fun downloadModels() {
         val config = DeepBugsProvider::class.java.classLoader.getResource("models.json").readText()
-        ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject, DeepBugsPluginBundle.message("download.task.title"), true) {
+        ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
+                DeepBugsPluginBundle.message("download.task.title"), true) {
             override fun run(indicator: ProgressIndicator) {
                 download(config, DownloadProgressWrapper(ProgressManager.getInstance().progressIndicator))
             }
 
             override fun onFinished() {
-                ModelsHolder.initModels()
+                ModelsManager.initModels()
             }
 
             override fun onSuccess() {

@@ -26,27 +26,27 @@ public class DeepBugsUI {
         return rootPanel;
     }
 
-    public double getBinOperatorThreshold() {
-        return binOperatorThresholdSlider.getValue() / 100.0;
+    public float getBinOperatorThreshold() {
+        return binOperatorThresholdSlider.getValue() / 100.0f;
     }
 
-    public void setBinOperatorThreshold(double value) {
-        binOperatorThresholdSlider.setValue((int) (value * 100.0));
+    public void setBinOperatorThreshold(float value) {
+        binOperatorThresholdSlider.setValue((int) (value * 100.0f));
     }
 
-    public double getBinOperandThreshold() {
-        return binOperandThresholdSlider.getValue() / 100.0;
+    public float getBinOperandThreshold() {
+        return binOperandThresholdSlider.getValue() / 100.0f;
     }
 
-    public void setBinOperandThreshold(double value) {
-        binOperandThresholdSlider.setValue((int) (value * 100.0));
+    public void setBinOperandThreshold(float value) {
+        binOperandThresholdSlider.setValue((int) (value * 100.0f));
     }
 
-    public double getSwappedArgsThreshold() {
-        return swappedArgsThresholdSlider.getValue() / 100.0;
+    public float getSwappedArgsThreshold() {
+        return swappedArgsThresholdSlider.getValue() / 100.0f;
     }
 
-    public void setSwappedArgsThreshold(double value) {
-        swappedArgsThresholdSlider.setValue((int) (value * 100.0));
+    public void setSwappedArgsThreshold(float value) {
+        swappedArgsThresholdSlider.setValue((int) (value * 100.0f));
     }
 }

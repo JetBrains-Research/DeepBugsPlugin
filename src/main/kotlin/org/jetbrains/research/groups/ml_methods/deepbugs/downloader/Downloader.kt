@@ -3,6 +3,7 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.downloader
 import com.intellij.openapi.application.PathManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils.JsonUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils.Zip
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -19,7 +20,8 @@ object Downloader {
     private fun getRootPath(name: String) = Paths.get(modelsPath, "DeepBugsPlugin", name)
     fun getTargetPath(target: String, name: String) = Paths.get(modelsPath, "DeepBugsPlugin", target, name)
     private val repositoryFile = getRootPath("repository.json").toFile()
-    private var repository: MutableList<RepositoryRecord>
+    var repository: MutableList<RepositoryRecord>
+        private set
 
     init {
         if (repositoryFile.exists()) {
@@ -56,7 +58,7 @@ object Downloader {
 
     private fun downloadTo(printableName: String, url: URL, path: Path, progress: DownloadProgress): File? {
         progress.name = printableName
-        progress.phase = "Download $printableName"
+        progress.phase = DeepBugsPluginBundle.message("download.model.file", printableName)
         progress.progress = 0.0
         path.toFile().parentFile.mkdirs()
 

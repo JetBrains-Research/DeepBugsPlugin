@@ -3,7 +3,7 @@
   "classpath": [
     {
       "name": "nodeTypeToVector.json",
-      "url": "https://www.dropbox.com/s/l0qon8yyz7s8g2t/nodeTypeToVector.json?dl=1"
+      "url": "https://www.dropbox.com/s/s3uuqlkpteyjcs8/nodeTypeToVector.json?dl=1"
     },
     {
       "name": "typeToVector.json",
@@ -18,16 +18,16 @@
       "url": "https://www.dropbox.com/s/85953oqa4ivn106/tokenToVector.zip?dl=1"
     },
     {
-      "name": "binOperatorDetectionModel.h5",
-      "url": "https://www.dropbox.com/s/93vfrtsv9vjza01/binOperatorDetectionModel.h5?dl=1"
+      "name": "binOperatorDetectionModel",
+      "url": "https://www.dropbox.com/s/rkrmts64ivom8jv/binOperatorDetectionModel.zip?dl=1"
     },
     {
-      "name": "binOperandDetectionModel.h5",
-      "url": "https://www.dropbox.com/s/fv4h0ao7w9v2mvw/binOperandDetectionModel.h5?dl=1"
+      "name": "binOperandDetectionModel",
+      "url": "https://www.dropbox.com/s/fjnv06fh45xzpgc/binOperandDetectionModel.zip?dl=1"
     },
     {
-      "name": "swappedArgsDetectionModel.h5",
-      "url": "https://www.dropbox.com/s/q3gbvlbh5qinnfc/swappedArgsDetectionModel.h5?dl=1"
+      "name": "swappedArgsDetectionModel",
+      "url": "https://www.dropbox.com/s/14yiwzzypuld9j9/swappedArgsDetectionModel.zip?dl=1"
     }
   ]
 }

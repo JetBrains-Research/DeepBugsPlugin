@@ -7,7 +7,7 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.Extractor
 import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.asIdentifierString
 import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.utils.InspectionUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
-import org.nd4j.linalg.api.ndarray.INDArray
+import org.tensorflow.Tensor
 
 data class Call(val name: String,
         val fstArg: String,
@@ -40,10 +40,10 @@ data class Call(val name: String,
             var fstParam = ""
             var sndParam = ""
             if (params != null && params.size > 1)
-                if (base == "") {
+                if (params.size == 2) {
                     fstParam = params[0].text.asIdentifierString()
                     sndParam = params[1].text.asIdentifierString()
-                } else if (params.size == 3) {
+                } else if (params.size == 3 && params.first().isSelf) {
                     fstParam = params[1].text.asIdentifierString()
                     sndParam = params[2].text.asIdentifierString()
                 }
@@ -51,15 +51,15 @@ data class Call(val name: String,
         }
     }
 
-    fun vectorize(token: Mapping?, type: Mapping?): INDArray? {
+    fun vectorize(token: Mapping?, type: Mapping?): Tensor<Float>? {
         val nameVector = token?.get(name) ?: return null
         val fstArgVector = token.get(fstArg) ?: return null
         val sndArgVector = token.get(sndArg) ?: return null
         val fstArgTypeVector = type?.get(fstArgType) ?: return null
         val sndArgTypeVector = type.get(sndArgType) ?: return null
-        val baseVector = token.get(base) ?: JsonArray(DoubleArray(200) { 0.0 }.toList())
-        val fstParamVector = token.get(fstParam) ?: JsonArray(DoubleArray(200) { 0.0 }.toList())
-        val sndParamVector = token.get(sndParam) ?: JsonArray(DoubleArray(200) { 0.0 }.toList())
+        val baseVector = token.get(base) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
+        val fstParamVector = token.get(fstParam) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
+        val sndParamVector = token.get(sndParam) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
         return InspectionUtils.vectorizeListOfArrays(listOf(
                 nameVector, fstArgVector, sndArgVector,
                 fstArgTypeVector, sndArgTypeVector,
