@@ -4,11 +4,11 @@ import com.intellij.codeInspection.InspectionToolProvider
 import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.DeepBugsBinOperandInspection
 import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.DeepBugsBinOperatorInspection
 import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.DeepBugsSwappedArgsInspection
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.SystemChecker
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.TensorFlowPlatformUtils
 
 class DeepBugsProvider : InspectionToolProvider {
     init {
-        SystemChecker.loadLibs()
+        TensorFlowPlatformUtils.loadLibs()
     }
 
     override fun getInspectionClasses(): Array<Class<*>> {

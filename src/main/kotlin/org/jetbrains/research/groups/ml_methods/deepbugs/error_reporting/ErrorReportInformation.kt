@@ -3,6 +3,7 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting
 import com.intellij.openapi.application.ApplicationNamesInfo
 import com.intellij.openapi.application.PermanentInstallationID
 import com.intellij.openapi.application.ex.ApplicationInfoEx
+import com.intellij.openapi.util.SystemInfo
 import com.intellij.util.SystemProperties
 import org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.ErrorReportInformation.InformationType.*
 import java.util.*
@@ -27,9 +28,9 @@ internal class ErrorReportInformation private constructor(error: GitHubErrorBean
 
         information[PLUGIN_NAME] = error.pluginName
         information[PLUGIN_VERSION] = error.pluginVersion
-        information[OS_NAME] = SystemProperties.getOsName()
-        information[JAVA_VERSION] = SystemProperties.getJavaVersion()
-        information[JAVA_VM_VENDOR] = SystemProperties.getJavaVmVendor()
+        information[OS_NAME] = SystemInfo.OS_NAME
+        information[JAVA_VERSION] = SystemInfo.JAVA_VERSION
+        information[JAVA_VM_VENDOR] = SystemInfo.JAVA_VENDOR
         information[APP_NAME] = namesInfo.productName
         information[APP_FULL_NAME] = namesInfo.fullProductName
         information[APP_VERSION_NAME] = appInfo.versionName

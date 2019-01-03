@@ -13,6 +13,7 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils.JsonUt
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.TensorFlowPlatformUtils
 import org.tensorflow.Session
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -49,7 +50,7 @@ object ModelsManager {
             return false
         val localRepo = JsonUtils.readCollectionValue(localRepoPath.toFile().readText(),
                 MutableList::class as KClass<MutableList<RepositoryRecord>>, RepositoryRecord::class)
-        val remoteRepoStr = DeepBugsProvider::class.java.classLoader.getResource("models.json").readText()
+        val remoteRepoStr = ModelsManager::class.java.classLoader.getResource("models.json").readText()
         val remoteRepo = JsonUtils.readValue(remoteRepoStr, Config::class).classpath
         remoteRepo.forEach { record ->
             localRepo.firstOrNull { it.name == record.name } ?: return false
@@ -77,6 +78,7 @@ object ModelsManager {
     }
 
     fun initModels() {
+        TensorFlowPlatformUtils.loadLibs()
         ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
                 DeepBugsPluginBundle.message("initialize.task.title"), false) {
             override fun run(indicator: ProgressIndicator) {
