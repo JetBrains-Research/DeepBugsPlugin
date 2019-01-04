@@ -11,5 +11,5 @@ class DeepBugsBinOperatorInspection : DeepBugsBinExprInspection() {
     override fun getThreshold(): Float = DeepBugsInspectionConfig.getInstance().curBinOperatorThreshold
 
     override fun getDisplayName() = DeepBugsPluginBundle.message("binary.operator.inspection.display")
-    override fun getShortName(): String = "DeepBugsBinOperator"
+    override fun getShortName(): String = DeepBugsPluginBundle.message("bin.operator.inspection.short.name")
 }

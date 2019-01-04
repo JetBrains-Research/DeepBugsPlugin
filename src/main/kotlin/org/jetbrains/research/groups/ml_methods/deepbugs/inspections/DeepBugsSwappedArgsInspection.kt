@@ -17,7 +17,7 @@ class DeepBugsSwappedArgsInspection : PyInspection() {
     val keyMessage = "swapped.args.inspection.warning"
 
     override fun getDisplayName() = DeepBugsPluginBundle.message("swapped.args.inspection.display")
-    override fun getShortName(): String = "DeepBugsSwappedArgs"
+    override fun getShortName(): String = DeepBugsPluginBundle.message("swapped.args.inspection.short.name")
 
     private fun getThreshold() = DeepBugsInspectionConfig.getInstance().curSwappedArgsThreshold
     private fun getModel() = ModelsManager.swappedArgsModel

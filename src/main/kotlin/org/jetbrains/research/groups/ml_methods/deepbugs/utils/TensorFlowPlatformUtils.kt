@@ -20,7 +20,7 @@ object TensorFlowPlatformUtils {
     private fun showErrorNotification() {
         Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("error.notification.group.id"),
                 DeepBugsPluginBundle.message("notification.title"),
-                DeepBugsPluginBundle.message("incompatible.version.notification.title"), NotificationType.ERROR))
+                DeepBugsPluginBundle.message("incompatible.version.notification.message"), NotificationType.ERROR))
     }
 
     private fun loadLib(name: String) {

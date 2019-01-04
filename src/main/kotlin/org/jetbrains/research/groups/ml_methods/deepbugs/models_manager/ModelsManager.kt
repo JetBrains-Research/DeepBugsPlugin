@@ -12,7 +12,6 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils.JsonUt
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.TensorFlowPlatformUtils
 import org.tensorflow.Session
 import java.nio.file.Files
 import java.nio.file.Paths
