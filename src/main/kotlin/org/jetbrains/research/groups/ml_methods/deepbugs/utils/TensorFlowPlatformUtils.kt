@@ -40,7 +40,7 @@ object TensorFlowPlatformUtils {
         if (!SystemInfo.isWindows)
             return
         //TensorFlow Java API is currently available only for 64-bit systems
-        if (SystemInfo.is32Bit) {
+        if (!SystemInfo.is64Bit) {
             showErrorNotification()
             return
         }
