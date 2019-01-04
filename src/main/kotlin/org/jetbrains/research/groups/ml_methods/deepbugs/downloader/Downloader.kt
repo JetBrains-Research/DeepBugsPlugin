@@ -50,8 +50,8 @@ object Downloader {
         }
                 ?: downloadTo(printableName, URL(url), getTargetPath(target, "$name.zip"), DownloadProgressProvider.getProgress())?.let {
                     val zip = Zip.extractFolder(it, getTargetPath(target, "").toFile()) ?: return null
-                    repository.add(RepositoryRecord(target, name, printableName))
                     it.deleteOnExit()
+                    repository.add(RepositoryRecord(target, name, printableName))
                     saveRepository()
                     zip
                 }
