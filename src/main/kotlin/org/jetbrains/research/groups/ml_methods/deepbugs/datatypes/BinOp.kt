@@ -84,8 +84,7 @@ data class BinOp(val left: String,
         val parentVector = nodeType?.get(parent) ?: return null
         val grandParentVector = nodeType.get(grandParent) ?: return null
         return InspectionUtils.vectorizeListOfArrays(listOf(
-                leftVector, rightVector,
-                operatorVector,
+                leftVector, rightVector, operatorVector,
                 leftTypeVector, rightTypeVector,
                 parentVector, grandParentVector))
     }

@@ -5,13 +5,12 @@ import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.ProjectManager
-import org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsProvider
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.Config
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.DownloadClient
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.RepositoryRecord
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils.JsonUtils
-import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
+import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.TensorFlowPlatformUtils
 import org.tensorflow.Session
@@ -38,12 +37,13 @@ object ModelsManager {
         private set
 
     init {
-        when(modelFilesExists()) {
+        when (modelFilesExists()) {
             true -> initModels()
             false -> DownloadClient.showDownloadNotification()
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun modelFilesExists(): Boolean {
         val localRepoPath = Paths.get(root, "repository.json")
         if (!Files.exists(localRepoPath))
@@ -78,7 +78,6 @@ object ModelsManager {
     }
 
     fun initModels() {
-        TensorFlowPlatformUtils.loadLibs()
         ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
                 DeepBugsPluginBundle.message("initialize.task.title"), false) {
             override fun run(indicator: ProgressIndicator) {

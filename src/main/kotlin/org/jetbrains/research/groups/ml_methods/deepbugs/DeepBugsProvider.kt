@@ -7,6 +7,7 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.DeepBugsSwa
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.TensorFlowPlatformUtils
 
 class DeepBugsProvider : InspectionToolProvider {
+
     init {
         TensorFlowPlatformUtils.loadLibs()
     }

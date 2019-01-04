@@ -1,22 +1,17 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.datatypes
 
-import com.beust.klaxon.JsonArray
 import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
 import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.asIdentifierString
 import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.utils.InspectionUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import org.tensorflow.Tensor
 
 data class Call(val name: String,
-        val fstArg: String,
-        val sndArg: String,
-        val fstArgType: String,
-        val sndArgType: String,
+        val args: List<String>,
+        val argsTypes: List<String>,
         val base: String,
-        var fstParam: String,
-        var sndParam: String,
+        val params: List<String>,
         val src: String) {
 
     companion object {
@@ -30,39 +25,35 @@ data class Call(val name: String,
             if (node.arguments.size != 2)
                 return null
             val name = Extractor.extractPyNodeName(node.callee) ?: return null
-            val fstArg = Extractor.extractPyNodeName(node.arguments[0]) ?: return null
-            val sndArg = Extractor.extractPyNodeName(node.arguments[1]) ?: return null
-            val fstArgType = Extractor.extractPyNodeType(node.arguments[0])
-            val sndArgType = Extractor.extractPyNodeType(node.arguments[1])
-            val base = Extractor.extractPyNodeBase(node)
+            val args = mutableListOf<String>()
+            val argTypes = mutableListOf<String>()
+            node.arguments.forEach { arg ->
+                Extractor.extractPyNodeName(arg)?.let { argName -> args.add(argName) } ?: return null
+                Extractor.extractPyNodeType(arg).let { argType -> argTypes.add(argType) }
+            }
+            val base = Extractor.extractPyNodeBase(node) ?: return null
             val resolved = node.multiResolveCallee(PyResolveContext.defaultContext()).firstOrNull()?.element
             val params = resolved?.parameterList?.parameters
-            var fstParam = ""
-            var sndParam = ""
-            if (params != null && params.size > 1)
-                if (params.size == 2) {
-                    fstParam = params[0].text.asIdentifierString()
-                    sndParam = params[1].text.asIdentifierString()
-                } else if (params.size == 3 && params.first().isSelf) {
-                    fstParam = params[1].text.asIdentifierString()
-                    sndParam = params[2].text.asIdentifierString()
-                }
-            return Call(name, fstArg, sndArg, fstArgType, sndArgType, base, fstParam, sndParam, src)
+            val paramNames = MutableList(args.size) { "" }
+            if (params != null && params.isNotEmpty() && params.first().isSelf)
+                params.drop(0)
+            paramNames.forEachIndexed { idx, _ ->
+                paramNames[idx] = Extractor.extractPyNodeName(params?.getOrNull(idx)) ?: ""
+            }
+            return Call(name, args, argTypes, base, paramNames, src)
         }
     }
 
     fun vectorize(token: Mapping?, type: Mapping?): Tensor<Float>? {
         val nameVector = token?.get(name) ?: return null
-        val fstArgVector = token.get(fstArg) ?: return null
-        val sndArgVector = token.get(sndArg) ?: return null
-        val fstArgTypeVector = type?.get(fstArgType) ?: return null
-        val sndArgTypeVector = type.get(sndArgType) ?: return null
-        val baseVector = token.get(base) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
-        val fstParamVector = token.get(fstParam) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
-        val sndParamVector = token.get(sndParam) ?: JsonArray(FloatArray(200) { 0.0f }.toList())
-        return InspectionUtils.vectorizeListOfArrays(listOf(
-                nameVector, fstArgVector, sndArgVector,
-                fstArgTypeVector, sndArgTypeVector,
-                baseVector, fstParamVector, sndParamVector))
+        val argVectors = args.map { arg -> token.get(arg) ?: return null }
+                .reduce { acc, arg -> acc + arg }
+        val typeVectors = argsTypes.map { argType -> type?.get(argType) ?: return null }
+                .reduce { acc, argType -> acc + argType }
+        val paramVectors = params.map { param -> token.get(param) ?: FloatArray(200) { 0.0f } }
+                .reduce { acc, param -> acc + param }
+        val baseVector = token.get(base) ?: FloatArray(200) { 0.0f }
+        return InspectionUtils.vectorizeListOfArrays(listOf(nameVector, argVectors, typeVectors,
+                baseVector, paramVectors))
     }
 }

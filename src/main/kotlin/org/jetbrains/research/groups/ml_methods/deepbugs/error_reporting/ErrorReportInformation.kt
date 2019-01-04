@@ -4,7 +4,6 @@ import com.intellij.openapi.application.ApplicationNamesInfo
 import com.intellij.openapi.application.PermanentInstallationID
 import com.intellij.openapi.application.ex.ApplicationInfoEx
 import com.intellij.openapi.util.SystemInfo
-import com.intellij.util.SystemProperties
 import org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.ErrorReportInformation.InformationType.*
 import java.util.*
 

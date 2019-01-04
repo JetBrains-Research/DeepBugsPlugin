@@ -9,13 +9,11 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.DeepBugsProvider
 import org.jetbrains.research.groups.ml_methods.deepbugs.downloader.utils.JsonUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.DeepBugsPluginBundle
-import java.nio.file.Files
 import javax.swing.event.HyperlinkEvent
 
 object DownloadClient {
 
     init {
-        NotificationGroup(DeepBugsPluginBundle.message("success.notification.group.id"), NotificationDisplayType.BALLOON, false)
         NotificationGroup(DeepBugsPluginBundle.message("error.notification.group.id"), NotificationDisplayType.STICKY_BALLOON, true)
         NotificationGroup(DeepBugsPluginBundle.message("notification.group.id"), NotificationDisplayType.STICKY_BALLOON, true)
     }
@@ -29,12 +27,6 @@ object DownloadClient {
                 notification.expire()
             }
         }).setImportant(true))
-    }
-
-    private fun showSuccessNotification() {
-        Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("success.notification.group.id"),
-                DeepBugsPluginBundle.message("notification.title"), DeepBugsPluginBundle.message("success.notification.message"),
-                NotificationType.INFORMATION))
     }
 
     private fun showErrorNotification() {
@@ -83,10 +75,6 @@ object DownloadClient {
 
             override fun onFinished() {
                 ModelsManager.initModels()
-            }
-
-            override fun onSuccess() {
-                showSuccessNotification()
             }
 
             override fun onThrowable(error: Throwable) {

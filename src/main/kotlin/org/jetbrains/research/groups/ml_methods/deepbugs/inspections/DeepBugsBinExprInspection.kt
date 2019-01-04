@@ -34,9 +34,9 @@ abstract class DeepBugsBinExprInspection : PyInspection() {
                             ModelsManager.typeMapping, ModelsManager.operatorMapping)
                     vector?.let { input ->
                         val resTensor = getModel()?.runner()
-                                     ?.feed("dropout_1_input:0", input)
-                                     ?.fetch("dense_2/Sigmoid:0")
-                                     ?.run()?.firstOrNull()
+                                ?.feed("dropout_1_input:0", input)
+                                ?.fetch("dense_2/Sigmoid:0")
+                                ?.run()?.firstOrNull()
                         resTensor?.let { tensor ->
                             val result = InspectionUtils.getResult(tensor)
                             result.let { res ->

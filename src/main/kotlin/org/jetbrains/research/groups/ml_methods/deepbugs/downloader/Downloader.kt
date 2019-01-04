@@ -14,6 +14,7 @@ import kotlin.reflect.KClass
 
 data class RepositoryRecord(val target: String, val name: String, val printableName: String)
 
+@Suppress("UNCHECKED_CAST")
 object Downloader {
 
     private val modelsPath: String = PathManager.getPluginsPath()

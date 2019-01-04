@@ -1,27 +1,26 @@
 <idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
-    <name>DeepBugsPlugin</name>
+    <name>DeepBugs</name>
     <id>DeepBugsPlugin</id>
-    <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey
-        Bryksin
+    <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey Bryksin
     </vendor>
     <version>0.1</version>
     <description><![CDATA[
-    DeepBugsPlugin provides several code inspections for bug detection
-
+    DeepBugsPlugin provides several code inspections for bug detection.
+    Plugin requires a 64-bit JVM.
     <h4>Using inspections</h4>
     <ol>
         <li>Select  <code>Analyze | Run inspection by name...</code>
-            or <code>Code | Run inspection by name...</code>menu item</li>
-        <li>Select the desired code inspection</li>
-        <li>Set inspection options and click OK</li>
+            or <code>Code | Run inspection by name...</code>menu item.</li>
+        <li>Select the desired code inspection.</li>
+        <li>Set inspection options and click OK.</li>
     </ol>
     <h4>Available code inspections</h4>
     <ul>
-        <li>DeepBugs: Possibly incorrect binary operator</li>
-        <li>DeepBugs: Possibly incorrect binary operand</li>
-        <li>DeepBugs: Possibly swapped function arguments</li>
+        <li>DeepBugs: Possibly incorrect binary operator.</li>
+        <li>DeepBugs: Possibly incorrect binary operand.</li>
+        <li>DeepBugs: Possibly swapped function arguments.</li>
     </ul>
-    Threshold is configurable and can be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>
+    Threshold is configurable and could be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>.
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
