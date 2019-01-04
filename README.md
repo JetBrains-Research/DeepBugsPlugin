@@ -1,8 +1,13 @@
 # DeepBugsPlugin
 
-PyCharm/IntelliJ IDEA(with Python plugin installed) plugin for [DeepBugs](https://github.com/ml-in-programming/DeepBugs) framework.
+PyCharm/IntelliJ IDEA(with Python plugin installed) plugin for [DeepBugs](https://github.com/ml-in-programming/DeepBugs) framework. 
 
 This plugin provides several code inspections which objectives are to analyze the code of a project opened in IDE and to highlight potential bugs in it.
+
+## Requirements
+Currently available only for a 64-bit JVM.
+
+DeepBugsPlugin requires models files, which would be suggested to download when the plugin is launched for the first time.
 
 ## Usage
 After the plugin is installed and enabled, code inspections become available.
