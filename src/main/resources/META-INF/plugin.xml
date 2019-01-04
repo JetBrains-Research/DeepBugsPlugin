@@ -5,8 +5,12 @@
     </vendor>
     <version>0.1</version>
     <description><![CDATA[
-    DeepBugsPlugin provides several code inspections for bug detection.
-    Plugin requires a 64-bit JVM.
+    Currently available only for a 64-bit JVM.
+
+    DeepBugsPlugin provides several code inspections intended for detecting bugs.
+    Plugin requires model files to perform code analysis.
+    It would be suggested to download required files when the plugin is
+    launched for the first time.
     <h4>Using inspections</h4>
     <ol>
         <li>Select  <code>Analyze | Run inspection by name...</code>

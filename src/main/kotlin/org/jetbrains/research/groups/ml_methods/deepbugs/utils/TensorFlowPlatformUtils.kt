@@ -1,8 +1,5 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.utils
 
-import com.intellij.notification.Notification
-import com.intellij.notification.NotificationType
-import com.intellij.notification.Notifications
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.util.SystemInfo
 import org.apache.commons.io.FileUtils
@@ -16,12 +13,6 @@ object TensorFlowPlatformUtils {
     private val winDlls = arrayOf("vcruntime140.dll", "msvcp140.dll", "concrt140.dll")
 
     private fun getResourceURI(dll: String) = "/bundlers/$dll"
-
-    private fun showErrorNotification() {
-        Notifications.Bus.notify(Notification(DeepBugsPluginBundle.message("error.notification.group.id"),
-                DeepBugsPluginBundle.message("notification.title"),
-                DeepBugsPluginBundle.message("incompatible.version.notification.message"), NotificationType.ERROR))
-    }
 
     private fun loadLib(name: String) {
         val dllPath = Paths.get(libsRoot, name)
@@ -37,14 +28,14 @@ object TensorFlowPlatformUtils {
     }
 
     fun loadLibs() {
+        //TensorFlow Java API is currently available only for 64-bit systems
+        if (!SystemInfo.is64Bit)
+            throw PlatformException(DeepBugsPluginBundle.message("platform.exception.message"))
         if (!SystemInfo.isWindows)
             return
-        //TensorFlow Java API is currently available only for 64-bit systems
-        if (!SystemInfo.is64Bit) {
-            showErrorNotification()
-            return
-        }
         File(libsRoot).mkdirs()
         winDlls.forEach { dll -> loadLib(dll) }
     }
 }
+
+class PlatformException(message: String): Exception(message)
