@@ -7,7 +7,7 @@ This plugin provides several code inspections which objectives are to analyze th
 ## Requirements
 Currently available only for a 64-bit JVM.
 
-DeepBugsPlugin requires models files, which would be suggested to download when the plugin is launched for the first time.
+DeepBugsPlugin requires models files to perform code analysis. It would be suggested to download required files when the plugin is launched for the first time.
 
 ## Usage
 After the plugin is installed and enabled, code inspections become available.
