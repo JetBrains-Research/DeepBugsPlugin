@@ -1,6 +1,6 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting
 
-import com.intellij.diagnostic.LogMessageEx
+import com.intellij.diagnostic.LogMessage
 import com.intellij.diagnostic.ReportMessages
 import com.intellij.ide.DataManager
 import com.intellij.idea.IdeaLogger
@@ -45,7 +45,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
             //if (pluginId != null) {
             //val ideaPluginDescriptor = PluginManager.getPlugin(pluginId)
             //if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled) {
-            //bean.pluginName = ideaPluginDescriptor.name
+            //bean.pluginName = ideaPluginDescriptor.callee
             //bean.pluginVersion = ideaPluginDescriptor.version
             //}
             //}
@@ -53,7 +53,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
 
         val data = event.data
 
-        if (data is LogMessageEx) {
+        if (data is LogMessage) {
             bean.attachments = data.includedAttachments
         }
 
@@ -102,7 +102,6 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
                         NotificationType.INFORMATION,
                         NotificationListener.URL_OPENING_LISTENER).setImportant(false).notify(myProject)
             }
-
         }
     }
 }

@@ -41,6 +41,7 @@ object Extractor {
         is PyCallExpression -> extractPyNodeName(node.callee)
         is PySubscriptionExpression -> extractPyNodeName(node.operand)
         is PyLambdaExpression -> PyNames.LAMBDA.asIdentifierString()
+        is PyParameter -> node.text.asIdentifierString()
         else -> null
     }
 

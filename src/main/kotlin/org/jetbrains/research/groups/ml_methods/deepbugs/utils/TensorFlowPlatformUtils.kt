@@ -38,4 +38,4 @@ object TensorFlowPlatformUtils {
     }
 }
 
-class PlatformException(message: String): Exception(message)
+class PlatformException(message: String) : Exception(message)
