@@ -14,20 +14,20 @@
       "url": "https://www.dropbox.com/s/3zab4e0v3nkojkt/operatorToVector.json?dl=1"
     },
     {
-      "name": "tokenToVector",
-      "url": "https://www.dropbox.com/s/pwxyyf9yglwt6sw/tokenToVector.zip?dl=1"
+      "name": "tokenToVector.json",
+      "url": "https://www.dropbox.com/s/qirm6jlwprsep0l/tokenToVector.json.zip?dl=1"
     },
     {
       "name": "binOperatorDetectionModel",
-      "url": "https://www.dropbox.com/s/89tnyx90qk706qn/binOperatorDetectionModel.zip?dl=1"
+      "url": "https://www.dropbox.com/s/wys2p826oz65jy5/binOperatorDetectionModel.zip?dl=1"
     },
     {
       "name": "binOperandDetectionModel",
-      "url": "https://www.dropbox.com/s/fjnv06fh45xzpgc/binOperandDetectionModel.zip?dl=1"
+      "url": "https://www.dropbox.com/s/5qjxw13lq4tgtfl/binOperandDetectionModel.zip?dl=1"
     },
     {
       "name": "swappedArgsDetectionModel",
-      "url": "https://www.dropbox.com/s/14yiwzzypuld9j9/swappedArgsDetectionModel.zip?dl=1"
+      "url": "https://www.dropbox.com/s/fx5rk12gvcu66jv/swappedArgsDetectionModel.zip?dl=1"
     }
   ]
 }

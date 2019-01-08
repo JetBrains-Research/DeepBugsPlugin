@@ -41,7 +41,7 @@ object Extractor {
         is PyCallExpression -> extractPyNodeName(node.callee)
         is PySubscriptionExpression -> extractPyNodeName(node.operand)
         is PyLambdaExpression -> PyNames.LAMBDA.asIdentifierString()
-        is PyParameter -> node.text.asIdentifierString()
+        is PyParameter -> node.text.substringBefore(":").asIdentifierString()
         else -> null
     }
 
@@ -67,7 +67,7 @@ object Extractor {
     }
 
     fun extractPyNodeBase(node: PyElement?): String? = when (node) {
-        is PyCallExpression -> extractPyNodeName(node.firstChild?.firstChild as? PyElement)
+        is PyCallExpression -> extractPyNodeName(node.firstChild?.firstChild as? PyElement) ?: ""
         is PySubscriptionExpression -> extractPyNodeType(node.operand)
         else -> ""
     }

@@ -6,9 +6,9 @@ import javax.swing.JComponent
 
 class DeepBugsInspectionConfigurable(private val settings: DeepBugsInspectionConfig) : Configurable {
     companion object {
-        const val defaultBinOperatorConfig: Float = 0.93f
-        const val defaultBinOperandConfig: Float = 0.95f
-        const val defaultSwappedArgsConfig: Float = 0.96f
+        const val defaultBinOperatorConfig: Float = 0.89f
+        const val defaultBinOperandConfig: Float = 0.94f
+        const val defaultSwappedArgsConfig: Float = 0.95f
     }
 
     private var deepBugsUI: DeepBugsUI? = null
