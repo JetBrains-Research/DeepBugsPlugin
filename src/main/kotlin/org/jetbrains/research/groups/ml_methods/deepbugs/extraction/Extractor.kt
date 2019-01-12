@@ -66,9 +66,9 @@ object Extractor {
         else -> "unknown"
     }
 
-    fun extractPyNodeBase(node: PyElement?): String? = when (node) {
+    fun extractPyNodeBase(node: PyElement?): String = when (node) {
         is PyCallExpression -> extractPyNodeName(node.firstChild?.firstChild as? PyElement) ?: ""
-        is PySubscriptionExpression -> extractPyNodeType(node.operand)
+        is PySubscriptionExpression -> extractPyNodeName(node.operand) ?: ""
         else -> ""
     }
 }

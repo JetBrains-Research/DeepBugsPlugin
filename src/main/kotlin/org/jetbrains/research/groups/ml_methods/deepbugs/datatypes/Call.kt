@@ -31,7 +31,7 @@ data class Call(val callee: String,
                 Extractor.extractPyNodeName(arg)?.let { argName -> args.add(argName) } ?: return null
                 Extractor.extractPyNodeType(arg).let { argType -> argTypes.add(argType) }
             }
-            val base = Extractor.extractPyNodeBase(node) ?: return null
+            val base = Extractor.extractPyNodeBase(node)
             val resolved = node.multiResolveCalleeFunction(PyResolveContext.defaultContext()).firstOrNull()
             var params = resolved?.parameterList?.parameters?.toList()
             if (!params.isNullOrEmpty() && params.first().isSelf && params.size > args.size)
