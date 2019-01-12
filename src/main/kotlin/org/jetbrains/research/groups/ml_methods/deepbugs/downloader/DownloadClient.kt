@@ -17,14 +17,13 @@ import kotlin.reflect.KClass
 object DownloadClient {
 
     private val root = Paths.get(PathManager.getPluginsPath(), "DeepBugsPlugin").toString()
-    private val notifier = DeepBugsNotifier()
     private val config = DownloadClient::class.java.classLoader.getResource("models.json").readText()
     private val remoteRepo = JsonUtils.readValue(config, Config::class)
 
     fun checkRepos() {
         when (modelFilesExists()) {
             true -> ModelsManager.initModels()
-            false -> notifier.notifyWithAction(DeepBugsPluginBundle.message("download.notification.message"),
+            false -> DeepBugsNotifier.notifyWithAction(DeepBugsPluginBundle.message("download.notification.message"),
                     NotificationType.INFORMATION, DeepBugsPluginBundle.message("download.text"), DownloadClient::downloadAndInitModels)
         }
     }
@@ -45,8 +44,6 @@ object DownloadClient {
     private fun download(progress: DownloadProgress) {
         val progressFuncLast = DownloadProgressProvider.getProgress
         DownloadProgressProvider.getProgress = { progress }
-
-        //val config = JsonUtils.readValue(configStr, Config::class)
         remoteRepo.classpath.forEach {
             if (it.url.contains(".zip")) {
                 Downloader.downloadZip(remoteRepo.name, it.name, it.url)
@@ -69,12 +66,12 @@ object DownloadClient {
 
             //TODO: downloadModels inside task?? meh.
             override fun onThrowable(error: Throwable) {
-                notifier.notifyWithAction(DeepBugsPluginBundle.message("error.notification.message"),
+                DeepBugsNotifier.notifyWithAction(DeepBugsPluginBundle.message("error.notification.message"),
                         NotificationType.ERROR, DeepBugsPluginBundle.message("restart.download.text"), DownloadClient::downloadAndInitModels)
             }
 
             override fun onCancel() {
-                notifier.notifyWithAction(DeepBugsPluginBundle.message("cancel.notification.message"),
+                DeepBugsNotifier.notifyWithAction(DeepBugsPluginBundle.message("cancel.notification.message"),
                         NotificationType.WARNING, DeepBugsPluginBundle.message("restart.download.text"), DownloadClient::downloadAndInitModels)
             }
         })

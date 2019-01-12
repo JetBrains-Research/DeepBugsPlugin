@@ -27,6 +27,7 @@ public class DeepBugsUI {
             setSwappedArgsThreshold(DeepBugsInspectionConfigurable.defaultSwappedArgsConfig);
         });
     }
+
     public JComponent getRootPanel() {
         return rootPanel;
     }

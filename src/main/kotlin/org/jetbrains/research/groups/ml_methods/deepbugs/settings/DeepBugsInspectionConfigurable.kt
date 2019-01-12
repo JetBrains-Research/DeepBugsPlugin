@@ -8,7 +8,7 @@ class DeepBugsInspectionConfigurable(private val settings: DeepBugsInspectionCon
     companion object {
         const val defaultBinOperatorConfig: Float = 0.89f
         const val defaultBinOperandConfig: Float = 0.94f
-        const val defaultSwappedArgsConfig: Float = 0.95f
+        const val defaultSwappedArgsConfig: Float = 0.96f
     }
 
     private var deepBugsUI: DeepBugsUI? = null

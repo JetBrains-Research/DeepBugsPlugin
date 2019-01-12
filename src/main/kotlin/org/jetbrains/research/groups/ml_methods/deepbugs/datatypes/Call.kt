@@ -6,7 +6,6 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.Extractor
 import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.utils.InspectionUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import org.tensorflow.Tensor
-import kotlin.math.abs
 
 data class Call(val callee: String,
                 val arguments: List<String>,

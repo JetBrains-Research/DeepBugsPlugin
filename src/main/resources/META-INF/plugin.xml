@@ -1,13 +1,13 @@
 <idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
-    <name>DeepBugsPlugin</name>
+    <name>DeepBugs</name>
     <id>DeepBugsPlugin</id>
     <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey Bryksin
     </vendor>
     <version>0.1</version>
     <description><![CDATA[
-    Currently available only for a 64-bit JVM.
-
     DeepBugsPlugin provides several code inspections intended for detecting bugs.
+    <h4>Requirements</h4>
+    Currently available only for a 64-bit JVM.<br>
     Plugin requires model files to perform code analysis.
     It would be suggested to download required files when the plugin is
     launched for the first time.
@@ -42,7 +42,7 @@
 
     </extensions>
 
-   <!-- <actions>
+   <!--<actions>
         <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action
@@ -53,9 +53,9 @@
             />
         </group>
         Action for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if
-        needed-->
+        needed
 
-        <!--<action id="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction"
+        <action id="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction"
                 class="org.jetbrains.research.groups.ml_methods.deepbugs.error_reporting.TriggerExceptionAction" text="FireArtificialException">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
            </action>
