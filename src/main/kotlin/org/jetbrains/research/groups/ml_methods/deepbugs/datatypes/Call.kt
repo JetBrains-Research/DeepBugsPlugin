@@ -2,8 +2,9 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.datatypes
 
 import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
+import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.utils.TensorUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.utils.InspectionUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import org.tensorflow.Tensor
 
@@ -12,7 +13,7 @@ data class Call(val callee: String,
                 val argumentTypes: List<String>,
                 val base: String,
                 val parameters: List<String>,
-                val src: String) {
+                val src: String) : PyDataType {
 
     companion object {
 
@@ -22,6 +23,7 @@ data class Call(val callee: String,
          * @return [Call] with collected information.
          */
         fun collectFromPyNode(node: PyCallExpression, src: String = ""): Call? {
+
             if (node.arguments.size != 2)
                 return null
             val name = Extractor.extractPyNodeName(node.callee) ?: return null
@@ -44,7 +46,7 @@ data class Call(val callee: String,
         }
     }
 
-    fun vectorize(token: Mapping?, type: Mapping?): Tensor<Float>? {
+    private fun vectorize(token: Mapping?, type: Mapping?): Tensor<Float>? {
         val nameVector = token?.get(callee) ?: return null
         val argVectors = arguments.map { arg -> token.get(arg) ?: return null }
                 .reduce { acc, arg -> acc + arg }
@@ -53,7 +55,9 @@ data class Call(val callee: String,
         val paramVectors = parameters.map { param -> token.get(param) ?: FloatArray(200) { 0.0f } }
                 .reduce { acc, param -> acc + param }
         val baseVector = token.get(base) ?: FloatArray(200) { 0.0f }
-        return InspectionUtils.vectorizeListOfArrays(listOf(nameVector, argVectors, typeVectors,
+        return TensorUtils.vectorizeListOfArrays(listOf(nameVector, argVectors, typeVectors,
                 baseVector, paramVectors))
     }
+
+    override fun vectorize() = this.vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping)
 }

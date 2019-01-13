@@ -29,29 +29,18 @@ class DeepBugsSwappedArgsInspection : PyInspection() {
     ): PsiElementVisitor = Visitor(holder, session)
 
     inner class Visitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : PyInspectionVisitor(holder, session) {
-
         override fun visitPyCallExpression(node: PyCallExpression?) {
             node?.let {
                 Call.collectFromPyNode(it)?.let { call ->
-                    val vector = call.vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping)
-                    vector?.let { input ->
-                        val resTensor = getModel()?.runner()
-                                ?.feed("dropout_1_input:0", input)
-                                ?.fetch("dense_2/Sigmoid:0")
-                                ?.run()?.firstOrNull()
-                        resTensor?.let { tensor ->
-                            val result = InspectionUtils.getResult(tensor)
-                            result.let { res ->
-                                if (res > getThreshold()) {
-                                    registerProblem(node, DeepBugsPluginBundle.message(keyMessage, res),
-                                            ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
-                                }
-                            }
-                        }
+                    val result = InspectionUtils.inspectCodePiece(call, getModel())
+                    result?.let { res ->
+                        if (res > getThreshold())
+                            registerProblem(node, DeepBugsPluginBundle.message(keyMessage, res),
+                                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
                     }
                 }
-                super.visitPyCallExpression(node)
             }
+            super.visitPyCallExpression(node)
         }
     }
 }

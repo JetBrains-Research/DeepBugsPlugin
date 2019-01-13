@@ -4,8 +4,9 @@ import com.beust.klaxon.Klaxon
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyBinaryExpression
+import org.jetbrains.research.groups.ml_methods.deepbugs.datatypes.utils.TensorUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.inspections.utils.InspectionUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import org.tensorflow.Tensor
 import java.io.File
@@ -18,7 +19,7 @@ data class BinOp(val left: String,
                  val rightType: String,
                  val parent: String,
                  val grandParent: String,
-                 val src: String) {
+                 val src: String) : PyDataType {
 
     companion object {
 
@@ -75,7 +76,7 @@ data class BinOp(val left: String,
                 ?: throw ParsingFailedException(path)
     }
 
-    fun vectorize(token: Mapping?, nodeType: Mapping?, type: Mapping?, operator: Mapping?): Tensor<Float>? {
+    private fun vectorize(token: Mapping?, type: Mapping?, nodeType: Mapping?, operator: Mapping?): Tensor<Float>? {
         val leftVector = token?.get(left) ?: return null
         val rightVector = token.get(right) ?: return null
         val leftTypeVector = type?.get(leftType) ?: return null
@@ -83,11 +84,14 @@ data class BinOp(val left: String,
         val operatorVector = operator?.get(op) ?: return null
         val parentVector = nodeType?.get(parent) ?: return null
         val grandParentVector = nodeType.get(grandParent) ?: return null
-        return InspectionUtils.vectorizeListOfArrays(listOf(
+        return TensorUtils.vectorizeListOfArrays(listOf(
                 leftVector, rightVector, operatorVector,
                 leftTypeVector, rightTypeVector,
                 parentVector, grandParentVector))
     }
+
+    override fun vectorize() = this.vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping,
+            ModelsManager.nodeTypeMapping, ModelsManager.operatorMapping)
 }
 
 class ParsingFailedException(path: String) : Exception("Unable to parse file at:\n$path")
