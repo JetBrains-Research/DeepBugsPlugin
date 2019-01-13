@@ -60,7 +60,7 @@ object DownloadClient {
                 download(DownloadProgressWrapper(ProgressManager.getInstance().progressIndicator))
             }
 
-            override fun onFinished() {
+            override fun onSuccess() {
                 ModelsManager.initModels()
             }
 
