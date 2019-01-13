@@ -30,6 +30,3 @@ object JsonUtils {
         return jsonMapper.readValue(serialized, type.constructCollectionType(collection.java, klass.java))
     }
 }
-
-
-

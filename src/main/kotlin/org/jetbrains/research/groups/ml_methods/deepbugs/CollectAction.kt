@@ -88,5 +88,4 @@ class CollectAction : AnAction() {
             super.visitPyBinaryExpression(node)
         }
     }
-
 }

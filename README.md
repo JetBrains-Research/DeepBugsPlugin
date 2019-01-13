@@ -30,4 +30,5 @@ _Inspection_ _name:_ `DeepBugs: Possibly swapped function arguments`
 Code inspection, intended to detect report any function call in which arguments are probably swapped.
 
 ## Configuration
-DeepBugsPlugin computes the probability that a piece of code is an instance of a particular bug pattern. Then it reports possible bugs, if the computed value is above a threshold. Threshold is configurable and could be set manually in `Preferences/Settings | Tools | DeepBugs` or reset to the default state with the `Default` button.
+DeepBugsPlugin computes the probability that a piece of code is an instance of a particular bug pattern. Then it reports possible bugs, if the computed value is above a threshold. 
+Each code inspection uses its own threshold value. Thresholds are configurable and could be set manually in `Preferences/Settings | Tools | DeepBugs` or reset to the default state with the `Default` button.

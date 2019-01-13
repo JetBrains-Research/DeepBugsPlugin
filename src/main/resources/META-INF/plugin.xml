@@ -24,7 +24,9 @@
         <li>DeepBugs: Possibly incorrect binary operand.</li>
         <li>DeepBugs: Possibly swapped function arguments.</li>
     </ul>
-    Threshold is configurable and could be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>.
+    <h4>Configuration</h4>
+    Each code inspection uses its own threshold value to distinguish correct from incorrect code. Thresholds are configurable
+    and could be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>.
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
