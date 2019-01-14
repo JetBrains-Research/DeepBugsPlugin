@@ -1,6 +1,5 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.datatypes
 
-import com.beust.klaxon.Klaxon
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyBinaryExpression
@@ -9,8 +8,6 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.extraction.Extractor
 import org.jetbrains.research.groups.ml_methods.deepbugs.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.utils.Mapping
 import org.tensorflow.Tensor
-import java.io.File
-
 
 data class BinOp(val left: String,
                  val right: String,
@@ -22,7 +19,6 @@ data class BinOp(val left: String,
                  val src: String) : PyDataType {
 
     companion object {
-
         /**
          * Method was introduced because [PyBinaryExpression] references only one operator element
          * but there can be at least two (consider `is not`).
@@ -66,14 +62,6 @@ data class BinOp(val left: String,
             val grandParent = node.parent.parent.javaClass.simpleName ?: ""
             return BinOp(leftName, rightName, op, leftType, rightType, parent, grandParent, src)
         }
-
-        /**
-         * Read json with binary operations from file.
-         * @param path path to file.
-         * @return list of [BinOp] parsed from file.
-         */
-        fun readBinOps(path: String) = Klaxon().parseArray<BinOp>(File(path).inputStream())
-                ?: throw ParsingFailedException(path)
     }
 
     private fun vectorize(token: Mapping?, type: Mapping?, nodeType: Mapping?, operator: Mapping?): Tensor<Float>? {
@@ -93,5 +81,3 @@ data class BinOp(val left: String,
     override fun vectorize() = vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping,
             ModelsManager.nodeTypeMapping, ModelsManager.operatorMapping)
 }
-
-class ParsingFailedException(path: String) : Exception("Unable to parse file at:\n$path")
