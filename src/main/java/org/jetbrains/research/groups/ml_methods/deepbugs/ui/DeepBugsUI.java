@@ -4,6 +4,7 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.settings.DeepBugsInspec
 
 import javax.swing.*;
 
+@SuppressWarnings("unused")
 public class DeepBugsUI {
     private JPanel rootPanel;
     private JLabel binOperatorThreshold;
@@ -37,7 +38,7 @@ public class DeepBugsUI {
     }
 
     public void setBinOperatorThreshold(float value) {
-        binOperatorThresholdSlider.setValue((int) (value * 100.0f));
+        binOperatorThresholdSlider.setValue((int)(value * 100.0f));
     }
 
     public float getBinOperandThreshold() {
@@ -45,7 +46,7 @@ public class DeepBugsUI {
     }
 
     public void setBinOperandThreshold(float value) {
-        binOperandThresholdSlider.setValue((int) (value * 100.0f));
+        binOperandThresholdSlider.setValue((int)(value * 100.0f));
     }
 
     public float getSwappedArgsThreshold() {
@@ -53,6 +54,6 @@ public class DeepBugsUI {
     }
 
     public void setSwappedArgsThreshold(float value) {
-        swappedArgsThresholdSlider.setValue((int) (value * 100.0f));
+        swappedArgsThresholdSlider.setValue((int)(value * 100.0f));
     }
 }

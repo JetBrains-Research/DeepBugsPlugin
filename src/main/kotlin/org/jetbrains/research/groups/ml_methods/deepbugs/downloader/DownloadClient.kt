@@ -53,27 +53,8 @@ object DownloadClient {
         DownloadProgressProvider.getProgress = progressFuncLast
     }
 
-    private fun downloadAndInitModels() {
-        ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
-                DeepBugsPluginBundle.message("download.task.title"), true) {
-            override fun run(indicator: ProgressIndicator) {
-                download(DownloadProgressWrapper(ProgressManager.getInstance().progressIndicator))
-            }
-
-            override fun onSuccess() {
-                ModelsManager.initModels()
-            }
-
-            //TODO: downloadModels inside task?? meh.
-            override fun onThrowable(error: Throwable) {
-                DeepBugsNotifier.notifyWithAction(DeepBugsPluginBundle.message("error.notification.message"),
-                        NotificationType.ERROR, DeepBugsPluginBundle.message("restart.download.text"), DownloadClient::downloadAndInitModels)
-            }
-
-            override fun onCancel() {
-                DeepBugsNotifier.notifyWithAction(DeepBugsPluginBundle.message("cancel.notification.message"),
-                        NotificationType.WARNING, DeepBugsPluginBundle.message("restart.download.text"), DownloadClient::downloadAndInitModels)
-            }
-        })
+    fun downloadAndInitModels() {
+        ProgressManager.getInstance().run(DownloadTask(ProjectManager.getInstance().defaultProject,
+                DeepBugsPluginBundle.message("download.task.title"), true, DownloadClient::download))
     }
 }
