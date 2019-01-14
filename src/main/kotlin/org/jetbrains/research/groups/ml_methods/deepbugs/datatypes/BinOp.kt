@@ -90,7 +90,7 @@ data class BinOp(val left: String,
                 parentVector, grandParentVector))
     }
 
-    override fun vectorize() = this.vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping,
+    override fun vectorize() = vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping,
             ModelsManager.nodeTypeMapping, ModelsManager.operatorMapping)
 }
 

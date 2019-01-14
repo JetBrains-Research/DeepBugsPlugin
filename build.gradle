@@ -27,8 +27,6 @@ runIde {
     jvmArgs '-Xms1024m', '-Xmx10g'
 }
 
-
-
 patchPluginXml {
     sinceBuild '171'
     untilBuild ''
@@ -48,8 +46,8 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile "org.tensorflow:tensorflow:${tf_version}"
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8'
+    compile group: 'org.tensorflow', name: 'tensorflow', version: tf_version
     compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.+'
     compile group: 'com.beust', name: 'klaxon', version: '3.0.1'
     compile group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'

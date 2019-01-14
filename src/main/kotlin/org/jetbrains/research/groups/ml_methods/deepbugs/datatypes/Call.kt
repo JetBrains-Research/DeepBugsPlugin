@@ -59,5 +59,5 @@ data class Call(val callee: String,
                 baseVector, paramVectors))
     }
 
-    override fun vectorize() = this.vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping)
+    override fun vectorize() = vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping)
 }
