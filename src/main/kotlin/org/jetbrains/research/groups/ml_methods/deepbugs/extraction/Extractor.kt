@@ -1,15 +1,8 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.extraction
 
-import com.intellij.ide.actions.QualifiedNameProviderUtil
-import com.intellij.psi.util.QualifiedName
 import com.jetbrains.python.PyNames
 import com.jetbrains.python.PyTokenTypes
-import com.jetbrains.python.hierarchy.call.PyCallHierarchyBrowser
-import com.jetbrains.python.hierarchy.call.PyCallerFunctionTreeStructure
 import com.jetbrains.python.psi.*
-import com.jetbrains.python.psi.impl.PyCallExpressionHelper
-import com.jetbrains.python.psi.impl.PyCallExpressionNavigator
-import org.eclipse.jdt.internal.compiler.ast.QualifiedNameReference
 
 fun String.asLiteralString() = "LIT:$this"
 
