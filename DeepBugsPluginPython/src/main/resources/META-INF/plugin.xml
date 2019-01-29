@@ -1,0 +1,65 @@
+<idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
+    <name>DeepBugsPython</name>
+    <id>DeepBugsPython</id>
+    <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey Bryksin
+    </vendor>
+    <version>0.1</version>
+    <description><![CDATA[
+    DeepBugsPlugin provides several code inspections intended for detecting bugs.
+    <h4>Requirements</h4>
+    Currently available only for a 64-bit JVM.<br>
+    Plugin requires model files to perform code analysis.
+    It would be suggested to download required files when the plugin is
+    launched for the first time.
+    <h4>Using inspections</h4>
+    <ol>
+        <li>Select  <code>Analyze | Run inspection by name...</code>
+            or <code>Code | Run inspection by name...</code>menu item.</li>
+        <li>Select the desired code inspection.</li>
+        <li>Set inspection options and click OK.</li>
+    </ol>
+    <h4>Available code inspections</h4>
+    <ul>
+        <li>DeepBugs: Possibly incorrect binary operator.</li>
+        <li>DeepBugs: Possibly incorrect binary operand.</li>
+        <li>DeepBugs: Possibly swapped function arguments.</li>
+    </ul>
+    <h4>Configuration</h4>
+    Each code inspection uses its own threshold value to distinguish correct from incorrect code. Thresholds are configurable
+    and could be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>.
+    ]]></description>
+
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.python</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <inspectionToolProvider
+                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.python.inspection_providers.PyDeepBugsProvider"/>
+        <errorHandler
+                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting.GitHubErrorReporter"/>
+        <applicationService
+                serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfig"/>
+        <applicationConfigurable groupId="tools" displayName="DeepBugsPython"
+                                 instance="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfigurable"/>
+
+    </extensions>
+
+    <!--<actions>
+         <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
+             <add-to-group group-id="MainMenu" anchor="last"/>
+             <action
+                     class="org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
+                     id="DeepBugs.org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
+                     text="Collect Data"
+                     description="Collect Data from files under project root"
+             />
+         </group>
+         Action for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if
+         needed
+
+         <action id="error_reporting.TriggerExceptionAction"
+                 class="error_reporting.TriggerExceptionAction" text="FireArtificialException">
+             <add-to-group group-id="ToolsMenu" anchor="first"/>
+            </action>
+     </actions>-->
+</idea-plugin>

@@ -1,0 +1,3 @@
+rootProject.name = 'DeepBugsPluginPython'
+include ':services'
+project(":services").projectDir = file("../services")
