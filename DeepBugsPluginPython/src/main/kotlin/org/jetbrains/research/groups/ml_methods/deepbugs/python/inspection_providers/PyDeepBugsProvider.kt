@@ -5,13 +5,14 @@ import com.intellij.openapi.application.PathManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.PyDeepBugsBinOperandInspection
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.PyDeepBugsBinOperatorInspection
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.PyDeepBugsSwappedArgsInspection
+import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.TensorFlowPlatformUtils
 import java.nio.file.Paths
 
 class PyDeepBugsProvider : InspectionToolProvider {
 
     init {
-        TensorFlowPlatformUtils.loadLibs(Paths.get(PathManager.getPluginsPath(), "DeepBugsPython").toString())
+        TensorFlowPlatformUtils.loadLibs(Paths.get(PathManager.getPluginsPath(), DeepBugsPythonBundle.message("plugin.name"), "bundlers").toString())
     }
 
     override fun getInspectionClasses(): Array<Class<*>> {

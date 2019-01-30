@@ -1,21 +1,21 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.python.settings
+package org.jetbrains.research.groups.ml_methods.deepbugs.javascript.settings
 
 import com.intellij.openapi.options.Configurable
-import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonBundle
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSBundle
 import javax.swing.JComponent
 
-class PyDeepBugsInspectionConfigurable(private val settings: PyDeepBugsInspectionConfig) : Configurable {
+class JSDeepBugsInspectionConfigurable(private val settings: JSDeepBugsInspectionConfig) : Configurable {
     companion object {
         const val defaultBinOperatorConfig: Float = 0.94f
         const val defaultBinOperandConfig: Float = 0.95f
         const val defaultSwappedArgsConfig: Float = 0.96f
     }
 
-    private var deepBugsUI: PyDeepBugsUI? = null
+    private var deepBugsUI: JSDeepBugsUI? = null
 
     override fun getHelpTopic(): String? = null
 
-    override fun getDisplayName() = DeepBugsPythonBundle.message("plugin.name")
+    override fun getDisplayName() = DeepBugsJSBundle.message("plugin.name")
 
     override fun isModified() =
             (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
@@ -40,7 +40,7 @@ class PyDeepBugsInspectionConfigurable(private val settings: PyDeepBugsInspectio
     }
 
     override fun createComponent(): JComponent? {
-        deepBugsUI = PyDeepBugsUI()
+        deepBugsUI = JSDeepBugsUI()
         deepBugsUI!!.binOperatorThreshold = settings.curBinOperatorThreshold
         deepBugsUI!!.binOperandThreshold = settings.curBinOperandThreshold
         deepBugsUI!!.swappedArgsThreshold = settings.curSwappedArgsThreshold

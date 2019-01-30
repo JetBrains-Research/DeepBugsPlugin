@@ -11,6 +11,10 @@ repositories {
     jcenter()
 }
 
+intellij {
+    downloadSources = false
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'
