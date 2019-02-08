@@ -3,7 +3,7 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.datatypes
 import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.python.models_manager.ModelsManager
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Call
 
 class PyCall(callee: String,
@@ -46,3 +46,5 @@ class PyCall(callee: String,
 
     override fun vectorize() = vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping)
 }
+
+fun PyCallExpression.collectFromPyNode() = PyCall.collectFromPyNode(this)

@@ -4,7 +4,7 @@ import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.python.models_manager.ModelsManager
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.BinOp
 
 class PyBinOp(left: String,
@@ -65,3 +65,5 @@ class PyBinOp(left: String,
     override fun vectorize() = vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping,
             ModelsManager.nodeTypeMapping, ModelsManager.operatorMapping)
 }
+
+fun PyBinaryExpression.collectFromPyNode() = PyBinOp.collectFromPyNode(this)

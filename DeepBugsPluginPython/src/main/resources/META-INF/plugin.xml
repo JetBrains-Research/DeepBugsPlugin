@@ -26,7 +26,7 @@
     </ul>
     <h4>Configuration</h4>
     Each code inspection uses its own threshold value to distinguish correct from incorrect code. Thresholds are configurable
-    and could be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>.
+    and could be set manually in <code>Preferences/Settings | Tools | DeepBugsPython</code>.
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
@@ -38,8 +38,9 @@
         <errorHandler
                 implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting.GitHubErrorReporter"/>
         <applicationService
-                serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.JSDeepBugsInspectionConfig"/>
-        <applicationConfigurable groupId="tools" displayName="DeepBugsPython"
+                serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfig"/>
+        <applicationConfigurable groupId="tools"
+                                 displayName="DeepBugsPython"
                                  instance="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfigurable"/>
 
     </extensions>

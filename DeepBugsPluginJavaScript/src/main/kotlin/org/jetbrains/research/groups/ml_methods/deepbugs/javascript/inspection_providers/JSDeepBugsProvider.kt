@@ -1,19 +1,19 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspection_providers
 
 import com.intellij.codeInspection.InspectionToolProvider
-import com.intellij.openapi.application.PathManager
-import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSBundle
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.TensorFlowPlatformUtils
-import java.nio.file.Paths
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.JSDeepBugsBinOperandInspection
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.JSDeepBugsBinOperatorInspection
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.JSDeepBugsSwappedArgsInspection
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformUtils
 
 class JSDeepBugsProvider : InspectionToolProvider {
 
     init {
-        TensorFlowPlatformUtils.loadLibs(Paths.get(PathManager.getPluginsPath(), DeepBugsJSBundle.message("plugin.name"), "bundlers").toString())
+        PlatformUtils.loadLibs()
     }
 
     override fun getInspectionClasses(): Array<Class<*>> {
-        //TODO: return array of implemented inspections
-        return arrayOf()
+        return arrayOf(JSDeepBugsBinOperatorInspection::class.java, JSDeepBugsBinOperandInspection::class.java,
+                JSDeepBugsSwappedArgsInspection::class.java)
     }
 }
