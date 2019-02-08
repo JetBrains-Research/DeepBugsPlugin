@@ -6,7 +6,7 @@ This plugin provides several code inspections which objectives are to analyze th
 
 ## Supported languages
 - Python ([DeepBugs plugin for Python](https://github.com/ml-in-programming/DeepBugsPlugin/tree/master/DeepBugsPluginPython))
-- JavaScript(coming soon)
+- JavaScript([DeepBugs plugin for JavaScript](https://github.com/ml-in-programming/DeepBugsPlugin/tree/master/DeepBugsPluginJavaScript))
 
 ## Requirements
 Currently available only for a 64-bit JVM.
