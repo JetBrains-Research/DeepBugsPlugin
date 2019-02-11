@@ -17,6 +17,7 @@ object DeepBugsJSService {
     private val session = UUID.randomUUID().toString()
     private val logStorage = LogRecordCollector()
 
+    //TODO: add model files
     // init {
     //    val client = DownloadClient(PLUGIN_NAME) { DeepBugsJSService.models.initModels() }
     //    client.checkRepos()

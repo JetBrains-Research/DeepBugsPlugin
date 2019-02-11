@@ -31,7 +31,7 @@ class PlatformManager<T> private constructor(klass: Class<T>) {
         System.load(libPath.toString())
     }
 
-    fun loadLibs() {
+    fun checkPlatform() {
         //TensorFlow Java API is currently available only for 64-bit systems
         if (!SystemInfo.is64Bit)
             throw PlatformException(DeepBugsPluginServicesBundle.message("platform.exception.message", getPluginName()))
@@ -42,7 +42,7 @@ class PlatformManager<T> private constructor(klass: Class<T>) {
     }
 
     companion object {
-        fun <T> getInstance(klass: Class<T>) = PlatformManager(klass)
+        fun <T> checkPlatformAndDependencies(klass: Class<T>) = PlatformManager(klass).checkPlatform()
     }
 
 }

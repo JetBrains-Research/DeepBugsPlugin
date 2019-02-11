@@ -9,7 +9,7 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.Platform
 class JSDeepBugsProvider : InspectionToolProvider {
 
     init {
-        PlatformManager.getInstance(JSDeepBugsProvider::class.java).loadLibs()
+        PlatformManager.checkPlatformAndDependencies(JSDeepBugsProvider::class.java)
     }
 
     override fun getInspectionClasses(): Array<Class<*>> {
