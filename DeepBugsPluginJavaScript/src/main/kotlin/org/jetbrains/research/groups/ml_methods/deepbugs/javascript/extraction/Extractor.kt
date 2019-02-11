@@ -20,8 +20,7 @@ object Extractor {
                 if (operand is JSLiteralExpression && operand.isNumericLiteral)
                     JSNumberParser.tryParseBigInt(operand.significantValue)?.negate().toString().asLiteralString()
                 else null
-            }
-            else null
+            } else null
         }
         is JSCallExpression -> extractJSNodeName(node.methodExpression)
         is JSParameter -> node.text.asIdentifierString()
@@ -31,12 +30,12 @@ object Extractor {
     fun extractJSNodeType(node: JSElement?): String = when (node) {
         is JSThisExpression -> "object"
         is JSLiteralExpression -> {
-            when(node.getExpressionKind(false)) {
+            when (node.getExpressionKind(false)) {
                 JSLiteralExpressionKind.BOOLEAN -> "boolean"
                 JSLiteralExpressionKind.REGEXP -> "regex"
                 JSLiteralExpressionKind.QUOTED -> "string"
                 else -> if (node.isNumericLiteral) "number"
-                        else "unknown"
+                else "unknown"
             }
         }
         is JSPrefixExpression -> extractJSNodeType(node.expression)

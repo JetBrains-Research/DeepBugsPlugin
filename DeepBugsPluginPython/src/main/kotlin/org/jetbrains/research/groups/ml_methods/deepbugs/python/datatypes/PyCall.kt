@@ -3,7 +3,7 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.datatypes
 import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.models_manager.ModelsManager
+import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Call
 
 class PyCall(callee: String,
@@ -11,10 +11,11 @@ class PyCall(callee: String,
              argumentTypes: List<String>,
              base: String,
              parameters: List<String>,
-             src: String) : Call(callee, arguments, argumentTypes, base, parameters, src) {
+             src: String
+) : Call(callee, arguments, argumentTypes, base, parameters, src) {
 
     companion object {
-
+        private const val SUPPORTED_ARGS_NUM = 2
         /**
          * Extract information from [PyCallExpression] and build [PyCall].
          * @param node [PyCallExpression] that should be processed.
@@ -22,7 +23,7 @@ class PyCall(callee: String,
          */
         fun collectFromPyNode(node: PyCallExpression, src: String = ""): PyCall? {
 
-            if (node.arguments.size != 2)
+            if (node.arguments.size != SUPPORTED_ARGS_NUM)
                 return null
             val name = Extractor.extractPyNodeName(node.callee) ?: return null
             val args = mutableListOf<String>()
@@ -44,7 +45,5 @@ class PyCall(callee: String,
         }
     }
 
-    override fun vectorize() = vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping)
+    override fun vectorize() = DeepBugsPythonService.models.let { storage -> vectorize(storage.tokenMapping, storage.typeMapping) }
 }
-
-fun PyCallExpression.collectFromPyNode() = PyCall.collectFromPyNode(this)

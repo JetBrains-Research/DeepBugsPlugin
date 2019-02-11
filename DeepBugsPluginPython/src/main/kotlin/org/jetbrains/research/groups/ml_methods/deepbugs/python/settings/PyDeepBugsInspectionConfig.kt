@@ -8,9 +8,9 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 
 @State(name = "deepbugs_python_config", storages = [Storage("deepbugs_python_config.xml")])
 class PyDeepBugsInspectionConfig : PersistentStateComponent<PyDeepBugsInspectionConfig> {
-    var curBinOperatorThreshold = PyDeepBugsInspectionConfigurable.defaultBinOperatorConfig
-    var curBinOperandThreshold = PyDeepBugsInspectionConfigurable.defaultBinOperandConfig
-    var curSwappedArgsThreshold = PyDeepBugsInspectionConfigurable.defaultSwappedArgsConfig
+    var curBinOperatorThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERATOR_CONFIG
+    var curBinOperandThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERAND_CONFIG
+    var curSwappedArgsThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_SWAPPED_ARGS_CONFIG
 
     override fun getState(): PyDeepBugsInspectionConfig = this
 

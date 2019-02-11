@@ -2,24 +2,23 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.settings
 
 import com.intellij.openapi.options.Configurable
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonBundle
-import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.ReportingUtils
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.ThresholdConfigFeatures
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.ThresholdFeatures
-import java.util.*
+import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.ThresholdConfigured
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.ThresholdFeatures
 import javax.swing.JComponent
 
 class PyDeepBugsInspectionConfigurable(private val settings: PyDeepBugsInspectionConfig) : Configurable {
     companion object {
-        const val defaultBinOperatorConfig: Float = 0.94f
-        const val defaultBinOperandConfig: Float = 0.95f
-        const val defaultSwappedArgsConfig: Float = 0.96f
+        const val DEFAULT_BIN_OPERATOR_CONFIG: Float = 0.94f
+        const val DEFAULT_BIN_OPERAND_CONFIG: Float = 0.95f
+        const val DEFAULT_SWAPPED_ARGS_CONFIG: Float = 0.96f
     }
-    private val uuid = UUID.randomUUID()
+
     private var deepBugsUI: PyDeepBugsUI? = null
 
     override fun getHelpTopic(): String? = null
 
-    override fun getDisplayName() = DeepBugsPythonBundle.message("plugin.name")
+    override fun getDisplayName() = DeepBugsPythonService.PLUGIN_NAME
 
     override fun isModified() =
             (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
@@ -28,7 +27,7 @@ class PyDeepBugsInspectionConfigurable(private val settings: PyDeepBugsInspectio
 
 
     override fun apply() {
-        val configFeatures = ThresholdConfigFeatures(
+        val configFeatures = ThresholdConfigured(
                 ThresholdFeatures(settings.curBinOperatorThreshold, deepBugsUI!!.binOperatorThreshold),
                 ThresholdFeatures(settings.curBinOperandThreshold, deepBugsUI!!.binOperandThreshold),
                 ThresholdFeatures(settings.curSwappedArgsThreshold, deepBugsUI!!.swappedArgsThreshold)
@@ -36,7 +35,7 @@ class PyDeepBugsInspectionConfigurable(private val settings: PyDeepBugsInspectio
         settings.curBinOperatorThreshold = deepBugsUI!!.binOperatorThreshold
         settings.curBinOperandThreshold = deepBugsUI!!.binOperandThreshold
         settings.curSwappedArgsThreshold = deepBugsUI!!.swappedArgsThreshold
-        ReportingUtils.sendConfigLog(uuid, configFeatures)
+        DeepBugsPythonService.sendConfigLog(configFeatures)
     }
 
     override fun reset() {

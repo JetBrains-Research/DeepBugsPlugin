@@ -9,23 +9,19 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 
-object PlatformUtils {
-    private val libsRoot = Paths.get(PathManager.getPluginsPath(), getPluginName(), "bundlers").toString()
+class PlatformManager<T> private constructor(klass: Class<T>) {
+    private val pluginId = PluginManager.getPluginByClassName(klass.name)
     private val winDlls = arrayOf("vcruntime140.dll", "msvcp140.dll", "concrt140.dll")
+    private val libsRoot = Paths.get(PathManager.getPluginsPath(), getPluginName(), "bundlers").toString()
 
     private fun getResourceURI(dll: String) = "/bundlers/$dll"
 
-    fun getPluginName(): String {
-        val className = PlatformUtils::class.java.name
-        val id = PluginManager.getPluginByClassName(className)
-        val plugin = PluginManager.getPlugin(id)
-        return plugin?.name ?: throw PlatformException("Cannot define plugin name")
-    }
+    private fun getPluginName() = PluginManager.getPlugin(pluginId)?.name ?: throw PlatformException("Unable to get plugin name")
 
     private fun loadLib(dllPath: String, name: String) {
         val libPath = Paths.get(dllPath, name)
         if (!Files.exists(libPath)) {
-            val input = PlatformUtils::class.java.classLoader.getResourceAsStream(getResourceURI(name))
+            val input = PlatformManager::class.java.classLoader.getResourceAsStream(getResourceURI(name))
             val dll = File(libPath.toString())
             val output = FileUtils.openOutputStream(dll)
             IOUtils.copy(input, output)
@@ -44,6 +40,11 @@ object PlatformUtils {
         File(libsRoot).mkdirs()
         winDlls.forEach { dll -> loadLib(libsRoot, dll) }
     }
+
+    companion object {
+        fun <T> getInstance(klass: Class<T>) = PlatformManager(klass)
+    }
+
 }
 
 class PlatformException(message: String) : Exception(message)

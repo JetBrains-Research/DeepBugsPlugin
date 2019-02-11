@@ -10,12 +10,11 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 object ModelUtils {
-    private val pluginName = PlatformUtils.getPluginName()
-    private fun getModelPath(modelName: String) =
+    private fun getModelPath(pluginName: String, modelName: String) =
             Paths.get(PathManager.getPluginsPath(), pluginName, "models", modelName)
 
-    fun loadMapping(modelName: String, progress: ProgressIndicator): Mapping? {
-        val modelPath = getModelPath(modelName)
+    fun loadMapping(pluginName: String, modelName: String, progress: ProgressIndicator): Mapping? {
+        val modelPath = getModelPath(pluginName, modelName)
         if (Files.exists(modelPath)) {
             progress.text = DeepBugsPluginServicesBundle.message("init.model.file", modelName)
             return Mapping(Parser().parse(modelPath.toString()) as JsonObject)
@@ -23,8 +22,8 @@ object ModelUtils {
         return null
     }
 
-    fun loadModel(modelName: String, progress: ProgressIndicator): Session? {
-        val modelPath = getModelPath(modelName)
+    fun loadModel(pluginName: String, modelName: String, progress: ProgressIndicator): Session? {
+        val modelPath = getModelPath(pluginName, modelName)
         if (Files.exists(modelPath)) {
             progress.text = DeepBugsPluginServicesBundle.message("init.model.file", modelName)
             return SavedModelBundle.load(modelPath.toString(), "serve").session()

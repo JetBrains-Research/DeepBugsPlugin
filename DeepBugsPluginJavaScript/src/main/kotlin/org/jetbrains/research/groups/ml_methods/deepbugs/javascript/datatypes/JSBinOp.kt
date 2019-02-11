@@ -4,7 +4,7 @@ import com.intellij.lang.javascript.psi.JSBinaryExpression
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.models_manager.ModelsManager
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSService
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.BinOp
 
 class JSBinOp(left: String,
@@ -14,7 +14,8 @@ class JSBinOp(left: String,
               rightType: String,
               parent: String,
               grandParent: String,
-              src: String) : BinOp(left, right, op, leftType, rightType, parent, grandParent, src) {
+              src: String
+) : BinOp(left, right, op, leftType, rightType, parent, grandParent, src) {
 
     companion object {
         /**
@@ -37,7 +38,7 @@ class JSBinOp(left: String,
                     if (result != "") result += " "
                     result += firstElement.toString()
                 }
-                firstElement = firstElement //????
+                //firstElement = firstElement //????
             }
             return result
         }
@@ -62,6 +63,7 @@ class JSBinOp(left: String,
         }
     }
 
-    override fun vectorize() = vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping,
-            ModelsManager.nodeTypeMapping, ModelsManager.operatorMapping)
+    override fun vectorize() = DeepBugsJSService.models.let { storage ->
+        vectorize(storage.tokenMapping, storage.typeMapping, storage.nodeTypeMapping, storage.operatorMapping)
+    }
 }

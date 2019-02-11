@@ -1,23 +1,12 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.javascript.datatypes
 
-import com.intellij.lang.javascript.JSRecursiveNodeVisitor
-import com.intellij.lang.javascript.buildTools.JSPsiUtil
-import com.intellij.lang.javascript.flex.JSResolveHelper
-import com.intellij.lang.javascript.hierarchy.call.JSCalleeMethodsTreeStructure
 import com.intellij.lang.javascript.psi.JSCallExpression
 import com.intellij.lang.javascript.psi.JSFunction
-import com.intellij.lang.javascript.psi.JSFunctionDeclaration
-import com.intellij.openapi.paths.PathReference
-import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.models_manager.ModelsManager
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Call
 import com.intellij.lang.javascript.psi.JSReferenceExpression
-import com.intellij.lang.javascript.psi.impl.JSPsiImplUtils
-import com.intellij.lang.javascript.psi.resolve.processors.JSResolveProcessor
-import com.intellij.lang.javascript.psi.util.JSStubBasedPsiTreeUtil
-import com.intellij.lang.javascript.psi.util.JSTreeUtil
-import com.intellij.lang.javascript.psi.util.JSUtils
 import com.intellij.util.ObjectUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.extraction.Extractor
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSService
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Call
 
 
 class JSCall(callee: String,
@@ -25,9 +14,11 @@ class JSCall(callee: String,
              argumentTypes: List<String>,
              base: String,
              parameters: List<String>,
-             src: String) : Call(callee, arguments, argumentTypes, base, parameters, src) {
+             src: String
+) : Call(callee, arguments, argumentTypes, base, parameters, src) {
 
     companion object {
+        private const val SUPPORTED_ARGS_NUM = 2
 
         /**
          * Extract information from [JSCallExpression] and build [JSCall].
@@ -36,7 +27,7 @@ class JSCall(callee: String,
          */
         fun collectFromJSNode(node: JSCallExpression, src: String = ""): JSCall? {
 
-            if (node.arguments.size != 2)
+            if (node.arguments.size != SUPPORTED_ARGS_NUM)
                 return null
             val callee = ObjectUtils.tryCast(node.methodExpression, JSReferenceExpression::class.java) ?: return null
             val name = Extractor.extractJSNodeName(callee) ?: return null
@@ -57,5 +48,5 @@ class JSCall(callee: String,
         }
     }
 
-    override fun vectorize() = vectorize(ModelsManager.tokenMapping, ModelsManager.typeMapping)
+    override fun vectorize() = DeepBugsJSService.models.let { storage -> vectorize(storage.tokenMapping, storage.typeMapping) }
 }

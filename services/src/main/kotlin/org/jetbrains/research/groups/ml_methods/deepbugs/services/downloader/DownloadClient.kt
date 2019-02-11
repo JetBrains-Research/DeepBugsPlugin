@@ -2,28 +2,30 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.services.downloader
 
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.application.PathManager
+import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.Task
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.notifier.DeepBugsNotifier
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.JsonUtils
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformUtils
 import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.reflect.KClass
 
-object DownloadClient {
-    private val pluginName = PlatformUtils.getPluginName()
+class DownloadClient(private val pluginName: String, private val afterDownload: () -> Unit) {
     private val pluginRoot = Paths.get(PathManager.getPluginsPath(), pluginName).toString()
     private val config = DownloadClient::class.java.classLoader.getResource("models.json").readText()
     private val remoteRepo = JsonUtils.readValue(config, Config::class)
+    private val downloader = Downloader(pluginName)
 
     fun checkRepos() {
         when (modelFilesExists()) {
-            true -> ModelsManager.initModels()
+            true -> afterDownload.invoke()
             false -> DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>", DeepBugsPluginServicesBundle.message("download.notification.message"),
-                    NotificationType.INFORMATION, DeepBugsPluginServicesBundle.message("download.text"), DownloadClient::downloadAndInitModels)
+                    NotificationType.INFORMATION, DeepBugsPluginServicesBundle.message("download.text"), ::downloadAndInitModels)
         }
     }
 
@@ -45,16 +47,39 @@ object DownloadClient {
         DownloadProgressProvider.getProgress = { progress }
         remoteRepo.classpath.forEach {
             if (it.url.contains(".zip")) {
-                Downloader.downloadZip(remoteRepo.name, it.name, it.url)
+                downloader.downloadZip(remoteRepo.name, it.name, it.url)
             } else
-                Downloader.downloadFile(remoteRepo.name, it.name, it.url)
+                downloader.downloadFile(remoteRepo.name, it.name, it.url)
         }
         DownloadProgressProvider.getProgress = progressFuncLast
     }
 
     fun downloadAndInitModels() {
         val downloadTask = DownloadTask(ProjectManager.getInstance().defaultProject,
-                DeepBugsPluginServicesBundle.message("download.task.title", pluginName), true, ::download)
+                DeepBugsPluginServicesBundle.message("download.task.title", pluginName), true)
         ProgressManager.getInstance().run(downloadTask)
+    }
+
+    private inner class DownloadTask(project: Project?, message: String, canBeCancelled: Boolean) : Task.Backgroundable(project, message, canBeCancelled) {
+
+        override fun run(indicator: ProgressIndicator) {
+            download(DownloadProgressWrapper(ProgressManager.getInstance().progressIndicator))
+        }
+
+        override fun onSuccess() {
+            afterDownload.invoke()
+        }
+
+        override fun onThrowable(error: Throwable) {
+            DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>",
+                    DeepBugsPluginServicesBundle.message("error.notification.message"),
+                    NotificationType.ERROR, DeepBugsPluginServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
+        }
+
+        override fun onCancel() {
+            DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>",
+                    DeepBugsPluginServicesBundle.message("cancel.notification.message"),
+                    NotificationType.WARNING, DeepBugsPluginServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
+        }
     }
 }

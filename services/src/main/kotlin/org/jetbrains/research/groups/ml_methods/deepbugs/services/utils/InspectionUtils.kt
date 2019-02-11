@@ -3,6 +3,7 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.services.utils
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.DataType
 import org.tensorflow.Session
 import org.tensorflow.Tensor
+import java.nio.FloatBuffer
 
 object InspectionUtils {
 
@@ -15,5 +16,10 @@ object InspectionUtils {
     fun inspectCodePiece(model: Session?, codePiece: DataType) = codePiece.vectorize()?.let { input ->
         model?.runner()?.feed("dropout_1_input:0", input)?.fetch("dense_2/Sigmoid:0")?.run()
                 ?.firstOrNull()?.let { resTensor -> getResult(resTensor) }
+    }
+
+    fun vectorizeListOfArrays(arrayList: List<FloatArray>): Tensor<Float> {
+        val resArray = arrayList.reduce { acc, array -> acc + array }
+        return Tensor.create(longArrayOf(1, resArray.size.toLong()), FloatBuffer.wrap(resArray))
     }
 }

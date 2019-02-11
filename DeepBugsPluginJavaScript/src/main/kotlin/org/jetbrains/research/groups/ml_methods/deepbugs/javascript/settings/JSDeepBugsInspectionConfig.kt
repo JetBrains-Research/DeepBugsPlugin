@@ -8,9 +8,9 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 
 @State(name = "deepbugs_js_config", storages = [Storage("deepbugs_js_config.xml")])
 class JSDeepBugsInspectionConfig : PersistentStateComponent<JSDeepBugsInspectionConfig> {
-    var curBinOperatorThreshold = JSDeepBugsInspectionConfigurable.defaultBinOperatorConfig
-    var curBinOperandThreshold = JSDeepBugsInspectionConfigurable.defaultBinOperandConfig
-    var curSwappedArgsThreshold = JSDeepBugsInspectionConfigurable.defaultSwappedArgsConfig
+    var curBinOperatorThreshold = JSDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERATOR_CONFIG
+    var curBinOperandThreshold = JSDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERAND_CONFIG
+    var curSwappedArgsThreshold = JSDeepBugsInspectionConfigurable.DEFAULT_SWAPPED_ARGS_CONFIG
 
     override fun getState(): JSDeepBugsInspectionConfig = this
 

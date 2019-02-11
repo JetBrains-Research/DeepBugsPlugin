@@ -5,14 +5,14 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.services.ui.DeepBugsUI
 class PyDeepBugsUI : DeepBugsUI() {
     init {
         defaultBinOperatorThreshold.addActionListener {
-            binOperatorThreshold = PyDeepBugsInspectionConfigurable.defaultBinOperatorConfig }
+            binOperatorThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERATOR_CONFIG }
         defaultBinOperandThreshold.addActionListener {
-            binOperandThreshold = PyDeepBugsInspectionConfigurable.defaultBinOperandConfig }
+            binOperandThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERAND_CONFIG }
         defaultSwappedArgsThreshold.addActionListener {
-            swappedArgsThreshold = PyDeepBugsInspectionConfigurable.defaultSwappedArgsConfig }
+            swappedArgsThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_SWAPPED_ARGS_CONFIG }
         defaultAll.addActionListener{
-                    binOperatorThreshold = PyDeepBugsInspectionConfigurable.defaultBinOperatorConfig
-                    binOperandThreshold = PyDeepBugsInspectionConfigurable.defaultBinOperandConfig
-                    swappedArgsThreshold = PyDeepBugsInspectionConfigurable.defaultSwappedArgsConfig }
+                    binOperatorThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERATOR_CONFIG
+                    binOperandThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERAND_CONFIG
+                    swappedArgsThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_SWAPPED_ARGS_CONFIG }
     }
 }

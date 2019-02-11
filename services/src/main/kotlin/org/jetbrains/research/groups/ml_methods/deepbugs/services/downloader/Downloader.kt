@@ -3,7 +3,6 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.services.downloader
 import com.intellij.openapi.application.PathManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.JsonUtils
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.Zip
 import java.io.BufferedInputStream
 import java.io.File
@@ -16,8 +15,8 @@ import kotlin.reflect.KClass
 data class RepositoryRecord(val target: String, val name: String, val printableName: String)
 
 @Suppress("UNCHECKED_CAST")
-object Downloader {
-    private val pluginRoot = Paths.get(PathManager.getPluginsPath(), PlatformUtils.getPluginName()).toString()
+class Downloader(pluginName: String) {
+    private val pluginRoot = Paths.get(PathManager.getPluginsPath(), pluginName).toString()
     private fun getRootPath(name: String) = Paths.get(pluginRoot, name)
     private fun getTargetPath(target: String, name: String) = Paths.get(pluginRoot, target, name)
     private val repositoryFile = getRootPath("repository.json").toFile()

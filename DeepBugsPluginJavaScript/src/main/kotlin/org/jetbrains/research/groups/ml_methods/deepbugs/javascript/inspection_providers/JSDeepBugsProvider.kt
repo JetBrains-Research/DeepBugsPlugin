@@ -4,12 +4,12 @@ import com.intellij.codeInspection.InspectionToolProvider
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.JSDeepBugsBinOperandInspection
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.JSDeepBugsBinOperatorInspection
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.JSDeepBugsSwappedArgsInspection
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformManager
 
 class JSDeepBugsProvider : InspectionToolProvider {
 
     init {
-        PlatformUtils.loadLibs()
+        PlatformManager.getInstance(JSDeepBugsProvider::class.java).loadLibs()
     }
 
     override fun getInspectionClasses(): Array<Class<*>> {

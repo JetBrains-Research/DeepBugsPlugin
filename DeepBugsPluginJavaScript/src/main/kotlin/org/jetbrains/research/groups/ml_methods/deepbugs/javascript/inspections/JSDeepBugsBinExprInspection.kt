@@ -1,11 +1,16 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections
 
-import com.intellij.codeInspection.*
+import com.intellij.codeInspection.LocalInspectionToolSession
+import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.lang.javascript.inspections.JSInspection
 import com.intellij.lang.javascript.psi.JSBinaryExpression
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.datatypes.JSBinOp
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSService
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.NodeType
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.BugReport
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.InspectionUtils
 import org.tensorflow.Session
@@ -27,9 +32,12 @@ abstract class JSDeepBugsBinExprInspection : JSInspection() {
                 JSBinOp.collectFromJSNode(it)?.let { binOp ->
                     val result = InspectionUtils.inspectCodePiece(getModel(), binOp)
                     result?.let { res ->
-                        if (res > getThreshold())
+                        if (res > getThreshold()) {
                             holder.registerProblem(node, DeepBugsPluginServicesBundle.message(keyMessage, res),
                                     ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                            val toReport = BugReport(NodeType.BIN_OP, shortName, res)
+                            DeepBugsJSService.sendInspectionLog(toReport)
+                        }
                     }
                 }
             }

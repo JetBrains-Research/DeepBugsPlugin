@@ -8,9 +8,11 @@ import com.intellij.lang.javascript.psi.JSCallExpression
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.datatypes.JSCall
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.settings.JSDeepBugsInspectionConfig
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSBundle
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSService
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.NodeType
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.BugReport
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.InspectionUtils
 
@@ -21,7 +23,7 @@ class JSDeepBugsSwappedArgsInspection : JSInspection() {
     override fun getShortName(): String = DeepBugsJSBundle.message("swapped.args.inspection.short.name")
 
     private fun getThreshold() = JSDeepBugsInspectionConfig.getInstance().curSwappedArgsThreshold
-    private fun getModel() = ModelsManager.swappedArgsModel
+    private fun getModel() = DeepBugsJSService.models.swappedArgsModel
 
     override fun createVisitor(
             holder: ProblemsHolder,
@@ -34,9 +36,12 @@ class JSDeepBugsSwappedArgsInspection : JSInspection() {
                 JSCall.collectFromJSNode(it)?.let { call ->
                     val result = InspectionUtils.inspectCodePiece(getModel(), call)
                     result?.let { res ->
-                        if (res > getThreshold())
+                        if (res > getThreshold()) {
                             holder.registerProblem(node, DeepBugsPluginServicesBundle.message(keyMessage, res),
                                     ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                            val toReport = BugReport(NodeType.CALL, shortName, res)
+                            DeepBugsJSService.sendInspectionLog(toReport)
+                        }
                     }
                 }
             }

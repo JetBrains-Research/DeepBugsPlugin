@@ -55,7 +55,7 @@
                      description="Collect Data from files under project root"
              />
          </group>
-         Action for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if
+         EventType for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if
          needed
 
          <action id="error_reporting.TriggerExceptionAction"

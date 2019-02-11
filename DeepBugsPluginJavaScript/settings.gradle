@@ -1,0 +1,4 @@
+rootProject.name = 'DeepBugsPluginJavaScript'
+include ':services'
+project(":services").projectDir = file("../services")
+

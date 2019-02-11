@@ -8,10 +8,10 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.services.downloader.Dow
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.Mapping
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.ModelUtils
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformManager
 import org.tensorflow.Session
 
-object ModelsManager {
+class ModelsManager(private val pluginName: String)  {
     var nodeTypeMapping: Mapping? = null
         private set
     var tokenMapping: Mapping? = null
@@ -27,22 +27,18 @@ object ModelsManager {
     var swappedArgsModel: Session? = null
         private set
 
-    init {
-        DownloadClient.checkRepos()
-    }
-
     fun initModels() {
         ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
-                DeepBugsPluginServicesBundle.message("initialize.task.title", PlatformUtils.getPluginName()), false) {
+                DeepBugsPluginServicesBundle.message("initialize.task.title", pluginName), false) {
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
-                nodeTypeMapping = ModelUtils.loadMapping("nodeTypeToVector.json", indicator)
-                typeMapping = ModelUtils.loadMapping("typeToVector.json", indicator)
-                operatorMapping = ModelUtils.loadMapping("operatorToVector.json", indicator)
-                tokenMapping = ModelUtils.loadMapping("tokenToVector.json", indicator)
-                binOperandModel = ModelUtils.loadModel("binOperandDetectionModel", indicator)
-                binOperatorModel = ModelUtils.loadModel("binOperatorDetectionModel", indicator)
-                swappedArgsModel = ModelUtils.loadModel("swappedArgsDetectionModel", indicator)
+                nodeTypeMapping = ModelUtils.loadMapping(pluginName,"nodeTypeToVector.json", indicator)
+                typeMapping = ModelUtils.loadMapping(pluginName,"typeToVector.json", indicator)
+                operatorMapping = ModelUtils.loadMapping(pluginName,"operatorToVector.json", indicator)
+                tokenMapping = ModelUtils.loadMapping(pluginName,"tokenToVector.json", indicator)
+                binOperandModel = ModelUtils.loadModel(pluginName,"binOperandDetectionModel", indicator)
+                binOperatorModel = ModelUtils.loadModel(pluginName, "binOperatorDetectionModel", indicator)
+                swappedArgsModel = ModelUtils.loadModel(pluginName,"swappedArgsDetectionModel", indicator)
             }
         })
     }

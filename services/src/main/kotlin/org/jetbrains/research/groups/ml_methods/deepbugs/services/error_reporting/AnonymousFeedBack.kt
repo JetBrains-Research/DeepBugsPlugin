@@ -37,7 +37,7 @@ internal object AnonymousFeedback {
         usersInformationToPresentableForm[IS_EAP] = "Is EAP"
         usersInformationToPresentableForm[APP_BUILD] = "App Build"
         usersInformationToPresentableForm[APP_VERSION] = "App Version"
-        usersInformationToPresentableForm[LAST_ACTION] = "Last Action"
+        usersInformationToPresentableForm[LAST_ACTION] = "Last EventType"
         usersInformationToPresentableForm[PERMANENT_INSTALLATION_ID] = "User's Permanent Installation ID"
     }
 

@@ -1,67 +1,95 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.log_reporter
 
+import com.google.common.net.HttpHeaders
 import com.google.gson.Gson
+import com.intellij.openapi.application.ApplicationInfo
+import com.intellij.openapi.application.ApplicationNamesInfo
 import com.intellij.openapi.application.PermanentInstallationID
+import com.intellij.openapi.diagnostic.Logger
+import com.intellij.util.io.HttpRequests
+import org.apache.commons.codec.binary.Base64OutputStream
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.EventType
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.LogRecord
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.LogData
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformManager
+import java.io.ByteArrayOutputStream
+import java.util.zip.GZIPOutputStream
 
-import java.util.UUID
-import java.util.concurrent.BlockingQueue
-import java.util.concurrent.LinkedBlockingQueue
+private class StatsServerInfo(
+        @JvmField var status: String,
+        @JvmField var url: String,
+        @JvmField var urlForZipBase64Content: String
+) {
+    fun isServiceAlive() = "ok" == status
+}
 
-class DeepBugsLogReporter {
-    private val messages = LinkedBlockingQueue<String>()
-    private val gson = Gson()
+private val gson by lazy { Gson() }
 
-    init {
-        val uploaderThread = Thread(Uploader(messages))
-        uploaderThread.start()
-    }
+object DeepBugsLogReporter {
+    private const val infoUrl = "https://www.jetbrains.com/config/features-service-status.json"
+    private val LOG = Logger.getInstance(DeepBugsLogReporter::class.java)
 
-    fun <T: Any> log(sessionID: UUID, t: T, pluginName: String) {
-        val builder = System.currentTimeMillis().toString() +
-                "\t" +
-                pluginName +
-                "\t" +
-                1 +
-                "\t" +
-                PermanentInstallationID.get() +
-                "\t" +
-                sessionID +
-                "\t" +
-                "-1" +
-                "\t" +
-                "report" +
-                "\t" +
-                gson.toJson(t, t::class.java)
-        messages.offer(builder)
-    }
-
-    private inner class Uploader internal constructor(private val queue: BlockingQueue<String>) : Runnable {
-
-        override fun run() {
-            var errors = 0
-            val maxErrors = 5
-
-            while (true) {
-                try {
-                    if (errors > maxErrors) {
-                        Thread.sleep((10000 * errors).toLong())
-                    }
-
-                    val message = queue.take()
-
-                    if (!TestStatsSender.send(message)) {
-                        errors++
-                        queue.put(message)
-                    } else {
-                        errors = 0
-                    }
-
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-
-            }
-
+    private fun requestServerUrl(): StatsServerInfo? {
+        try {
+            val info = gson.fromJson(HttpRequests.request(infoUrl).readString(), StatsServerInfo::class.java)
+            if (info.isServiceAlive()) return info
         }
+        catch (e: Exception) {
+            LOG.debug(e)
+        }
+        return null
     }
+
+    private fun executeRequest(info: StatsServerInfo, text: String, compress: Boolean) {
+        if (compress) {
+            val data = Base64GzipCompressor.compress(text)
+            HttpRequests
+                    .post(info.urlForZipBase64Content, null)
+                    .tuner { it.setRequestProperty(HttpHeaders.CONTENT_ENCODING, "gzip") }
+                    .write(data)
+            return
+        }
+
+        HttpRequests.post(info.url, "text/html").write(text)
+    }
+
+    fun send(text: String, compress: Boolean = true): Boolean {
+        val info = requestServerUrl() ?: return false
+        try {
+            executeRequest(info, text, compress)
+            return true
+        }
+        catch (e: Exception) {
+            LOG.debug(e)
+        }
+        return false
+    }
+}
+
+private object Base64GzipCompressor {
+    fun compress(text: String): ByteArray {
+        val outputStream = ByteArrayOutputStream()
+        val base64Stream = GZIPOutputStream(Base64OutputStream(outputStream))
+        base64Stream.write(text.toByteArray())
+        base64Stream.close()
+        return outputStream.toByteArray()
+    }
+}
+
+fun createLogRecord(sessionId: String, recorderId: String, recorderVersion: String, eventType: EventType, logData: LogData): String {
+    val timestamp = System.currentTimeMillis()
+    val userId = PermanentInstallationID.get()
+    val product = ApplicationNamesInfo.getInstance().productName
+    val build = ApplicationInfo.getInstance().build.asStringWithoutProductCodeAndSnapshot()
+    val log = LogRecord(
+            product = product,
+            userId = userId,
+            build = build,
+            timestamp = timestamp,
+            sessionId = sessionId,
+            recorderId = recorderId,
+            recorderVersion = recorderVersion,
+            eventType = eventType,
+            event = logData)
+    return log.toTabString()
 }

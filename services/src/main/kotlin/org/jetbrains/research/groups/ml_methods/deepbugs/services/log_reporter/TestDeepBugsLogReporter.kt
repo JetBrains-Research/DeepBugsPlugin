@@ -4,9 +4,9 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.util.io.HttpRequests
 
 //simple test localhost logger
-object TestStatsSender {
+object TestDeepBugsLogReporter {
     private const val reportUrl = "http://localhost:3000/test/reported"
-    private val LOG = Logger.getInstance(TestStatsSender::class.java)
+    private val LOG = Logger.getInstance(TestDeepBugsLogReporter::class.java)
 
     fun send(text: String): Boolean {
         try {
