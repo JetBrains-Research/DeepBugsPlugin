@@ -6,7 +6,7 @@ import org.jetbrains.annotations.PropertyKey
 import java.lang.ref.Reference
 import java.util.*
 
-object DeepBugsPluginServicesBundle {
+object DeepBugsServicesBundle {
     private const val BUNDLE = "DeepBugsPluginServicesBundle"
     private var INSTANCE: Reference<ResourceBundle>? = null
 

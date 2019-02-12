@@ -1,4 +1,4 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events
+package org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events
 
 data class ThresholdFeatures(
         val oldValue: Float,

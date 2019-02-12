@@ -1,8 +1,8 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.services.logging
+package org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging
 
 import com.google.gson.Gson
 import org.jetbrains.annotations.NotNull
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.LogData
+import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events.LogData
 
 object GsonUtils {
     val gson = Gson()

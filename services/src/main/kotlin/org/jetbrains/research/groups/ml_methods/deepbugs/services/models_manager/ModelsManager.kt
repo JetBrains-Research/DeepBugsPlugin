@@ -4,11 +4,9 @@ import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.ProjectManager
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.downloader.DownloadClient
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.Mapping
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.ModelUtils
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformManager
 import org.tensorflow.Session
 
 class ModelsManager(private val pluginName: String)  {
@@ -29,7 +27,7 @@ class ModelsManager(private val pluginName: String)  {
 
     fun initModels() {
         ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
-                DeepBugsPluginServicesBundle.message("initialize.task.title", pluginName), false) {
+                DeepBugsServicesBundle.message("initialize.task.title", pluginName), false) {
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
                 nodeTypeMapping = ModelUtils.loadMapping(pluginName,"nodeTypeToVector.json", indicator)

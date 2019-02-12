@@ -1,4 +1,4 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.services.log_reporter
+package org.jetbrains.research.groups.ml_methods_deepbugs.logger.log_reporter
 
 import com.google.common.net.HttpHeaders
 import com.google.gson.Gson
@@ -8,10 +8,9 @@ import com.intellij.openapi.application.PermanentInstallationID
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.util.io.HttpRequests
 import org.apache.commons.codec.binary.Base64OutputStream
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.EventType
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.LogRecord
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.LogData
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.PlatformManager
+import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.EventType
+import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.LogRecord
+import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events.LogData
 import java.io.ByteArrayOutputStream
 import java.util.zip.GZIPOutputStream
 

@@ -1,4 +1,4 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.services.log_reporter
+package org.jetbrains.research.groups.ml_methods_deepbugs.logger.log_reporter
 
 import kotlin.concurrent.thread
 
@@ -15,13 +15,13 @@ class LogRecordCollector {
         collectedReports.add(report)
     }
 
-    fun dump() {
-        val reportsToSent = collectedReports.toList()
+    private fun dump() {
+        val reportsToSend = collectedReports.toList()
         collectedReports.clear()
         size = 0
         lastSendingThread = thread {
             //TODO: change to DeepBugsLogReporter.send
-            TestDeepBugsLogReporter.send(reportsToSent.joinToString(System.lineSeparator()))
+            TestDeepBugsLogReporter.send(reportsToSend.joinToString(System.lineSeparator()))
         }
     }
 

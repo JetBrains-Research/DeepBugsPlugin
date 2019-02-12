@@ -2,8 +2,8 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.javascript.settings
 
 import com.intellij.openapi.options.Configurable
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSService
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.ThresholdConfigured
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.ThresholdFeatures
+import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events.ThresholdConfigured
+import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events.ThresholdFeatures
 import javax.swing.JComponent
 
 class JSDeepBugsInspectionConfigurable(private val settings: JSDeepBugsInspectionConfig) : Configurable {
@@ -17,7 +17,7 @@ class JSDeepBugsInspectionConfigurable(private val settings: JSDeepBugsInspectio
 
     override fun getHelpTopic(): String? = null
 
-    override fun getDisplayName() = DeepBugsJSService.PLUGIN_NAME
+    override fun getDisplayName() = DeepBugsJSService.JS_PLUGIN_NAME
 
     override fun isModified() =
             (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||

@@ -12,8 +12,8 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.settings.JSD
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSService
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.NodeType
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.BugReport
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
+import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events.BugReport
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.InspectionUtils
 
 class JSDeepBugsSwappedArgsInspection : JSInspection() {
@@ -37,9 +37,9 @@ class JSDeepBugsSwappedArgsInspection : JSInspection() {
                     val result = InspectionUtils.inspectCodePiece(getModel(), call)
                     result?.let { res ->
                         if (res > getThreshold()) {
-                            holder.registerProblem(node, DeepBugsPluginServicesBundle.message(keyMessage, res),
+                            holder.registerProblem(node, DeepBugsServicesBundle.message(keyMessage, res),
                                     ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
-                            val toReport = BugReport(NodeType.CALL, shortName, res)
+                            val toReport = BugReport(NodeType.CALL.nodeName, shortName, res)
                             DeepBugsJSService.sendInspectionLog(toReport)
                         }
                     }

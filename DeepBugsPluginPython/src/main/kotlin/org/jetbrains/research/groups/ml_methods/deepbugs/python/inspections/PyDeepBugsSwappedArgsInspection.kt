@@ -12,7 +12,7 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepB
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.NodeType
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.BugReport
+import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events.BugReport
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.InspectionUtils
 
 class PyDeepBugsSwappedArgsInspection : PyInspection() {
@@ -40,7 +40,7 @@ class PyDeepBugsSwappedArgsInspection : PyInspection() {
                         if (res > threshold) {
                             registerProblem(node, DeepBugsPythonBundle.message(keyMessage, res),
                                     ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
-                            val toReport = BugReport(NodeType.CALL, shortName, res)
+                            val toReport = BugReport(NodeType.CALL.nodeName, shortName, res)
                             DeepBugsPythonService.sendInspectionLog(toReport)
                         }
                     }

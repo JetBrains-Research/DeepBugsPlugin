@@ -17,7 +17,7 @@ import com.intellij.openapi.progress.EmptyProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
 import com.intellij.util.Consumer
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 import java.awt.Component
 
 class GitHubErrorReporter : ErrorReportSubmitter() {
@@ -65,7 +65,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
 
         val notifyingCallback = GitHubErrorReporter.CallbackWithNotification(callback, project)
         val task = AnonymousFeedbackTask(project,
-                DeepBugsPluginServicesBundle.message("report.error.progress.dialog.text"),
+                DeepBugsServicesBundle.message("report.error.progress.dialog.text"),
                 true,
                 errorReportInformation,
                 notifyingCallback)
@@ -78,7 +78,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
     }
 
     override fun getReportActionText(): String =
-            DeepBugsPluginServicesBundle.message("report.error.to.plugin.vendor")
+            DeepBugsServicesBundle.message("report.error.to.plugin.vendor")
 
     /**
      * Provides functionality to show a error report message to the user that gives a click-able link to the created issue.

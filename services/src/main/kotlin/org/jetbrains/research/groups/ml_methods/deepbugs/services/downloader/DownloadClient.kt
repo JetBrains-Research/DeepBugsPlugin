@@ -7,9 +7,8 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.models_manager.ModelsManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.notifier.DeepBugsNotifier
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.JsonUtils
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -24,8 +23,8 @@ class DownloadClient(private val pluginName: String, private val afterDownload: 
     fun checkRepos() {
         when (modelFilesExists()) {
             true -> afterDownload.invoke()
-            false -> DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>", DeepBugsPluginServicesBundle.message("download.notification.message"),
-                    NotificationType.INFORMATION, DeepBugsPluginServicesBundle.message("download.text"), ::downloadAndInitModels)
+            false -> DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>", DeepBugsServicesBundle.message("download.notification.message"),
+                    NotificationType.INFORMATION, DeepBugsServicesBundle.message("download.text"), ::downloadAndInitModels)
         }
     }
 
@@ -56,7 +55,7 @@ class DownloadClient(private val pluginName: String, private val afterDownload: 
 
     fun downloadAndInitModels() {
         val downloadTask = DownloadTask(ProjectManager.getInstance().defaultProject,
-                DeepBugsPluginServicesBundle.message("download.task.title", pluginName), true)
+                DeepBugsServicesBundle.message("download.task.title", pluginName), true)
         ProgressManager.getInstance().run(downloadTask)
     }
 
@@ -72,14 +71,14 @@ class DownloadClient(private val pluginName: String, private val afterDownload: 
 
         override fun onThrowable(error: Throwable) {
             DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>",
-                    DeepBugsPluginServicesBundle.message("error.notification.message"),
-                    NotificationType.ERROR, DeepBugsPluginServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
+                    DeepBugsServicesBundle.message("error.notification.message"),
+                    NotificationType.ERROR, DeepBugsServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
         }
 
         override fun onCancel() {
             DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>",
-                    DeepBugsPluginServicesBundle.message("cancel.notification.message"),
-                    NotificationType.WARNING, DeepBugsPluginServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
+                    DeepBugsServicesBundle.message("cancel.notification.message"),
+                    NotificationType.WARNING, DeepBugsServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
         }
     }
 }

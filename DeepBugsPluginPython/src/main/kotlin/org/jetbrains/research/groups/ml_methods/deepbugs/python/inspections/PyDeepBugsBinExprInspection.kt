@@ -9,7 +9,7 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.python.datatypes.PyBinO
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.NodeType
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logging.events.BugReport
+import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events.BugReport
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.InspectionUtils
 
 import org.tensorflow.Session
@@ -37,7 +37,7 @@ abstract class PyDeepBugsBinExprInspection : PyInspection() {
                         if (res > threshold) {
                             registerProblem(node, DeepBugsPythonBundle.message(keyMessage, res),
                                     ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
-                            val toReport = BugReport(NodeType.BIN_OP, shortName, res)
+                            val toReport = BugReport(NodeType.BIN_OP.nodeName, shortName, res)
                             DeepBugsPythonService.sendInspectionLog(toReport)
                         }
                     }

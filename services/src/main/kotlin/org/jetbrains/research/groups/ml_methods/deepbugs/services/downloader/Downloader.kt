@@ -1,7 +1,7 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.downloader
 
 import com.intellij.openapi.application.PathManager
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.JsonUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.Zip
 import java.io.BufferedInputStream
@@ -59,7 +59,7 @@ class Downloader(pluginName: String) {
 
     private fun downloadTo(printableName: String, url: URL, path: Path, progress: DownloadProgress): File? {
         progress.name = printableName
-        progress.phase = DeepBugsPluginServicesBundle.message("download.model.file", printableName)
+        progress.phase = DeepBugsServicesBundle.message("download.model.file", printableName)
         progress.progress = 0.0
         path.toFile().parentFile.mkdirs()
 

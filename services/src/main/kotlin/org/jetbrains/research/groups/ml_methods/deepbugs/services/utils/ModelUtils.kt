@@ -16,7 +16,7 @@ object ModelUtils {
     fun loadMapping(pluginName: String, modelName: String, progress: ProgressIndicator): Mapping? {
         val modelPath = getModelPath(pluginName, modelName)
         if (Files.exists(modelPath)) {
-            progress.text = DeepBugsPluginServicesBundle.message("init.model.file", modelName)
+            progress.text = DeepBugsServicesBundle.message("init.model.file", modelName)
             return Mapping(Parser().parse(modelPath.toString()) as JsonObject)
         }
         return null
@@ -25,7 +25,7 @@ object ModelUtils {
     fun loadModel(pluginName: String, modelName: String, progress: ProgressIndicator): Session? {
         val modelPath = getModelPath(pluginName, modelName)
         if (Files.exists(modelPath)) {
-            progress.text = DeepBugsPluginServicesBundle.message("init.model.file", modelName)
+            progress.text = DeepBugsServicesBundle.message("init.model.file", modelName)
             return SavedModelBundle.load(modelPath.toString(), "serve").session()
         }
         return null

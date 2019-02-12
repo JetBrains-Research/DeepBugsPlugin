@@ -1,4 +1,4 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.services.log_reporter
+package org.jetbrains.research.groups.ml_methods_deepbugs.logger.log_reporter
 
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.util.io.HttpRequests

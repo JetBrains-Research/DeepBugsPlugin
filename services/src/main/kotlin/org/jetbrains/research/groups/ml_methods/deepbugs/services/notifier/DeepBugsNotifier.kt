@@ -5,10 +5,10 @@ import com.intellij.notification.NotificationDisplayType
 import com.intellij.notification.NotificationGroup
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.project.ProjectManager
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsPluginServicesBundle
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 
 object DeepBugsNotifier {
-    private val commonDeepBugsGroup = NotificationGroup(DeepBugsPluginServicesBundle.message("notification.group.id"),
+    private val commonDeepBugsGroup = NotificationGroup(DeepBugsServicesBundle.message("notification.group.id"),
             NotificationDisplayType.STICKY_BALLOON, true)
 
     private fun renderNotificationWithAction(notificationTitle: String, message: String, type: NotificationType, actionText: String, action: () -> Unit) =

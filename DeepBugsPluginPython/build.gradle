@@ -50,4 +50,5 @@ buildPlugin {
 
 dependencies {
     compile project(':services')
+    compile project(':logger')
 }
