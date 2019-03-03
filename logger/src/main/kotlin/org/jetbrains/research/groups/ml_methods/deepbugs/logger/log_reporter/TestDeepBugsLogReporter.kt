@@ -1,4 +1,4 @@
-package org.jetbrains.research.groups.ml_methods_deepbugs.logger.log_reporter
+package org.jetbrains.research.groups.ml_methods.deepbugs.logger.log_reporter
 
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.util.io.HttpRequests
@@ -19,6 +19,6 @@ object TestDeepBugsLogReporter {
     }
 
     private fun executeRequest(text: String) {
-        HttpRequests.post(reportUrl, "text/html").write(text)
+        HttpRequests.post(reportUrl, "application/json").write(text)
     }
 }

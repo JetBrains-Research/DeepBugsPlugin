@@ -1,0 +1,33 @@
+{
+  "name": "models",
+  "classpath": [
+    {
+      "name": "nodeTypeToVector.json",
+      "url": "https://www.dropbox.com/s/wh4azyzbvu36mvv/nodeTypeToVector.json?dl=1"
+    },
+    {
+      "name": "typeToVector.json",
+      "url": "https://www.dropbox.com/s/l6s4nbzkkasy8gu/typeToVector.json?dl=1"
+    },
+    {
+      "name": "operatorToVector.json",
+      "url": "https://www.dropbox.com/s/uoog0mpy30iv1mw/operatorToVector.json?dl=1"
+    },
+    {
+      "name": "tokenToVector.json",
+      "url": "https://www.dropbox.com/s/dli8lsyuaesp70y/tokenToVector.json?dl=1"
+    },
+    {
+      "name": "binOperatorDetectionModel",
+      "url": "https://www.dropbox.com/s/b0nxzvbrvpwnnw4/binOperatorDetectionModel.zip?dl=1"
+    },
+    {
+      "name": "binOperandDetectionModel",
+      "url": "https://www.dropbox.com/s/q30z80lbz518faq/binOperandDetectionModel.zip?dl=1"
+    },
+    {
+      "name": "swappedArgsDetectionModel",
+      "url": "https://www.dropbox.com/s/hzotbji56a1kr7m/swappedArgsDetectionModel.zip?dl=1"
+    }
+  ]
+}

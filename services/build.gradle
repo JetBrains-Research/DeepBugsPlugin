@@ -1,18 +1,8 @@
-//plugins {
-  //  id 'java'
-  //  id 'org.jetbrains.intellij' //version '0.3.7'
-  //  id 'org.jetbrains.kotlin.jvm' //version '1.3.11'
-//}
-
 group 'org.jetbrains.research.groups.ml_methods.deepbugs.services'
 
 repositories {
     mavenCentral()
     jcenter()
-}
-
-intellij {
-    downloadSources = false
 }
 
 dependencies {

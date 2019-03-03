@@ -28,7 +28,12 @@ class PlatformManager<T> private constructor(klass: Class<T>) {
             input.close()
             output.close()
         }
-        System.load(libPath.toString())
+        try {
+            System.load(libPath.toString())
+        }
+        catch (ex: UnsatisfiedLinkError) {
+            //if library is already loaded
+        }
     }
 
     fun checkPlatform() {

@@ -1,4 +1,4 @@
-package org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events
+package org.jetbrains.research.groups.ml_methods.deepbugs.logger.logging.events
 
 data class ThresholdFeatures(
         val oldValue: Float,
@@ -9,4 +9,4 @@ data class ThresholdConfigured(
         val binOperatorThreshold: ThresholdFeatures,
         val binOperandThreshold: ThresholdFeatures,
         val swappedArgsThreshold: ThresholdFeatures
-): LogData
+): EventData

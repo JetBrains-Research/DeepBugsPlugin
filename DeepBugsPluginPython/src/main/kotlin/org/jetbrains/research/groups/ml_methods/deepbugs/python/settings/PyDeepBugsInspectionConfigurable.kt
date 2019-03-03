@@ -2,8 +2,6 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.settings
 
 import com.intellij.openapi.options.Configurable
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService
-import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events.ThresholdConfigured
-import org.jetbrains.research.groups.ml_methods_deepbugs.logger.logging.events.ThresholdFeatures
 import javax.swing.JComponent
 
 class PyDeepBugsInspectionConfigurable(private val settings: PyDeepBugsInspectionConfig) : Configurable {
@@ -21,20 +19,14 @@ class PyDeepBugsInspectionConfigurable(private val settings: PyDeepBugsInspectio
 
     override fun isModified() =
             (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
-                    (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
-                    (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
+            (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
+            (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
 
 
     override fun apply() {
-        val configFeatures = ThresholdConfigured(
-                ThresholdFeatures(settings.curBinOperatorThreshold, deepBugsUI!!.binOperatorThreshold),
-                ThresholdFeatures(settings.curBinOperandThreshold, deepBugsUI!!.binOperandThreshold),
-                ThresholdFeatures(settings.curSwappedArgsThreshold, deepBugsUI!!.swappedArgsThreshold)
-        )
         settings.curBinOperatorThreshold = deepBugsUI!!.binOperatorThreshold
         settings.curBinOperandThreshold = deepBugsUI!!.binOperandThreshold
         settings.curSwappedArgsThreshold = deepBugsUI!!.swappedArgsThreshold
-        DeepBugsPythonService.sendConfigLog(configFeatures)
     }
 
     override fun reset() {

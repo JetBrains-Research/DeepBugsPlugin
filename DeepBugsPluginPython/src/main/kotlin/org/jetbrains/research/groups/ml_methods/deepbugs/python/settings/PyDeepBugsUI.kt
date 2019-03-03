@@ -10,7 +10,7 @@ class PyDeepBugsUI : DeepBugsUI() {
             binOperandThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERAND_CONFIG }
         defaultSwappedArgsThreshold.addActionListener {
             swappedArgsThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_SWAPPED_ARGS_CONFIG }
-        defaultAll.addActionListener{
+        defaultAll.addActionListener {
                     binOperatorThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERATOR_CONFIG
                     binOperandThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_BIN_OPERAND_CONFIG
                     swappedArgsThreshold = PyDeepBugsInspectionConfigurable.DEFAULT_SWAPPED_ARGS_CONFIG }

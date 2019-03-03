@@ -1,5 +1,5 @@
-rootProject.name = 'DeepBugsPython'
+rootProject.name = 'DeepBugsPluginPython'
 include ':services'
 project(":services").projectDir = file("../services")
-include ':logger'
-project(":logger").projectDir = file("../logger")
+//include ':logger'
+//project(":logger").projectDir = file("../logger")

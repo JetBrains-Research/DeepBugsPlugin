@@ -10,7 +10,7 @@ fun String.asIdentifierString() = "ID:$this"
 
 fun String.asStandardString() = "STD:$this"
 
-object Extractor {
+object PyExtractor {
     fun extractPyNodeName(node: PyElement?): String? = when (node) {
         is PyNumericLiteralExpression -> node.text.asLiteralString()
         is PyStringLiteralExpression -> node.stringValue.asLiteralString()

@@ -1,7 +1,7 @@
 <idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
     <name>DeepBugsPython</name>
     <id>DeepBugsPython</id>
-    <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey Bryksin
+    <vendor email="anastasia.i.tuchina@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Anastasia Tuchina
     </vendor>
     <version>0.1</version>
     <description><![CDATA[
@@ -20,9 +20,9 @@
     </ol>
     <h4>Available code inspections</h4>
     <ul>
-        <li>DeepBugs: Possibly incorrect binary operator.</li>
-        <li>DeepBugs: Possibly incorrect binary operand.</li>
-        <li>DeepBugs: Possibly swapped function arguments.</li>
+        <li>DeepBugsPython: Possibly incorrect binary operator.</li>
+        <li>DeepBugsPython: Possibly incorrect binary operand.</li>
+        <li>DeepBugsPython: Possibly swapped function arguments.</li>
     </ul>
     <h4>Configuration</h4>
     Each code inspection uses its own threshold value to distinguish correct from incorrect code. Thresholds are configurable

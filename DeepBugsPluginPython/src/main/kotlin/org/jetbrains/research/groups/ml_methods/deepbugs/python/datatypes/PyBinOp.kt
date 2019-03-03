@@ -3,8 +3,8 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.datatypes
 import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyBinaryExpression
-import org.jetbrains.research.groups.ml_methods.deepbugs.python.extraction.Extractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService
+import org.jetbrains.research.groups.ml_methods.deepbugs.python.extraction.PyExtractor
+import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.models
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.BinOp
 
 class PyBinOp(left: String,
@@ -49,20 +49,20 @@ class PyBinOp(left: String,
          * @return [PyBinOp] with collected information.
          */
         fun collectFromPyNode(node: PyBinaryExpression, src: String = ""): PyBinOp? {
-            val leftName = Extractor.extractPyNodeName(node.leftExpression)
+            val leftName = PyExtractor.extractPyNodeName(node.leftExpression)
                     ?: return null
-            val rightName = Extractor.extractPyNodeName(node.rightExpression)
+            val rightName = PyExtractor.extractPyNodeName(node.rightExpression)
                     ?: return null
             val op = extractOperatorText(node)
                     ?: return null
-            val leftType = Extractor.extractPyNodeType(node.leftExpression)
-            val rightType = Extractor.extractPyNodeType(node.rightExpression)
+            val leftType = PyExtractor.extractPyNodeType(node.leftExpression)
+            val rightType = PyExtractor.extractPyNodeType(node.rightExpression)
             val parent = node.parent.javaClass.simpleName ?: ""
             val grandParent = node.parent.parent.javaClass.simpleName ?: ""
             return PyBinOp(leftName, rightName, op, leftType, rightType, parent, grandParent, src)
         }
     }
 
-    override fun vectorize() = DeepBugsPythonService.models.let { storage ->
-        vectorize(storage.tokenMapping, storage.typeMapping, storage.nodeTypeMapping, storage.operatorMapping)}
+    override fun vectorize() =
+            vectorize(models.tokenMapping, models.typeMapping, models.nodeTypeMapping, models.operatorMapping)
 }

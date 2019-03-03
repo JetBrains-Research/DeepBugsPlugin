@@ -14,7 +14,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.reflect.KClass
 
-class DownloadClient(private val pluginName: String, private val afterDownload: () -> Unit) {
+class DownloadClient(private val pluginName: String, private val afterDownload: () -> Unit = {}) {
     private val pluginRoot = Paths.get(PathManager.getPluginsPath(), pluginName).toString()
     private val config = DownloadClient::class.java.classLoader.getResource("models.json").readText()
     private val remoteRepo = JsonUtils.readValue(config, Config::class)

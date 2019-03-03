@@ -1,6 +1,6 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes
 
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.InspectionUtils
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.TensorUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.Mapping
 import org.tensorflow.Tensor
 
@@ -21,7 +21,7 @@ abstract class BinOp(private val left: String,
         val operatorVector = operator?.get(op) ?: return null
         val parentVector = nodeType?.get(parent) ?: return null
         val grandParentVector = nodeType.get(grandParent) ?: return null
-        return InspectionUtils.vectorizeListOfArrays(listOf(
+        return TensorUtils.vectorizeListOfArrays(listOf(
                 leftVector, rightVector, operatorVector,
                 leftTypeVector, rightTypeVector,
                 parentVector, grandParentVector))

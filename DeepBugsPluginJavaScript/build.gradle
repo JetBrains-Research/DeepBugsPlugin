@@ -32,6 +32,9 @@ intellij {
 }
 
 subprojects {
+    intellij {
+        downloadSources = false
+    }
     project.tasks.getByPath("runIde").enabled false
     project.tasks.getByPath("prepareSandbox").enabled false
 }
@@ -52,5 +55,5 @@ buildPlugin {
 
 dependencies {
     compile project(':services')
-    compile project(':logger')
+    //compile project(':logger')
 }

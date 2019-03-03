@@ -1,7 +1,7 @@
 <idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
     <name>DeepBugsJavaScript</name>
     <id>DeepBugsJavaScript</id>
-    <vendor email="timofey.bryksin@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Timofey Bryksin
+    <vendor email="anastasia.i.tuchina@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Anastasia Tuchina
     </vendor>
     <version>0.1</version>
     <description><![CDATA[
@@ -20,13 +20,13 @@
     </ol>
     <h4>Available code inspections</h4>
     <ul>
-        <li>DeepBugs: Possibly incorrect binary operator.</li>
-        <li>DeepBugs: Possibly incorrect binary operand.</li>
-        <li>DeepBugs: Possibly swapped function arguments.</li>
+        <li>DeepBugsJavaScript: Possibly incorrect binary operator.</li>
+        <li>DeepBugsJavaScript: Possibly incorrect binary operand.</li>
+        <li>DeepBugsJavaScript: Possibly swapped function arguments.</li>
     </ul>
     <h4>Configuration</h4>
     Each code inspection uses its own threshold value to distinguish correct from incorrect code. Thresholds are configurable
-    and could be set manually in <code>Preferences/Settings | Tools | DeepBugs</code>.
+    and could be set manually in <code>Preferences/Settings | Tools | DeepBugsJavaScript</code>.
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
@@ -39,27 +39,9 @@
                 implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting.GitHubErrorReporter"/>
         <applicationService
                 serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.javascript.settings.JSDeepBugsInspectionConfig"/>
-        <applicationConfigurable groupId="tools" displayName="DeepBugsJavaScript"
+        <applicationConfigurable groupId="tools"
+                                 displayName="DeepBugsJavaScript"
                                  instance="org.jetbrains.research.groups.ml_methods.deepbugs.javascript.settings.JSDeepBugsInspectionConfigurable"/>
 
     </extensions>
-
-    <!--<actions>
-         <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
-             <add-to-group group-id="MainMenu" anchor="last"/>
-             <action
-                     class="org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
-                     id="DeepBugs.org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
-                     text="Collect Data"
-                     description="Collect Data from files under project root"
-             />
-         </group>
-         EventType for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if
-         needed
-
-         <action id="error_reporting.TriggerExceptionAction"
-                 class="error_reporting.TriggerExceptionAction" text="FireArtificialException">
-             <add-to-group group-id="ToolsMenu" anchor="first"/>
-            </action>
-     </actions>-->
 </idea-plugin>

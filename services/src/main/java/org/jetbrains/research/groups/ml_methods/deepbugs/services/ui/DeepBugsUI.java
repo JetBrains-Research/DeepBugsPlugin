@@ -16,17 +16,6 @@ public class DeepBugsUI {
     protected JButton defaultSwappedArgsThreshold;
     protected JButton defaultAll;
 
-    public DeepBugsUI() {
-        /*defaultBinOperatorThreshold.addActionListener(e -> setBinOperatorThreshold(DeepBugsInspectionConfigurable.defaultBinOperatorConfig));
-        defaultBinOperandThreshold.addActionListener(e -> setBinOperandThreshold(DeepBugsInspectionConfigurable.defaultBinOperandConfig));
-        defaultSwappedArgsThreshold.addActionListener(e -> setSwappedArgsThreshold(DeepBugsInspectionConfigurable.defaultSwappedArgsConfig));
-        defaultAll.addActionListener(e -> {
-            setBinOperatorThreshold(DeepBugsInspectionConfigurable.defaultBinOperatorConfig);
-            setBinOperandThreshold(DeepBugsInspectionConfigurable.defaultBinOperandConfig);
-            setSwappedArgsThreshold(DeepBugsInspectionConfigurable.defaultSwappedArgsConfig);
-        });*/
-    }
-
     public JComponent getRootPanel() {
         return rootPanel;
     }
