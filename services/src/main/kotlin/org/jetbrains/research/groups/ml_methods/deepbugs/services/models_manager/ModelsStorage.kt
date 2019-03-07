@@ -15,7 +15,7 @@ import org.tensorflow.Session
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class ModelsStorage(private val pluginName: String)  {
+class ModelsStorage(private val pluginName: String) {
     private val modelPath = Paths.get(PathManager.getPluginsPath(), pluginName, "models").toString()
     var nodeTypeMapping: Mapping? = null
         private set
@@ -40,7 +40,7 @@ class ModelsStorage(private val pluginName: String)  {
 
     private fun initModels() {
         ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
-                DeepBugsServicesBundle.message("initialize.task.title", pluginName), false) {
+            DeepBugsServicesBundle.message("initialize.task.title", pluginName), false) {
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
                 nodeTypeMapping = loadMapping("nodeTypeToVector.json", indicator)

@@ -19,8 +19,8 @@ class JSDeepBugsInspectionConfigurable(private val settings: JSDeepBugsInspectio
 
     override fun isModified() =
             (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
-            (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
-            (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
+                    (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
+                    (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
 
 
     override fun apply() {

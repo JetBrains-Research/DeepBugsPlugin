@@ -19,8 +19,8 @@ class PyDeepBugsInspectionConfigurable(private val settings: PyDeepBugsInspectio
 
     override fun isModified() =
             (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
-            (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
-            (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
+                    (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
+                    (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
 
 
     override fun apply() {

@@ -6,13 +6,14 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.python.extraction.PyExt
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.models
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Call
 
-class PyCall(callee: String,
-             arguments: Iterable<String>,
-             argumentTypes: Iterable<String>,
-             base: String,
-             parameters: Iterable<String>,
-             src: String
-) : Call(callee, arguments, argumentTypes, base, parameters, src) {
+class PyCall(
+        callee: String,
+        arguments: List<String>,
+        base: String,
+        argumentTypes: List<String>,
+        parameters: MutableList<String>,
+        src: String
+) : Call(callee, arguments, base, argumentTypes, parameters, src) {
 
     companion object {
         private const val SUPPORTED_ARGS_NUM = 2
@@ -22,17 +23,20 @@ class PyCall(callee: String,
          * @return [PyCall] with collected information.
          */
         fun collectFromPyNode(node: PyCallExpression, src: String = ""): PyCall? {
-
             if (node.arguments.size != SUPPORTED_ARGS_NUM)
                 return null
+
             val name = PyExtractor.extractPyNodeName(node.callee) ?: return null
+
             val args = mutableListOf<String>()
             val argTypes = mutableListOf<String>()
             node.arguments.forEach { arg ->
                 PyExtractor.extractPyNodeName(arg)?.let { argName -> args.add(argName) } ?: return null
                 PyExtractor.extractPyNodeType(arg).let { argType -> argTypes.add(argType) }
             }
+
             val base = PyExtractor.extractPyNodeBase(node)
+
             val resolved = node.multiResolveCalleeFunction(PyResolveContext.defaultContext()).firstOrNull()
             var params = resolved?.parameterList?.parameters?.toList()
             if (!params.isNullOrEmpty() && params.first().isSelf && params.size > args.size)
@@ -41,7 +45,7 @@ class PyCall(callee: String,
             paramNames.forEachIndexed { idx, _ ->
                 paramNames[idx] = PyExtractor.extractPyNodeName(params?.getOrNull(idx)) ?: ""
             }
-            return PyCall(name, args, argTypes, base, paramNames, src)
+            return PyCall(name, args, base, argTypes, paramNames, src)
         }
     }
 

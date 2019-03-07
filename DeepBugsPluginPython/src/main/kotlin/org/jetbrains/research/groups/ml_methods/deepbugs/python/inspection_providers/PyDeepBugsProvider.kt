@@ -14,6 +14,6 @@ class PyDeepBugsProvider : InspectionToolProvider {
 
     override fun getInspectionClasses(): Array<Class<*>> {
         return arrayOf(PyDeepBugsBinOperatorInspection::class.java, PyDeepBugsBinOperandInspection::class.java,
-                PyDeepBugsSwappedArgsInspection::class.java)
+            PyDeepBugsSwappedArgsInspection::class.java)
     }
 }

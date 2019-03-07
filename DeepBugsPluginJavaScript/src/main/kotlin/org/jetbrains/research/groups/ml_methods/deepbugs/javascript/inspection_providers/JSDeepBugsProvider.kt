@@ -14,6 +14,6 @@ class JSDeepBugsProvider : InspectionToolProvider {
 
     override fun getInspectionClasses(): Array<Class<*>> {
         return arrayOf(JSDeepBugsBinOperatorInspection::class.java, JSDeepBugsBinOperandInspection::class.java,
-                JSDeepBugsSwappedArgsInspection::class.java)
+            JSDeepBugsSwappedArgsInspection::class.java)
     }
 }

@@ -22,9 +22,9 @@ class DownloadClient(private val pluginName: String, private val afterDownload: 
 
     fun checkRepos() {
         when (modelFilesExists()) {
-            true -> afterDownload.invoke()
+            true  -> afterDownload.invoke()
             false -> DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>", DeepBugsServicesBundle.message("download.notification.message"),
-                    NotificationType.INFORMATION, DeepBugsServicesBundle.message("download.text"), ::downloadAndInitModels)
+                NotificationType.INFORMATION, DeepBugsServicesBundle.message("download.text"), ::downloadAndInitModels)
         }
     }
 
@@ -34,7 +34,7 @@ class DownloadClient(private val pluginName: String, private val afterDownload: 
         if (!Files.exists(localRepoPath))
             return false
         val localRepo = JsonUtils.readCollectionValue(localRepoPath.toFile().readText(),
-                MutableList::class as KClass<MutableList<RepositoryRecord>>, RepositoryRecord::class)
+            MutableList::class as KClass<MutableList<RepositoryRecord>>, RepositoryRecord::class)
         remoteRepo.classpath.forEach { record ->
             localRepo.firstOrNull { it.name == record.name } ?: return false
         }
@@ -55,7 +55,7 @@ class DownloadClient(private val pluginName: String, private val afterDownload: 
 
     fun downloadAndInitModels() {
         val downloadTask = DownloadTask(ProjectManager.getInstance().defaultProject,
-                DeepBugsServicesBundle.message("download.task.title", pluginName), true)
+            DeepBugsServicesBundle.message("download.task.title", pluginName), true)
         ProgressManager.getInstance().run(downloadTask)
     }
 
@@ -71,14 +71,14 @@ class DownloadClient(private val pluginName: String, private val afterDownload: 
 
         override fun onThrowable(error: Throwable) {
             DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>",
-                    DeepBugsServicesBundle.message("error.notification.message"),
-                    NotificationType.ERROR, DeepBugsServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
+                DeepBugsServicesBundle.message("error.notification.message"),
+                NotificationType.ERROR, DeepBugsServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
         }
 
         override fun onCancel() {
             DeepBugsNotifier.notifyWithAction("<b>$pluginName</b>",
-                    DeepBugsServicesBundle.message("cancel.notification.message"),
-                    NotificationType.WARNING, DeepBugsServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
+                DeepBugsServicesBundle.message("cancel.notification.message"),
+                NotificationType.WARNING, DeepBugsServicesBundle.message("restart.download.text"), ::downloadAndInitModels)
         }
     }
 }

@@ -26,11 +26,13 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
         return doSubmit(events[0], parentComponent, consumer, errorBean, additionalInfo)
     }
 
-    private fun doSubmit(event: IdeaLoggingEvent,
+    private fun doSubmit(
+            event: IdeaLoggingEvent,
             parentComponent: Component,
             callback: Consumer<SubmittedReportInfo>,
             bean: GitHubErrorBean,
-            description: String?): Boolean {
+            description: String?
+    ): Boolean {
         val dataContext = DataManager.getInstance().getDataContext(parentComponent)
 
         bean.description = description
@@ -58,17 +60,17 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
         }
 
         val errorReportInformation = ErrorReportInformation.getUsersInformation(bean,
-                ApplicationInfo.getInstance() as ApplicationInfoEx,
-                ApplicationNamesInfo.getInstance())
+            ApplicationInfo.getInstance() as ApplicationInfoEx,
+            ApplicationNamesInfo.getInstance())
 
         val project = CommonDataKeys.PROJECT.getData(dataContext)
 
         val notifyingCallback = GitHubErrorReporter.CallbackWithNotification(callback, project)
         val task = AnonymousFeedbackTask(project,
-                DeepBugsServicesBundle.message("report.error.progress.dialog.text"),
-                true,
-                errorReportInformation,
-                notifyingCallback)
+            DeepBugsServicesBundle.message("report.error.progress.dialog.text"),
+            true,
+            errorReportInformation,
+            notifyingCallback)
         if (project == null) {
             task.run(EmptyProgressIndicator())
         } else {
@@ -90,16 +92,16 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
 
             if (reportInfo.status == SubmittedReportInfo.SubmissionStatus.FAILED) {
                 ReportMessages.GROUP.createNotification(
-                        ReportMessages.ERROR_REPORT,
-                        reportInfo.linkText,
-                        NotificationType.ERROR,
-                        NotificationListener.URL_OPENING_LISTENER).setImportant(false).notify(myProject)
+                    ReportMessages.ERROR_REPORT,
+                    reportInfo.linkText,
+                    NotificationType.ERROR,
+                    NotificationListener.URL_OPENING_LISTENER).setImportant(false).notify(myProject)
             } else {
                 ReportMessages.GROUP.createNotification(
-                        ReportMessages.ERROR_REPORT,
-                        reportInfo.linkText,
-                        NotificationType.INFORMATION,
-                        NotificationListener.URL_OPENING_LISTENER).setImportant(false).notify(myProject)
+                    ReportMessages.ERROR_REPORT,
+                    reportInfo.linkText,
+                    NotificationType.INFORMATION,
+                    NotificationListener.URL_OPENING_LISTENER).setImportant(false).notify(myProject)
             }
         }
     }

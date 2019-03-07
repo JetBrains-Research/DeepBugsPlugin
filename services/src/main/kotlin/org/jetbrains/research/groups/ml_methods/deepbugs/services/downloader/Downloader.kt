@@ -26,7 +26,7 @@ class Downloader(pluginName: String) {
     init {
         if (repositoryFile.exists()) {
             repository = JsonUtils.readCollectionValue(repositoryFile.readText(),
-                    MutableList::class as KClass<MutableList<RepositoryRecord>>, RepositoryRecord::class)
+                MutableList::class as KClass<MutableList<RepositoryRecord>>, RepositoryRecord::class)
         } else {
             repository = ArrayList()
             repositoryFile.parentFile.mkdirs()
@@ -38,23 +38,23 @@ class Downloader(pluginName: String) {
         return repository.firstOrNull { it.name == name && it.target == target }?.let {
             getTargetPath(it.target, it.name).toFile()
         }
-                ?: downloadTo(printableName, URL(url), getTargetPath(target, name), DownloadProgressProvider.getProgress())?.also {
-                    repository.add(RepositoryRecord(target, name, printableName))
-                    saveRepository()
-                }
+            ?: downloadTo(printableName, URL(url), getTargetPath(target, name), DownloadProgressProvider.getProgress())?.also {
+                repository.add(RepositoryRecord(target, name, printableName))
+                saveRepository()
+            }
     }
 
     fun downloadZip(target: String, name: String, url: String, printableName: String = name): File? {
         return repository.firstOrNull { it.name == name && it.target == target }?.let {
             getTargetPath(it.target, it.name).toFile()
         }
-                ?: downloadTo(printableName, URL(url), getTargetPath(target, "$name.zip"), DownloadProgressProvider.getProgress())?.let {
-                    val zip = Zip.extractFolder(it, getTargetPath(target, "").toFile()) ?: return null
-                    it.deleteOnExit()
-                    repository.add(RepositoryRecord(target, name, printableName))
-                    saveRepository()
-                    zip
-                }
+            ?: downloadTo(printableName, URL(url), getTargetPath(target, "$name.zip"), DownloadProgressProvider.getProgress())?.let {
+                val zip = Zip.extractFolder(it, getTargetPath(target, "").toFile()) ?: return null
+                it.deleteOnExit()
+                repository.add(RepositoryRecord(target, name, printableName))
+                saveRepository()
+                zip
+            }
     }
 
     private fun downloadTo(printableName: String, url: URL, path: Path, progress: DownloadProgress): File? {

@@ -16,7 +16,8 @@ class PlatformManager<T> private constructor(klass: Class<T>) {
 
     private fun getResourceURI(dll: String) = "/bundlers/$dll"
 
-    private fun getPluginName() = PluginManager.getPlugin(pluginId)?.name ?: throw PlatformException("Unable to get plugin name")
+    private fun getPluginName() = PluginManager.getPlugin(pluginId)?.name
+        ?: throw PlatformException("Unable to get plugin name")
 
     private fun loadLib(dllPath: String, name: String) {
         val libPath = Paths.get(dllPath, name)
@@ -30,8 +31,7 @@ class PlatformManager<T> private constructor(klass: Class<T>) {
         }
         try {
             System.load(libPath.toString())
-        }
-        catch (ex: UnsatisfiedLinkError) {
+        } catch (ex: UnsatisfiedLinkError) {
             //if library is already loaded
         }
     }

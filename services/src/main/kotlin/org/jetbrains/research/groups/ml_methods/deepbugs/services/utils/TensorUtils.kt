@@ -1,7 +1,5 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.utils
 
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.DataType
-import org.tensorflow.Session
 import org.tensorflow.Tensor
 import java.nio.FloatBuffer
 

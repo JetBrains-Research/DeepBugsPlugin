@@ -9,7 +9,7 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugs
 
 object DeepBugsNotifier {
     private val commonDeepBugsGroup = NotificationGroup(DeepBugsServicesBundle.message("notification.group.id"),
-            NotificationDisplayType.STICKY_BALLOON, true)
+        NotificationDisplayType.STICKY_BALLOON, true)
 
     private fun renderNotificationWithAction(notificationTitle: String, message: String, type: NotificationType, actionText: String, action: () -> Unit) =
             Notification(commonDeepBugsGroup.displayId, notificationTitle, message, type)

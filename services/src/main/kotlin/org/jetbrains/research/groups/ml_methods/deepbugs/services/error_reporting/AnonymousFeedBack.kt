@@ -79,8 +79,8 @@ internal object AnonymousFeedback {
             return result
         } catch (e: Exception) {
             return SubmittedReportInfo(HTML_URL_TO_CREATE_NEW_ISSUE,
-                    DeepBugsServicesBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE),
-                    SubmissionStatus.FAILED)
+                DeepBugsServicesBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE),
+                SubmissionStatus.FAILED)
         }
 
     }

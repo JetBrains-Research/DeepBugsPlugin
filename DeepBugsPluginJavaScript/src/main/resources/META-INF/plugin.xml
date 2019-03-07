@@ -1,7 +1,8 @@
 <idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
     <name>DeepBugsJavaScript</name>
     <id>DeepBugsJavaScript</id>
-    <vendor email="anastasia.i.tuchina@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Anastasia Tuchina
+    <vendor email="anastasia.i.tuchina@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Anastasia
+        Tuchina
     </vendor>
     <version>0.1</version>
     <description><![CDATA[

@@ -1,6 +1,7 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.base
 
-import com.intellij.codeInspection.*
+import com.intellij.codeInspection.LocalInspectionToolSession
+import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.python.psi.PyBinaryExpression

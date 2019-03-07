@@ -11,14 +11,14 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Data
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.TensorUtils
 import org.tensorflow.Session
 
-abstract class PyDeepBugsBaseInspection: PyInspection() {
+abstract class PyDeepBugsBaseInspection : PyInspection() {
     protected abstract val keyMessage: String
 
     protected abstract fun getModel(): Session?
     protected abstract fun getThreshold(): Float
 
     abstract inner class PyDeepBugsVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : PyInspectionVisitor(holder, session) {
-        protected abstract fun collect(node: NavigatablePsiElement, src: String = "") : DataType?
+        protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
 
         private fun inspectCodePiece(model: Session?, codePiece: DataType) = codePiece.vectorize()?.let { input ->
             model?.runner()?.feed("dropout_1_input:0", input)?.fetch("dense_2/Sigmoid:0")?.run()
@@ -32,7 +32,7 @@ abstract class PyDeepBugsBaseInspection: PyInspection() {
                     result?.let { res ->
                         if (res > getThreshold()) {
                             registerProblem(node, DeepBugsPythonBundle.message(keyMessage, res),
-                                    ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
                         }
                     }
                 }

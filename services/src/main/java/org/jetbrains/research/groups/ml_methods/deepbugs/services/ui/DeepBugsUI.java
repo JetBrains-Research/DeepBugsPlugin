@@ -4,17 +4,17 @@ import javax.swing.*;
 
 @SuppressWarnings("unused")
 public class DeepBugsUI {
+    protected JButton defaultBinOperatorThreshold;
+    protected JButton defaultBinOperandThreshold;
+    protected JButton defaultSwappedArgsThreshold;
+    protected JButton defaultAll;
     private JPanel rootPanel;
     private JLabel binOperatorThreshold;
     private JSlider binOperatorThresholdSlider;
-    protected JButton defaultBinOperatorThreshold;
     private JLabel binOperandThreshold;
     private JSlider binOperandThresholdSlider;
-    protected JButton defaultBinOperandThreshold;
     private JLabel swappedArgsThreshold;
     private JSlider swappedArgsThresholdSlider;
-    protected JButton defaultSwappedArgsThreshold;
-    protected JButton defaultAll;
 
     public JComponent getRootPanel() {
         return rootPanel;
@@ -25,7 +25,7 @@ public class DeepBugsUI {
     }
 
     public void setBinOperatorThreshold(float value) {
-        binOperatorThresholdSlider.setValue((int)(value * 100.0f));
+        binOperatorThresholdSlider.setValue((int) (value * 100.0f));
     }
 
     public float getBinOperandThreshold() {
@@ -33,7 +33,7 @@ public class DeepBugsUI {
     }
 
     public void setBinOperandThreshold(float value) {
-        binOperandThresholdSlider.setValue((int)(value * 100.0f));
+        binOperandThresholdSlider.setValue((int) (value * 100.0f));
     }
 
     public float getSwappedArgsThreshold() {
@@ -41,6 +41,6 @@ public class DeepBugsUI {
     }
 
     public void setSwappedArgsThreshold(float value) {
-        swappedArgsThresholdSlider.setValue((int)(value * 100.0f));
+        swappedArgsThresholdSlider.setValue((int) (value * 100.0f));
     }
 }

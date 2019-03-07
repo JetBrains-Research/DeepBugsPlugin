@@ -13,7 +13,7 @@
     launched for the first time.
     <h4>Using inspections</h4>
     <ol>
-        <li>Select  <code>Analyze | Run inspection by name...</code>
+        <li>Select <code>Analyze | Run inspection by name...</code>
             or <code>Code | Run inspection by name...</code>menu item.</li>
         <li>Select the desired code inspection.</li>
         <li>Set inspection options and click OK.</li>
@@ -44,23 +44,4 @@
                                  instance="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfigurable"/>
 
     </extensions>
-
-    <!--<actions>
-         <group id="DeepBugs.Menu" text="DeepBugs" description="DeepBugs plugin">
-             <add-to-group group-id="MainMenu" anchor="last"/>
-             <action
-                     class="org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
-                     id="DeepBugs.org.jetbrains.research.groups.ml_methods.deepbugs.ExtractBinOpsAction"
-                     text="Collect Data"
-                     description="Collect Data from files under project root"
-             />
-         </group>
-         EventType for throwing an exception just to test the reporting of errors into the GitHub database, uncomment if
-         needed
-
-         <action id="error_reporting.TriggerExceptionAction"
-                 class="error_reporting.TriggerExceptionAction" text="FireArtificialException">
-             <add-to-group group-id="ToolsMenu" anchor="first"/>
-            </action>
-     </actions>-->
 </idea-plugin>

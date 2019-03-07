@@ -7,14 +7,15 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.python.extraction.PyExt
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.models
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.BinOp
 
-class PyBinOp(left: String,
-              right: String,
-              op: String,
-              leftType: String,
-              rightType: String,
-              parent: String,
-              grandParent: String,
-              src: String
+class PyBinOp(
+        left: String,
+        right: String,
+        op: String,
+        leftType: String,
+        rightType: String,
+        parent: String,
+        grandParent: String,
+        src: String
 ) : BinOp(left, right, op, leftType, rightType, parent, grandParent, src) {
 
     companion object {
@@ -50,11 +51,11 @@ class PyBinOp(left: String,
          */
         fun collectFromPyNode(node: PyBinaryExpression, src: String = ""): PyBinOp? {
             val leftName = PyExtractor.extractPyNodeName(node.leftExpression)
-                    ?: return null
+                ?: return null
             val rightName = PyExtractor.extractPyNodeName(node.rightExpression)
-                    ?: return null
+                ?: return null
             val op = extractOperatorText(node)
-                    ?: return null
+                ?: return null
             val leftType = PyExtractor.extractPyNodeType(node.leftExpression)
             val rightType = PyExtractor.extractPyNodeType(node.rightExpression)
             val parent = node.parent.javaClass.simpleName ?: ""

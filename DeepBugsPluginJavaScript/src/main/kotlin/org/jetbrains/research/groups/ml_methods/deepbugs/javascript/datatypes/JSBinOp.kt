@@ -5,14 +5,15 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.extraction.J
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.models
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.BinOp
 
-class JSBinOp(left: String,
-              right: String,
-              op: String,
-              leftType: String,
-              rightType: String,
-              parent: String,
-              grandParent: String,
-              src: String
+class JSBinOp(
+        left: String,
+        right: String,
+        op: String,
+        leftType: String,
+        rightType: String,
+        parent: String,
+        grandParent: String,
+        src: String
 ) : BinOp(left, right, op, leftType, rightType, parent, grandParent, src) {
 
     companion object {
