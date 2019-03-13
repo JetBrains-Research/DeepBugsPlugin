@@ -59,7 +59,8 @@ class DownloadClient(private val pluginName: String, private val afterDownload: 
         ProgressManager.getInstance().run(downloadTask)
     }
 
-    private inner class DownloadTask(project: Project?, message: String, canBeCancelled: Boolean) : Task.Backgroundable(project, message, canBeCancelled) {
+    private inner class DownloadTask(project: Project?, message: String, canBeCancelled: Boolean)
+        : Task.Backgroundable(project, message, canBeCancelled) {
 
         override fun run(indicator: ProgressIndicator) {
             download(DownloadProgressWrapper(ProgressManager.getInstance().progressIndicator))

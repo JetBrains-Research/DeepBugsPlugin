@@ -6,7 +6,7 @@ import java.nio.FloatBuffer
 object TensorUtils {
 
     fun getResult(tensor: Tensor<*>): Float {
-        val array = Array(tensor.shape()[0].toInt(), { FloatArray(tensor.shape()[1].toInt()) })
+        val array = Array(tensor.shape()[0].toInt()) { FloatArray(tensor.shape()[1].toInt()) }
         tensor.copyTo(array)
         return array[0][0]
     }

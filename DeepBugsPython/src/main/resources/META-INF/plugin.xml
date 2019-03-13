@@ -1,0 +1,47 @@
+<idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
+    <name>DeepBugsPython</name>
+    <id>DeepBugsPython</id>
+    <vendor email="anastasia.i.tuchina@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Anastasia Tuchina
+    </vendor>
+    <version>0.1</version>
+    <description><![CDATA[
+    DeepBugsPython plugin provides several code inspections intended for detecting bugs and code quality issues.
+    <h4>Requirements</h4>
+    Currently available only for a 64-bit JVM.<br>
+    Plugin requires model files to perform code analysis.
+    It would be suggested to download required files when the plugin is
+    launched for the first time.
+    <h4>Using inspections</h4>
+    <ol>
+        <li>Select <code>Analyze | Run inspection by name...</code>
+            or <code>Code | Run inspection by name...</code>menu item.</li>
+        <li>Select the desired code inspection.</li>
+        <li>Set inspection options and click OK.</li>
+    </ol>
+    <h4>Available code inspections</h4>
+    <ul>
+        <li>DeepBugsPython: Possibly incorrect binary operator.</li>
+        <li>DeepBugsPython: Possibly incorrect binary operand.</li>
+        <li>DeepBugsPython: Possibly swapped function arguments.</li>
+    </ul>
+    <h4>Configuration</h4>
+    Each code inspection uses its own threshold value to distinguish correct from incorrect code. Thresholds are configurable
+    and could be set manually in <code>Preferences/Settings | Tools | DeepBugsPython</code>.
+    ]]></description>
+
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.python</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <inspectionToolProvider
+                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.python.inspection_providers.PyDeepBugsProvider"/>
+        <errorHandler
+                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting.GitHubErrorReporter"/>
+        <applicationService
+                serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfig"/>
+        <applicationConfigurable groupId="tools"
+                                 displayName="DeepBugsPython"
+                                 instance="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfigurable"/>
+
+    </extensions>
+</idea-plugin>
