@@ -1,6 +1,6 @@
 # DeepBugsPlugin
 
-IntelliJ Platform plugins inspired by [DeepBugs](https://github.com/ml-in-programming/DeepBugs) framework. 
+Plugins for IntelliJ Platform-based IDEs inspired by [DeepBugs](https://github.com/ml-in-programming/DeepBugs) framework. 
 
 These plugins provide several code inspections which objectives are to analyze the code of a project opened in IDE and to highlight potential bugs and code quality issues in it.
 
