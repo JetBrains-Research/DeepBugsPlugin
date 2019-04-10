@@ -6,7 +6,9 @@ These plugins provide several code inspections which objectives are to analyze t
 
 ## Supported languages
 - Python ([PyCharm/IntelliJ IDEA plugin](https://github.com/ml-in-programming/DeepBugsPlugin/tree/master/DeepBugsPython))
+  - [DeepBugsPython](https://plugins.jetbrains.com/plugin/12218-deepbugspython) at JetBrains plugins repository
 - JavaScript ([WebStorm/IntelliJ IDEA Ultimate plugin](https://github.com/ml-in-programming/DeepBugsPlugin/tree/master/DeepBugsJavaScript))
+  - [DeepBugsJavaScript](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript) at JetBrains plugins repository
 
 ## Requirements
 Currently available only for a 64-bit JVM.
