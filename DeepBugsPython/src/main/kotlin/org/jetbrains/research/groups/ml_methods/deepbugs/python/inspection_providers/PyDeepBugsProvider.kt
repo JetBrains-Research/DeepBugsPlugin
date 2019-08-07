@@ -1,6 +1,7 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.python.inspection_providers
 
 import com.intellij.codeInspection.InspectionToolProvider
+
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.PyDeepBugsBinOperandInspection
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.PyDeepBugsBinOperatorInspection
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.PyDeepBugsSwappedArgsInspection

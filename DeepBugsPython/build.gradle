@@ -22,19 +22,11 @@ allprojects {
     }
 }
 
-
-//intellij {
- //   version ideaVersion
- //   pluginName 'DeepBugsPython'
- //   plugins 'PythonCore:2018.3.183.4886.3'
-//}
-
 intellij {
-    version ideaVersion
     pluginName 'DeepBugsPython'
-    alternativeIdePath = '/Applications/PyCharm.app'
-    plugins 'PythonCore:2018.3.183.4886.3'
-    downloadSources = false
+    version = '2019.2'
+
+    plugins 'PythonCore:2019.2.192.5728.98'
 }
 
 subprojects {
@@ -43,7 +35,8 @@ subprojects {
 }
 
 runIde {
-    jvmArgs '-Xms1024m', '-Xmx10g'
+    jvmArgs '-Xms1024m', '-Xmx10g', '-Xbootclasspath/a:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/lib/tools.jar',
+    '-Didea.is.internal=true'
 }
 
 patchPluginXml {

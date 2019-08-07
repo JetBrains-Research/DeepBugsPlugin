@@ -4,7 +4,7 @@ import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.extraction.PyExtractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.models
+import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService.models
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.BinOp
 
 class PyBinOp(

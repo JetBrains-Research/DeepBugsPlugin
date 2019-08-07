@@ -3,7 +3,7 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.datatypes
 import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.extraction.PyExtractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.models
+import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService.models
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Call
 
 class PyCall(

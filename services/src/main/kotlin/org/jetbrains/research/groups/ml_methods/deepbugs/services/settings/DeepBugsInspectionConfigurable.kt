@@ -4,13 +4,13 @@ import com.intellij.openapi.options.Configurable
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.ui.DeepBugsUI
 import javax.swing.JComponent
 
-abstract class DeepBugsInspectionConfigurable(private val settings: DeepBugsInspectionConfig) : Configurable {
-    private var deepBugsUI: DeepBugsUI? = null
+abstract class DeepBugsInspectionConfigurable(protected val settings: DeepBugsInspectionConfig) : Configurable {
+    protected var deepBugsUI: DeepBugsUI? = null
 
+    abstract fun logSettings()
     abstract fun createUI(): DeepBugsUI
 
     override fun getHelpTopic(): String? = null
-
 
     override fun isModified() =
             (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
@@ -19,6 +19,7 @@ abstract class DeepBugsInspectionConfigurable(private val settings: DeepBugsInsp
 
 
     override fun apply() {
+        logSettings()
         settings.curBinOperatorThreshold = deepBugsUI!!.binOperatorThreshold
         settings.curBinOperandThreshold = deepBugsUI!!.binOperandThreshold
         settings.curSwappedArgsThreshold = deepBugsUI!!.swappedArgsThreshold

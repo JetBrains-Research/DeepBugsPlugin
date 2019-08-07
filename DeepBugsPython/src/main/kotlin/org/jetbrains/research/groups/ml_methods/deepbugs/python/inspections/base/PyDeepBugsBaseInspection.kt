@@ -3,13 +3,13 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.bas
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
+import com.intellij.openapi.project.Project
 import com.intellij.psi.NavigatablePsiElement
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.DataType
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.TensorUtils
-import org.tensorflow.SavedModelBundle
 import org.tensorflow.Session
 
 abstract class PyDeepBugsBaseInspection : PyInspection() {
@@ -17,6 +17,8 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
 
     protected abstract fun getModel(): Session?
     protected abstract fun getThreshold(): Float
+
+    protected abstract fun logReport(project: Project, result: Float)
 
     abstract inner class PyDeepBugsVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : PyInspectionVisitor(holder, session) {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
@@ -37,6 +39,8 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
                         if (res > getThreshold()) {
                             registerProblem(node, DeepBugsPythonBundle.message(keyMessage, res),
                                 ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
+                            val project = session.file.project
+                            logReport(project, res)
                         }
                     }
                 }
