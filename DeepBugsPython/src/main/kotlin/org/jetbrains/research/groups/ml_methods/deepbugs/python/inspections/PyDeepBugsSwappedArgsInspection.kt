@@ -2,7 +2,7 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections
 
 import com.intellij.openapi.project.Project
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.base.PyDeepBugsCallExprInspection
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.InspectionReportCollector
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.InspectionReportColletor
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfig
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService.models
@@ -18,6 +18,6 @@ class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection() {
     override fun getShortName(): String = "PyDeepBugsSwappedArgs"
 
     override fun logReport(project: Project, result: Float) {
-        InspectionReportCollector.logSwappedArgsInspectionReport(project, EVENT_LOG_PREFIX, result)
+        InspectionReportColletor.logSwappedArgsInspectionReport(project, EVENT_LOG_PREFIX, result)
     }
 }

@@ -1,13 +1,14 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors
+package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter
 
 import com.intellij.internal.statistic.eventLog.FeatureUsageData
+
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.settings.DeepBugsInspectionConfig
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.ui.DeepBugsUI
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsCounterLogger
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.GeneralCounterGroups.*
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.log.DeepBugsCounterLogger
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.log.GeneralCounterGroups.*
 
-object SettingsInfoCollector {
-    fun settingsInvoked(prefix: String) {
+object SettingsStatsCollector {
+    fun logSettingsInvoked(prefix: String) {
         DeepBugsCounterLogger.logEvent(UI_INVOKED.groupId, "$prefix-settings-ui-invoked")
     }
 

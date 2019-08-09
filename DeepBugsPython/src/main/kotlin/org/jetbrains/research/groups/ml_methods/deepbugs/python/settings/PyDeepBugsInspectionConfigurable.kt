@@ -1,7 +1,7 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.python.settings
 
 import com.intellij.openapi.options.Configurable
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.SettingsInfoCollector
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.SettingsStatsCollector
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.settings.DeepBugsInspectionConfigurable
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.ui.DeepBugsUI
@@ -15,11 +15,11 @@ class PyDeepBugsInspectionConfigurable(settings: PyDeepBugsInspectionConfig) : D
     }
 
     override fun logSettings() {
-        return SettingsInfoCollector.logNewSettings(EVENT_LOG_PREFIX, settings, deepBugsUI!!)
+        return SettingsStatsCollector.logNewSettings(EVENT_LOG_PREFIX, settings, deepBugsUI!!)
     }
 
     override fun createUI(): DeepBugsUI {
-        SettingsInfoCollector.settingsInvoked(EVENT_LOG_PREFIX)
+        SettingsStatsCollector.logSettingsInvoked(EVENT_LOG_PREFIX)
         return PyDeepBugsUI()
     }
 

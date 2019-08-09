@@ -1,19 +1,15 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger
+package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.log
 
 import com.intellij.concurrency.JobScheduler
 import com.intellij.internal.statistic.eventLog.EventLogGroup
 import com.intellij.internal.statistic.eventLog.FeatureUsageData
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
+
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsEventLogger
+
 import java.util.*
 import java.util.concurrent.TimeUnit
-
-enum class GeneralCounterGroups(val groupId: String) {
-    INSPECTION_REPORT("inspection.report"),
-    UI_INVOKED("settings.ui.invoked"),
-    TO_DEFAULT("settings.default"),
-    CONFIGURED("settings.configured"),
-}
 
 object DeepBugsCounterLogger {
     private const val REGISTERED = "registered"
@@ -22,7 +18,7 @@ object DeepBugsCounterLogger {
     private const val LOG_INITIAL_DELAY_MIN = 1
 
     private val eventGroups = HashMap<String, EventLogGroup>()
-    private val LOG = Logger.getInstance("org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsCounterLogger")
+    private val LOG = Logger.getInstance("org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.log.DeepBugsCounterLogger")
 
     init {
         val version = DeepBugsEventLogger.getConfig().version
@@ -43,7 +39,8 @@ object DeepBugsCounterLogger {
             groupId: String,
             eventId: String
     ) {
-        val group = findRegisteredGroupById(groupId) ?: return
+        val group = findRegisteredGroupById(groupId)
+            ?: return
         val data = FeatureUsageData().addProject(project).build()
         DeepBugsEventLogger.log(group, eventId, data)
     }
@@ -54,7 +51,8 @@ object DeepBugsCounterLogger {
             eventId: String,
             data: FeatureUsageData
     ) {
-        val group = findRegisteredGroupById(groupId) ?: return
+        val group = findRegisteredGroupById(groupId)
+            ?: return
         DeepBugsEventLogger.log(group, eventId, data.addProject(project).build())
     }
 

@@ -32,7 +32,19 @@
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.python</depends>
 
+    <extensionPoints>
+        <extensionPoint qualifiedName="dbp.statistics.projectStateCollector"
+                        interface="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.project.ProjectStateCollector"/>
+    </extensionPoints>
+
+    <extensions defaultExtensionNs="dbp.statistics">
+        <projectStateCollector
+                implementation = "org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.InspectionStateCollector"/>
+    </extensions>
+
     <extensions defaultExtensionNs="com.intellij">
+        <applicationInitializedListener
+            implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.scheduler.DeepBugsLoggingScheduler"/>
         <statistic.eventLog.eventLoggerProvider
                 implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsEventLoggerProvider"/>
         <inspectionToolProvider

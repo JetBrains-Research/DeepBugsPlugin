@@ -1,11 +1,12 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors
+package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter
 
 import com.intellij.internal.statistic.eventLog.FeatureUsageData
 import com.intellij.openapi.project.Project
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsCounterLogger
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.GeneralCounterGroups
 
-object InspectionReportCollector {
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.log.DeepBugsCounterLogger
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.log.GeneralCounterGroups
+
+object InspectionReportColletor {
     fun logSwappedArgsInspectionReport(project: Project, prefix: String, result: Float) {
         logReport(project, "$prefix-call-reported", result)
     }
@@ -20,6 +21,11 @@ object InspectionReportCollector {
 
     private fun logReport(project: Project, inspection: String, result: Float) {
         val data = FeatureUsageData().addData("result", result)
-        DeepBugsCounterLogger.logEvent(project, GeneralCounterGroups.INSPECTION_REPORT.groupId, inspection, data)
+        DeepBugsCounterLogger.logEvent(
+            project,
+            GeneralCounterGroups.INSPECTION_REPORT.groupId,
+            inspection,
+            data
+        )
     }
 }
