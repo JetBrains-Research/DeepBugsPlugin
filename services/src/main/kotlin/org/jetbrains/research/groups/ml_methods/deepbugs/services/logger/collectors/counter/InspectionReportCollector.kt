@@ -6,7 +6,7 @@ import com.intellij.openapi.project.Project
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.log.DeepBugsCounterLogger
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.log.GeneralCounterGroups
 
-object InspectionReportColletor {
+object InspectionReportCollector {
     fun logSwappedArgsInspectionReport(project: Project, prefix: String, result: Float) {
         logReport(project, "$prefix-call-reported", result)
     }

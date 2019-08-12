@@ -2,7 +2,7 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections
 
 import com.intellij.openapi.project.Project
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.base.PyDeepBugsBinExprInspection
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.InspectionReportColletor
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfig
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService.models
@@ -19,6 +19,6 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection() {
     override fun getShortName(): String = "PyDeepBugsBinOperator"
 
     override fun logReport(project: Project, result: Float) {
-        InspectionReportColletor.logOperatorInspectionReport(project, EVENT_LOG_PREFIX, result)
+        InspectionReportCollector.logOperatorInspectionReport(project, EVENT_LOG_PREFIX, result)
     }
 }
