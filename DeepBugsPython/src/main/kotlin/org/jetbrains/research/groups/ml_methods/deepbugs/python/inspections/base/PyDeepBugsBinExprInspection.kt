@@ -14,7 +14,10 @@ abstract class PyDeepBugsBinExprInspection : PyDeepBugsBaseInspection() {
             session: LocalInspectionToolSession
     ): PsiElementVisitor = PyDeepBugsBinOpVisitor(holder, session)
 
-    inner class PyDeepBugsBinOpVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : PyDeepBugsVisitor(holder, session) {
+    inner class PyDeepBugsBinOpVisitor(
+            holder: ProblemsHolder,
+            session: LocalInspectionToolSession
+    ) : PyDeepBugsVisitor(holder, session) {
         override fun collect(node: NavigatablePsiElement, src: String) = PyBinOp.collectFromPyNode(node as PyBinaryExpression)
 
         override fun visitPyBinaryExpression(node: PyBinaryExpression?) {

@@ -14,7 +14,10 @@ abstract class PyDeepBugsCallExprInspection : PyDeepBugsBaseInspection() {
             session: LocalInspectionToolSession
     ): PsiElementVisitor = PyDeepBugsCallVisitor(holder, session)
 
-    inner class PyDeepBugsCallVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : PyDeepBugsVisitor(holder, session) {
+    inner class PyDeepBugsCallVisitor(
+            holder: ProblemsHolder,
+            session: LocalInspectionToolSession
+    ) : PyDeepBugsVisitor(holder, session) {
         override fun collect(node: NavigatablePsiElement, src: String) = PyCall.collectFromPyNode(node as PyCallExpression)
 
         override fun visitPyCallExpression(node: PyCallExpression?) {

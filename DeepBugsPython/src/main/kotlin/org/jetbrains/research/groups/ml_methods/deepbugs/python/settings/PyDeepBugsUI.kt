@@ -2,27 +2,30 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.python.settings
 
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.SettingsStatsCollector
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.ui.DeepBugsUI
-import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonService.EVENT_LOG_PREFIX
 
 class PyDeepBugsUI : DeepBugsUI() {
     init {
         defaultBinOperatorThreshold.addActionListener {
             binOperatorThreshold = PyDeepBugsInspectionConfigurable.PY_DEFAULT_BIN_OPERATOR_CONFIG
-            SettingsStatsCollector.logDefaultOperator(EVENT_LOG_PREFIX)
+            SettingsStatsCollector.logDefaultOperator(COMPONENT_NAME)
         }
         defaultBinOperandThreshold.addActionListener {
             binOperandThreshold = PyDeepBugsInspectionConfigurable.PY_DEFAULT_BIN_OPERAND_CONFIG
-            SettingsStatsCollector.logDefaultOperand(EVENT_LOG_PREFIX)
+            SettingsStatsCollector.logDefaultOperand(COMPONENT_NAME)
         }
         defaultSwappedArgsThreshold.addActionListener {
             swappedArgsThreshold = PyDeepBugsInspectionConfigurable.PY_DEFAULT_SWAPPED_ARGS_CONFIG
-            SettingsStatsCollector.logDefaultCall(EVENT_LOG_PREFIX)
+            SettingsStatsCollector.logDefaultCall(COMPONENT_NAME)
         }
         defaultAll.addActionListener {
             binOperatorThreshold = PyDeepBugsInspectionConfigurable.PY_DEFAULT_BIN_OPERATOR_CONFIG
             binOperandThreshold = PyDeepBugsInspectionConfigurable.PY_DEFAULT_BIN_OPERAND_CONFIG
             swappedArgsThreshold = PyDeepBugsInspectionConfigurable.PY_DEFAULT_SWAPPED_ARGS_CONFIG
-            SettingsStatsCollector.logDefaultAll(EVENT_LOG_PREFIX)
+            SettingsStatsCollector.logDefaultAll(COMPONENT_NAME)
         }
+    }
+
+    companion object {
+        const val COMPONENT_NAME = "PyInspectionConfig"
     }
 }

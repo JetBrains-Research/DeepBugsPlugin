@@ -9,6 +9,8 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.services.settings.DeepB
 
 @State(name = "deepbugs_python_config", storages = [Storage("deepbugs_python_config.xml")])
 class PyDeepBugsInspectionConfig : PersistentStateComponent<PyDeepBugsInspectionConfig>, DeepBugsInspectionConfig {
+    override val configId: String = "PyInspectionConfig"
+
     override var curBinOperatorThreshold = PyDeepBugsInspectionConfigurable.PY_DEFAULT_BIN_OPERATOR_CONFIG
     override var curBinOperandThreshold = PyDeepBugsInspectionConfigurable.PY_DEFAULT_BIN_OPERAND_CONFIG
     override var curSwappedArgsThreshold = PyDeepBugsInspectionConfigurable.PY_DEFAULT_SWAPPED_ARGS_CONFIG

@@ -6,5 +6,4 @@ object DeepBugsPythonService {
     val models by lazy { ModelStorage(PY_PLUGIN_NAME) }
 
     const val PY_PLUGIN_NAME = "DeepBugsPython"
-    const val EVENT_LOG_PREFIX = "python"
 }

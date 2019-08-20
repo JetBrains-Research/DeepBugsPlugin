@@ -2,16 +2,21 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.services.model_storage
 
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
+
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.ProjectManager
+
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.downloader.DownloadClient
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.ErrorInfoCollector
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.Mapping
+
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Session
+
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -50,6 +55,11 @@ class ModelStorage(private val pluginName: String) {
                 typeMapping = loadMapping("typeToVector.json", indicator)
                 operatorMapping = loadMapping("operatorToVector.json", indicator)
                 tokenMapping = loadMapping("tokenToVector.json", indicator)
+            }
+
+            override fun onThrowable(error: Throwable) {
+                if (error !is UnsatisfiedLinkError) return
+                ErrorInfoCollector.logInitErrorReported()
             }
         })
     }

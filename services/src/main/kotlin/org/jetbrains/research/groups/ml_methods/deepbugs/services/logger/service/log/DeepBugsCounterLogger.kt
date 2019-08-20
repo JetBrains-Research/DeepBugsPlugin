@@ -36,41 +36,41 @@ object DeepBugsCounterLogger {
 
     fun logEvent(
             project: Project,
-            groupId: String,
+            group: GeneralCounterGroups,
             eventId: String
     ) {
-        val group = findRegisteredGroupById(groupId)
+        val eventGroup = findRegisteredGroupById(group.groupId)
             ?: return
         val data = FeatureUsageData().addProject(project).build()
-        DeepBugsEventLogger.log(group, eventId, data)
+        DeepBugsEventLogger.log(eventGroup, eventId, data)
     }
 
     fun logEvent(
             project: Project,
-            groupId: String,
+            group: GeneralCounterGroups,
             eventId: String,
             data: FeatureUsageData
     ) {
-        val group = findRegisteredGroupById(groupId)
+        val eventGroup = findRegisteredGroupById(group.groupId)
             ?: return
-        DeepBugsEventLogger.log(group, eventId, data.addProject(project).build())
+        DeepBugsEventLogger.log(eventGroup, eventId, data.addProject(project).build())
     }
 
     fun logEvent(
-            groupId: String,
+            group: GeneralCounterGroups,
             eventId: String
     ) {
-        val group = findRegisteredGroupById(groupId) ?: return
-        DeepBugsEventLogger.log(group, eventId)
+        val eventGroup = findRegisteredGroupById(group.groupId) ?: return
+        DeepBugsEventLogger.log(eventGroup, eventId)
     }
 
     fun logEvent(
-            groupId: String,
+            group: GeneralCounterGroups,
             eventId: String,
             data: FeatureUsageData
     ) {
-        val group = findRegisteredGroupById(groupId) ?: return
-        DeepBugsEventLogger.log(group, eventId, data.build())
+        val eventGroup = findRegisteredGroupById(group.groupId) ?: return
+        DeepBugsEventLogger.log(eventGroup, eventId, data.build())
     }
 
     private fun register(group: EventLogGroup) {

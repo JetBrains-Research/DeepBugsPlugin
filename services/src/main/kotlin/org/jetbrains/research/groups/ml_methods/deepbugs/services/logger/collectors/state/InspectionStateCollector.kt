@@ -9,8 +9,8 @@ import com.intellij.profile.codeInspection.InspectionProjectProfileManager
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.project.ProjectStateCollector
 import java.util.*
 
-class InspectionStateCollector: ProjectStateCollector {
-    override val groupId: String = "inspections"
+class InspectionStateCollector : ProjectStateCollector {
+    override val groupId: String = "dbp.inspections"
     override val version: Int = 1
 
     override fun getStates(project: Project): MutableSet<MetricEvent> {
@@ -18,21 +18,26 @@ class InspectionStateCollector: ProjectStateCollector {
         val result = HashSet<MetricEvent>()
         tools.forEach { tool ->
             when {
-                ENABLED(tool)  -> result.add(create(tool, true))
-                DISABLED(tool) -> result.add(create(tool, false))
+                ENABLED(tool)  -> result.add(createInspectionStateMetric(tool, true))
+                DISABLED(tool) -> result.add(createInspectionStateMetric(tool, false))
             }
         }
         return result
     }
 
-    private fun create(state: ScopeToolState, enabled: Boolean): MetricEvent {
-        val data = FeatureUsageData().addData("enabled", enabled)
-        val id = state.tool.id
+    private fun createInspectionStateMetric(state: ScopeToolState, enabled: Boolean): MetricEvent {
+        val inspection = state.tool.shortName
+        val data = FeatureUsageData()
+                .addData("inspection", inspection)
+                .addData("enabled", enabled)
+                .addData("not_default_state", NOT_DEFAULT(state, enabled))
 
-        return newMetric(id, data)
+        return newMetric(INSPECTION_STATUS_EVENT, data)
     }
 
     companion object {
+        private const val INSPECTION_STATUS_EVENT = "inspection.status"
+
         private val ENABLED = { state: ScopeToolState ->
             state.isEnabled && state.tool.displayName.contains("DeepBugs")
         }
@@ -41,5 +46,8 @@ class InspectionStateCollector: ProjectStateCollector {
             !state.isEnabled && state.tool.displayName.contains("DeepBugs")
         }
 
+        private val NOT_DEFAULT = { state: ScopeToolState, enabled: Boolean ->
+            enabled != state.tool.isEnabledByDefault
+        }
     }
 }

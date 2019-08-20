@@ -3,7 +3,6 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.services.utils
 import com.intellij.ide.plugins.PluginManager
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.util.SystemInfo
-import com.intellij.util.io.createFile
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
 import java.io.File
@@ -27,7 +26,7 @@ class PlatformManager<T> private constructor(klass: Class<T>) {
             val dll = File(libPath.toString())
             val output = FileUtils.openOutputStream(dll)
             IOUtils.copy(input, output)
-            input.close()
+            input?.close()
             output.close()
         }
         try {

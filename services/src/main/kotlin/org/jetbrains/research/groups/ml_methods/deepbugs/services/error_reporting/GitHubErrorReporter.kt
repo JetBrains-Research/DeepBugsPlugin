@@ -17,11 +17,17 @@ import com.intellij.openapi.progress.EmptyProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
 import com.intellij.util.Consumer
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.ErrorInfoCollector
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 import java.awt.Component
 
 class GitHubErrorReporter : ErrorReportSubmitter() {
-    override fun submit(events: Array<IdeaLoggingEvent>, additionalInfo: String?, parentComponent: Component, consumer: Consumer<SubmittedReportInfo>): Boolean {
+    override fun submit(
+            events: Array<IdeaLoggingEvent>,
+            additionalInfo: String?,
+            parentComponent: Component,
+            consumer: Consumer<SubmittedReportInfo>
+    ): Boolean {
         val errorBean = GitHubErrorBean(events[0].throwable, IdeaLogger.ourLastActionId)
         return doSubmit(events[0], parentComponent, consumer, errorBean, additionalInfo)
     }
@@ -65,7 +71,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
 
         val project = CommonDataKeys.PROJECT.getData(dataContext)
 
-        val notifyingCallback = GitHubErrorReporter.CallbackWithNotification(callback, project)
+        val notifyingCallback = CallbackWithNotification(callback, project)
         val task = AnonymousFeedbackTask(project,
             DeepBugsServicesBundle.message("report.error.progress.dialog.text"),
             true,
@@ -76,6 +82,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
         } else {
             ProgressManager.getInstance().run(task)
         }
+        ErrorInfoCollector.logInitErrorSubmitted()
         return true
     }
 
