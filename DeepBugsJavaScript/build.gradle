@@ -11,8 +11,10 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'kotlin'
     apply plugin: 'org.jetbrains.intellij'
+
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
     compileKotlin {
         kotlinOptions.jvmTarget = javaVersion
     }
@@ -24,17 +26,17 @@ repositories {
 }
 
 intellij {
-    version ideaVersion
-    pluginName 'DeepBugsJavaScript'
-    plugins 'JavaScriptLanguage'
-    alternativeIdePath = '/Applications/WebStorm.app'
+    pluginName = 'DeepBugsJavaScript'
+
+    version = "2019.2.2"
+    type = "IU"
+    plugins = ['JavaScriptLanguage']
+
     downloadSources = false
+    alternativeIdePath = '/Applications/WebStorm.app'
 }
 
 subprojects {
-    intellij {
-        downloadSources = false
-    }
     project.tasks.getByPath("runIde").enabled false
     project.tasks.getByPath("prepareSandbox").enabled false
 }
@@ -44,11 +46,15 @@ runIde {
 }
 
 patchPluginXml {
-    sinceBuild '181'
+    sinceBuild '192.6603'
     untilBuild ''
+    version '0.2'
+    changeNotes "Minor improvements. Usage statistics."
 }
 
 buildPlugin {
+    jar.version = 0.2
+    version '0.2'
     exclude('models')
     exclude('repository.json')
 }

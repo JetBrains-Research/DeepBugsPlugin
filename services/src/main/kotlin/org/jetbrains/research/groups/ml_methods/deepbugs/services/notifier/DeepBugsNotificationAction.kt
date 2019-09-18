@@ -11,7 +11,7 @@ class DeepBugsNotificationAction(
 ) : DumbAwareAction(actionText) {
 
     override fun update(e: AnActionEvent) {
-        e.presentation.isEnabled = !EventLog.getLogModel(e.project).notifications.isEmpty()
+        e.presentation.isEnabled = EventLog.getLogModel(e.project).notifications.isNotEmpty()
     }
 
     override fun actionPerformed(e: AnActionEvent) {

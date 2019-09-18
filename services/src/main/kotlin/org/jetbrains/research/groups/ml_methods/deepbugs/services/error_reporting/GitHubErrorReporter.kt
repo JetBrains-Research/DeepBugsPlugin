@@ -1,8 +1,10 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting
 
+import com.intellij.diagnostic.IdeErrorsDialog
 import com.intellij.diagnostic.LogMessage
 import com.intellij.diagnostic.ReportMessages
 import com.intellij.ide.DataManager
+import com.intellij.ide.plugins.PluginManager
 import com.intellij.idea.IdeaLogger
 import com.intellij.notification.NotificationListener
 import com.intellij.notification.NotificationType
@@ -45,18 +47,15 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
         bean.message = event.message
 
         val throwable = event.throwable
-        if (throwable != null) {
-            //TODO Should not be hardcoded
-            bean.pluginName = "DeepBugsPlugin"
-            bean.pluginVersion = "0.1"
-            //val pluginId = IdeErrorsDialog.findPluginId(throwable)
-            //if (pluginId != null) {
-            //val ideaPluginDescriptor = PluginManager.getPlugin(pluginId)
-            //if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled) {
-            //bean.pluginName = ideaPluginDescriptor.callee
-            //bean.pluginVersion = ideaPluginDescriptor.version
-            //}
-            //}
+        throwable?.let {
+            val pluginId = IdeErrorsDialog.findPluginId(throwable)
+            pluginId?.let {
+                val ideaPluginDescriptor = PluginManager.getPlugin(pluginId)
+                if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled) {
+                    bean.pluginName = ideaPluginDescriptor.name
+                    bean.pluginVersion = ideaPluginDescriptor.version
+                }
+            }
         }
 
         val data = event.data

@@ -11,22 +11,25 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'kotlin'
     apply plugin: 'org.jetbrains.intellij'
+
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
     repositories {
         mavenCentral()
         jcenter()
     }
+
     compileKotlin {
         kotlinOptions.jvmTarget = javaVersion
     }
 }
 
 intellij {
-    pluginName 'DeepBugsPython'
-    version = '2019.2'
+    pluginName = 'DeepBugsPython'
+    version = '2019.2.2'
 
-    plugins 'PythonCore:2019.2.192.5728.98'
+    plugins = ['PythonCore:2019.2.192.6603.23']
 }
 
 subprojects {
@@ -35,16 +38,21 @@ subprojects {
 }
 
 runIde {
-    jvmArgs '-Xms1024m', '-Xmx10g', '-Xbootclasspath/a:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/lib/tools.jar',
-    '-Didea.is.internal=true'
+    jvmArgs '-Xms1024m', '-Xmx10g',
+            '-Xbootclasspath/a:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/lib/tools.jar',
+            '-Didea.is.internal=true'
 }
 
 patchPluginXml {
-    sinceBuild '181'
+    sinceBuild '192.6603'
     untilBuild ''
+    version '0.2'
+    changeNotes "Minor improvements. Usage statistics."
 }
 
 buildPlugin {
+    jar.version = 0.2
+    version '0.2'
     exclude('models')
     exclude('repository.json')
 }

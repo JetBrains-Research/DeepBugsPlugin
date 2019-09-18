@@ -2,8 +2,10 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils
 
 import com.intellij.CommonBundle
 import com.intellij.reference.SoftReference
+
 import org.jetbrains.annotations.PropertyKey
 import java.lang.ref.Reference
+
 import java.util.*
 
 object DeepBugsJSBundle {

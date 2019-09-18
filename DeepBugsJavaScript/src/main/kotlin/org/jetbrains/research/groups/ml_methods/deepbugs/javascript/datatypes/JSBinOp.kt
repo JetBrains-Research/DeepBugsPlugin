@@ -1,8 +1,9 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.javascript.datatypes
 
 import com.intellij.lang.javascript.psi.JSBinaryExpression
+
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.extraction.JSExtractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.models
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.base.models
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.BinOp
 
 class JSBinOp(

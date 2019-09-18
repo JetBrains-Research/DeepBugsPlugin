@@ -8,6 +8,11 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.services.settings.DeepB
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.ui.DeepBugsUI
 
 object SettingsStatsCollector {
+    private const val SETTINGS_DEFAULT = "set.to.default"
+    private const val CONFIG_THRESHOLD = "config.metrics.threshold"
+
+    private val SUPPORTED_INSPECTION_CLASSES = arrayOf("operator", "operand", "call")
+
     fun logSettingsInvoked(componentId: String) {
         val data = FeatureUsageData().addData("component", componentId)
         DeepBugsCounterLogger.logEvent(SETTINGS_UI, "settings.ui.invoked", data)
@@ -33,32 +38,34 @@ object SettingsStatsCollector {
         val data = FeatureUsageData()
                 .addData("component", componentId)
                 .addData("related_inspection", relatedInspection)
-        DeepBugsCounterLogger.logEvent(SETTINGS, "set.to.default", data)
+        DeepBugsCounterLogger.logEvent(SETTINGS, SETTINGS_DEFAULT, data)
     }
 
     fun logNewSettings(configurable: DeepBugsInspectionConfig, ui: DeepBugsUI) {
-        generateEventListData(configurable, ui).forEach { data ->
-            DeepBugsCounterLogger.logEvent(SETTINGS, "config.metrics.threshold", data)
+        generateConfigEventData(configurable, ui).forEach { data ->
+            DeepBugsCounterLogger.logEvent(SETTINGS, CONFIG_THRESHOLD, data)
         }
     }
 
-    private fun generateEventListData(config: DeepBugsInspectionConfig, ui: DeepBugsUI): List<FeatureUsageData> {
-        return listOf(
-            FeatureUsageData()
-                    .addData("component", config.configId)
-                    .addData("related.inspection", "operator")
-                    .addData("prev_config", config.curBinOperatorThreshold)
-                    .addData("new_config", ui.binOperatorThreshold),
-            FeatureUsageData()
-                    .addData("component", config.configId)
-                    .addData("related.inspection", "operand")
-                    .addData("prev_config", config.curBinOperandThreshold)
-                    .addData("new_config", ui.binOperandThreshold),
-            FeatureUsageData()
-                    .addData("component", config.configId)
-                    .addData("related.inspection", "call")
-                    .addData("prev_config", config.curSwappedArgsThreshold)
-                    .addData("new_config", ui.swappedArgsThreshold)
-        )
+    private fun generateConfigEventData(config: DeepBugsInspectionConfig, ui: DeepBugsUI): List<FeatureUsageData> {
+        return SUPPORTED_INSPECTION_CLASSES.map { generateConfigData(it, config, ui) }
+    }
+
+    private fun generateConfigData(
+            inspectionClass: String,
+            config: DeepBugsInspectionConfig,
+            ui: DeepBugsUI
+    ): FeatureUsageData {
+        val (prevConfig: Float, newConfig: Float) = when(inspectionClass) {
+            "operator" -> Pair(config.curBinOperatorThreshold, ui.binOperatorThreshold)
+            "operand" -> Pair(config.curBinOperandThreshold, ui.binOperandThreshold)
+            "call" -> Pair(config.curSwappedArgsThreshold, ui.swappedArgsThreshold)
+            else -> throw IllegalArgumentException("Inspection call $inspectionClass is not supported")
+        }
+        return FeatureUsageData()
+                .addData("component", config.configId)
+                .addData("related_inspection", inspectionClass)
+                .addData("prev_config", prevConfig)
+                .addData("new_config", newConfig)
     }
 }

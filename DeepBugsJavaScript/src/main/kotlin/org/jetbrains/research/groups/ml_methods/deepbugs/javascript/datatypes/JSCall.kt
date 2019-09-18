@@ -4,8 +4,9 @@ import com.intellij.lang.javascript.psi.JSCallExpression
 import com.intellij.lang.javascript.psi.JSFunction
 import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.util.ObjectUtils
+
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.extraction.JSExtractor
-import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.models
+import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.base.models
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Call
 
 class JSCall(
@@ -40,11 +41,10 @@ class JSCall(
 
             val base = JSExtractor.extractJSNodeBase(node)
 
-            var resolved: JSFunction?
-            try {
-                resolved = callee.multiResolve(false).map { it.element }.firstOrNull { it is JSFunction } as? JSFunction
+            val resolved = try {
+                callee.multiResolve(false).map { it.element }.firstOrNull { it is JSFunction } as? JSFunction
             } catch (ex: Exception) {
-                resolved = null
+                null
             }
 
             val params = resolved?.parameters?.toList()

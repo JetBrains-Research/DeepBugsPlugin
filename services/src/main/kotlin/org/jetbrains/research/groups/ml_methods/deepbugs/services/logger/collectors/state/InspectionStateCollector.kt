@@ -6,7 +6,7 @@ import com.intellij.internal.statistic.beans.newMetric
 import com.intellij.internal.statistic.eventLog.FeatureUsageData
 import com.intellij.openapi.project.Project
 import com.intellij.profile.codeInspection.InspectionProjectProfileManager
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.project.ProjectStateCollector
+
 import java.util.*
 
 class InspectionStateCollector : ProjectStateCollector {

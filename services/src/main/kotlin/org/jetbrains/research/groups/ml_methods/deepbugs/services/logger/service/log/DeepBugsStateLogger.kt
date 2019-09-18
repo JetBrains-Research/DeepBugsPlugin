@@ -3,11 +3,10 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.servic
 import com.intellij.internal.statistic.beans.MetricEvent
 import com.intellij.internal.statistic.eventLog.EventLogGroup
 import com.intellij.internal.statistic.eventLog.FeatureUsageData
-import com.intellij.openapi.project.Project
 import com.intellij.internal.statistic.utils.StatisticsUploadAssistant.LOCK
-
+import com.intellij.openapi.project.Project
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsEventLogger
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.project.ProjectStateCollector
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.ProjectStateCollector
 
 class DeepBugsStateLogger {
     fun logProjectStates(project: Project) {

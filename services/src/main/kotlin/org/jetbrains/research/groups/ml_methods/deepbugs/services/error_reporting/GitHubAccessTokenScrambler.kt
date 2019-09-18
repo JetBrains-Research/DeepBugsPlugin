@@ -25,7 +25,7 @@ object GitHubAccessTokenScrambler {
         val horse = args[0]
         val outputFile = args[1]
         try {
-            val e = GitHubAccessTokenScrambler.encrypt(horse)
+            val e = encrypt(horse)
             val o = ObjectOutputStream(FileOutputStream(outputFile))
             o.writeObject(e)
             o.close()

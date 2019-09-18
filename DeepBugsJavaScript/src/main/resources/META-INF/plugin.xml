@@ -1,9 +1,9 @@
 <idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
     <name>DeepBugsJavaScript</name>
     <id>DeepBugsJavaScript</id>
-    <vendor email="anastasia.i.tuchina@gmail.com" url="https://research.jetbrains.org/ru/groups/ml_methods">Anastasia Tuchina
+    <vendor url="https://research.jetbrains.org/ru/groups/ml_methods">
+        Machine Learning Methods in Software Engineering Research Group
     </vendor>
-    <version>0.1</version>
     <description><![CDATA[
     DeepBugsJavaScript plugin provides several code inspections intended for detecting bugs and code quality issues.
     <h4>Requirements</h4>
@@ -31,8 +31,21 @@
 
     <depends>com.intellij.modules.lang</depends>
     <depends>JavaScript</depends>
+    <extensionPoints>
+        <extensionPoint qualifiedName="dbp.statistics.projectStateCollector"
+                        interface="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.ProjectStateCollector"/>
+    </extensionPoints>
+
+    <extensions defaultExtensionNs="dbp.statistics">
+        <projectStateCollector
+                implementation = "org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.InspectionStateCollector"/>
+    </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
+        <applicationInitializedListener
+                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.scheduler.DeepBugsLoggingScheduler"/>
+        <statistic.eventLog.eventLoggerProvider
+                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsEventLoggerProvider"/>
         <inspectionToolProvider
                 implementation="org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspection_providers.JSDeepBugsProvider"/>
         <errorHandler

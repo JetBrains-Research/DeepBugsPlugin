@@ -3,8 +3,10 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.services.utils
 import com.intellij.ide.plugins.PluginManager
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.util.SystemInfo
+
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
+
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths

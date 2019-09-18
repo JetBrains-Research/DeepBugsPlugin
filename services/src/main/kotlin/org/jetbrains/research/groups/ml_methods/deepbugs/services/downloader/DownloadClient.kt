@@ -7,16 +7,19 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
+
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.notifier.DeepBugsNotifier
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.JsonUtils
+
 import java.nio.file.Files
 import java.nio.file.Paths
+
 import kotlin.reflect.KClass
 
 class DownloadClient(private val pluginName: String, private val afterDownload: () -> Unit = {}) {
     private val pluginRoot = Paths.get(PathManager.getPluginsPath(), pluginName).toString()
-    private val config = DownloadClient::class.java.classLoader.getResource("models.json").readText()
+    private val config = DownloadClient::class.java.classLoader.getResource("models.json")?.readText() ?: ""
     private val remoteRepo = JsonUtils.readValue(config, Config::class)
     private val downloader = Downloader(pluginName)
 

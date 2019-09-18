@@ -16,7 +16,7 @@ internal class ErrorReportInformation private constructor(
         namesInfo: ApplicationNamesInfo
 ) {
 
-    private val information = EnumMap<InformationType, String>(ErrorReportInformation.InformationType::class.java)
+    private val information = EnumMap<InformationType, String>(InformationType::class.java)
 
     enum class InformationType {
         ERROR_DESCRIPTION, PLUGIN_NAME, PLUGIN_VERSION, OS_NAME, JAVA_VERSION, JAVA_VM_VENDOR,
@@ -56,7 +56,6 @@ internal class ErrorReportInformation private constructor(
     }
 
     companion object {
-
         fun getUsersInformation(
                 error: GitHubErrorBean,
                 appInfo: ApplicationInfoEx,

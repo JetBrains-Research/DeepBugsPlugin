@@ -9,6 +9,8 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.services.settings.DeepB
 
 @State(name = "deepbugs_js_config", storages = [Storage("deepbugs_js_config.xml")])
 class JSDeepBugsInspectionConfig : PersistentStateComponent<JSDeepBugsInspectionConfig>, DeepBugsInspectionConfig {
+    override val configId: String = "JSInspectionConfig"
+
     override var curBinOperatorThreshold = JSDeepBugsInspectionConfigurable.JS_DEFAULT_BIN_OPERATOR_CONFIG
     override var curBinOperandThreshold = JSDeepBugsInspectionConfigurable.JS_DEFAULT_BIN_OPERAND_CONFIG
     override var curSwappedArgsThreshold = JSDeepBugsInspectionConfigurable.JS_DEFAULT_SWAPPED_ARGS_CONFIG

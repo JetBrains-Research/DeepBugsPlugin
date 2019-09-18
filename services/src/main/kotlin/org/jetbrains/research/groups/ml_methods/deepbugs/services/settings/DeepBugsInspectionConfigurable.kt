@@ -1,13 +1,19 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.settings
 
 import com.intellij.openapi.options.Configurable
+
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.SettingsStatsCollector
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.ui.DeepBugsUI
+
 import javax.swing.JComponent
 
 abstract class DeepBugsInspectionConfigurable(protected val settings: DeepBugsInspectionConfig) : Configurable {
     protected var deepBugsUI: DeepBugsUI? = null
 
-    abstract fun logSettings()
+    fun logSettings() {
+        return SettingsStatsCollector.logNewSettings(settings, deepBugsUI!!)
+    }
+
     abstract fun createUI(): DeepBugsUI
 
     override fun getHelpTopic(): String? = null

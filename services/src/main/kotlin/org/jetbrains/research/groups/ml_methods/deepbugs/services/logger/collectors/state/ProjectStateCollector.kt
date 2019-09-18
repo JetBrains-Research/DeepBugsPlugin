@@ -1,4 +1,4 @@
-package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.project
+package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state
 
 import com.intellij.internal.statistic.beans.MetricEvent
 import com.intellij.openapi.extensions.ExtensionPointName

@@ -1,9 +1,11 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.downloader
 
 import com.intellij.openapi.application.PathManager
+
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.JsonUtils
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.Zip
+
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -17,11 +19,12 @@ data class RepositoryRecord(val target: String, val name: String, val printableN
 @Suppress("UNCHECKED_CAST")
 class Downloader(pluginName: String) {
     private val pluginRoot = Paths.get(PathManager.getPluginsPath(), pluginName).toString()
+
     private fun getRootPath(name: String) = Paths.get(pluginRoot, name)
     private fun getTargetPath(target: String, name: String) = Paths.get(pluginRoot, target, name)
+
     private val repositoryFile = getRootPath("repository.json").toFile()
-    var repository: MutableList<RepositoryRecord>
-        private set
+    private var repository: MutableList<RepositoryRecord>
 
     init {
         if (repositoryFile.exists()) {
