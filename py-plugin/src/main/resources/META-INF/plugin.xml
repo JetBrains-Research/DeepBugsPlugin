@@ -34,28 +34,28 @@
 
     <extensionPoints>
         <extensionPoint qualifiedName="dbp.statistics.projectStateCollector"
-                        interface="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.ProjectStateCollector"/>
+                        interface="org.jetbrains.research.deepbugs.services.logger.collectors.state.ProjectStateCollector"/>
     </extensionPoints>
 
     <extensions defaultExtensionNs="dbp.statistics">
         <projectStateCollector
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.InspectionStateCollector"/>
+                implementation="org.jetbrains.research.deepbugs.services.logger.collectors.state.InspectionStateCollector"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationInitializedListener
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.scheduler.DeepBugsLoggingScheduler"/>
+                implementation="org.jetbrains.research.deepbugs.services.logger.service.scheduler.DeepBugsLoggingScheduler"/>
         <statistic.eventLog.eventLoggerProvider
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsEventLoggerProvider"/>
+                implementation="org.jetbrains.research.deepbugs.services.logger.DeepBugsEventLoggerProvider"/>
         <inspectionToolProvider
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.python.inspection_providers.PyDeepBugsProvider"/>
+                implementation="org.jetbrains.research.deepbugs.python.inspections.providers.PyDeepBugsProvider"/>
         <errorHandler
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting.GitHubErrorReporter"/>
+                implementation="org.jetbrains.research.deepbugs.services.errors.GitHubErrorReporter"/>
         <applicationService
-                serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfig"/>
+                serviceImplementation="org.jetbrains.research.deepbugs.python.settings.PyDeepBugsInspectionConfig"/>
         <applicationConfigurable groupId="tools"
                                  displayName="DeepBugsPython"
-                                 instance="org.jetbrains.research.groups.ml_methods.deepbugs.python.settings.PyDeepBugsInspectionConfigurable"/>
+                                 instance="org.jetbrains.research.deepbugs.python.settings.PyDeepBugsInspectionConfigurable"/>
 
     </extensions>
 </idea-plugin>

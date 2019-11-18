@@ -1,6 +1,8 @@
+import io.gitlab.arturbosch.detekt.detekt
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
+import tanvd.kosogor.defaults.configureIdea
 
-group = "org.jetbrains.research.groups.ml_methods.deepbugs"
+group = "org.jetbrains.research.deepbugs"
 version = "0.3"
 
 
@@ -23,6 +25,24 @@ subprojects {
         plugin("org.jetbrains.intellij")
         plugin("tanvd.kosogor")
         plugin("io.gitlab.arturbosch.detekt")
+    }
+
+    configureIdea {
+        exclude += file("build")
+    }
+
+    detekt {
+        parallel = true
+        failFast = false
+        config = files(File(rootProject.projectDir, "buildScripts/detekt/detekt.yml"))
+        reports {
+            xml {
+                enabled = false
+            }
+            html {
+                enabled = false
+            }
+        }
     }
 
     dependencies {

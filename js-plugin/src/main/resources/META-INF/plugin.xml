@@ -33,28 +33,28 @@
     <depends>JavaScript</depends>
     <extensionPoints>
         <extensionPoint qualifiedName="dbp.statistics.projectStateCollector"
-                        interface="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.ProjectStateCollector"/>
+                        interface="org.jetbrains.research.deepbugs.services.logger.collectors.state.ProjectStateCollector"/>
     </extensionPoints>
 
     <extensions defaultExtensionNs="dbp.statistics">
         <projectStateCollector
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.InspectionStateCollector"/>
+                implementation="org.jetbrains.research.deepbugs.services.logger.collectors.state.InspectionStateCollector"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationInitializedListener
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.scheduler.DeepBugsLoggingScheduler"/>
+                implementation="org.jetbrains.research.deepbugs.services.logger.service.scheduler.DeepBugsLoggingScheduler"/>
         <statistic.eventLog.eventLoggerProvider
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsEventLoggerProvider"/>
+                implementation="org.jetbrains.research.deepbugs.services.logger.DeepBugsEventLoggerProvider"/>
         <inspectionToolProvider
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspection_providers.JSDeepBugsProvider"/>
+                implementation="org.jetbrains.research.deepbugs.javascript.inspections.providers.JSDeepBugsProvider"/>
         <errorHandler
-                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting.GitHubErrorReporter"/>
+                implementation="org.jetbrains.research.deepbugs.services.errors.GitHubErrorReporter"/>
         <applicationService
-                serviceImplementation="org.jetbrains.research.groups.ml_methods.deepbugs.javascript.settings.JSDeepBugsInspectionConfig"/>
+                serviceImplementation="org.jetbrains.research.deepbugs.javascript.settings.JSDeepBugsInspectionConfig"/>
         <applicationConfigurable groupId="tools"
                                  displayName="DeepBugsJavaScript"
-                                 instance="org.jetbrains.research.groups.ml_methods.deepbugs.javascript.settings.JSDeepBugsInspectionConfigurable"/>
+                                 instance="org.jetbrains.research.deepbugs.javascript.settings.JSDeepBugsInspectionConfigurable"/>
 
     </extensions>
 </idea-plugin>
