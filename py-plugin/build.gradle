@@ -6,6 +6,15 @@ intellij {
     plugins = ['PythonCore:2019.2.192.6603.23']
 }
 
+prepareSandbox {
+    from("${projectDir}/models") {
+        into "${pluginName}/models"
+    }
+    from(zipTree("${projectDir}/models/tokenToVector.json.zip")) {
+        into "${pluginName}/models"
+    }
+}
+
 runIde {
     jvmArgs '-Xms1024m', '-Xmx10g', '-Didea.is.internal=true'
 }
@@ -20,8 +29,7 @@ patchPluginXml {
 buildPlugin {
     jar.version = 0.2
     version '0.2'
-    exclude('models')
-    exclude('repository.json')
+    exclude('models/tokenToVector.json.zip')
 }
 
 dependencies {
