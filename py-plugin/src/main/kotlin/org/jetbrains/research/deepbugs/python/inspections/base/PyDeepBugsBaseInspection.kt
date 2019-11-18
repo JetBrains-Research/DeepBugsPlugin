@@ -31,6 +31,8 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
 
         protected fun visitExpr(node: NavigatablePsiElement?) {
             node?.let {
+                //FIXME-review I am not sure, but it looks like you are here collecting all the PSI items
+                //Probably it is possible to find just during visiting? Without explicit traverse.
                 collect(it)?.let { expr ->
                     val result = TensorUtils.inspectCodePiece(getModel(), expr)
                     result?.let { res ->

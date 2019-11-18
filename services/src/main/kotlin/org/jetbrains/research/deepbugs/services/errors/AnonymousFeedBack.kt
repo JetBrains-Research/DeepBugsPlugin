@@ -24,6 +24,7 @@ internal object AnonymousFeedback {
     private val usersInformationToPresentableForm = EnumMap<InformationType, String>(InformationType::class.java)
 
     init {
+        //FIXME-review use data class here and iterate through components? :)
         usersInformationToPresentableForm[PLUGIN_NAME] = "Plugin Name"
         usersInformationToPresentableForm[PLUGIN_VERSION] = "Plugin Version"
         usersInformationToPresentableForm[OS_NAME] = "OS Name"

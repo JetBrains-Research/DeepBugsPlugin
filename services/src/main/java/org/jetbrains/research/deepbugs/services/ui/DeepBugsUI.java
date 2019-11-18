@@ -3,6 +3,7 @@ package org.jetbrains.research.deepbugs.services.ui;
 import javax.swing.*;
 
 @SuppressWarnings("unused")
+//FIXME-review It is better to replace the whole thing with MigLayout based UI. Also consider removing of sliders and replacing them with Enum.
 public class DeepBugsUI {
     protected JButton defaultBinOperatorThreshold;
     protected JButton defaultBinOperandThreshold;

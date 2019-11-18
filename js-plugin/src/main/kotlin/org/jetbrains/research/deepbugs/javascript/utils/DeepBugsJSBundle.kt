@@ -12,6 +12,7 @@ object DeepBugsJSBundle {
     private const val BUNDLE = "DeepBugsJSBundle"
     private var INSTANCE: Reference<ResourceBundle>? = null
 
+    //FIXME-review do you really need all those soft references here?
     private val bundle: ResourceBundle?
         get() {
             var bundle = SoftReference.dereference(INSTANCE)
