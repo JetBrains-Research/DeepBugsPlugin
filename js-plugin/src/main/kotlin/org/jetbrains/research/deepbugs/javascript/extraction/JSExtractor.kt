@@ -8,6 +8,7 @@ fun String.asLiteralString() = "LIT:$this"
 
 fun String.asIdentifierString() = "ID:$this"
 
+@Suppress("unused")
 fun String.asStandardString() = "STD:$this"
 
 object JSExtractor {

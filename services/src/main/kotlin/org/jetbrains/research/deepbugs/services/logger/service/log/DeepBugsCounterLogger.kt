@@ -37,31 +37,12 @@ object DeepBugsCounterLogger {
     fun logEvent(
         project: Project,
         group: GeneralCounterGroups,
-        eventId: String
-    ) {
-        val eventGroup = findRegisteredGroupById(group.groupId)
-            ?: return
-        val data = FeatureUsageData().addProject(project).build()
-        DeepBugsEventLogger.log(eventGroup, eventId, data)
-    }
-
-    fun logEvent(
-        project: Project,
-        group: GeneralCounterGroups,
         eventId: String,
         data: FeatureUsageData
     ) {
         val eventGroup = findRegisteredGroupById(group.groupId)
             ?: return
         DeepBugsEventLogger.log(eventGroup, eventId, data.addProject(project).build())
-    }
-
-    fun logEvent(
-        group: GeneralCounterGroups,
-        eventId: String
-    ) {
-        val eventGroup = findRegisteredGroupById(group.groupId) ?: return
-        DeepBugsEventLogger.log(eventGroup, eventId)
     }
 
     fun logEvent(

@@ -11,7 +11,7 @@ abstract class Call(
     private val base: String,
     private val argumentTypes: List<String>,
     private var parameters: List<String>,
-    private val src: String
+    @Suppress("unused") private val src: String
 ) : DataType {
 
     protected fun vectorize(token: Mapping?, type: Mapping?): Tensor<Float>? {

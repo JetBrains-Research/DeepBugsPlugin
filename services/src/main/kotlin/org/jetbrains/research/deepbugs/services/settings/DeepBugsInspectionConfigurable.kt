@@ -8,9 +8,9 @@ import org.jetbrains.research.deepbugs.services.ui.DeepBugsUI
 import javax.swing.JComponent
 
 abstract class DeepBugsInspectionConfigurable(protected val settings: DeepBugsInspectionConfig) : Configurable {
-    protected var deepBugsUI: DeepBugsUI? = null
+    private var deepBugsUI: DeepBugsUI? = null
 
-    fun logSettings() {
+    private fun logSettings() {
         return SettingsStatsCollector.logNewSettings(settings, deepBugsUI!!)
     }
 

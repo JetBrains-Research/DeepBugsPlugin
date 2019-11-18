@@ -13,7 +13,7 @@ abstract class JSDeepBugsCallExprInspection : JSDeepBugsBaseInspection() {
         session: LocalInspectionToolSession
     ): PsiElementVisitor = JSDeepBugsCallVisitor(holder, session)
 
-    inner class JSDeepBugsCallVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : JSDeepBugsVisitor(holder, session) {
+    inner class JSDeepBugsCallVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : JSDeepBugsVisitor(holder) {
         override fun collect(node: NavigatablePsiElement, src: String) = JSCall.collectFromJSNode(node as JSCallExpression)
 
         override fun visitJSCallExpression(node: JSCallExpression?) {

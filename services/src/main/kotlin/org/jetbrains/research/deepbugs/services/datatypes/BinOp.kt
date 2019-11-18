@@ -13,7 +13,7 @@ abstract class BinOp(
     private val rightType: String,
     private val parent: String,
     private val grandParent: String,
-    private val src: String
+    @Suppress("unused") private val src: String
 ) : DataType {
 
     protected fun vectorize(token: Mapping?, type: Mapping?, nodeType: Mapping?, operator: Mapping?): Tensor<Float>? {

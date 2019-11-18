@@ -22,7 +22,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
     protected abstract fun getModel(): Session?
     protected abstract fun getThreshold(): Float
 
-    abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder, val session: LocalInspectionToolSession) : JSElementVisitor() {
+    abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
 
         protected fun visitExpr(node: NavigatablePsiElement?) {

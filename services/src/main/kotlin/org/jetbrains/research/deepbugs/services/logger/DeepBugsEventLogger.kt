@@ -13,10 +13,6 @@ object DeepBugsEventLogger {
         return loggerProvider.logger.log(group, action, data, false)
     }
 
-    fun logState(group: EventLogGroup, action: String) {
-        return loggerProvider.logger.log(group, action, true)
-    }
-
     fun logState(group: EventLogGroup, action: String, data: Map<String, Any>) {
         return loggerProvider.logger.log(group, action, data, true)
     }
@@ -25,7 +21,4 @@ object DeepBugsEventLogger {
         return loggerProvider
     }
 
-    fun isEnabled(): Boolean {
-        return loggerProvider.logger !is EmptyStatisticsEventLogger
-    }
 }
