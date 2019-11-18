@@ -1,0 +1,29 @@
+intellij {
+    pluginName = 'DeepBugsPython'
+    version = '2019.2.2'
+    type = "IC"
+    downloadSources = true
+    plugins = ['PythonCore:2019.2.192.6603.23']
+}
+
+runIde {
+    jvmArgs '-Xms1024m', '-Xmx10g', '-Didea.is.internal=true'
+}
+
+patchPluginXml {
+    sinceBuild '192.6603'
+    untilBuild ''
+    version '0.2'
+    changeNotes "Minor improvements. Usage statistics."
+}
+
+buildPlugin {
+    jar.version = 0.2
+    version '0.2'
+    exclude('models')
+    exclude('repository.json')
+}
+
+dependencies {
+    compile project(':services')
+}
