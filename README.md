@@ -1,13 +1,15 @@
 # DeepBugsPlugin
 
+
+[![CircleCI](https://img.shields.io/circleci/build/github/JetBrains-Research/DeepBugsPlugin.svg?style=flat-square)](https://circleci.com/gh/JetBrains-Research/DeepBugsPlugin)
+
+
 [![JS Plugin](https://img.shields.io/jetbrains/plugin/v/12220-deepbugsjavascript.svg?style=flat-square&label=js%20plugin)](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript)
 [![JS Downloads](https://img.shields.io/jetbrains/plugin/d/12220-deepbugsjavascript.svg?style=flat-square)](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript)
 
 
 [![Py Plugin](https://img.shields.io/jetbrains/plugin/v/12218-deepbugspython.svg?style=flat-square&label=py%20plugin)](https://plugins.jetbrains.com/plugin/12218-deepbugspython)
 [![Py Downloads](https://img.shields.io/jetbrains/plugin/d/12218-deepbugspython.svg?style=flat-square)](https://plugins.jetbrains.com/plugin/12218-deepbugspython)
-
-[![CircleCI](https://img.shields.io/circleci/build/github/JetBrains-Research/DeepBugsPlugin.svg?style=flat-square)](https://circleci.com/gh/JetBrains-Research/DeepBugsPlugin)
 
 Plugins for IntelliJ Platform-based IDEs inspired by [DeepBugs](https://github.com/JetBrains-Research/DeepBugs) framework. 
 
