@@ -5,7 +5,6 @@ import com.beust.klaxon.Parser
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.progress.*
 import com.intellij.openapi.project.ProjectManager
-import org.jetbrains.research.deepbugs.services.downloader.DownloadClient
 import org.jetbrains.research.deepbugs.services.logger.collectors.counter.ErrorInfoCollector
 import org.jetbrains.research.deepbugs.services.utils.DeepBugsServicesBundle
 import org.jetbrains.research.deepbugs.services.utils.Mapping
@@ -33,8 +32,7 @@ class ModelStorage(private val pluginName: String) {
         private set
 
     init {
-        val client = DownloadClient(pluginName) { initModels() }
-        client.checkRepos()
+        initModels()
     }
 
     private fun initModels() {

@@ -6,6 +6,12 @@ intellij {
     plugins = ['JavaScriptLanguage']
 }
 
+prepareSandbox {
+    from("${projectDir}/models") {
+        into "${pluginName}/models"
+    }
+}
+
 runIde {
     jvmArgs '-Xms1024m', '-Xmx10g'
 }
@@ -20,8 +26,6 @@ patchPluginXml {
 buildPlugin {
     jar.version = 0.2
     version '0.2'
-    exclude('models')
-    exclude('repository.json')
 }
 
 dependencies {
