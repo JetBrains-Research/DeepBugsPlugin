@@ -1,5 +1,9 @@
 # DeepBugsPlugin
 
+[![JetBrains Plugin](https://img.shields.io/jetbrains/plugin/v/12220-deepbugsjavascript.svg?style=flat-square&label=jetbrains%20plugin)](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/12220-deepbugsjavascript.svg?style=flat-square)](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript)
+[![CircleCI](https://img.shields.io/circleci/build/github/JetBrains-Research/DeepBugsPlugin.svg?style=flat-square)](https://circleci.com/gh/JetBrains-Research/DeepBugsPlugin)
+
 Plugins for IntelliJ Platform-based IDEs inspired by [DeepBugs](https://github.com/JetBrains-Research/DeepBugs) framework. 
 
 These plugins provide several code inspections which objectives are to analyze the code of a project opened in IDE and to highlight potential bugs and code quality issues in it.
