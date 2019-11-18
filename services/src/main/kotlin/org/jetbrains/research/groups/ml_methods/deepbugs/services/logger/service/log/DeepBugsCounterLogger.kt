@@ -35,9 +35,9 @@ object DeepBugsCounterLogger {
     }
 
     fun logEvent(
-            project: Project,
-            group: GeneralCounterGroups,
-            eventId: String
+        project: Project,
+        group: GeneralCounterGroups,
+        eventId: String
     ) {
         val eventGroup = findRegisteredGroupById(group.groupId)
             ?: return
@@ -46,10 +46,10 @@ object DeepBugsCounterLogger {
     }
 
     fun logEvent(
-            project: Project,
-            group: GeneralCounterGroups,
-            eventId: String,
-            data: FeatureUsageData
+        project: Project,
+        group: GeneralCounterGroups,
+        eventId: String,
+        data: FeatureUsageData
     ) {
         val eventGroup = findRegisteredGroupById(group.groupId)
             ?: return
@@ -57,17 +57,17 @@ object DeepBugsCounterLogger {
     }
 
     fun logEvent(
-            group: GeneralCounterGroups,
-            eventId: String
+        group: GeneralCounterGroups,
+        eventId: String
     ) {
         val eventGroup = findRegisteredGroupById(group.groupId) ?: return
         DeepBugsEventLogger.log(eventGroup, eventId)
     }
 
     fun logEvent(
-            group: GeneralCounterGroups,
-            eventId: String,
-            data: FeatureUsageData
+        group: GeneralCounterGroups,
+        eventId: String,
+        data: FeatureUsageData
     ) {
         val eventGroup = findRegisteredGroupById(group.groupId) ?: return
         DeepBugsEventLogger.log(eventGroup, eventId, data.build())

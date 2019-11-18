@@ -2,9 +2,7 @@ package org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporti
 
 import com.intellij.openapi.diagnostic.SubmittedReportInfo
 import com.intellij.openapi.diagnostic.SubmittedReportInfo.SubmissionStatus
-import org.eclipse.egit.github.core.Issue
-import org.eclipse.egit.github.core.Label
-import org.eclipse.egit.github.core.RepositoryId
+import org.eclipse.egit.github.core.*
 import org.eclipse.egit.github.core.client.GitHubClient
 import org.eclipse.egit.github.core.service.IssueService
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting.ErrorReportInformation.InformationType

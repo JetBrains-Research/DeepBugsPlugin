@@ -39,12 +39,12 @@
 
     <extensions defaultExtensionNs="dbp.statistics">
         <projectStateCollector
-                implementation = "org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.InspectionStateCollector"/>
+                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.state.InspectionStateCollector"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationInitializedListener
-            implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.scheduler.DeepBugsLoggingScheduler"/>
+                implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.scheduler.DeepBugsLoggingScheduler"/>
         <statistic.eventLog.eventLoggerProvider
                 implementation="org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.DeepBugsEventLoggerProvider"/>
         <inspectionToolProvider

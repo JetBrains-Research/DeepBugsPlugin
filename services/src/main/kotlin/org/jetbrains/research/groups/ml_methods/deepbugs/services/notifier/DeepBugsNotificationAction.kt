@@ -6,8 +6,8 @@ import com.intellij.openapi.project.DumbAwareAction
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
 
 class DeepBugsNotificationAction(
-        actionText: String = "",
-        private val action: () -> Unit = {}
+    actionText: String = "",
+    private val action: () -> Unit = {}
 ) : DumbAwareAction(actionText) {
 
     override fun update(e: AnActionEvent) {

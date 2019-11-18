@@ -11,8 +11,8 @@ object InspectionReportCollector {
 
     fun logReport(project: Project, inspection: String, result: Float) {
         val data = FeatureUsageData()
-                .addData("inspection", inspection)
-                .addData("result", result)
+            .addData("inspection", inspection)
+            .addData("result", result)
         DeepBugsCounterLogger.logEvent(project, INSPECTION_REPORT, REPORT_EVENT, data)
     }
 }

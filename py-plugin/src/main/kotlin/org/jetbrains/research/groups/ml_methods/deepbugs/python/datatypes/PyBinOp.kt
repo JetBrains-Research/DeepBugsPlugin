@@ -9,14 +9,14 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.base
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.BinOp
 
 class PyBinOp(
-        left: String,
-        right: String,
-        op: String,
-        leftType: String,
-        rightType: String,
-        parent: String,
-        grandParent: String,
-        src: String
+    left: String,
+    right: String,
+    op: String,
+    leftType: String,
+    rightType: String,
+    parent: String,
+    grandParent: String,
+    src: String
 ) : BinOp(left, right, op, leftType, rightType, parent, grandParent, src) {
 
     companion object {
@@ -63,5 +63,5 @@ class PyBinOp(
     }
 
     override fun vectorize() =
-            vectorize(models.tokenMapping, models.typeMapping, models.nodeTypeMapping, models.operatorMapping)
+        vectorize(models.tokenMapping, models.typeMapping, models.nodeTypeMapping, models.operatorMapping)
 }

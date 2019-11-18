@@ -4,14 +4,10 @@ import com.intellij.concurrency.JobScheduler
 import com.intellij.ide.ApplicationInitializedListener
 import com.intellij.internal.statistic.utils.StatisticsUploadAssistant
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.project.ProjectManager
-import com.intellij.openapi.project.ProjectManagerListener
+import com.intellij.openapi.project.*
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.service.log.DeepBugsStateLogger
-
 import java.util.*
 import java.util.concurrent.Future
-
 import java.util.concurrent.TimeUnit
 
 class DeepBugsLoggingScheduler : ApplicationInitializedListener {

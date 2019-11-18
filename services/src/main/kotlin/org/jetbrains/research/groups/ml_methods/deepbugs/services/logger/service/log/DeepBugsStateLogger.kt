@@ -26,9 +26,9 @@ class DeepBugsStateLogger {
         }
 
         private fun logStateEvents(
-                project: Project?,
-                group: EventLogGroup,
-                states: Set<MetricEvent>
+            project: Project?,
+            group: EventLogGroup,
+            states: Set<MetricEvent>
         ) {
             val logger = DeepBugsEventLogger
             if (states.isNotEmpty()) {

@@ -7,12 +7,12 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.base
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Call
 
 class PyCall(
-        callee: String,
-        arguments: List<String>,
-        base: String,
-        argumentTypes: List<String>,
-        parameters: MutableList<String>,
-        src: String
+    callee: String,
+    arguments: List<String>,
+    base: String,
+    argumentTypes: List<String>,
+    parameters: MutableList<String>,
+    src: String
 ) : Call(callee, arguments, base, argumentTypes, parameters, src) {
 
     companion object {

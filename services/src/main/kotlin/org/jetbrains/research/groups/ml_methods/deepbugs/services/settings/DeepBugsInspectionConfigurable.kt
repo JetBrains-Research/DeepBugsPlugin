@@ -19,9 +19,9 @@ abstract class DeepBugsInspectionConfigurable(protected val settings: DeepBugsIn
     override fun getHelpTopic(): String? = null
 
     override fun isModified() =
-            (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
-                    (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
-                    (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
+        (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
+            (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
+            (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
 
 
     override fun apply() {

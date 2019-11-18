@@ -34,6 +34,6 @@ object DownloadProgressProvider {
 }
 
 class SimpleDownloadProgress(
-        override var name: String = "", override var phase: String = "Download files",
-        override var progress: Double = 0.0
+    override var name: String = "", override var phase: String = "Download files",
+    override var progress: Double = 0.0
 ) : DownloadProgress

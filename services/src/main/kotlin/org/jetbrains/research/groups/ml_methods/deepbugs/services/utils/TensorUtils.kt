@@ -9,10 +9,10 @@ import java.nio.FloatBuffer
 object TensorUtils {
     fun inspectCodePiece(model: Session?, codePiece: DataType) = codePiece.vectorize()?.let { input ->
         model?.runner()
-                ?.feed("dropout_1_input:0", input)
-                ?.fetch("dense_2/Sigmoid:0")
-                ?.run()
-                ?.firstOrNull()?.let { resTensor -> getResult(resTensor) }
+            ?.feed("dropout_1_input:0", input)
+            ?.fetch("dense_2/Sigmoid:0")
+            ?.run()
+            ?.firstOrNull()?.let { resTensor -> getResult(resTensor) }
     }
 
     private fun getResult(tensor: Tensor<*>): Float {

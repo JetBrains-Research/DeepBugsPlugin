@@ -1,10 +1,7 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting
 
 import org.apache.commons.codec.binary.Base64
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
+import java.io.*
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec

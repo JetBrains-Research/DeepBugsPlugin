@@ -1,9 +1,6 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.logger
 
-import com.intellij.internal.statistic.eventLog.EmptyStatisticsEventLogger
-import com.intellij.internal.statistic.eventLog.EventLogGroup
-import com.intellij.internal.statistic.eventLog.StatisticsEventLoggerProvider
-import com.intellij.internal.statistic.eventLog.getEventLogProvider
+import com.intellij.internal.statistic.eventLog.*
 
 object DeepBugsEventLogger {
     private val loggerProvider: StatisticsEventLoggerProvider = getEventLogProvider("DBP")

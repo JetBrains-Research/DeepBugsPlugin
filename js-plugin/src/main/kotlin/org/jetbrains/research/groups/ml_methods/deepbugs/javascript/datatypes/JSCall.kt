@@ -1,21 +1,18 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.javascript.datatypes
 
-import com.intellij.lang.javascript.psi.JSCallExpression
-import com.intellij.lang.javascript.psi.JSFunction
-import com.intellij.lang.javascript.psi.JSReferenceExpression
+import com.intellij.lang.javascript.psi.*
 import com.intellij.util.ObjectUtils
-
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.extraction.JSExtractor
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.base.models
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.Call
 
 class JSCall(
-        callee: String,
-        arguments: List<String>,
-        base: String,
-        argumentTypes: List<String>,
-        parameters: List<String>,
-        src: String
+    callee: String,
+    arguments: List<String>,
+    base: String,
+    argumentTypes: List<String>,
+    parameters: List<String>,
+    src: String
 ) : Call(callee, arguments, base, argumentTypes, parameters, src) {
 
     companion object {

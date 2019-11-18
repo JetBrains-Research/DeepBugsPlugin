@@ -1,19 +1,15 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.base
 
-import com.intellij.codeInspection.LocalInspectionToolSession
-import com.intellij.codeInspection.ProblemHighlightType
-import com.intellij.codeInspection.ProblemsHolder
+import com.intellij.codeInspection.*
 import com.intellij.ide.plugins.PluginManager
 import com.intellij.lang.javascript.inspections.JSInspection
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.psi.NavigatablePsiElement
-
 import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.utils.DeepBugsJSBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.DataType
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.model_storage.ModelStorage
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.TensorUtils
-
 import org.tensorflow.Session
 
 val models by lazy {

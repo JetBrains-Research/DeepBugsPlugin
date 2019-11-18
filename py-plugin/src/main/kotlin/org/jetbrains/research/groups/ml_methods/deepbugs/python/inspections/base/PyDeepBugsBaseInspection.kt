@@ -1,20 +1,15 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.python.inspections.base
 
-import com.intellij.codeInspection.LocalInspectionToolSession
-import com.intellij.codeInspection.ProblemHighlightType
-import com.intellij.codeInspection.ProblemsHolder
+import com.intellij.codeInspection.*
 import com.intellij.ide.plugins.PluginManager
 import com.intellij.psi.NavigatablePsiElement
-
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
-
 import org.jetbrains.research.groups.ml_methods.deepbugs.python.utils.DeepBugsPythonBundle
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.DataType
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.logger.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.model_storage.ModelStorage
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.TensorUtils
-
 import org.tensorflow.Session
 
 val models by lazy {
@@ -28,8 +23,8 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
     protected abstract fun getThreshold(): Float
 
     abstract inner class PyDeepBugsVisitor(
-            holder: ProblemsHolder,
-            session: LocalInspectionToolSession
+        holder: ProblemsHolder,
+        session: LocalInspectionToolSession
     ) : PyInspectionVisitor(holder, session) {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
 

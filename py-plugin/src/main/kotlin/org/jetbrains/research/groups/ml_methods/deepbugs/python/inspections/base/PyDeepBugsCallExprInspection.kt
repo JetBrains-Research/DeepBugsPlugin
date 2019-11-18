@@ -9,14 +9,14 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.python.datatypes.PyCall
 
 abstract class PyDeepBugsCallExprInspection : PyDeepBugsBaseInspection() {
     override fun buildVisitor(
-            holder: ProblemsHolder,
-            isOnTheFly: Boolean,
-            session: LocalInspectionToolSession
+        holder: ProblemsHolder,
+        isOnTheFly: Boolean,
+        session: LocalInspectionToolSession
     ): PsiElementVisitor = PyDeepBugsCallVisitor(holder, session)
 
     inner class PyDeepBugsCallVisitor(
-            holder: ProblemsHolder,
-            session: LocalInspectionToolSession
+        holder: ProblemsHolder,
+        session: LocalInspectionToolSession
     ) : PyDeepBugsVisitor(holder, session) {
         override fun collect(node: NavigatablePsiElement, src: String) = PyCall.collectFromPyNode(node as PyCallExpression)
 

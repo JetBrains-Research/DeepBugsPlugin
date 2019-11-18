@@ -1,9 +1,6 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.python.settings
 
-import com.intellij.openapi.components.PersistentStateComponent
-import com.intellij.openapi.components.ServiceManager
-import com.intellij.openapi.components.State
-import com.intellij.openapi.components.Storage
+import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.settings.DeepBugsInspectionConfig
 

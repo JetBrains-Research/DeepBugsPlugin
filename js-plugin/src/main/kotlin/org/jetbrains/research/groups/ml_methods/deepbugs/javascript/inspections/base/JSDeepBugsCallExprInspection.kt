@@ -9,8 +9,8 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.datatypes.JS
 
 abstract class JSDeepBugsCallExprInspection : JSDeepBugsBaseInspection() {
     override fun createVisitor(
-            holder: ProblemsHolder,
-            session: LocalInspectionToolSession
+        holder: ProblemsHolder,
+        session: LocalInspectionToolSession
     ): PsiElementVisitor = JSDeepBugsCallVisitor(holder, session)
 
     inner class JSDeepBugsCallVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : JSDeepBugsVisitor(holder, session) {

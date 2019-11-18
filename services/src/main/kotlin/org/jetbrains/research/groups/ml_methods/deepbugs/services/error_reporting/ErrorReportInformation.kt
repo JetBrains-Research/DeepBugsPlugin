@@ -11,9 +11,9 @@ import java.util.*
  * Collects information about the running IDEA and the error
  */
 internal class ErrorReportInformation private constructor(
-        error: GitHubErrorBean,
-        appInfo: ApplicationInfoEx,
-        namesInfo: ApplicationNamesInfo
+    error: GitHubErrorBean,
+    appInfo: ApplicationInfoEx,
+    namesInfo: ApplicationNamesInfo
 ) {
 
     private val information = EnumMap<InformationType, String>(InformationType::class.java)
@@ -57,9 +57,9 @@ internal class ErrorReportInformation private constructor(
 
     companion object {
         fun getUsersInformation(
-                error: GitHubErrorBean,
-                appInfo: ApplicationInfoEx,
-                namesInfo: ApplicationNamesInfo
+            error: GitHubErrorBean,
+            appInfo: ApplicationInfoEx,
+            namesInfo: ApplicationNamesInfo
         ): ErrorReportInformation {
             return ErrorReportInformation(error, appInfo, namesInfo)
         }

@@ -18,7 +18,7 @@ class InspectionStateCollector : ProjectStateCollector {
         val result = HashSet<MetricEvent>()
         tools.forEach { tool ->
             when {
-                ENABLED(tool)  -> result.add(createInspectionStateMetric(tool, true))
+                ENABLED(tool) -> result.add(createInspectionStateMetric(tool, true))
                 DISABLED(tool) -> result.add(createInspectionStateMetric(tool, false))
             }
         }
@@ -28,9 +28,9 @@ class InspectionStateCollector : ProjectStateCollector {
     private fun createInspectionStateMetric(state: ScopeToolState, enabled: Boolean): MetricEvent {
         val inspection = state.tool.shortName
         val data = FeatureUsageData()
-                .addData("inspection", inspection)
-                .addData("enabled", enabled)
-                .addData("not_default_state", NOT_DEFAULT(state, enabled))
+            .addData("inspection", inspection)
+            .addData("enabled", enabled)
+            .addData("not_default_state", NOT_DEFAULT(state, enabled))
 
         return newMetric(INSPECTION_STATUS_EVENT, data)
     }

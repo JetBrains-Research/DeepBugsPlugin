@@ -1,8 +1,6 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.error_reporting
 
-import com.intellij.diagnostic.IdeErrorsDialog
-import com.intellij.diagnostic.LogMessage
-import com.intellij.diagnostic.ReportMessages
+import com.intellij.diagnostic.*
 import com.intellij.ide.DataManager
 import com.intellij.ide.plugins.PluginManager
 import com.intellij.idea.IdeaLogger
@@ -12,9 +10,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.application.ApplicationNamesInfo
 import com.intellij.openapi.application.ex.ApplicationInfoEx
-import com.intellij.openapi.diagnostic.ErrorReportSubmitter
-import com.intellij.openapi.diagnostic.IdeaLoggingEvent
-import com.intellij.openapi.diagnostic.SubmittedReportInfo
+import com.intellij.openapi.diagnostic.*
 import com.intellij.openapi.progress.EmptyProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
@@ -25,21 +21,21 @@ import java.awt.Component
 
 class GitHubErrorReporter : ErrorReportSubmitter() {
     override fun submit(
-            events: Array<IdeaLoggingEvent>,
-            additionalInfo: String?,
-            parentComponent: Component,
-            consumer: Consumer<SubmittedReportInfo>
+        events: Array<IdeaLoggingEvent>,
+        additionalInfo: String?,
+        parentComponent: Component,
+        consumer: Consumer<SubmittedReportInfo>
     ): Boolean {
         val errorBean = GitHubErrorBean(events[0].throwable, IdeaLogger.ourLastActionId)
         return doSubmit(events[0], parentComponent, consumer, errorBean, additionalInfo)
     }
 
     private fun doSubmit(
-            event: IdeaLoggingEvent,
-            parentComponent: Component,
-            callback: Consumer<SubmittedReportInfo>,
-            bean: GitHubErrorBean,
-            description: String?
+        event: IdeaLoggingEvent,
+        parentComponent: Component,
+        callback: Consumer<SubmittedReportInfo>,
+        bean: GitHubErrorBean,
+        description: String?
     ): Boolean {
         val dataContext = DataManager.getInstance().getDataContext(parentComponent)
 
@@ -86,7 +82,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
     }
 
     override fun getReportActionText(): String =
-            DeepBugsServicesBundle.message("report.error.to.plugin.vendor")
+        DeepBugsServicesBundle.message("report.error.to.plugin.vendor")
 
     /**
      * Provides functionality to show a error report message to the user that gives a click-able link to the created issue.

@@ -1,14 +1,8 @@
 package org.jetbrains.research.groups.ml_methods.deepbugs.services.downloader
 
 import com.intellij.openapi.application.PathManager
-
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.DeepBugsServicesBundle
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.JsonUtils
-import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.Zip
-
-import java.io.BufferedInputStream
-import java.io.File
-import java.io.FileOutputStream
+import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.*
+import java.io.*
 import java.net.URL
 import java.nio.file.Path
 import java.nio.file.Paths

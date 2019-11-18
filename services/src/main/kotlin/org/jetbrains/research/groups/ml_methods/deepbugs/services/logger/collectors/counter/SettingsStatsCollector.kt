@@ -36,8 +36,8 @@ object SettingsStatsCollector {
 
     private fun logDefault(componentId: String, relatedInspection: String) {
         val data = FeatureUsageData()
-                .addData("component", componentId)
-                .addData("related_inspection", relatedInspection)
+            .addData("component", componentId)
+            .addData("related_inspection", relatedInspection)
         DeepBugsCounterLogger.logEvent(SETTINGS, SETTINGS_DEFAULT, data)
     }
 
@@ -52,20 +52,20 @@ object SettingsStatsCollector {
     }
 
     private fun generateConfigData(
-            inspectionClass: String,
-            config: DeepBugsInspectionConfig,
-            ui: DeepBugsUI
+        inspectionClass: String,
+        config: DeepBugsInspectionConfig,
+        ui: DeepBugsUI
     ): FeatureUsageData {
-        val (prevConfig: Float, newConfig: Float) = when(inspectionClass) {
+        val (prevConfig: Float, newConfig: Float) = when (inspectionClass) {
             "operator" -> Pair(config.curBinOperatorThreshold, ui.binOperatorThreshold)
             "operand" -> Pair(config.curBinOperandThreshold, ui.binOperandThreshold)
             "call" -> Pair(config.curSwappedArgsThreshold, ui.swappedArgsThreshold)
             else -> throw IllegalArgumentException("Inspection call $inspectionClass is not supported")
         }
         return FeatureUsageData()
-                .addData("component", config.configId)
-                .addData("related_inspection", inspectionClass)
-                .addData("prev_config", prevConfig)
-                .addData("new_config", newConfig)
+            .addData("component", config.configId)
+            .addData("related_inspection", inspectionClass)
+            .addData("prev_config", prevConfig)
+            .addData("new_config", newConfig)
     }
 }

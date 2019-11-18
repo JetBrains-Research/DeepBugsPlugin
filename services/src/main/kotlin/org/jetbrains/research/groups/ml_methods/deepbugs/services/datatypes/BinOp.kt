@@ -6,14 +6,14 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.services.utils.TensorUt
 import org.tensorflow.Tensor
 
 abstract class BinOp(
-        private val left: String,
-        private val right: String,
-        private val op: String,
-        private val leftType: String,
-        private val rightType: String,
-        private val parent: String,
-        private val grandParent: String,
-        private val src: String
+    private val left: String,
+    private val right: String,
+    private val op: String,
+    private val leftType: String,
+    private val rightType: String,
+    private val parent: String,
+    private val grandParent: String,
+    private val src: String
 ) : DataType {
 
     protected fun vectorize(token: Mapping?, type: Mapping?, nodeType: Mapping?, operator: Mapping?): Tensor<Float>? {

@@ -7,14 +7,14 @@ import org.jetbrains.research.groups.ml_methods.deepbugs.javascript.inspections.
 import org.jetbrains.research.groups.ml_methods.deepbugs.services.datatypes.BinOp
 
 class JSBinOp(
-        left: String,
-        right: String,
-        op: String,
-        leftType: String,
-        rightType: String,
-        parent: String,
-        grandParent: String,
-        src: String
+    left: String,
+    right: String,
+    op: String,
+    leftType: String,
+    rightType: String,
+    parent: String,
+    grandParent: String,
+    src: String
 ) : BinOp(left, right, op, leftType, rightType, parent, grandParent, src) {
 
     companion object {
