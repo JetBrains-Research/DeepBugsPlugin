@@ -15,12 +15,12 @@ import java.util.*
  */
 internal object AnonymousFeedback {
     private const val TOKEN_FILE = "errorReporterToken.dms"
-    private const val GIT_REPO_USER = "ml-in-programming"
+    private const val GIT_REPO_USER = "JetBrains-Research"
     private const val GIT_REPO = "DeepBugsPlugin"
     private const val ISSUE_LABEL_BUG = "bug"
     private const val ISSUE_LABEL_AUTO_GENERATED = "auto-generated"
     private const val GIT_ISSUE_TITLE = "[auto-generated:%s] %s"
-    private const val HTML_URL_TO_CREATE_NEW_ISSUE = "https://github.com/ml-in-programming/DeepBugsPlugin/issues/new"
+    private const val HTML_URL_TO_CREATE_NEW_ISSUE = "https://github.com/JetBrains-Research/DeepBugsPlugin/issues/new"
     private val usersInformationToPresentableForm = EnumMap<InformationType, String>(InformationType::class.java)
 
     init {

@@ -1,4 +1,4 @@
-<idea-plugin url="https://github.com/ml-in-programming/DeepBugsPlugin">
+<idea-plugin url="https://github.com/JetBrains-Research/DeepBugsPlugin">
     <name>DeepBugsJavaScript</name>
     <id>DeepBugsJavaScript</id>
     <vendor url="https://research.jetbrains.org/ru/groups/ml_methods">

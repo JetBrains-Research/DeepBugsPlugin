@@ -1,13 +1,13 @@
 # DeepBugsPlugin
 
-Plugins for IntelliJ Platform-based IDEs inspired by [DeepBugs](https://github.com/ml-in-programming/DeepBugs) framework. 
+Plugins for IntelliJ Platform-based IDEs inspired by [DeepBugs](https://github.com/JetBrains-Research/DeepBugs) framework. 
 
 These plugins provide several code inspections which objectives are to analyze the code of a project opened in IDE and to highlight potential bugs and code quality issues in it.
 
 ## Supported languages
-- Python ([PyCharm/IntelliJ IDEA plugin](https://github.com/ml-in-programming/DeepBugsPlugin/tree/master/DeepBugsPython))
+- Python ([PyCharm/IntelliJ IDEA plugin](https://github.com/JetBrains-Research/DeepBugsPlugin/tree/master/DeepBugsPython))
   - [DeepBugsPython](https://plugins.jetbrains.com/plugin/12218-deepbugspython) at JetBrains plugins repository
-- JavaScript ([WebStorm/IntelliJ IDEA Ultimate plugin](https://github.com/ml-in-programming/DeepBugsPlugin/tree/master/DeepBugsJavaScript))
+- JavaScript ([WebStorm/IntelliJ IDEA Ultimate plugin](https://github.com/JetBrains-Research/DeepBugsPlugin/tree/master/DeepBugsJavaScript))
   - [DeepBugsJavaScript](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript) at JetBrains plugins repository
 
 ## Requirements
