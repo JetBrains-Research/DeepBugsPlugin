@@ -1,5 +1,5 @@
 package org.jetbrains.research.deepbugs.services.errors
-
+//FIXME-review Replace with default java
 import org.apache.commons.codec.binary.Base64
 import java.io.*
 import javax.crypto.Cipher

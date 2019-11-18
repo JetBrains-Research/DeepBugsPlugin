@@ -12,6 +12,7 @@ import org.jetbrains.research.deepbugs.services.model.ModelStorage
 import org.jetbrains.research.deepbugs.services.utils.TensorUtils
 import org.tensorflow.Session
 
+//FIXME-review Use `object` inherited from ModelStorage here?
 val models by lazy {
     ModelStorage(PluginManager.getPluginByClassName(PyDeepBugsBaseInspection::class.java.name)!!.idString)
 }

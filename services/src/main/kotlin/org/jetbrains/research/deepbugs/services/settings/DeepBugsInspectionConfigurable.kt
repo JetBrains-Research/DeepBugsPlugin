@@ -8,6 +8,7 @@ import org.jetbrains.research.deepbugs.services.ui.DeepBugsUI
 import javax.swing.JComponent
 
 abstract class DeepBugsInspectionConfigurable(protected val settings: DeepBugsInspectionConfig) : Configurable {
+    //FIXME-review Lateinit var would be better
     private var deepBugsUI: DeepBugsUI? = null
 
     private fun logSettings() {

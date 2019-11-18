@@ -16,6 +16,7 @@ import java.nio.file.Paths
 class ModelStorage(private val pluginName: String) {
     private val modelPath = Paths.get(PathManager.getPluginsPath(), pluginName, "models").toString()
 
+    //FIXME-review make a data class and assign it simultaneously
     var nodeTypeMapping: Mapping? = null
         private set
     var typeMapping: Mapping? = null
