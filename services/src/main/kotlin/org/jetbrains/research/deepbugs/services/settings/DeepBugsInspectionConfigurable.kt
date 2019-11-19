@@ -8,11 +8,10 @@ import org.jetbrains.research.deepbugs.services.ui.DeepBugsUI
 import javax.swing.JComponent
 
 abstract class DeepBugsInspectionConfigurable(protected val settings: DeepBugsInspectionConfig) : Configurable {
-    //FIXME-review Lateinit var would be better
-    private var deepBugsUI: DeepBugsUI? = null
+    private lateinit var deepBugsUI: DeepBugsUI
 
     private fun logSettings() {
-        return SettingsStatsCollector.logNewSettings(settings, deepBugsUI!!)
+        return SettingsStatsCollector.logNewSettings(settings, deepBugsUI)
     }
 
     abstract fun createUI(): DeepBugsUI
@@ -20,33 +19,31 @@ abstract class DeepBugsInspectionConfigurable(protected val settings: DeepBugsIn
     override fun getHelpTopic(): String? = null
 
     override fun isModified() =
-        (deepBugsUI!!.binOperatorThreshold != settings.curBinOperatorThreshold) ||
-            (deepBugsUI!!.binOperandThreshold != settings.curBinOperandThreshold) ||
-            (deepBugsUI!!.swappedArgsThreshold != settings.curSwappedArgsThreshold)
+        (deepBugsUI.binOperatorThreshold != settings.curBinOperatorThreshold) ||
+            (deepBugsUI.binOperandThreshold != settings.curBinOperandThreshold) ||
+            (deepBugsUI.swappedArgsThreshold != settings.curSwappedArgsThreshold)
 
 
     override fun apply() {
         logSettings()
-        settings.curBinOperatorThreshold = deepBugsUI!!.binOperatorThreshold
-        settings.curBinOperandThreshold = deepBugsUI!!.binOperandThreshold
-        settings.curSwappedArgsThreshold = deepBugsUI!!.swappedArgsThreshold
+        settings.curBinOperatorThreshold = deepBugsUI.binOperatorThreshold
+        settings.curBinOperandThreshold = deepBugsUI.binOperandThreshold
+        settings.curSwappedArgsThreshold = deepBugsUI.swappedArgsThreshold
     }
 
     override fun reset() {
-        deepBugsUI!!.binOperatorThreshold = settings.curBinOperatorThreshold
-        deepBugsUI!!.binOperandThreshold = settings.curBinOperandThreshold
-        deepBugsUI!!.swappedArgsThreshold = settings.curSwappedArgsThreshold
+        deepBugsUI.binOperatorThreshold = settings.curBinOperatorThreshold
+        deepBugsUI.binOperandThreshold = settings.curBinOperandThreshold
+        deepBugsUI.swappedArgsThreshold = settings.curSwappedArgsThreshold
     }
 
-    override fun disposeUIResources() {
-        deepBugsUI = null
-    }
+    override fun disposeUIResources() {}
 
     override fun createComponent(): JComponent? {
         deepBugsUI = createUI()
-        deepBugsUI!!.binOperatorThreshold = settings.curBinOperatorThreshold
-        deepBugsUI!!.binOperandThreshold = settings.curBinOperandThreshold
-        deepBugsUI!!.swappedArgsThreshold = settings.curSwappedArgsThreshold
-        return deepBugsUI!!.rootPanel
+        deepBugsUI.binOperatorThreshold = settings.curBinOperatorThreshold
+        deepBugsUI.binOperandThreshold = settings.curBinOperandThreshold
+        deepBugsUI.swappedArgsThreshold = settings.curSwappedArgsThreshold
+        return deepBugsUI.rootPanel
     }
 }
