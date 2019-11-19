@@ -1,7 +1,5 @@
 package org.jetbrains.research.deepbugs.services.model
 
-import com.beust.klaxon.JsonObject
-import com.beust.klaxon.Parser
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.progress.*
 import com.intellij.openapi.project.ProjectManager
@@ -61,7 +59,7 @@ class ModelStorage(private val pluginName: String) {
         val loadMappingPath = Paths.get(modelPath, mappingName)
         if (Files.exists(loadMappingPath)) {
             progress.text = DeepBugsServicesBundle.message("init.model.file", mappingName)
-            return Mapping(Parser().parse(loadMappingPath.toString()) as JsonObject)
+            return Mapping(loadMappingPath)
         }
         return null
     }

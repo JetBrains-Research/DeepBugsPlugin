@@ -3,11 +3,6 @@ package org.jetbrains.research.deepbugs.services.utils
 import com.intellij.ide.plugins.PluginManager
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.util.SystemInfo
-
-//FIXME-review replace with Kotlin-plain implementation
-import org.apache.commons.io.FileUtils
-import org.apache.commons.io.IOUtils
-
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -25,13 +20,9 @@ class PlatformManager<T> private constructor(klass: Class<T>) {
     private fun loadLib(dllPath: String, name: String) {
         val libPath = Paths.get(dllPath, name)
         if (!Files.exists(libPath)) {
-
-            val input = PlatformManager::class.java.classLoader.getResourceAsStream(getResourceURI(name))
-            val dll = File(libPath.toString())
-            val output = FileUtils.openOutputStream(dll)
-            IOUtils.copy(input, output)
-            input?.close()
-            output.close()
+            val input = PlatformManager::class.java.classLoader.getResourceAsStream(getResourceURI(name))!!
+            Files.copy(input, libPath)
+            input.close()
         }
         try {
             System.load(libPath.toString())

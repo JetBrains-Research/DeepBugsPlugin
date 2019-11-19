@@ -1,7 +1,10 @@
 package org.jetbrains.research.deepbugs.services.errors
-//FIXME-review Replace with default java
-import org.apache.commons.codec.binary.Base64
-import java.io.*
+
+import com.intellij.util.Base64
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
@@ -41,7 +44,7 @@ object GitHubAccessTokenScrambler {
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv)
 
             val encrypted = cipher.doFinal(value.toByteArray())
-            return Base64.encodeBase64String(encrypted)
+            return Base64.encode(encrypted)
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
@@ -60,7 +63,7 @@ object GitHubAccessTokenScrambler {
         val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
         cipher.init(Cipher.DECRYPT_MODE, keySpec, iv)
 
-        val original = cipher.doFinal(Base64.decodeBase64(`in`))
+        val original = cipher.doFinal(Base64.decode(`in`))
         return String(original)
     }
 }

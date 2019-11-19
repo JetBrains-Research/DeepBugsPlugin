@@ -1,11 +1,7 @@
 package org.jetbrains.research.deepbugs.services.utils
 
 import com.intellij.CommonBundle
-import com.intellij.reference.SoftReference
-
 import org.jetbrains.annotations.PropertyKey
-
-import java.lang.ref.Reference
 import java.util.*
 
 object DeepBugsServicesBundle {

@@ -20,8 +20,8 @@ object TensorUtils {
         return array[0][0]
     }
 
-    fun vectorizeListOfArrays(arrayList: List<FloatArray>): Tensor<Float> {
+    fun vectorizeListOfArrays(arrayList: List<List<Float>>): Tensor<Float> {
         val resArray = arrayList.reduce { acc, array -> acc + array }
-        return Tensor.create(longArrayOf(1, resArray.size.toLong()), FloatBuffer.wrap(resArray))
+        return Tensor.create(longArrayOf(1, resArray.size.toLong()), FloatBuffer.wrap(resArray.toFloatArray()))
     }
 }
