@@ -4,8 +4,7 @@ import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
 import org.jetbrains.research.deepbugs.services.settings.DeepBugsInspectionConfig
 
-//FIXME-review should not be it a global stored configuration?
-@State(name = "deepbugs_js_config", storages = [Storage("deepbugs_js_config.xml")])
+@State(name = "DeepBugsJS", storages = [Storage("deep.bugs.js.xml")])
 class JSDeepBugsInspectionConfig : PersistentStateComponent<JSDeepBugsInspectionConfig>, DeepBugsInspectionConfig {
     override val configId: String = "JSInspectionConfig"
 
