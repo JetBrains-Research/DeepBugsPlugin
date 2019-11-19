@@ -49,5 +49,8 @@ class PyCall(
         }
     }
 
-    override fun vectorize() = vectorize(models.tokenMapping, models.typeMapping)
+    override fun vectorize() = vectorize(
+        models.getTokens(),
+        models.getTypes()
+    )
 }

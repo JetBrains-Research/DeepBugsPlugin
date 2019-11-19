@@ -8,7 +8,7 @@ import org.jetbrains.research.deepbugs.python.utils.DeepBugsPythonBundle
 class PyDeepBugsBinOperandInspection : PyDeepBugsBinExprInspection() {
     override val keyMessage = "deepbugs.python.bin.operand.inspection.warning"
 
-    override fun getModel() = models.binOperandModel
+    override fun getModel() = models.getBinOperandModel()
     override fun getThreshold() = PyDeepBugsInspectionConfig.getInstance().curBinOperandThreshold
 
     override fun getDisplayName() = DeepBugsPythonBundle.message("deepbugs.python.bin.operand.inspection.display")
