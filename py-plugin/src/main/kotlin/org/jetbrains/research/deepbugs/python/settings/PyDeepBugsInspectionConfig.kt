@@ -4,7 +4,7 @@ import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
 import org.jetbrains.research.deepbugs.services.settings.DeepBugsInspectionConfig
 
-@State(name = "DeepBugsPy", storages = [Storage("deep.bugs.py.xml")])
+@State(name = "DeepBugsPy", storages = [Storage("deepbugs.py.xml")])
 class PyDeepBugsInspectionConfig : PersistentStateComponent<PyDeepBugsInspectionConfig>, DeepBugsInspectionConfig {
     override val configId: String = "PyInspectionConfig"
 

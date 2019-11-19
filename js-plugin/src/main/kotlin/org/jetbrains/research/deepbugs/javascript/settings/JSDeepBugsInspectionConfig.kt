@@ -4,7 +4,7 @@ import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
 import org.jetbrains.research.deepbugs.services.settings.DeepBugsInspectionConfig
 
-@State(name = "DeepBugsJS", storages = [Storage("deep.bugs.js.xml")])
+@State(name = "DeepBugsJS", storages = [Storage("deepbugs.js.xml")])
 class JSDeepBugsInspectionConfig : PersistentStateComponent<JSDeepBugsInspectionConfig>, DeepBugsInspectionConfig {
     override val configId: String = "JSInspectionConfig"
 
