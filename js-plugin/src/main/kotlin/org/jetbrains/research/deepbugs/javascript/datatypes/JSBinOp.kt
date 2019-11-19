@@ -4,6 +4,7 @@ import com.intellij.lang.javascript.psi.JSBinaryExpression
 import org.jetbrains.research.deepbugs.javascript.extraction.JSExtractor
 import org.jetbrains.research.deepbugs.javascript.inspections.base.models
 import org.jetbrains.research.deepbugs.services.datatypes.BinOp
+import org.tensorflow.Tensor
 
 class JSBinOp(
     left: String,
@@ -35,9 +36,9 @@ class JSBinOp(
     }
 
     override fun vectorize() = vectorize(
-        models.getTokens(),
-        models.getTypes(),
-        models.getNodeTypes(),
-        models.getOperators()
+            models.modelStorage?.tokenMapping,
+            models.modelStorage?.typeMapping,
+            models.modelStorage?.nodeTypeMapping,
+            models.modelStorage?.operatorMapping
     )
 }

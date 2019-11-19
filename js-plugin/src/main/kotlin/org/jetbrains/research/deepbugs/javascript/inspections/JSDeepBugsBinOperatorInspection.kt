@@ -8,7 +8,7 @@ import org.jetbrains.research.deepbugs.javascript.utils.DeepBugsJSBundle
 class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
     override val keyMessage = "deepbugs.javascript.binary.operator.inspection.warning"
 
-    override fun getModel() = models.getBinOperatorModel()
+    override fun getModel() = models.modelStorage?.binOperatorModel
     override fun getThreshold() = JSDeepBugsInspectionConfig.getInstance().curBinOperatorThreshold
 
     override fun getDisplayName() = DeepBugsJSBundle.message("deepbugs.javascript.binary.operator.inspection.display")

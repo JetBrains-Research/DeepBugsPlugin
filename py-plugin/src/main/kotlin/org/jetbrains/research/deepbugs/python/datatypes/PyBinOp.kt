@@ -62,9 +62,9 @@ class PyBinOp(
     }
 
     override fun vectorize() = vectorize(
-        models.getTokens(),
-        models.getTypes(),
-        models.getNodeTypes(),
-        models.getOperators()
+        models.modelStorage?.tokenMapping,
+        models.modelStorage?.typeMapping,
+        models.modelStorage?.nodeTypeMapping,
+        models.modelStorage?.operatorMapping
     )
 }

@@ -14,40 +14,11 @@ abstract class ModelManager {
     protected abstract val pluginName: String
     private fun getModelPath() = Paths.get(PathManager.getPluginsPath(), pluginName, "models").toString()
 
-    private var initFlag = false
-    private lateinit var modelStorage: ModelStorage
+    var modelStorage: ModelStorage? = null
+        private set
 
     init {
         initModels()
-    }
-
-    fun getNodeTypes(): Mapping? {
-        if (!initFlag) return null
-        return modelStorage.nodeTypeMapping
-    }
-    fun getTypes(): Mapping? {
-        if (!initFlag) return null
-        return modelStorage.typeMapping
-    }
-    fun getTokens(): Mapping? {
-        if (!initFlag) return null
-        return modelStorage.tokenMapping
-    }
-    fun getOperators(): Mapping? {
-        if (!initFlag) return null
-        return modelStorage.operatorMapping
-    }
-    fun getBinOperatorModel(): Session? {
-        if (!initFlag) return null
-        return modelStorage.binOperatorModel
-    }
-    fun getBinOperandModel(): Session? {
-        if (!initFlag) return null
-        return modelStorage.binOperandModel
-    }
-    fun getSwappedArgsModel(): Session? {
-        if (!initFlag) return null
-        return modelStorage.swappedArgsModel
     }
 
     private fun initModels() {
@@ -69,10 +40,6 @@ abstract class ModelManager {
             override fun onThrowable(error: Throwable) {
                 if (error !is UnsatisfiedLinkError) return
                 ErrorInfoCollector.logInitErrorReported()
-            }
-
-            override fun onFinished() {
-                initFlag = true
             }
         })
     }
