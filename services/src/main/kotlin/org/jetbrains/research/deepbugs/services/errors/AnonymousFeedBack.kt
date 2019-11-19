@@ -5,8 +5,7 @@ import com.intellij.openapi.diagnostic.SubmittedReportInfo.SubmissionStatus
 import org.eclipse.egit.github.core.*
 import org.eclipse.egit.github.core.client.GitHubClient
 import org.eclipse.egit.github.core.service.IssueService
-import org.jetbrains.research.deepbugs.services.errors.ErrorReportInformation.InformationType
-import org.jetbrains.research.deepbugs.services.errors.ErrorReportInformation.InformationType.*
+import org.jetbrains.research.deepbugs.services.errors.beans.ErrorReport
 import org.jetbrains.research.deepbugs.services.utils.DeepBugsServicesBundle
 import java.util.*
 
@@ -21,34 +20,16 @@ internal object AnonymousFeedback {
     private const val ISSUE_LABEL_AUTO_GENERATED = "auto-generated"
     private const val GIT_ISSUE_TITLE = "[auto-generated:%s] %s"
     private const val HTML_URL_TO_CREATE_NEW_ISSUE = "https://github.com/JetBrains-Research/DeepBugsPlugin/issues/new"
-    private val usersInformationToPresentableForm = EnumMap<InformationType, String>(InformationType::class.java)
-
-    init {
-        //FIXME-review use data class here and iterate through components? :)
-        usersInformationToPresentableForm[PLUGIN_NAME] = "Plugin Name"
-        usersInformationToPresentableForm[PLUGIN_VERSION] = "Plugin Version"
-        usersInformationToPresentableForm[OS_NAME] = "OS Name"
-        usersInformationToPresentableForm[JAVA_VERSION] = "Java Version"
-        usersInformationToPresentableForm[JAVA_VM_VENDOR] = "Java VM Vendor"
-        usersInformationToPresentableForm[APP_NAME] = "App Name"
-        usersInformationToPresentableForm[APP_FULL_NAME] = "App Full Name"
-        usersInformationToPresentableForm[APP_VERSION_NAME] = "App Version Name"
-        usersInformationToPresentableForm[IS_EAP] = "Is EAP"
-        usersInformationToPresentableForm[APP_BUILD] = "App Build"
-        usersInformationToPresentableForm[APP_VERSION] = "App Version"
-        usersInformationToPresentableForm[LAST_ACTION] = "Last EventType"
-        usersInformationToPresentableForm[PERMANENT_INSTALLATION_ID] = "User's Permanent Installation ID"
-    }
 
     /**
      * Makes a connection to GitHub. Checks if there is an issue that is a duplicate and based on this, creates either a
      * new issue or comments on the duplicate (if the user provided additional information).
      *
-     * @param errorReportInformation Information collected by [ErrorReportInformation]
+     * @param errorReportInformation Information collected by [ErrorReport]
      * @return The report info that is then used in [GitHubErrorReporter] to show the user a balloon with the link
      * of the created issue.
      */
-    fun sendFeedback(errorReportInformation: ErrorReportInformation): SubmittedReportInfo {
+    fun sendFeedback(errorReportInformation: ErrorReport): SubmittedReportInfo {
 
         val result: SubmittedReportInfo
         try {
@@ -109,12 +90,12 @@ internal object AnonymousFeedback {
      * body as well. When creating the body, all remaining items are iterated.
      * @return The new issue
      */
-    private fun createNewGibHubIssue(errorReportInformation: ErrorReportInformation): Issue {
-        var errorMessage: String? = errorReportInformation[ERROR_MESSAGE]
+    private fun createNewGibHubIssue(errorReportInformation: ErrorReport): Issue {
+        var errorMessage: String? = errorReportInformation.errorInfo.errorMessage
         if (errorMessage.isNullOrEmpty()) {
             errorMessage = "Unspecified error"
         }
-        val errorHash: String = errorReportInformation[ERROR_HASH] ?: ""
+        val errorHash: String = errorReportInformation.errorInfo.errorHash
 
         val gitHubIssue = Issue()
         val body = generateGitHubIssueBody(errorReportInformation, true)
@@ -132,13 +113,13 @@ internal object AnonymousFeedback {
      * Creates the body of the GitHub issue. It will contain information about the system, error report information
      * provided by the user and the full stack trace. Everything is formatted using markdown.
      *
-     * @param errorReportInformation Details provided by [ErrorReportInformation]
+     * @param errorReportInformation Details provided by [ErrorReport]
      * @return A markdown string representing the GitHub issue body.
      */
-    private fun generateGitHubIssueBody(errorReportInformation: ErrorReportInformation, addStacktrace: Boolean): String {
-        val errorDescription: String = errorReportInformation[ERROR_DESCRIPTION] ?: ""
+    private fun generateGitHubIssueBody(errorReportInformation: ErrorReport, addStacktrace: Boolean): String {
+        val errorDescription: String = errorReportInformation.errorInfo.errorDescription ?: ""
 
-        var stackTrace: String? = errorReportInformation[ERROR_STACKTRACE]
+        var stackTrace: String? = errorReportInformation.errorInfo.errorStacktrace
         if (stackTrace.isNullOrEmpty()) {
             stackTrace = "invalid stacktrace"
         }
@@ -148,11 +129,12 @@ internal object AnonymousFeedback {
             result.append(errorDescription)
             result.append("\n\n----------------------\n\n")
         }
-        for ((key, value) in usersInformationToPresentableForm) {
+
+        for ((description, value) in errorReportInformation.userInfo.asMap()) {
             result.append("- ")
-            result.append(value)
+            result.append(description)
             result.append(": ")
-            result.append(errorReportInformation[key])
+            result.append(value)
             result.append("\n")
         }
 

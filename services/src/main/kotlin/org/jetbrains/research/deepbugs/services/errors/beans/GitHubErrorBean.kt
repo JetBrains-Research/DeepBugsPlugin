@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.services.errors
+package org.jetbrains.research.deepbugs.services.errors.beans
 
 import com.intellij.errorreport.bean.ErrorBean
 import java.util.*
@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Extends the standard class to provide the hash of the thrown exception stack trace.
  */
-internal class GitHubErrorBean(throwable: Throwable, lastAction: String) : ErrorBean(throwable, lastAction) {
+class GitHubErrorBean(throwable: Throwable, lastAction: String) : ErrorBean(throwable, lastAction) {
 
     val exceptionHash: String
 

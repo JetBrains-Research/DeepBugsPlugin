@@ -15,6 +15,8 @@ import com.intellij.openapi.progress.EmptyProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
 import com.intellij.util.Consumer
+import org.jetbrains.research.deepbugs.services.errors.beans.ErrorReport
+import org.jetbrains.research.deepbugs.services.errors.beans.GitHubErrorBean
 import org.jetbrains.research.deepbugs.services.logger.collectors.counter.ErrorInfoCollector
 import org.jetbrains.research.deepbugs.services.utils.DeepBugsServicesBundle
 import java.awt.Component
@@ -26,7 +28,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
         parentComponent: Component,
         consumer: Consumer<SubmittedReportInfo>
     ): Boolean {
-        val errorBean = GitHubErrorBean(events[0].throwable, IdeaLogger.ourLastActionId)
+        val errorBean = GitHubErrorBean(events[0].throwable, IdeaLogger.ourLastActionId ?: "")
         return doSubmit(events[0], parentComponent, consumer, errorBean, additionalInfo)
     }
 
@@ -48,7 +50,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
             pluginId?.let {
                 val ideaPluginDescriptor = PluginManager.getPlugin(pluginId)
                 if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled) {
-                    bean.pluginName = ideaPluginDescriptor.name
+                    bean.pluginName = ideaPluginDescriptor.name ?: "DeepBugsPlugin"
                     bean.pluginVersion = ideaPluginDescriptor.version
                 }
             }
@@ -60,7 +62,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
             bean.attachments = data.includedAttachments
         }
 
-        val errorReportInformation = ErrorReportInformation.getUsersInformation(bean,
+        val errorReportInformation = ErrorReport.getUsersInformation(bean,
             ApplicationInfo.getInstance() as ApplicationInfoEx,
             ApplicationNamesInfo.getInstance())
 
