@@ -34,7 +34,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
             if (result > getThreshold()) {
                 registerProblem(node, DeepBugsPythonBundle.message(keyMessage, result),
-                    ProblemHighlightType.WEAK_WARNING)
+                    ProblemHighlightType.GENERIC_ERROR)
                 val project = session.file.project
                 InspectionReportCollector.logReport(project, shortName, result)
             }

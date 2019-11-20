@@ -32,7 +32,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
             if (result > getThreshold()) {
                 holder.registerProblem(node, DeepBugsJSBundle.message(keyMessage, result),
-                    ProblemHighlightType.WEAK_WARNING)
+                    ProblemHighlightType.GENERIC_ERROR)
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }
