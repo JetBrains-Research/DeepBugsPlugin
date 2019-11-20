@@ -53,8 +53,7 @@ class JSCall(
         }
     }
 
-    override fun vectorize() = vectorize(
-        models.storage?.tokenMapping,
-        models.storage?.typeMapping
-    )
+    override fun vectorize() = models.storage?.let { storage ->
+        vectorize(storage.tokenMapping, storage.typeMapping)
+    }
 }

@@ -12,7 +12,7 @@ import java.nio.file.Paths
 
 abstract class ModelManager {
     protected abstract val pluginName: String
-    private fun getModelPath() = Paths.get(PathManager.getPluginsPath(), pluginName, "models").toString()
+    private val modelPath by lazy { Paths.get(PathManager.getPluginsPath(), pluginName, "models").toString() }
 
     var storage: ModelStorage? = null
         private set
@@ -45,13 +45,13 @@ abstract class ModelManager {
     }
 
     private fun loadMapping(mappingName: String, progress: ProgressIndicator): Mapping {
-        val loadMappingPath = Paths.get(getModelPath(), mappingName)
+        val loadMappingPath = Paths.get(modelPath, mappingName)
         progress.text = CommonResourceBundle.message("init.model.file", mappingName)
         return Mapping(loadMappingPath)
     }
 
     private fun loadModel(modelName: String, progress: ProgressIndicator): Session {
-        val loadModelPath = Paths.get(getModelPath(), modelName)
+        val loadModelPath = Paths.get(modelPath, modelName)
         progress.text = CommonResourceBundle.message("init.model.file", modelName)
         return SavedModelBundle.load(loadModelPath.toString(), "serve").session()
     }

@@ -1,8 +1,7 @@
 package org.jetbrains.research.deepbugs.common.datatypes
 
-import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.jetbrains.research.deepbugs.common.TensorFlowRunner
-
+import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.tensorflow.Tensor
 
 abstract class BinOp(
@@ -15,18 +14,15 @@ abstract class BinOp(
     private val grandParent: String,
     @Suppress("unused") private val src: String
 ) : DataType {
-
-    protected fun vectorize(token: Mapping?, type: Mapping?, nodeType: Mapping?, operator: Mapping?): Tensor<Float>? {
-        val leftVector = token?.get(left) ?: return null
-        val rightVector = token.get(right) ?: return null
-        val leftTypeVector = type?.get(leftType) ?: return null
-        val rightTypeVector = type.get(rightType) ?: return null
-        val operatorVector = operator?.get(op) ?: return null
-        val parentVector = nodeType?.get(parent) ?: return null
-        val grandParentVector = nodeType.get(grandParent) ?: return null
+    protected fun vectorize(token: Mapping, type: Mapping, nodeType: Mapping, operator: Mapping): Tensor<Float>? {
         return TensorFlowRunner.vectorizeListOfArrays(listOf(
-            leftVector, rightVector, operatorVector,
-            leftTypeVector, rightTypeVector,
-            parentVector, grandParentVector))
+            token.get(left) ?: return null,
+            token.get(right) ?: return null,
+            operator.get(op) ?: return null,
+            type.get(leftType) ?: return null,
+            type.get(rightType) ?: return null,
+            nodeType.get(parent) ?: return null,
+            nodeType.get(grandParent) ?: return null
+        ))
     }
 }
