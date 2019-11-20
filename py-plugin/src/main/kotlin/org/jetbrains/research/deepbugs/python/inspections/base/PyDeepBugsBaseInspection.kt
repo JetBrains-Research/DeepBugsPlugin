@@ -31,20 +31,20 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
     ) : PyInspectionVisitor(holder, session) {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
 
+        private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
+            if (result > getThreshold()) {
+                registerProblem(node, DeepBugsPythonBundle.message(keyMessage, result),
+                    ProblemHighlightType.WEAK_WARNING)
+                val project = session.file.project
+                InspectionReportCollector.logReport(project, shortName, result)
+            }
+        }
+
         protected fun visitExpr(node: NavigatablePsiElement?) {
             node?.let {
-                //FIXME-review I am not sure, but it looks like you are here collecting all the PSI items
-                //Probably it is possible to find just during visiting? Without explicit traverse.
                 collect(it)?.let { expr ->
-                    val result = TensorUtils.inspectCodePiece(getModel(), expr)
-                    result?.let { res ->
-                        if (res > getThreshold()) {
-                            registerProblem(node, DeepBugsPythonBundle.message(keyMessage, res),
-                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
-                            val project = session.file.project
-                            InspectionReportCollector.logReport(project, shortName, res)
-                        }
-                    }
+                    val result = TensorUtils.inspectCodePiece(getModel(), expr) ?: return
+                    analyzeInspected(result, node)
                 }
             }
         }

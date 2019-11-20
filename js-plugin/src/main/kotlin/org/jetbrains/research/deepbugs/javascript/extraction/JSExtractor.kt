@@ -40,8 +40,7 @@ object JSExtractor {
                 else -> "unknown"
             }
         }
-        is JSReferenceExpression -> if (node.referenceName.toString() == "undefined") "undefined"
-        else "unknown"
+        is JSReferenceExpression -> if (node.referenceName.toString() == "undefined") "undefined" else "unknown"
         is JSPrefixExpression -> extractJSNodeType(node.expression)
         else -> "unknown"
     }

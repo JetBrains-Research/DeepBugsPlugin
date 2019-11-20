@@ -29,19 +29,21 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
     abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
 
+        private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
+            result.let { res ->
+                if (res > getThreshold()) {
+                    holder.registerProblem(node, DeepBugsJSBundle.message(keyMessage, res),
+                        ProblemHighlightType.WEAK_WARNING)
+                    InspectionReportCollector.logReport(holder.project, shortName, res)
+                }
+            }
+        }
+
         protected fun visitExpr(node: NavigatablePsiElement?) {
             node?.let {
-                //FIXME-review I am not sure, but it looks like you are here collecting all the PSI items
-                //Probably it is possible to find just during visiting? Without explicit traverse.
                 collect(it)?.let { expr ->
-                    val result = TensorUtils.inspectCodePiece(getModel(), expr)
-                    result?.let { res ->
-                        if (res > getThreshold()) {
-                            holder.registerProblem(node, DeepBugsJSBundle.message(keyMessage, res),
-                                ProblemHighlightType.GENERIC_ERROR_OR_WARNING)
-                            InspectionReportCollector.logReport(holder.project, shortName, res)
-                        }
-                    }
+                    val result = TensorUtils.inspectCodePiece(getModel(), expr) ?: return
+                    analyzeInspected(result, it)
                 }
             }
         }
