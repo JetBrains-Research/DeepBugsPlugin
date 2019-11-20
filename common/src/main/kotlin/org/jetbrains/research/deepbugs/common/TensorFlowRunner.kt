@@ -1,11 +1,11 @@
-package org.jetbrains.research.deepbugs.common.utils
+package org.jetbrains.research.deepbugs.common
 
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.tensorflow.Session
 import org.tensorflow.Tensor
 import java.nio.FloatBuffer
 
-object TensorUtils {
+object TensorFlowRunner {
     fun inspectCodePiece(model: Session?, codePiece: DataType) = codePiece.vectorize()?.let { input ->
         model?.runner()
             ?.feed("dropout_1_input:0", input)

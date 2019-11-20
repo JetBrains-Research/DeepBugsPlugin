@@ -1,7 +1,7 @@
 package org.jetbrains.research.deepbugs.common.datatypes
 
 import org.jetbrains.research.deepbugs.common.utils.Mapping
-import org.jetbrains.research.deepbugs.common.utils.TensorUtils
+import org.jetbrains.research.deepbugs.common.TensorFlowRunner
 
 import org.tensorflow.Tensor
 
@@ -24,7 +24,7 @@ abstract class BinOp(
         val operatorVector = operator?.get(op) ?: return null
         val parentVector = nodeType?.get(parent) ?: return null
         val grandParentVector = nodeType.get(grandParent) ?: return null
-        return TensorUtils.vectorizeListOfArrays(listOf(
+        return TensorFlowRunner.vectorizeListOfArrays(listOf(
             leftVector, rightVector, operatorVector,
             leftTypeVector, rightTypeVector,
             parentVector, grandParentVector))

@@ -6,7 +6,7 @@ import org.eclipse.egit.github.core.*
 import org.eclipse.egit.github.core.client.GitHubClient
 import org.eclipse.egit.github.core.service.IssueService
 import org.jetbrains.research.deepbugs.common.errors.beans.ErrorReport
-import org.jetbrains.research.deepbugs.common.utils.DeepBugsServicesBundle
+import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import java.util.*
 
 /**
@@ -54,12 +54,12 @@ internal object AnonymousFeedback {
 
             val id = newGibHubIssue.number
             val htmlUrl = newGibHubIssue.htmlUrl
-            val message = DeepBugsServicesBundle.message(if (isNewIssue) "git.issue.text" else "git.issue.duplicate.text", htmlUrl, id)
+            val message = CommonResourceBundle.message(if (isNewIssue) "git.issue.text" else "git.issue.duplicate.text", htmlUrl, id)
             result = SubmittedReportInfo(htmlUrl, message, if (isNewIssue) SubmissionStatus.NEW_ISSUE else SubmissionStatus.DUPLICATE)
             return result
         } catch (e: Exception) {
             return SubmittedReportInfo(HTML_URL_TO_CREATE_NEW_ISSUE,
-                DeepBugsServicesBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE),
+                CommonResourceBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE),
                 SubmissionStatus.FAILED)
         }
 

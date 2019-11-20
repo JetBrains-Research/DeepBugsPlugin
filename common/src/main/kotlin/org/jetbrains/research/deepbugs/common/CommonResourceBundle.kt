@@ -1,10 +1,10 @@
-package org.jetbrains.research.deepbugs.common.utils
+package org.jetbrains.research.deepbugs.common
 
 import com.intellij.CommonBundle
 import org.jetbrains.annotations.PropertyKey
 import java.util.*
 
-object DeepBugsServicesBundle {
+object CommonResourceBundle {
     private const val BUNDLE_NAME = "DeepBugsPluginServicesBundle"
 
     private val bundle by lazy { ResourceBundle.getBundle(BUNDLE_NAME) }

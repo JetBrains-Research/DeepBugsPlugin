@@ -1,7 +1,7 @@
 package org.jetbrains.research.deepbugs.common.datatypes
 
 import org.jetbrains.research.deepbugs.common.utils.Mapping
-import org.jetbrains.research.deepbugs.common.utils.TensorUtils
+import org.jetbrains.research.deepbugs.common.TensorFlowRunner
 
 import org.tensorflow.Tensor
 
@@ -22,6 +22,6 @@ abstract class Call(
             .reduce { acc, argType -> acc + argType }
         val paramVectors = parameters.map { param -> token.get(param) ?: FloatArray(200) { 0.0f }.toList() }
             .reduce { acc, param -> acc + param }
-        return TensorUtils.vectorizeListOfArrays(listOf(nameVector, argVectors, baseVector, typeVectors, paramVectors))
+        return TensorFlowRunner.vectorizeListOfArrays(listOf(nameVector, argVectors, baseVector, typeVectors, paramVectors))
     }
 }

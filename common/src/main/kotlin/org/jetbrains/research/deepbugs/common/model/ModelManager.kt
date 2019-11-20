@@ -4,7 +4,7 @@ import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.progress.*
 import com.intellij.openapi.project.ProjectManager
 import org.jetbrains.research.deepbugs.common.logger.collectors.counter.ErrorInfoCollector
-import org.jetbrains.research.deepbugs.common.utils.DeepBugsServicesBundle
+import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Session
@@ -23,7 +23,7 @@ abstract class ModelManager {
 
     private fun initModels() {
         ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
-            DeepBugsServicesBundle.message("initialize.task.title", pluginName), false) {
+            CommonResourceBundle.message("initialize.task.title", pluginName), false) {
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
                 storage = ModelStorage(
@@ -46,13 +46,13 @@ abstract class ModelManager {
 
     private fun loadMapping(mappingName: String, progress: ProgressIndicator): Mapping {
         val loadMappingPath = Paths.get(getModelPath(), mappingName)
-        progress.text = DeepBugsServicesBundle.message("init.model.file", mappingName)
+        progress.text = CommonResourceBundle.message("init.model.file", mappingName)
         return Mapping(loadMappingPath)
     }
 
     private fun loadModel(modelName: String, progress: ProgressIndicator): Session {
         val loadModelPath = Paths.get(getModelPath(), modelName)
-        progress.text = DeepBugsServicesBundle.message("init.model.file", modelName)
+        progress.text = CommonResourceBundle.message("init.model.file", modelName)
         return SavedModelBundle.load(loadModelPath.toString(), "serve").session()
     }
 }

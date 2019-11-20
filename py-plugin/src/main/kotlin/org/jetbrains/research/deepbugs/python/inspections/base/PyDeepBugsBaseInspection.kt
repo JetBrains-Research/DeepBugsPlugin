@@ -9,7 +9,7 @@ import org.jetbrains.research.deepbugs.python.utils.DeepBugsPythonBundle
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.logger.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.deepbugs.common.model.ModelManager
-import org.jetbrains.research.deepbugs.common.utils.TensorUtils
+import org.jetbrains.research.deepbugs.common.TensorFlowRunner
 import org.tensorflow.Session
 
 val models by lazy {
@@ -43,7 +43,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
         protected fun visitExpr(node: NavigatablePsiElement?) {
             node?.let {
                 collect(it)?.let { expr ->
-                    val result = TensorUtils.inspectCodePiece(getModel(), expr) ?: return
+                    val result = TensorFlowRunner.inspectCodePiece(getModel(), expr) ?: return
                     analyzeInspected(result, node)
                 }
             }
