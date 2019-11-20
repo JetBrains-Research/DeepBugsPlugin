@@ -6,10 +6,10 @@ import com.intellij.psi.NavigatablePsiElement
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import org.jetbrains.research.deepbugs.python.utils.DeepBugsPythonBundle
-import org.jetbrains.research.deepbugs.services.datatypes.DataType
-import org.jetbrains.research.deepbugs.services.logger.collectors.counter.InspectionReportCollector
-import org.jetbrains.research.deepbugs.services.model.ModelManager
-import org.jetbrains.research.deepbugs.services.utils.TensorUtils
+import org.jetbrains.research.deepbugs.common.datatypes.DataType
+import org.jetbrains.research.deepbugs.common.logger.collectors.counter.InspectionReportCollector
+import org.jetbrains.research.deepbugs.common.model.ModelManager
+import org.jetbrains.research.deepbugs.common.utils.TensorUtils
 import org.tensorflow.Session
 
 val models by lazy {

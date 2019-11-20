@@ -7,10 +7,10 @@ import com.intellij.lang.javascript.inspections.JSInspection
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.research.deepbugs.javascript.utils.DeepBugsJSBundle
-import org.jetbrains.research.deepbugs.services.datatypes.DataType
-import org.jetbrains.research.deepbugs.services.logger.collectors.counter.InspectionReportCollector
-import org.jetbrains.research.deepbugs.services.model.ModelManager
-import org.jetbrains.research.deepbugs.services.utils.TensorUtils
+import org.jetbrains.research.deepbugs.common.datatypes.DataType
+import org.jetbrains.research.deepbugs.common.logger.collectors.counter.InspectionReportCollector
+import org.jetbrains.research.deepbugs.common.model.ModelManager
+import org.jetbrains.research.deepbugs.common.utils.TensorUtils
 import org.tensorflow.Session
 
 val models by lazy {

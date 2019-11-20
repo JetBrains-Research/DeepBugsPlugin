@@ -2,7 +2,7 @@ package org.jetbrains.research.deepbugs.python.settings
 
 import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
-import org.jetbrains.research.deepbugs.services.settings.DeepBugsInspectionConfig
+import org.jetbrains.research.deepbugs.common.settings.DeepBugsInspectionConfig
 
 @State(name = "DeepBugsPy", storages = [Storage("deepbugs.py.xml")])
 class PyDeepBugsInspectionConfig : PersistentStateComponent<PyDeepBugsInspectionConfig>, DeepBugsInspectionConfig {

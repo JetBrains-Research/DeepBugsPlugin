@@ -5,7 +5,7 @@ import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.deepbugs.python.extraction.PyExtractor
 import org.jetbrains.research.deepbugs.python.inspections.base.models
-import org.jetbrains.research.deepbugs.services.datatypes.BinOp
+import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 
 class PyBinOp(
     left: String,

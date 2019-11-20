@@ -34,5 +34,5 @@ tasks.withType<PatchPluginXmlTask> {
 }
 
 dependencies {
-    compile(project(":services"))
+    compile(project(":common"))
 }

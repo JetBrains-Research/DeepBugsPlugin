@@ -3,7 +3,7 @@ package org.jetbrains.research.deepbugs.javascript.datatypes
 import com.intellij.lang.javascript.psi.JSBinaryExpression
 import org.jetbrains.research.deepbugs.javascript.extraction.JSExtractor
 import org.jetbrains.research.deepbugs.javascript.inspections.base.models
-import org.jetbrains.research.deepbugs.services.datatypes.BinOp
+import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 
 class JSBinOp(
     left: String,

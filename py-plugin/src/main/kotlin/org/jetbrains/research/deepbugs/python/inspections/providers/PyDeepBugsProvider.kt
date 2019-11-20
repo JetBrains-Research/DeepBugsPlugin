@@ -2,7 +2,7 @@ package org.jetbrains.research.deepbugs.python.inspections.providers
 
 import com.intellij.codeInspection.InspectionToolProvider
 import org.jetbrains.research.deepbugs.python.inspections.*
-import org.jetbrains.research.deepbugs.services.utils.platform.PlatformManager
+import org.jetbrains.research.deepbugs.common.utils.platform.PlatformManager
 
 class PyDeepBugsProvider : InspectionToolProvider {
     init {

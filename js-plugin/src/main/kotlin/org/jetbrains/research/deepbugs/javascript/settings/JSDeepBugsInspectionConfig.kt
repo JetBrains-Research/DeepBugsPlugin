@@ -2,7 +2,7 @@ package org.jetbrains.research.deepbugs.javascript.settings
 
 import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
-import org.jetbrains.research.deepbugs.services.settings.DeepBugsInspectionConfig
+import org.jetbrains.research.deepbugs.common.settings.DeepBugsInspectionConfig
 
 @State(name = "DeepBugsJS", storages = [Storage("deepbugs.js.xml")])
 class JSDeepBugsInspectionConfig : PersistentStateComponent<JSDeepBugsInspectionConfig>, DeepBugsInspectionConfig {

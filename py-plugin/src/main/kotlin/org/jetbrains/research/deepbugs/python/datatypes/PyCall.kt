@@ -4,7 +4,7 @@ import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
 import org.jetbrains.research.deepbugs.python.extraction.PyExtractor
 import org.jetbrains.research.deepbugs.python.inspections.base.models
-import org.jetbrains.research.deepbugs.services.datatypes.Call
+import org.jetbrains.research.deepbugs.common.datatypes.Call
 
 class PyCall(
     callee: String,

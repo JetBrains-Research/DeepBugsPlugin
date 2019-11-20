@@ -1,7 +1,7 @@
 package org.jetbrains.research.deepbugs.javascript.settings
 
-import org.jetbrains.research.deepbugs.services.logger.collectors.counter.SettingsStatsCollector
-import org.jetbrains.research.deepbugs.services.ui.DeepBugsUI
+import org.jetbrains.research.deepbugs.common.logger.collectors.counter.SettingsStatsCollector
+import org.jetbrains.research.deepbugs.common.ui.DeepBugsUI
 
 class JSDeepBugsUI : DeepBugsUI() {
     init {
