@@ -5,7 +5,6 @@ import org.jetbrains.research.deepbugs.services.utils.TensorUtils
 
 import org.tensorflow.Tensor
 
-//FIXME-review you can make it not abstract class, but data class with a lambda that will be used if set to override vectorize
 abstract class BinOp(
     private val left: String,
     private val right: String,

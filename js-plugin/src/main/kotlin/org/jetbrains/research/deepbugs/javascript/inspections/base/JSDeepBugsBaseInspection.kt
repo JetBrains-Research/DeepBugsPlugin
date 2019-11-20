@@ -30,12 +30,10 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
 
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
-            result.let { res ->
-                if (res > getThreshold()) {
-                    holder.registerProblem(node, DeepBugsJSBundle.message(keyMessage, res),
-                        ProblemHighlightType.WEAK_WARNING)
-                    InspectionReportCollector.logReport(holder.project, shortName, res)
-                }
+            if (result > getThreshold()) {
+                holder.registerProblem(node, DeepBugsJSBundle.message(keyMessage, result),
+                    ProblemHighlightType.WEAK_WARNING)
+                InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }
 
