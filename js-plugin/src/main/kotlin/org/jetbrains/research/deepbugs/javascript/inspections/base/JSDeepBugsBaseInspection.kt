@@ -16,7 +16,9 @@ import org.tensorflow.Session
 val models by lazy {
     object : ModelManager() {
         override val pluginName: String =
-            PluginManager.getPluginByClassName(JSDeepBugsBaseInspection::class.java.name)!!.idString
+            PluginManager.getPluginByClassName(JSDeepBugsBaseInspection::class.java.name)!!.let {
+                PluginManager.getPlugin(it)?.name!!
+            }
     }
 }
 
