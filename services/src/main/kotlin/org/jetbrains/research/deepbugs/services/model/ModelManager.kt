@@ -14,7 +14,7 @@ abstract class ModelManager {
     protected abstract val pluginName: String
     private fun getModelPath() = Paths.get(PathManager.getPluginsPath(), pluginName, "models").toString()
 
-    var modelStorage: ModelStorage? = null
+    var storage: ModelStorage? = null
         private set
 
     init {
@@ -26,7 +26,7 @@ abstract class ModelManager {
             DeepBugsServicesBundle.message("initialize.task.title", pluginName), false) {
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
-                modelStorage = ModelStorage(
+                storage = ModelStorage(
                     binOperandModel = loadModel("binOperandDetectionModel", indicator),
                     binOperatorModel = loadModel("binOperatorDetectionModel", indicator),
                     swappedArgsModel = loadModel("swappedArgsDetectionModel", indicator),

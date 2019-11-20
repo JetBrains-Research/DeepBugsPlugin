@@ -1,6 +1,8 @@
 package org.jetbrains.research.deepbugs.services.settings
 
+import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
 import com.intellij.openapi.options.Configurable
+import com.intellij.openapi.project.ProjectManager
 
 import org.jetbrains.research.deepbugs.services.logger.collectors.counter.SettingsStatsCollector
 import org.jetbrains.research.deepbugs.services.ui.DeepBugsUI
@@ -29,6 +31,11 @@ abstract class DeepBugsInspectionConfigurable(protected val settings: DeepBugsIn
         settings.curBinOperatorThreshold = deepBugsUI.binOperatorThreshold
         settings.curBinOperandThreshold = deepBugsUI.binOperandThreshold
         settings.curSwappedArgsThreshold = deepBugsUI.swappedArgsThreshold
+
+        //FIXME-review probably better use message-bus (like in Grazie)
+        ProjectManager.getInstance().openProjects.forEach {
+            DaemonCodeAnalyzer.getInstance(it).restart()
+        }
     }
 
     override fun reset() {

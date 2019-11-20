@@ -2,11 +2,11 @@ package org.jetbrains.research.deepbugs.python.inspections.providers
 
 import com.intellij.codeInspection.InspectionToolProvider
 import org.jetbrains.research.deepbugs.python.inspections.*
-import org.jetbrains.research.deepbugs.services.utils.PlatformManager
+import org.jetbrains.research.deepbugs.services.utils.platform.PlatformManager
 
 class PyDeepBugsProvider : InspectionToolProvider {
     init {
-        PlatformManager.checkPlatformAndDependencies(PyDeepBugsProvider::class.java)
+        PlatformManager.checkPlatformAndDependencies<PyDeepBugsProvider>()
     }
 
     override fun getInspectionClasses(): Array<Class<*>> {

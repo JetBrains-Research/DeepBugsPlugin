@@ -124,26 +124,25 @@ internal object AnonymousFeedback {
             stackTrace = "invalid stacktrace"
         }
 
-        val result = StringBuilder()
-        if (errorDescription.isNotEmpty()) {
-            result.append(errorDescription)
-            result.append("\n\n----------------------\n\n")
-        }
+        return buildString {
+            if (errorDescription.isNotEmpty()) {
+                append(errorDescription)
+                append("\n\n----------------------\n\n")
+            }
 
-        for ((description, value) in errorReportInformation.userInfo.asMap()) {
-            result.append("- ")
-            result.append(description)
-            result.append(": ")
-            result.append(value)
-            result.append("\n")
-        }
+            for ((description, value) in errorReportInformation.userInfo.asMap()) {
+                append("- ")
+                append(description)
+                append(": ")
+                append(value)
+                append("\n")
+            }
 
-        if (addStacktrace) {
-            result.append("\n```\n")
-            result.append(stackTrace)
-            result.append("\n```\n")
+            if (addStacktrace) {
+                append("\n```\n")
+                append(stackTrace)
+                append("\n```\n")
+            }
         }
-
-        return result.toString()
     }
 }

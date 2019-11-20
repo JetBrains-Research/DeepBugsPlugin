@@ -35,9 +35,9 @@ class JSBinOp(
     }
 
     override fun vectorize() = vectorize(
-        models.modelStorage?.tokenMapping,
-        models.modelStorage?.typeMapping,
-        models.modelStorage?.nodeTypeMapping,
-        models.modelStorage?.operatorMapping
+        models.storage?.tokenMapping,
+        models.storage?.typeMapping,
+        models.storage?.nodeTypeMapping,
+        models.storage?.operatorMapping
     )
 }
