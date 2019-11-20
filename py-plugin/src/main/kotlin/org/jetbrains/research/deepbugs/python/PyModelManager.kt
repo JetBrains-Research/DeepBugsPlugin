@@ -5,5 +5,7 @@ import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.python.inspections.base.PyDeepBugsBaseInspection
 
 object PyModelManager : ModelManager() {
-    override val pluginName: String = PluginManager.getPluginByClassName(PyDeepBugsBaseInspection::class.java.name)!!.idString
+    override val pluginName: String = PluginManager.getPluginByClassName(PyDeepBugsBaseInspection::class.java.name)!!.let {
+        PluginManager.getPlugin(it)?.name!!
+    }
 }
