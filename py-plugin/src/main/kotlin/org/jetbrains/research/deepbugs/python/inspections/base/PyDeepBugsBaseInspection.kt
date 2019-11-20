@@ -1,23 +1,14 @@
 package org.jetbrains.research.deepbugs.python.inspections.base
 
 import com.intellij.codeInspection.*
-import com.intellij.ide.plugins.PluginManager
 import com.intellij.psi.NavigatablePsiElement
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
-import org.jetbrains.research.deepbugs.python.utils.DeepBugsPythonBundle
+import org.jetbrains.research.deepbugs.common.TensorFlowRunner
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.logger.collectors.counter.InspectionReportCollector
-import org.jetbrains.research.deepbugs.common.model.ModelManager
-import org.jetbrains.research.deepbugs.common.TensorFlowRunner
+import org.jetbrains.research.deepbugs.python.PyResourceBundle
 import org.tensorflow.Session
-
-val models by lazy {
-    object : ModelManager() {
-        override val pluginName: String =
-            PluginManager.getPluginByClassName(PyDeepBugsBaseInspection::class.java.name)!!.idString
-    }
-}
 
 abstract class PyDeepBugsBaseInspection : PyInspection() {
     protected abstract val keyMessage: String
@@ -33,7 +24,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
 
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
             if (result > getThreshold()) {
-                registerProblem(node, DeepBugsPythonBundle.message(keyMessage, result),
+                registerProblem(node, PyResourceBundle.message(keyMessage, result),
                     ProblemHighlightType.GENERIC_ERROR)
                 val project = session.file.project
                 InspectionReportCollector.logReport(project, shortName, result)

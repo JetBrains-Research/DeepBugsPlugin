@@ -4,8 +4,8 @@ import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.deepbugs.python.extraction.PyExtractor
-import org.jetbrains.research.deepbugs.python.inspections.base.models
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
+import org.jetbrains.research.deepbugs.python.PyModelManager
 
 class PyBinOp(
     left: String,
@@ -61,7 +61,7 @@ class PyBinOp(
         }
     }
 
-    override fun vectorize() = models.storage?.let { storage ->
+    override fun vectorize() = PyModelManager.storage?.let { storage ->
         vectorize(storage.tokenMapping, storage.typeMapping, storage.nodeTypeMapping, storage.operatorMapping)
     }
 }

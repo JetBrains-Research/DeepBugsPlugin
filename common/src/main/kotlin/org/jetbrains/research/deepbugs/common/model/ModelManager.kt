@@ -11,6 +11,7 @@ import org.tensorflow.Session
 import java.nio.file.Paths
 
 abstract class ModelManager {
+    //FIXME-review Can we use DI here, instead of inheritance?
     protected abstract val pluginName: String
     private val modelPath by lazy { Paths.get(PathManager.getPluginsPath(), pluginName, "models").toString() }
 
