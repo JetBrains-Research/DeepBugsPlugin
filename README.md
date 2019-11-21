@@ -7,7 +7,7 @@
 [![Py Plugin](https://img.shields.io/jetbrains/plugin/v/12218-deepbugspython.svg?style=flat-square&label=py%20plugin)](https://plugins.jetbrains.com/plugin/12218-deepbugspython)
 [![Py Downloads](https://img.shields.io/jetbrains/plugin/d/12218-deepbugspython.svg?style=flat-square&label=py%20downloads)](https://plugins.jetbrains.com/plugin/12218-deepbugspython)
 
-Plugins for IntelliJ Platform-based IDEs inspired by [DeepBugs](https://github.com/JetBrains-Research/DeepBugs) framework. 
+Plugins for IntelliJ Platform-based IDEs inspired by [DeepBugs](https://github.com/ml-in-programming/DeepBugs) framework. 
 
 These plugins provide several code inspections which objectives are to analyze the code of a project opened in IDE and to highlight potential bugs and code quality issues in it.
 
