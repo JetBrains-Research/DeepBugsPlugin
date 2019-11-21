@@ -7,10 +7,10 @@ version = rootProject.version
 
 intellij {
     pluginName = "DeepBugsPython"
-    version = "2019.2.2"
+    version = "2019.2"
     type = "IC"
     downloadSources = true
-    setPlugins("PythonCore:2019.2.192.6603.23")
+    setPlugins("PythonCore:2019.2.192.5728.98")
 }
 
 tasks.withType<PrepareSandboxTask> {
@@ -28,7 +28,7 @@ tasks.withType<RunIdeTask> {
 }
 
 tasks.withType<PatchPluginXmlTask> {
-    sinceBuild("192.6603")
+    sinceBuild("192.5728")
     untilBuild("")
     changeNotes("Minor improvements. Usage statistics.")
 }

@@ -7,7 +7,7 @@ version = rootProject.version
 
 intellij {
     pluginName = "DeepBugsJS"
-    version = "2019.2.2"
+    version = "2019.2"
     type = "IU"
     downloadSources = true
     setPlugins("JavaScriptLanguage")
@@ -24,7 +24,7 @@ tasks.withType<RunIdeTask> {
 }
 
 tasks.withType<PatchPluginXmlTask> {
-    sinceBuild("192.6603")
+    sinceBuild("192.5728")
     untilBuild("")
     changeNotes("Minor improvements. Usage statistics.")
 }

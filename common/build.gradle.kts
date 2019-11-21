@@ -7,8 +7,7 @@ repositories {
 }
 
 intellij {
-    //FIXME-review check that it is a minimal supported version
-    version = "2019.2.2"
+    version = "2019.2"
 }
 
 dependencies {
