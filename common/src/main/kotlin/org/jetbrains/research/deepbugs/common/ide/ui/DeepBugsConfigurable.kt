@@ -35,8 +35,6 @@ abstract class DeepBugsConfigurable(protected val settings: DeepBugsConfig) : Co
         ui.swappedArgsThreshold = settings.state.swappedArgsThreshold
     }
 
-    override fun disposeUIResources() {}
-
     override fun createComponent(): JComponent? {
         ui.binOperatorThreshold = settings.state.binOperatorThreshold
         ui.binOperandThreshold = settings.state.binOperandThreshold

@@ -75,7 +75,11 @@ internal object AnonymousFeedBack {
             )
             SubmittedReportInfo(newGibHubIssue.htmlUrl, message, if (isNewIssue) SubmissionStatus.NEW_ISSUE else SubmissionStatus.DUPLICATE)
         } catch (e: Exception) {
-            SubmittedReportInfo(HTML_URL_TO_CREATE_NEW_ISSUE, CommonResourceBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE), SubmissionStatus.FAILED)
+            SubmittedReportInfo(
+                HTML_URL_TO_CREATE_NEW_ISSUE,
+                CommonResourceBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE),
+                SubmissionStatus.FAILED
+            )
         }
 
     }
