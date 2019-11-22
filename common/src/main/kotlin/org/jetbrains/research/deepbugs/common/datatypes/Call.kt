@@ -1,8 +1,7 @@
 package org.jetbrains.research.deepbugs.common.datatypes
 
-import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.jetbrains.research.deepbugs.common.TensorFlowRunner
-
+import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.tensorflow.Tensor
 
 abstract class Call(

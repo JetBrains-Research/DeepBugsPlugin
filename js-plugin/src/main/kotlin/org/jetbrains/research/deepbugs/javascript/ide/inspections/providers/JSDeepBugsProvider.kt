@@ -1,8 +1,8 @@
 package org.jetbrains.research.deepbugs.javascript.ide.inspections.providers
 
 import com.intellij.codeInspection.InspectionToolProvider
-import org.jetbrains.research.deepbugs.javascript.ide.inspections.*
 import org.jetbrains.research.deepbugs.common.utils.platform.PlatformManager
+import org.jetbrains.research.deepbugs.javascript.ide.inspections.*
 
 class JSDeepBugsProvider : InspectionToolProvider {
     init {

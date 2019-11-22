@@ -1,10 +1,10 @@
 package org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter
 
 import com.intellij.internal.statistic.eventLog.FeatureUsageData
+import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 import org.jetbrains.research.deepbugs.common.ide.fus.service.log.DeepBugsCounterLogger
 import org.jetbrains.research.deepbugs.common.ide.fus.service.log.GeneralCounterGroups.SETTINGS
 import org.jetbrains.research.deepbugs.common.ide.fus.service.log.GeneralCounterGroups.SETTINGS_UI
-import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 import org.jetbrains.research.deepbugs.common.ide.ui.DeepBugsUI
 
 object SettingsStatsCollector {

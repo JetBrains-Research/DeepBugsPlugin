@@ -1,7 +1,8 @@
 package org.jetbrains.research.deepbugs.common.errors.github
 
 import com.intellij.util.Base64
-import java.io.*
+import java.io.InputStream
+import java.io.ObjectInputStream
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec

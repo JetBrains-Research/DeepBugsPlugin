@@ -1,6 +1,4 @@
-import org.jetbrains.intellij.tasks.PatchPluginXmlTask
-import org.jetbrains.intellij.tasks.PrepareSandboxTask
-import org.jetbrains.intellij.tasks.RunIdeTask
+import org.jetbrains.intellij.tasks.*
 
 group = rootProject.group
 version = rootProject.version

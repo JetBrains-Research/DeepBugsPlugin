@@ -11,8 +11,5 @@ class PyDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBug
         val default = State(0.94f, 0.95f, 0.96f)
 
         fun get() = instance.state
-
-        @Synchronized
-        fun update(change: (State) -> State) = instance.loadState(change(get()))
     }
 }

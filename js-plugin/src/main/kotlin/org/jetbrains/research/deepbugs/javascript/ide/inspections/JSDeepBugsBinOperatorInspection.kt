@@ -1,9 +1,7 @@
 package org.jetbrains.research.deepbugs.javascript.ide.inspections
 
-import org.jetbrains.research.deepbugs.javascript.JSModelManager
+import org.jetbrains.research.deepbugs.javascript.*
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsBinExprInspection
-import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
-import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 
 class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
     override val keyMessage = "deepbugs.javascript.binary.operator.inspection.warning"

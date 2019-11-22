@@ -2,9 +2,9 @@ package org.jetbrains.research.deepbugs.javascript.datatypes
 
 import com.intellij.lang.javascript.psi.*
 import com.intellij.util.ObjectUtils
-import org.jetbrains.research.deepbugs.javascript.extraction.JSExtractor
 import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.javascript.JSModelManager
+import org.jetbrains.research.deepbugs.javascript.extraction.JSExtractor
 
 class JSCall(
     callee: String,

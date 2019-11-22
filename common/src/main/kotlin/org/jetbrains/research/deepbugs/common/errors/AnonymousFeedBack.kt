@@ -12,7 +12,6 @@ import org.eclipse.egit.github.core.service.IssueService
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.errors.beans.ErrorReport
 import org.jetbrains.research.deepbugs.common.errors.github.GitHubTokenScrambler
-import tanvd.kex.Resources
 
 /**
  * Provides functionality to create and send GitHub issues when an exception is thrown by a plugin.

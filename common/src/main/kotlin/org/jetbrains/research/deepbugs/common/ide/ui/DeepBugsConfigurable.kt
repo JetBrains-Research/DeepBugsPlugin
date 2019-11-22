@@ -4,8 +4,6 @@ import com.intellij.openapi.options.Configurable
 import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.SettingsStatsCollector
-import org.jetbrains.research.deepbugs.common.ide.msg.DeepBugsLifecycle
-
 import javax.swing.JComponent
 
 abstract class DeepBugsConfigurable(protected val settings: DeepBugsConfig) : Configurable {

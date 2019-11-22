@@ -1,9 +1,7 @@
 package org.jetbrains.research.deepbugs.python.ide.inspections
 
-import org.jetbrains.research.deepbugs.python.PyModelManager
-import org.jetbrains.research.deepbugs.python.PyResourceBundle
+import org.jetbrains.research.deepbugs.python.*
 import org.jetbrains.research.deepbugs.python.ide.inspections.base.PyDeepBugsBinExprInspection
-import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 
 class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection() {
     override val keyMessage = "deepbugs.python.bin.operator.inspection.warning"

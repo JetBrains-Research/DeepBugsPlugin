@@ -5,10 +5,10 @@ import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.lang.javascript.inspections.JSInspection
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.psi.NavigatablePsiElement
-import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
+import org.jetbrains.research.deepbugs.common.TensorFlowRunner
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
-import org.jetbrains.research.deepbugs.common.TensorFlowRunner
+import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.tensorflow.Session
 
 abstract class JSDeepBugsBaseInspection : JSInspection() {
