@@ -48,7 +48,8 @@ internal object AnonymousFeedBack {
      */
     fun sendFeedback(errorReportInformation: ErrorReport): SubmittedReportInfo {
         return try {
-            val gitAccessToken = GitHubTokenScrambler.decrypt(Resources.getStream(TOKEN_FILE))
+            val tokenFile = AnonymousFeedBack::class.java.classLoader.getResourceAsStream(TOKEN_FILE)!!
+            val gitAccessToken = GitHubTokenScrambler.decrypt(tokenFile)
 
             val client = GitHubClient()
             client.setOAuth2Token(gitAccessToken)
