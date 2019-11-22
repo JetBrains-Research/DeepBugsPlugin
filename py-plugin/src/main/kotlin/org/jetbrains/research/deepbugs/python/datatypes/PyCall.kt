@@ -2,9 +2,9 @@ package org.jetbrains.research.deepbugs.python.datatypes
 
 import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
-import org.jetbrains.research.deepbugs.common.datatypes.Call
-import org.jetbrains.research.deepbugs.python.PyModelManager
 import org.jetbrains.research.deepbugs.python.extraction.PyExtractor
+import org.jetbrains.research.deepbugs.common.datatypes.Call
+import org.jetbrains.research.deepbugs.common.model.ModelManager
 
 class PyCall(
     callee: String,
@@ -49,7 +49,7 @@ class PyCall(
         }
     }
 
-    override fun vectorize() = PyModelManager.storage?.let { storage ->
+    override fun vectorize() = ModelManager.storage?.let { storage ->
         vectorize(storage.tokenMapping, storage.typeMapping)
     }
 }

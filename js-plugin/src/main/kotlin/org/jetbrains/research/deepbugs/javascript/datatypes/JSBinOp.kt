@@ -2,7 +2,7 @@ package org.jetbrains.research.deepbugs.javascript.datatypes
 
 import com.intellij.lang.javascript.psi.JSBinaryExpression
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
-import org.jetbrains.research.deepbugs.javascript.JSModelManager
+import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.javascript.extraction.JSExtractor
 
 class JSBinOp(
@@ -34,7 +34,7 @@ class JSBinOp(
         }
     }
 
-    override fun vectorize() = JSModelManager.storage?.let { storage ->
+    override fun vectorize() = ModelManager.storage?.let { storage ->
         vectorize(storage.tokenMapping, storage.typeMapping, storage.nodeTypeMapping, storage.operatorMapping)
     }
 }

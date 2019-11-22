@@ -3,17 +3,16 @@ package org.jetbrains.research.deepbugs.common.model
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.progress.*
 import com.intellij.openapi.project.ProjectManager
-import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.ErrorInfoCollector
+import org.jetbrains.research.deepbugs.common.CommonResourceBundle
+import org.jetbrains.research.deepbugs.common.DeepBugsPluginManager
 import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Session
 import java.nio.file.Paths
 
-abstract class ModelManager {
-    //FIXME-review Can we use DI here, instead of inheritance?
-    protected abstract val pluginName: String
-    private val modelPath by lazy { Paths.get(PathManager.getPluginsPath(), pluginName, "models").toString() }
+object ModelManager {
+    private val modelPath by lazy { Paths.get(PathManager.getPluginsPath(), DeepBugsPluginManager.getPluginName(), "models").toString() }
 
     var storage: ModelStorage? = null
         private set
@@ -24,7 +23,7 @@ abstract class ModelManager {
 
     private fun initModels() {
         ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
-            CommonResourceBundle.message("initialize.task.title", pluginName), false) {
+            CommonResourceBundle.message("initialize.task.title", DeepBugsPluginManager.getPluginName()), false) {
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
                 storage = ModelStorage(

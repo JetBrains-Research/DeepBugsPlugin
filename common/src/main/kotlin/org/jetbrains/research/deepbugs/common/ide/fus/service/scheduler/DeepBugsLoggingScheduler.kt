@@ -39,6 +39,6 @@ class DeepBugsLoggingScheduler : ApplicationInitializedListener {
 
     companion object {
         private const val LOG_PROJECTS_STATES_INITIAL_DELAY_MIN = 12
-        private const val LOG_PROJECTS_STATES_DELAY_MIN = 6 * 60
+        private const val LOG_PROJECTS_STATES_DELAY_MIN = 12 * 60
     }
 }
