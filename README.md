@@ -1,4 +1,4 @@
-<h1> <img align="left" width="40" height="40" src="https://s3-eu-west-1.amazonaws.com/public-resources.ml-labs.aws.intellij.net/static/deep-bugs-icon.svg" alt="Grazi Icon"> DeepBugs </h1>
+<h1> <img align="left" width="40" height="40" src="https://s3-eu-west-1.amazonaws.com/public-resources.ml-labs.aws.intellij.net/static/deep-bugs-icon.svg" alt="DeepBugs Icon"> DeepBugs </h1>
 
 [![CircleCI](https://img.shields.io/circleci/build/github/JetBrains-Research/DeepBugsPlugin.svg?style=flat-square)](https://circleci.com/gh/JetBrains-Research/DeepBugsPlugin)
 [![JS Plugin](https://img.shields.io/jetbrains/plugin/v/12220-deepbugsjavascript.svg?style=flat-square&label=js%20plugin)](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript)
