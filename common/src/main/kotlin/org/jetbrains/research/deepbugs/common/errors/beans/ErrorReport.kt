@@ -5,16 +5,9 @@ import com.intellij.openapi.application.PermanentInstallationID
 import com.intellij.openapi.application.ex.ApplicationInfoEx
 import com.intellij.openapi.util.SystemInfo
 
-data class ErrorReport(
-    val userInfo: UserInformation,
-    val errorInfo: ErrorInformation
-) {
+data class ErrorReport(val userInfo: UserInformation, val errorInfo: ErrorInformation) {
     companion object {
-        fun getUsersInformation(
-            error: GitHubErrorBean,
-            appInfo: ApplicationInfoEx,
-            namesInfo: ApplicationNamesInfo
-        ): ErrorReport {
+        fun getUsersInformation(error: GitHubErrorBean, appInfo: ApplicationInfoEx, namesInfo: ApplicationNamesInfo): ErrorReport {
             val userInfo = UserInformation(
                 error.pluginName,
                 error.pluginVersion,
@@ -38,6 +31,7 @@ data class ErrorReport(
                 error.description
             )
 
+            //FIXME-review it will assign only the last attachment. Is it expected?
             for (attachment in error.attachments) {
                 errorInfo.attachmentName = attachment.name
                 errorInfo.attachmentValue = attachment.encodedBytes

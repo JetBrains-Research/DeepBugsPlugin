@@ -2,17 +2,22 @@ package org.jetbrains.research.deepbugs.common.errors
 
 import com.intellij.openapi.diagnostic.SubmittedReportInfo
 import com.intellij.openapi.diagnostic.SubmittedReportInfo.SubmissionStatus
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.Task
+import com.intellij.openapi.project.Project
+import com.intellij.util.Consumer
 import org.eclipse.egit.github.core.*
 import org.eclipse.egit.github.core.client.GitHubClient
 import org.eclipse.egit.github.core.service.IssueService
-import org.jetbrains.research.deepbugs.common.errors.beans.ErrorReport
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
-import java.util.*
+import org.jetbrains.research.deepbugs.common.errors.beans.ErrorReport
+import org.jetbrains.research.deepbugs.common.errors.github.GitHubTokenScrambler
+import tanvd.kex.Resources
 
 /**
  * Provides functionality to create and send GitHub issues when an exception is thrown by a plugin.
  */
-internal object AnonymousFeedback {
+internal object AnonymousFeedBack {
     private const val TOKEN_FILE = "errorReporterToken.dms"
     private const val GIT_REPO_USER = "JetBrains-Research"
     private const val GIT_REPO = "DeepBugsPlugin"
@@ -20,6 +25,18 @@ internal object AnonymousFeedback {
     private const val ISSUE_LABEL_AUTO_GENERATED = "auto-generated"
     private const val GIT_ISSUE_TITLE = "[auto-generated:%s] %s"
     private const val HTML_URL_TO_CREATE_NEW_ISSUE = "https://github.com/JetBrains-Research/DeepBugsPlugin/issues/new"
+
+    /**
+     * Encapsulates the sending of feedback into a background task that is run by [GitHubErrorReporter]
+     */
+    class SendTask(project: Project?, title: String, canBeCancelled: Boolean,
+                   private val errorReportInformation: ErrorReport,
+                   private val myCallback: Consumer<SubmittedReportInfo>) : Task.Backgroundable(project, title, canBeCancelled) {
+        override fun run(indicator: ProgressIndicator) {
+            indicator.isIndeterminate = true
+            myCallback.consume(sendFeedback(errorReportInformation))
+        }
+    }
 
     /**
      * Makes a connection to GitHub. Checks if there is an issue that is a duplicate and based on this, creates either a
@@ -30,37 +47,34 @@ internal object AnonymousFeedback {
      * of the created issue.
      */
     fun sendFeedback(errorReportInformation: ErrorReport): SubmittedReportInfo {
-
-        val result: SubmittedReportInfo
-        try {
-            val gitAccessToken = GitHubAccessTokenScrambler.decrypt(AnonymousFeedback::class.java.classLoader.getResourceAsStream(TOKEN_FILE))
+        return try {
+            val gitAccessToken = GitHubTokenScrambler.decrypt(Resources.getStream(TOKEN_FILE))
 
             val client = GitHubClient()
             client.setOAuth2Token(gitAccessToken)
             val repoID = RepositoryId(GIT_REPO_USER, GIT_REPO)
             val issueService = IssueService(client)
 
+            //FIXME-review -- issue is created two times. Can we rework it?
             var newGibHubIssue = createNewGibHubIssue(errorReportInformation)
             val duplicate = findFirstDuplicate(newGibHubIssue.title, issueService, repoID)
-            var isNewIssue = true
-            if (duplicate != null) {
+            val isNewIssue = duplicate == null
+            newGibHubIssue = if (duplicate != null) {
                 val newErrorComment = generateGitHubIssueBody(errorReportInformation, false)
                 issueService.createComment(repoID, duplicate.number, newErrorComment)
-                newGibHubIssue = duplicate
-                isNewIssue = false
+                duplicate
             } else {
-                newGibHubIssue = issueService.createIssue(repoID, newGibHubIssue)
+                issueService.createIssue(repoID, newGibHubIssue)
             }
 
-            val id = newGibHubIssue.number
-            val htmlUrl = newGibHubIssue.htmlUrl
-            val message = CommonResourceBundle.message(if (isNewIssue) "git.issue.text" else "git.issue.duplicate.text", htmlUrl, id)
-            result = SubmittedReportInfo(htmlUrl, message, if (isNewIssue) SubmissionStatus.NEW_ISSUE else SubmissionStatus.DUPLICATE)
-            return result
+            val message = CommonResourceBundle.message(
+                if (isNewIssue) "git.issue.text" else "git.issue.duplicate.text",
+                newGibHubIssue.htmlUrl,
+                newGibHubIssue.number
+            )
+            SubmittedReportInfo(newGibHubIssue.htmlUrl, message, if (isNewIssue) SubmissionStatus.NEW_ISSUE else SubmissionStatus.DUPLICATE)
         } catch (e: Exception) {
-            return SubmittedReportInfo(HTML_URL_TO_CREATE_NEW_ISSUE,
-                CommonResourceBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE),
-                SubmissionStatus.FAILED)
+            SubmittedReportInfo(HTML_URL_TO_CREATE_NEW_ISSUE, CommonResourceBundle.message("report.error.connection.failure", HTML_URL_TO_CREATE_NEW_ISSUE), SubmissionStatus.FAILED)
         }
 
     }
@@ -77,9 +91,7 @@ internal object AnonymousFeedback {
      * @return The duplicate if one is found or null
      */
     private fun findFirstDuplicate(uniqueTitle: String, service: IssueService, repo: RepositoryId): Issue? {
-        val searchParameters = HashMap<String, String>(2)
-        searchParameters[IssueService.FILTER_STATE] = IssueService.STATE_OPEN
-        val pages = service.pageIssues(repo, searchParameters)
+        val pages = service.pageIssues(repo, hashMapOf(IssueService.FILTER_STATE to IssueService.STATE_OPEN))
         return pages.flatten().firstOrNull { it.title == uniqueTitle }
     }
 
@@ -91,22 +103,21 @@ internal object AnonymousFeedback {
      * @return The new issue
      */
     private fun createNewGibHubIssue(errorReportInformation: ErrorReport): Issue {
-        var errorMessage: String? = errorReportInformation.errorInfo.errorMessage
-        if (errorMessage.isNullOrEmpty()) {
-            errorMessage = "Unspecified error"
-        }
+        val errorMessage = errorReportInformation.errorInfo.errorMessage.takeUnless { it.isNullOrEmpty() } ?: "Unspecified error"
         val errorHash: String = errorReportInformation.errorInfo.errorHash
 
-        val gitHubIssue = Issue()
-        val body = generateGitHubIssueBody(errorReportInformation, true)
-        gitHubIssue.title = String.format(GIT_ISSUE_TITLE, errorHash, errorMessage)
-        gitHubIssue.body = body
-        val bugLabel = Label()
-        bugLabel.name = ISSUE_LABEL_BUG
-        val autoGeneratedLabel = Label()
-        autoGeneratedLabel.name = ISSUE_LABEL_AUTO_GENERATED
-        gitHubIssue.labels = listOf(autoGeneratedLabel, bugLabel)
-        return gitHubIssue
+        val bugLabel = Label().apply {
+            name = ISSUE_LABEL_BUG
+        }
+        val autoGeneratedLabel = Label().apply {
+            name = ISSUE_LABEL_AUTO_GENERATED
+        }
+
+        return Issue().apply {
+            title = String.format(GIT_ISSUE_TITLE, errorHash, errorMessage)
+            body = generateGitHubIssueBody(errorReportInformation, true)
+            labels = listOf(autoGeneratedLabel, bugLabel)
+        }
     }
 
     /**
@@ -117,16 +128,12 @@ internal object AnonymousFeedback {
      * @return A markdown string representing the GitHub issue body.
      */
     private fun generateGitHubIssueBody(errorReportInformation: ErrorReport, addStacktrace: Boolean): String {
-        val errorDescription: String = errorReportInformation.errorInfo.errorDescription ?: ""
-
-        var stackTrace: String? = errorReportInformation.errorInfo.errorStacktrace
-        if (stackTrace.isNullOrEmpty()) {
-            stackTrace = "invalid stacktrace"
-        }
+        val error = errorReportInformation.errorInfo.errorDescription ?: ""
+        val stackTrace = errorReportInformation.errorInfo.errorStacktrace.takeUnless { it.isNullOrEmpty() } ?: "invalid stacktrace"
 
         return buildString {
-            if (errorDescription.isNotEmpty()) {
-                append(errorDescription)
+            if (error.isNotEmpty()) {
+                append(error)
                 append("\n\n----------------------\n\n")
             }
 

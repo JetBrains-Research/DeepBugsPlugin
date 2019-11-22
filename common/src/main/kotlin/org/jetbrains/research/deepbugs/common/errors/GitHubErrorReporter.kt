@@ -15,10 +15,10 @@ import com.intellij.openapi.progress.EmptyProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
 import com.intellij.util.Consumer
+import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.errors.beans.ErrorReport
 import org.jetbrains.research.deepbugs.common.errors.beans.GitHubErrorBean
 import org.jetbrains.research.deepbugs.common.logger.collectors.counter.ErrorInfoCollector
-import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import java.awt.Component
 
 class GitHubErrorReporter : ErrorReportSubmitter() {
@@ -44,9 +44,8 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
         bean.description = description
         bean.message = event.message
 
-        val throwable = event.throwable
-        throwable?.let {
-            val pluginId = IdeErrorsDialog.findPluginId(throwable)
+        event.throwable?.let {
+            val pluginId = IdeErrorsDialog.findPluginId(event.throwable)
             pluginId?.let {
                 val ideaPluginDescriptor = PluginManager.getPlugin(pluginId)
                 if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled) {
@@ -69,16 +68,15 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
         val project = CommonDataKeys.PROJECT.getData(dataContext)
 
         val notifyingCallback = CallbackWithNotification(callback, project)
-        val task = AnonymousFeedbackTask(project,
-            CommonResourceBundle.message("report.error.progress.dialog.text"),
-            true,
-            errorReportInformation,
-            notifyingCallback)
+        val task = AnonymousFeedBack.SendTask(project, CommonResourceBundle.message("report.error.progress.dialog.text"), true,
+            errorReportInformation, notifyingCallback)
+
         if (project == null) {
             task.run(EmptyProgressIndicator())
         } else {
             ProgressManager.getInstance().run(task)
         }
+
         ErrorInfoCollector.logInitErrorSubmitted()
         return true
     }
@@ -89,23 +87,29 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
     /**
      * Provides functionality to show a error report message to the user that gives a click-able link to the created issue.
      */
-    internal class CallbackWithNotification(private val myOriginalConsumer: Consumer<SubmittedReportInfo>, private val myProject: Project?) : Consumer<SubmittedReportInfo> {
+    internal class CallbackWithNotification(
+        private val myOriginalConsumer: Consumer<SubmittedReportInfo>,
+        private val myProject: Project?
+    ) : Consumer<SubmittedReportInfo> {
 
         override fun consume(reportInfo: SubmittedReportInfo) {
             myOriginalConsumer.consume(reportInfo)
 
-            if (reportInfo.status == SubmittedReportInfo.SubmissionStatus.FAILED) {
-                ReportMessages.GROUP.createNotification(
-                    ReportMessages.ERROR_REPORT,
-                    reportInfo.linkText,
-                    NotificationType.ERROR,
-                    NotificationListener.URL_OPENING_LISTENER).setImportant(false).notify(myProject)
-            } else {
-                ReportMessages.GROUP.createNotification(
-                    ReportMessages.ERROR_REPORT,
-                    reportInfo.linkText,
-                    NotificationType.INFORMATION,
-                    NotificationListener.URL_OPENING_LISTENER).setImportant(false).notify(myProject)
+            when (reportInfo.status) {
+                SubmittedReportInfo.SubmissionStatus.FAILED -> {
+                    ReportMessages.GROUP.createNotification(
+                        ReportMessages.ERROR_REPORT,
+                        reportInfo.linkText,
+                        NotificationType.ERROR,
+                        NotificationListener.URL_OPENING_LISTENER).setImportant(false).notify(myProject)
+                }
+                else -> {
+                    ReportMessages.GROUP.createNotification(
+                        ReportMessages.ERROR_REPORT,
+                        reportInfo.linkText,
+                        NotificationType.INFORMATION,
+                        NotificationListener.URL_OPENING_LISTENER).setImportant(false).notify(myProject)
+                }
             }
         }
     }
