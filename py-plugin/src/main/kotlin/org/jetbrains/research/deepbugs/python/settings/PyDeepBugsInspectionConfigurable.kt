@@ -13,7 +13,10 @@ class PyDeepBugsInspectionConfigurable(settings: PyDeepBugsInspectionConfig) : D
     }
 
     override fun getDisplayName(): String {
-        return PluginManager.getPluginByClassName(PyDeepBugsInspectionConfigurable::class.java.name)!!.idString
+        //TODO move this functionality to separate class
+        return PluginManager.getPluginByClassName(PyDeepBugsInspectionConfigurable::class.java.name)!!.let {
+            PluginManager.getPlugin(it)!!.name
+        }
     }
 
     companion object {

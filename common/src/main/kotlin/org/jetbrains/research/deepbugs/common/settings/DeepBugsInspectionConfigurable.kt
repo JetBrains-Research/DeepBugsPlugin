@@ -1,8 +1,6 @@
 package org.jetbrains.research.deepbugs.common.settings
 
-import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
 import com.intellij.openapi.options.Configurable
-import com.intellij.openapi.project.ProjectManager
 
 import org.jetbrains.research.deepbugs.common.logger.collectors.counter.SettingsStatsCollector
 import org.jetbrains.research.deepbugs.common.ui.DeepBugsUI
@@ -16,41 +14,36 @@ abstract class DeepBugsInspectionConfigurable(protected val settings: DeepBugsIn
         return SettingsStatsCollector.logNewSettings(settings, deepBugsUI)
     }
 
+    private fun getState() = DeepBugsState(
+        curBinOperandThreshold = deepBugsUI.binOperandThreshold,
+        curBinOperatorThreshold = deepBugsUI.binOperatorThreshold,
+        curSwappedArgsThreshold = deepBugsUI.swappedArgsThreshold
+    )
+
     abstract fun createUI(): DeepBugsUI
 
     override fun getHelpTopic(): String? = null
 
-    override fun isModified() =
-        (deepBugsUI.binOperatorThreshold != settings.curBinOperatorThreshold) ||
-            (deepBugsUI.binOperandThreshold != settings.curBinOperandThreshold) ||
-            (deepBugsUI.swappedArgsThreshold != settings.curSwappedArgsThreshold)
-
+    override fun isModified() = getState() != settings.curState
 
     override fun apply() {
         logSettings()
-        settings.curBinOperatorThreshold = deepBugsUI.binOperatorThreshold
-        settings.curBinOperandThreshold = deepBugsUI.binOperandThreshold
-        settings.curSwappedArgsThreshold = deepBugsUI.swappedArgsThreshold
-
-        //FIXME-review probably better use message-bus (like in Grazie)
-        ProjectManager.getInstance().openProjects.forEach {
-            DaemonCodeAnalyzer.getInstance(it).restart()
-        }
+        settings.update(getState())
     }
 
     override fun reset() {
-        deepBugsUI.binOperatorThreshold = settings.curBinOperatorThreshold
-        deepBugsUI.binOperandThreshold = settings.curBinOperandThreshold
-        deepBugsUI.swappedArgsThreshold = settings.curSwappedArgsThreshold
+        deepBugsUI.binOperatorThreshold = settings.curState.curBinOperatorThreshold
+        deepBugsUI.binOperandThreshold = settings.curState.curBinOperandThreshold
+        deepBugsUI.swappedArgsThreshold = settings.curState.curSwappedArgsThreshold
     }
 
     override fun disposeUIResources() {}
 
     override fun createComponent(): JComponent? {
         deepBugsUI = createUI()
-        deepBugsUI.binOperatorThreshold = settings.curBinOperatorThreshold
-        deepBugsUI.binOperandThreshold = settings.curBinOperandThreshold
-        deepBugsUI.swappedArgsThreshold = settings.curSwappedArgsThreshold
+        deepBugsUI.binOperatorThreshold = settings.curState.curBinOperatorThreshold
+        deepBugsUI.binOperandThreshold = settings.curState.curBinOperandThreshold
+        deepBugsUI.swappedArgsThreshold = settings.curState.curSwappedArgsThreshold
         return deepBugsUI.rootPanel
     }
 }

@@ -57,9 +57,9 @@ object SettingsStatsCollector {
         ui: DeepBugsUI
     ): FeatureUsageData {
         val (prevConfig: Float, newConfig: Float) = when (inspectionClass) {
-            "operator" -> Pair(config.curBinOperatorThreshold, ui.binOperatorThreshold)
-            "operand" -> Pair(config.curBinOperandThreshold, ui.binOperandThreshold)
-            "call" -> Pair(config.curSwappedArgsThreshold, ui.swappedArgsThreshold)
+            "operator" -> Pair(config.curState.curBinOperatorThreshold, ui.binOperatorThreshold)
+            "operand" -> Pair(config.curState.curBinOperandThreshold, ui.binOperandThreshold)
+            "call" -> Pair(config.curState.curSwappedArgsThreshold, ui.swappedArgsThreshold)
             else -> throw IllegalArgumentException("Inspection call $inspectionClass is not supported")
         }
         return FeatureUsageData()

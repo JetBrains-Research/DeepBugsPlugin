@@ -54,8 +54,9 @@
         <applicationService
                 serviceImplementation="org.jetbrains.research.deepbugs.python.settings.PyDeepBugsInspectionConfig"/>
         <applicationConfigurable groupId="tools"
-                                 displayName="DeepBugsPython"
                                  instance="org.jetbrains.research.deepbugs.python.settings.PyDeepBugsInspectionConfigurable"/>
+        <backgroundPostStartupActivity
+                implementation="org.jetbrains.research.deepbugs.common.msgbus.DeepBugsProjectInit"/>
 
     </extensions>
 </idea-plugin>

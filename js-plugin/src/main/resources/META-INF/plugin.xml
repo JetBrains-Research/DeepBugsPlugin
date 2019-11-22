@@ -53,8 +53,9 @@
         <applicationService
                 serviceImplementation="org.jetbrains.research.deepbugs.javascript.settings.JSDeepBugsInspectionConfig"/>
         <applicationConfigurable groupId="tools"
-                                 displayName="DeepBugsJS"
                                  instance="org.jetbrains.research.deepbugs.javascript.settings.JSDeepBugsInspectionConfigurable"/>
+        <backgroundPostStartupActivity
+                implementation="org.jetbrains.research.deepbugs.common.msgbus.DeepBugsProjectInit"/>
 
     </extensions>
 </idea-plugin>
