@@ -18,7 +18,7 @@ import com.intellij.util.Consumer
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.errors.beans.ErrorReport
 import org.jetbrains.research.deepbugs.common.errors.beans.GitHubErrorBean
-import org.jetbrains.research.deepbugs.common.logger.collectors.counter.ErrorInfoCollector
+import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.ErrorInfoCollector
 import java.awt.Component
 
 class GitHubErrorReporter : ErrorReportSubmitter() {

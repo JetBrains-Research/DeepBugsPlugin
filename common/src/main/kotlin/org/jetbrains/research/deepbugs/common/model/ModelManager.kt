@@ -3,7 +3,7 @@ package org.jetbrains.research.deepbugs.common.model
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.progress.*
 import com.intellij.openapi.project.ProjectManager
-import org.jetbrains.research.deepbugs.common.logger.collectors.counter.ErrorInfoCollector
+import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.ErrorInfoCollector
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.tensorflow.SavedModelBundle
