@@ -10,7 +10,7 @@ import java.nio.file.Paths
 
 object PlatformManager {
     private val pluginName
-        get() = DeepBugsPlugin.plugin.name ?: throw PlatformException("Unable to get plugin name")
+        get() = DeepBugsPlugin.descriptor.name ?: throw PlatformException("Unable to get plugin name")
 
     private val winDLLs = listOf("vcruntime140.dll", "msvcp140.dll", "concrt140.dll")
     private val libsRoot = Paths.get(PathManager.getPluginsPath(), pluginName, "bundlers").toFile()

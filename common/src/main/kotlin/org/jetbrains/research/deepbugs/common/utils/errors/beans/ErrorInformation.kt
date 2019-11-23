@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.common.errors.beans
+package org.jetbrains.research.deepbugs.common.utils.errors.beans
 
 data class ErrorInformation(
     val errorMessage: String?,

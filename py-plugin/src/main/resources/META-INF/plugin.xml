@@ -52,7 +52,7 @@
         <inspectionToolProvider
                 implementation="org.jetbrains.research.deepbugs.python.ide.inspections.providers.PyDeepBugsProvider"/>
         <errorHandler
-                implementation="org.jetbrains.research.deepbugs.common.errors.GitHubErrorReporter"/>
+                implementation="org.jetbrains.research.deepbugs.common.utils.errors.GitHubErrorReporter"/>
         <applicationService
                 serviceImplementation="org.jetbrains.research.deepbugs.python.PyDeepBugsConfig"/>
         <applicationConfigurable groupId="tools"

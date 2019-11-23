@@ -51,7 +51,7 @@
         <inspectionToolProvider
                 implementation="org.jetbrains.research.deepbugs.javascript.ide.inspections.providers.JSDeepBugsProvider"/>
         <errorHandler
-                implementation="org.jetbrains.research.deepbugs.common.errors.GitHubErrorReporter"/>
+                implementation="org.jetbrains.research.deepbugs.common.utils.errors.GitHubErrorReporter"/>
         <applicationService
                 serviceImplementation="org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig"/>
         <applicationConfigurable groupId="tools"

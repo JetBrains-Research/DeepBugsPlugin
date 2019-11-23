@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.common.errors
+package org.jetbrains.research.deepbugs.common.utils.errors
 
 import com.intellij.diagnostic.*
 import com.intellij.ide.DataManager
@@ -16,8 +16,8 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
 import com.intellij.util.Consumer
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
-import org.jetbrains.research.deepbugs.common.errors.beans.ErrorReport
-import org.jetbrains.research.deepbugs.common.errors.beans.GitHubErrorBean
+import org.jetbrains.research.deepbugs.common.utils.errors.beans.ErrorReport
+import org.jetbrains.research.deepbugs.common.utils.errors.beans.GitHubErrorBean
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.ErrorInfoCollector
 import java.awt.Component
 

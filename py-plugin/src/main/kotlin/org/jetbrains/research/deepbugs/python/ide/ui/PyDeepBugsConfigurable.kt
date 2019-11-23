@@ -13,5 +13,5 @@ class PyDeepBugsConfigurable(settings: PyDeepBugsConfig) : DeepBugsConfigurable(
         return PyDeepBugsUI()
     }
 
-    override fun getDisplayName(): String = DeepBugsPlugin.pluginName
+    override fun getDisplayName(): String = DeepBugsPlugin.name
 }

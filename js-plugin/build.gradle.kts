@@ -12,7 +12,7 @@ intellij {
 }
 
 tasks.withType<PrepareSandboxTask> {
-    from("${projectDir}/models") {
+    from("${projectDir}/src/main/models") {
         into("${pluginName}/models")
     }
 }

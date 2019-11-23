@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.common.errors
+package org.jetbrains.research.deepbugs.common.utils.errors
 
 import com.intellij.openapi.diagnostic.SubmittedReportInfo
 import com.intellij.openapi.diagnostic.SubmittedReportInfo.SubmissionStatus
@@ -10,8 +10,8 @@ import org.eclipse.egit.github.core.*
 import org.eclipse.egit.github.core.client.GitHubClient
 import org.eclipse.egit.github.core.service.IssueService
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
-import org.jetbrains.research.deepbugs.common.errors.beans.ErrorReport
-import org.jetbrains.research.deepbugs.common.errors.github.GitHubTokenScrambler
+import org.jetbrains.research.deepbugs.common.utils.errors.beans.ErrorReport
+import org.jetbrains.research.deepbugs.common.utils.errors.github.GitHubTokenScrambler
 
 /**
  * Provides functionality to create and send GitHub issues when an exception is thrown by a plugin.

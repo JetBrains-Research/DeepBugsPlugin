@@ -2,14 +2,18 @@ package org.jetbrains.research.deepbugs.common
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor
 import com.intellij.ide.plugins.PluginManager
+import java.io.File
 
 object DeepBugsPlugin {
     private val classLoader: ClassLoader
         get() = this::class.java.classLoader
 
-    val plugin: IdeaPluginDescriptor
+    val descriptor: IdeaPluginDescriptor
         get() = PluginManager.getLoadedPlugins().single { it.pluginClassLoader == classLoader }
 
-    val pluginName: String
-        get() = plugin.name
+    val name: String
+        get() = descriptor.name
+
+    val installationFolder: File
+        get() = descriptor.path
 }

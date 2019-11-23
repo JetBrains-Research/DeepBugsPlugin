@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.common.errors.github
+package org.jetbrains.research.deepbugs.common.utils.errors.github
 
 import com.intellij.util.Base64
 import java.io.InputStream

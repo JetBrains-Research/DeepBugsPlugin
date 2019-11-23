@@ -13,5 +13,5 @@ class JSDeepBugsConfigurable(settings: JSDeepBugsConfig) : DeepBugsConfigurable(
         return JSDeepBugsUI()
     }
 
-    override fun getDisplayName(): String = DeepBugsPlugin.pluginName
+    override fun getDisplayName(): String = DeepBugsPlugin.name
 }
