@@ -1,26 +1,25 @@
 package org.jetbrains.research.deepbugs.common.utils.platform
 
-import com.intellij.ide.plugins.PluginManager
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.util.SystemInfo
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
-import tanvd.kex.Resources
+import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
-import kotlin.reflect.KClass
 
-class PlatformManager(klass: KClass<*>) {
-    private val pluginId = PluginManager.getPluginByClassName(klass.java.name)
+object PlatformManager {
+    private val pluginName
+        get() = DeepBugsPlugin.plugin.name ?: throw PlatformException("Unable to get plugin name")
+
     private val winDLLs = listOf("vcruntime140.dll", "msvcp140.dll", "concrt140.dll")
-    private val libsRoot = Paths.get(PathManager.getPluginsPath(), getPluginName(), "bundlers").toFile()
+    private val libsRoot = Paths.get(PathManager.getPluginsPath(), pluginName, "bundlers").toFile()
 
-    private fun getPluginName() = PluginManager.getPlugin(pluginId)?.name ?: throw PlatformException("Unable to get plugin name")
 
-    private fun loadLib(dllPath: File, name: String) {
-        val libPath = File(dllPath, name)
+    private fun loadLib(name: String) {
+        val libPath = File(libsRoot, name)
         if (!libPath.exists()) {
-            Resources.getStream("/bundlers/$name").use {
+            PlatformManager::class.java.classLoader.getResourceAsStream("/bundlers/$name")!!.use {
                 Files.copy(it, libPath.toPath())
             }
         }
@@ -32,19 +31,15 @@ class PlatformManager(klass: KClass<*>) {
         }
     }
 
-    fun checkPlatform() {
+    fun checkPlatformAndDependencies() {
         //TensorFlow Java API is currently available only for 64-bit systems
-        if (!SystemInfo.is64Bit) throw PlatformException(CommonResourceBundle.message("platform.exception.message", getPluginName()))
-        if (!SystemInfo.isWindows) return
+        if (!SystemInfo.is64Bit) throw PlatformException(CommonResourceBundle.message("platform.exception.message", pluginName))
+        //if (!SystemInfo.isWindows) return
 
         libsRoot.mkdirs()
         for (dll in winDLLs) {
-            loadLib(libsRoot, dll)
+            loadLib(dll)
         }
-    }
-
-    companion object {
-        inline fun <reified T> checkPlatformAndDependencies() = PlatformManager(T::class).checkPlatform()
     }
 }
 
