@@ -34,7 +34,7 @@ object PlatformManager {
     fun checkPlatformAndDependencies() {
         //TensorFlow Java API is currently available only for 64-bit systems
         if (!SystemInfo.is64Bit) throw PlatformException(CommonResourceBundle.message("platform.exception.message", pluginName))
-        //if (!SystemInfo.isWindows) return
+        if (!SystemInfo.isWindows) return
 
         libsRoot.mkdirs()
         for (dll in winDLLs) {
