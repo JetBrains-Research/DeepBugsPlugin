@@ -31,10 +31,12 @@ data class ErrorReport(val userInfo: UserInformation, val errorInfo: ErrorInform
                 error.description
             )
 
-            //FIXME-review it will assign only the last attachment. Is it expected?
-            for (attachment in error.attachments) {
-                errorInfo.attachmentName = attachment.name
-                errorInfo.attachmentValue = attachment.encodedBytes
+            //only the last attachment contains useful info
+            if (error.attachments.isNotEmpty()) {
+                error.attachments.last().let {
+                    errorInfo.attachmentName = it.name
+                    errorInfo.attachmentValue = it.encodedBytes
+                }
             }
 
             return ErrorReport(userInfo, errorInfo)
