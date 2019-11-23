@@ -55,13 +55,12 @@ internal object AnonymousFeedBack {
             val repoID = RepositoryId(GIT_REPO_USER, GIT_REPO)
             val issueService = IssueService(client)
 
-            //FIXME-review -- issue is created two times. Can we rework it?
             var newGibHubIssue = createNewGibHubIssue(errorReportInformation)
             val duplicate = findFirstDuplicate(newGibHubIssue.title, issueService, repoID)
             val isNewIssue = duplicate == null
-            newGibHubIssue = if (duplicate != null) {
+            newGibHubIssue = if (!isNewIssue) {
                 val newErrorComment = generateGitHubIssueBody(errorReportInformation, false)
-                issueService.createComment(repoID, duplicate.number, newErrorComment)
+                issueService.createComment(repoID, duplicate!!.number, newErrorComment)
                 duplicate
             } else {
                 issueService.createIssue(repoID, newGibHubIssue)

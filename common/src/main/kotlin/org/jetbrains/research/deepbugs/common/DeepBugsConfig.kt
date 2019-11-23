@@ -1,10 +1,15 @@
 package org.jetbrains.research.deepbugs.common
 
 import com.intellij.openapi.components.PersistentStateComponent
+import com.intellij.util.xmlb.annotations.Property
 import org.jetbrains.research.deepbugs.common.ide.msg.DeepBugsLifecycle
 
 abstract class DeepBugsConfig(val configId: String, private val default: State) : PersistentStateComponent<DeepBugsConfig.State> {
-    data class State(val binOperatorThreshold: Float, val binOperandThreshold: Float, val swappedArgsThreshold: Float)
+    data class State(
+        @Property val binOperatorThreshold: Float = 0.0f,
+        @Property val binOperandThreshold: Float = 0.0f,
+        @Property val swappedArgsThreshold: Float = 0.0f
+    )
 
     private var myState: State? = null
 
