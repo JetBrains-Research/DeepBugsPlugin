@@ -1,11 +1,11 @@
 <idea-plugin url="https://github.com/JetBrains-Research/DeepBugsPlugin">
-    <name>DeepBugsJavaScript</name>
+    <name>DeepBugsJS</name>
     <id>DeepBugsJavaScript</id>
     <vendor url="https://research.jetbrains.org/ru/groups/ml_methods">
         Machine Learning Methods in Software Engineering Research Group
     </vendor>
     <description><![CDATA[
-    DeepBugsJavaScript plugin provides several code inspections intended for detecting bugs and code quality issues.
+    DeepBugsJS plugin provides several code inspections intended for detecting bugs and code quality issues.
     <h4>Requirements</h4>
     Currently available only for a 64-bit JVM.<br>
     Plugin requires model files to perform code analysis.
@@ -20,41 +20,41 @@
     </ol>
     <h4>Available code inspections</h4>
     <ul>
-        <li>DeepBugsJavaScript: Possibly incorrect binary operator.</li>
-        <li>DeepBugsJavaScript: Possibly incorrect binary operand.</li>
-        <li>DeepBugsJavaScript: Possibly swapped function arguments.</li>
+        <li>DeepBugsJS: Possibly incorrect binary operator.</li>
+        <li>DeepBugsJS: Possibly incorrect binary operand.</li>
+        <li>DeepBugsJS: Possibly swapped function arguments.</li>
     </ul>
     <h4>Configuration</h4>
     Each code inspection uses its own threshold value to distinguish correct from incorrect code. Thresholds are configurable
-    and could be set manually in <code>Preferences/Settings | Tools | DeepBugsJavaScript</code>.
+    and could be set manually in <code>Preferences/Settings | Tools | DeepBugsJS</code>.
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
     <depends>JavaScript</depends>
     <extensionPoints>
         <extensionPoint qualifiedName="dbp.statistics.projectStateCollector"
-                        interface="org.jetbrains.research.deepbugs.services.logger.collectors.state.ProjectStateCollector"/>
+                        interface="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.ProjectStateCollector"/>
     </extensionPoints>
 
     <extensions defaultExtensionNs="dbp.statistics">
         <projectStateCollector
-                implementation="org.jetbrains.research.deepbugs.services.logger.collectors.state.InspectionStateCollector"/>
+                implementation="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.InspectionStateCollector"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationInitializedListener
-                implementation="org.jetbrains.research.deepbugs.services.logger.service.scheduler.DeepBugsLoggingScheduler"/>
+                implementation="org.jetbrains.research.deepbugs.common.ide.fus.service.scheduler.DeepBugsLoggingScheduler"/>
         <statistic.eventLog.eventLoggerProvider
-                implementation="org.jetbrains.research.deepbugs.services.logger.DeepBugsEventLoggerProvider"/>
+                implementation="org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLoggerProvider"/>
         <inspectionToolProvider
-                implementation="org.jetbrains.research.deepbugs.javascript.inspections.providers.JSDeepBugsProvider"/>
+                implementation="org.jetbrains.research.deepbugs.javascript.ide.inspections.providers.JSDeepBugsProvider"/>
         <errorHandler
-                implementation="org.jetbrains.research.deepbugs.services.errors.GitHubErrorReporter"/>
+                implementation="org.jetbrains.research.deepbugs.common.errors.GitHubErrorReporter"/>
         <applicationService
-                serviceImplementation="org.jetbrains.research.deepbugs.javascript.settings.JSDeepBugsInspectionConfig"/>
+                serviceImplementation="org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig"/>
         <applicationConfigurable groupId="tools"
-                                 displayName="DeepBugsJavaScript"
-                                 instance="org.jetbrains.research.deepbugs.javascript.settings.JSDeepBugsInspectionConfigurable"/>
-
+                                 instance="org.jetbrains.research.deepbugs.javascript.ide.ui.JSDeepBugsConfigurable"/>
+        <backgroundPostStartupActivity
+                implementation="org.jetbrains.research.deepbugs.common.model.ModelManager"/>
     </extensions>
 </idea-plugin>

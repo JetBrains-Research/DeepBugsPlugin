@@ -1,4 +1,5 @@
 import io.gitlab.arturbosch.detekt.detekt
+import org.jetbrains.intellij.tasks.BuildSearchableOptionsTask
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import tanvd.kosogor.defaults.configureIdea
 
@@ -26,6 +27,8 @@ subprojects {
         plugin("tanvd.kosogor")
         plugin("io.gitlab.arturbosch.detekt")
     }
+
+    tasks.withType<BuildSearchableOptionsTask>().forEach { it.enabled = false }
 
     configureIdea {
         exclude += file("build")

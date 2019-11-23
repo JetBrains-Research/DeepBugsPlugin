@@ -1,5 +1,5 @@
 rootProject.name = "deep-bugs"
 
-include(":services")
+include(":common")
 include(":py-plugin")
 include(":js-plugin")

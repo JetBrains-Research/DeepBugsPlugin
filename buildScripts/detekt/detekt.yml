@@ -300,7 +300,7 @@ naming:
     classPattern: '[A-Z$][a-zA-Z0-9$]*'
   ConstructorParameterNaming:
     active: true
-    parameterPattern: '[_a-z][_A-Za-z0-9]*'
+    parameterPattern: '[_a-zA-Z][_A-Za-z0-9]*'
     privateParameterPattern: '[_a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
   EnumNaming:
@@ -363,7 +363,7 @@ performance:
   ForEachOnRange:
     active: true
   SpreadOperator:
-    active: true
+    active: false
   UnnecessaryTemporaryInstantiation:
     active: true
 
@@ -432,7 +432,7 @@ style:
     active: false
     maxJumpCount: 1
   MagicNumber:
-    active: false
+    active: true
     ignoreNumbers: '-1,0,1,2,100,200,400,500,404'
     ignoreHashCodeFunction: true
     ignorePropertyDeclaration: true
@@ -472,7 +472,7 @@ style:
   RedundantVisibilityModifierRule:
     active: false
   ReturnCount:
-    active: true
+    active: false
     max: 3
     excludedFunctions: "equals"
     excludeLabeled: false

@@ -2,9 +2,9 @@ package org.jetbrains.research.deepbugs.javascript.datatypes
 
 import com.intellij.lang.javascript.psi.*
 import com.intellij.util.ObjectUtils
+import org.jetbrains.research.deepbugs.common.datatypes.Call
+import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.javascript.extraction.JSExtractor
-import org.jetbrains.research.deepbugs.javascript.inspections.base.models
-import org.jetbrains.research.deepbugs.services.datatypes.Call
 
 class JSCall(
     callee: String,
@@ -53,5 +53,7 @@ class JSCall(
         }
     }
 
-    override fun vectorize() = vectorize(models.tokenMapping, models.typeMapping)
+    override fun vectorize() = ModelManager.storage?.let { storage ->
+        vectorize(storage.tokenMapping, storage.typeMapping)
+    }
 }
