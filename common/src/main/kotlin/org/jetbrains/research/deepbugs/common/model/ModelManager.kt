@@ -2,28 +2,31 @@ package org.jetbrains.research.deepbugs.common.model
 
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.progress.*
+import com.intellij.openapi.project.DumbAware
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
+import com.intellij.openapi.startup.StartupActivity
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.ErrorInfoCollector
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
-import org.jetbrains.research.deepbugs.common.DeepBugsPluginManager
+import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
 import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Session
 import java.nio.file.Paths
 
-object ModelManager {
-    private val modelPath by lazy { Paths.get(PathManager.getPluginsPath(), DeepBugsPluginManager.getPluginName(), "models").toString() }
+object ModelManager: StartupActivity, DumbAware {
+    private val modelPath by lazy { Paths.get(PathManager.getPluginsPath(), DeepBugsPlugin.pluginName, "models").toString() }
 
     var storage: ModelStorage? = null
         private set
 
-    init {
+    override fun runActivity(project: Project) {
         initModels()
     }
 
     private fun initModels() {
         ProgressManager.getInstance().run(object : Task.Backgroundable(ProjectManager.getInstance().defaultProject,
-            CommonResourceBundle.message("initialize.task.title", DeepBugsPluginManager.getPluginName()), false) {
+            CommonResourceBundle.message("initialize.task.title", DeepBugsPlugin.pluginName), false) {
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
                 storage = ModelStorage(

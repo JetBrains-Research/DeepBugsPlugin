@@ -54,5 +54,7 @@
                 serviceImplementation="org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig"/>
         <applicationConfigurable groupId="tools"
                                  instance="org.jetbrains.research.deepbugs.javascript.ide.ui.JSDeepBugsConfigurable"/>
+        <backgroundPostStartupActivity
+                implementation="org.jetbrains.research.deepbugs.common.model.ModelManager"/>
     </extensions>
 </idea-plugin>
