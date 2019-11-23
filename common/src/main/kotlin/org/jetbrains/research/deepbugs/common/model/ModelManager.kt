@@ -5,9 +5,10 @@ import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.StartupActivity
 import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
-import org.jetbrains.research.deepbugs.common.utils.Mapping
+import org.jetbrains.research.deepbugs.common.utils.*
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Session
+import java.io.File
 import java.nio.file.Paths
 
 object ModelManager : StartupActivity, DumbAware {
@@ -21,14 +22,17 @@ object ModelManager : StartupActivity, DumbAware {
             binOperandModel = loadModel("binOperandDetectionModel"),
             binOperatorModel = loadModel("binOperatorDetectionModel"),
             swappedArgsModel = loadModel("swappedArgsDetectionModel"),
-            nodeTypeMapping = loadMapping("nodeTypeToVector.json"),
-            typeMapping = loadMapping("typeToVector.json"),
-            operatorMapping = loadMapping("operatorToVector.json"),
-            tokenMapping = loadMapping("tokenToVector.json")
+            nodeTypeMapping = loadMapping("nodeTypeToVector.cbor"),
+            typeMapping = loadMapping("typeToVector.cbor"),
+            operatorMapping = loadMapping("operatorToVector.cbor"),
+            tokenMapping = loadMapping("tokenToVector.cbor")
         )
     }
 
-    private fun loadMapping(mappingName: String) = Mapping(Paths.get(modelPath, mappingName))
+    private fun loadMapping(mapping: String): Mapping {
+        val cborFile = File(modelPath, mapping)
+        return Cbor.parse(cborFile.readBytes(), Mapping.serializer())
+    }
 
     private fun loadModel(modelName: String): Session = SavedModelBundle.load(Paths.get(modelPath, modelName).toString(), "serve").session()
 }

@@ -13,10 +13,6 @@ intellij {
 
 tasks.withType<PrepareSandboxTask> {
     from("${projectDir}/models") {
-        exclude("tokenToVector.json.zip")
-        into("${pluginName}/models")
-    }
-    from(zipTree("${projectDir}/models/tokenToVector.json.zip")) {
         into("${pluginName}/models")
     }
 }
