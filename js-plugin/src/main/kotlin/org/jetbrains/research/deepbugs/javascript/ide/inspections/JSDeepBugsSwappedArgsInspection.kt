@@ -1,9 +1,9 @@
 package org.jetbrains.research.deepbugs.javascript.ide.inspections
 
 import org.jetbrains.research.deepbugs.common.model.ModelManager
+import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsCallExprInspection
-import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 
 class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
     override val keyMessage = "deepbugs.javascript.swapped.args.inspection.warning"

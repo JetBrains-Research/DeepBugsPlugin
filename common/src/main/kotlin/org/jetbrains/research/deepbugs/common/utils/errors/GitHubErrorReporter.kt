@@ -16,9 +16,9 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
 import com.intellij.util.Consumer
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
+import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.ErrorInfoCollector
 import org.jetbrains.research.deepbugs.common.utils.errors.beans.ErrorReport
 import org.jetbrains.research.deepbugs.common.utils.errors.beans.GitHubErrorBean
-import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.ErrorInfoCollector
 import java.awt.Component
 
 class GitHubErrorReporter : ErrorReportSubmitter() {
@@ -81,8 +81,7 @@ class GitHubErrorReporter : ErrorReportSubmitter() {
         return true
     }
 
-    override fun getReportActionText(): String =
-        CommonResourceBundle.message("report.error.to.plugin.vendor")
+    override fun getReportActionText(): String = CommonResourceBundle.message("report.error.to.plugin.vendor")
 
     /**
      * Provides functionality to show a error report message to the user that gives a click-able link to the created issue.
