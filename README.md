@@ -23,22 +23,22 @@ To fall back to original precalculated values, you can use the __Default__ and _
 The inspection detects misuse of binary operators (such as `<`, `<=`, `+`, etc.).
 
 For example, it may detect the following bugs:
-- i <= length (index is less or equal to length, but should be less)
-- text + binary (concatenated non-compatible types)
+- `i <= length` (index is less or equal to length, but should be less)
+- `text + binary` (concatenated non-compatible types)
 
 ### Incorrect binary operand
 The inspection detects misuse of binary operands (arguments of binary operations).
 
 For example:
-- height - x (in most cases it should be height - y)
-- j < params (should be params.length)
+- `height - x` (in most cases it should be height - y)
+- `j < params` (should be params.length)
 
 ### Incorrect function arguments
 The inspection detects misuse of function arguments (specifically, their order).
 
 For example:
-- startPoller(100, function(delay, fn) { … }) (should be fn, delay)
-- 2 % i (unusual order of operands)
+- `startPoller(100, function(delay, fn) { … })` (should be fn, delay)
+- `2 % i` (unusual order of operands)
 
 ## Got any more questions?
 If you want to know more about the DeepBugs framework that these plugins are based on, please [refer to this paper](http://software-lab.org/publications/oopsla2018_DeepBugs.pdf).
