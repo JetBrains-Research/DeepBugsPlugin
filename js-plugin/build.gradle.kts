@@ -28,6 +28,10 @@ tasks.withType<RunIdeTask> {
 
 tasks.withType<Test> {
     useJUnit()
+
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
 
 tasks.withType<PatchPluginXmlTask> {
