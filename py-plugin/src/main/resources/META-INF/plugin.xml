@@ -33,12 +33,12 @@
     <depends>com.intellij.modules.python</depends>
 
     <extensionPoints>
-        <extensionPoint qualifiedName="dbp.statistics.projectStateCollector"
+        <extensionPoint qualifiedName="dbp.statistics.pyProjectStateCollector"
                         interface="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.ProjectStateCollector"/>
     </extensionPoints>
 
     <extensions defaultExtensionNs="dbp.statistics">
-        <projectStateCollector
+        <pyProjectStateCollector
                 implementation="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.InspectionStateCollector"/>
     </extensions>
 

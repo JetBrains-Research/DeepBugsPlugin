@@ -2,6 +2,7 @@ package org.jetbrains.research.deepbugs.common
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor
 import com.intellij.ide.plugins.PluginManager
+import com.intellij.openapi.extensions.PluginId
 import java.io.File
 
 object DeepBugsPlugin {
@@ -16,4 +17,7 @@ object DeepBugsPlugin {
 
     val installationFolder: File
         get() = descriptor.path
+
+    val dependentPlugins: Array<PluginId>
+        get() = descriptor.dependentPluginIds
 }

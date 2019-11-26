@@ -4,6 +4,7 @@ import com.intellij.internal.statistic.beans.MetricEvent
 import com.intellij.internal.statistic.eventLog.EventLogGroup
 import com.intellij.internal.statistic.eventLog.FeatureUsageData
 import com.intellij.internal.statistic.utils.StatisticsUploadAssistant.LOCK
+import com.intellij.openapi.extensions.*
 import com.intellij.openapi.project.Project
 import org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLogger
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.ProjectStateCollector
@@ -11,7 +12,9 @@ import org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.ProjectSt
 class DeepBugsStateLogger {
     fun logProjectStates(project: Project) {
         synchronized(LOCK) {
-            ProjectStateCollector.getExtensions().forEach { collector ->
+            val extensions = Extensions.getRootArea().extensionPoints.filter { it.name.startsWith("dbp.statistics") }
+            extensions.map { it.extension }.forEach { collector ->
+                collector as ProjectStateCollector
                 val group = EventLogGroup(collector.groupId, collector.version)
                 logStateEvents(project, group, collector.getStates(project))
             }
