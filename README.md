@@ -1,5 +1,6 @@
 <h1> <img align="left" width="40" height="40" src="https://s3-eu-west-1.amazonaws.com/public-resources.ml-labs.aws.intellij.net/static/deep-bugs-icon.svg" alt="DeepBugs Icon"> DeepBugs for IntelliJ </h1>
 
+[![JB Research](https://jb.gg/badges/research-flat-square.svg)](https://research.jetbrains.org/)
 [![CircleCI](https://img.shields.io/circleci/build/github/JetBrains-Research/DeepBugsPlugin.svg?style=flat-square)](https://circleci.com/gh/JetBrains-Research/DeepBugsPlugin)
 [![Plugin slack](https://img.shields.io/static/v1?label=jb-platform&message=deepbugs&color=brightgreen&logo=slack&style=flat-square)](https://app.slack.com/client/T5P9YATH9/CQWS6N3SL)
 [![JS Plugin](https://img.shields.io/jetbrains/plugin/v/12220-deepbugsjavascript.svg?style=flat-square&label=js%20plugin)](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript)
