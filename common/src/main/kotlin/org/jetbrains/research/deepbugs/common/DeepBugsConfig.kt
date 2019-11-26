@@ -9,15 +9,8 @@ abstract class DeepBugsConfig(val configId: String, private val default: State) 
         @Property val binOperatorThreshold: Float = 0.0f,
         @Property val binOperandThreshold: Float = 0.0f,
         @Property val swappedArgsThreshold: Float = 0.0f,
-        @Property val userDisabledChecks: HashSet<String> = HashSet()
-    ) {
-        fun copy(): State = State (
-            binOperatorThreshold = binOperatorThreshold,
-            binOperandThreshold = binOperandThreshold,
-            swappedArgsThreshold = swappedArgsThreshold,
-            userDisabledChecks = HashSet(userDisabledChecks)
-        )
-    }
+        @Property val userDisabledChecks: Set<String> = setOf()
+    )
 
     private var myState: State? = null
 
@@ -25,7 +18,7 @@ abstract class DeepBugsConfig(val configId: String, private val default: State) 
         if (myState == null) {
             update(default)
         }
-        return myState!!.copy()
+        return myState!!
     }
 
     override fun loadState(state: State) {
@@ -33,14 +26,25 @@ abstract class DeepBugsConfig(val configId: String, private val default: State) 
     }
 
     fun disableCheck(expr: String) {
-        val newState = state.also { it.userDisabledChecks.add(expr) }
+        val newState = State(
+            binOperatorThreshold = state.binOperatorThreshold,
+            binOperandThreshold = state.binOperandThreshold,
+            swappedArgsThreshold = state.swappedArgsThreshold,
+            userDisabledChecks = state.userDisabledChecks + expr
+        )
         update(newState)
     }
 
     fun enableCheck(expr: String) {
-        val newState = state.also { it.userDisabledChecks.remove(expr) }
+        val newState = State(
+            binOperatorThreshold = state.binOperatorThreshold,
+            binOperandThreshold = state.binOperandThreshold,
+            swappedArgsThreshold = state.swappedArgsThreshold,
+            userDisabledChecks = state.userDisabledChecks - expr
+        )
         update(newState)
     }
+
 
     fun update(new: State) {
         if (myState == null) {
