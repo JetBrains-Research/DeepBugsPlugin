@@ -8,7 +8,7 @@ import org.jetbrains.research.deepbugs.python.ide.inspections.base.PyDeepBugsCal
 class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection() {
     override val keyMessage = "deepbugs.python.swapped.args.inspection.warning"
 
-    override fun getModel() = ModelManager.storage?.swappedArgsModel
+    override fun getModel() = ModelManager.storage.swappedArgsModel
     override fun getThreshold() = PyDeepBugsConfig.get().swappedArgsThreshold
 
     override fun getDisplayName() = PyResourceBundle.message("deepbugs.python.swapped.args.inspection.display")

@@ -9,7 +9,11 @@ class JSDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBug
     companion object {
         private val instance by lazy { ServiceManager.getService(JSDeepBugsConfig::class.java) }
 
-        val default = State(0.94f, 0.95f, 0.96f)
+        val default = State(
+            binOperatorThreshold = 0.8f,
+            binOperandThreshold = 0.8f,
+            swappedArgsThreshold = 0.8f
+        )
 
         fun get() = instance.state
 

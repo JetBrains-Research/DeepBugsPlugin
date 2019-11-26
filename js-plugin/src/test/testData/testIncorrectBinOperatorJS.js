@@ -1,6 +1,6 @@
 function adder1(base) {
     base = Number(base);
-    for (let i = 1; i <= arguments.length; i++) {
+    for (let i = 1; <error>i <= arguments.length</error>; i++) {
         base += Number(arguments[i]);
     }
     return base;
@@ -18,5 +18,5 @@ function adder2(base) {
 let text = 1;
 let str = 2;
 
-text / str;
+<error>text / str</error>;
 text + str;
