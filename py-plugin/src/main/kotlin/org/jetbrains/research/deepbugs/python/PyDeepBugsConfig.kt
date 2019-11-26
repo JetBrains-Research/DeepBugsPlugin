@@ -11,5 +11,9 @@ class PyDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBug
         val default = State(0.94f, 0.95f, 0.96f)
 
         fun get() = instance.state
+
+        fun ignoreExpression(expr: String) = instance.disableCheck(expr)
+
+        fun shouldIgnore(expr: String) = get().userDisabledChecks.contains(expr)
     }
 }

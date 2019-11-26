@@ -1,6 +1,7 @@
 package org.jetbrains.research.deepbugs.javascript
 
 import com.intellij.openapi.components.*
+import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 
 @State(name = "DeepBugsJS", storages = [Storage("deepbugs.js.xml")])
@@ -11,5 +12,9 @@ class JSDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBug
         val default = State(0.94f, 0.95f, 0.96f)
 
         fun get() = instance.state
+
+        fun ignoreExpression(expr: String) = instance.disableCheck(expr)
+
+        fun shouldIgnore(expr: String) = get().userDisabledChecks.contains(expr)
     }
 }

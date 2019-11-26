@@ -8,7 +8,8 @@ abstract class DeepBugsConfig(val configId: String, private val default: State) 
     data class State(
         @Property val binOperatorThreshold: Float = 0.0f,
         @Property val binOperandThreshold: Float = 0.0f,
-        @Property val swappedArgsThreshold: Float = 0.0f
+        @Property val swappedArgsThreshold: Float = 0.0f,
+        @Property val userDisabledChecks: HashSet<String> = HashSet()
     )
 
     private var myState: State? = null
@@ -22,6 +23,11 @@ abstract class DeepBugsConfig(val configId: String, private val default: State) 
 
     override fun loadState(state: State) {
         update(state)
+    }
+
+    fun disableCheck(expr: String) {
+        val newState = state.also { it.userDisabledChecks.add(expr) }
+        update(newState)
     }
 
     fun update(new: State) {
