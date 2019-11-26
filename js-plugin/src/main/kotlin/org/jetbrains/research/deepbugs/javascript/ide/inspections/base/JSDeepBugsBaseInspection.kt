@@ -8,7 +8,9 @@ import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.research.deepbugs.common.TensorFlowRunner
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
+import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
+import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
 import org.tensorflow.Session
 
 abstract class JSDeepBugsBaseInspection : JSInspection() {
@@ -21,9 +23,13 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
 
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
-            if (result > getThreshold()) {
-                holder.registerProblem(node, JSResourceBundle.message(keyMessage, result),
-                    ProblemHighlightType.GENERIC_ERROR)
+            if (result > getThreshold() && !JSDeepBugsConfig.shouldIgnore(node.text)) {
+                holder.registerProblem(
+                    node,
+                    JSResourceBundle.message(keyMessage, result),
+                    ProblemHighlightType.GENERIC_ERROR,
+                    JSIgnoreExpressionQuickFix(node.text)
+                )
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }

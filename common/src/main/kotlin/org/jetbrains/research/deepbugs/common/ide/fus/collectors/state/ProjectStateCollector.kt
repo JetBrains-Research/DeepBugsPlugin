@@ -9,12 +9,4 @@ interface ProjectStateCollector {
     val version: Int
 
     fun getStates(project: Project): Set<MetricEvent>
-
-    companion object {
-        private val EP_NAME = ExtensionPointName.create<ProjectStateCollector>("dbp.statistics.projectStateCollector")
-
-        fun getExtensions(): Set<ProjectStateCollector> {
-            return EP_NAME.extensionList.toSet()
-        }
-    }
 }

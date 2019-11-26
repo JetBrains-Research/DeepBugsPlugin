@@ -2,8 +2,9 @@ package org.jetbrains.research.deepbugs.common
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor
 import com.intellij.ide.plugins.PluginManager
-import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.extensions.PluginId
 import org.jetbrains.annotations.TestOnly
+import com.intellij.openapi.application.ApplicationManager
 import java.io.File
 
 object DeepBugsPlugin {
@@ -23,6 +24,9 @@ object DeepBugsPlugin {
 
     val installationFolder: File
         get() = descriptor.path
+
+    val dependentPlugins: Array<PluginId>
+        get() = descriptor.dependentPluginIds
 
     @TestOnly
     fun setTestPlugin(plugin: String) {

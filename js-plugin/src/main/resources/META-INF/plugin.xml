@@ -32,12 +32,12 @@
     <depends>JavaScript</depends>
 
     <extensionPoints>
-        <extensionPoint qualifiedName="dbp.statistics.projectStateCollector"
+        <extensionPoint qualifiedName="dbp.statistics.jsProjectStateCollector"
                         interface="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.ProjectStateCollector"/>
     </extensionPoints>
 
     <extensions defaultExtensionNs="dbp.statistics">
-        <projectStateCollector
+        <jsProjectStateCollector
                 implementation="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.InspectionStateCollector"/>
     </extensions>
 
