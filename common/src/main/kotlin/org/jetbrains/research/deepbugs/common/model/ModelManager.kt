@@ -15,11 +15,8 @@ import java.lang.Exception
 object ModelManager : StartupActivity, DumbAware {
     private val modelFolder by lazy { File(DeepBugsPlugin.installationFolder, "models") }
 
-    var storage: ModelStorage? = null
-        private set
-
-    override fun runActivity(project: Project) {
-        storage = ModelStorage(
+    val storage: ModelStorage by lazy {
+        ModelStorage(
             binOperandModel = loadModel("binOperandDetectionModel")!!,
             binOperatorModel = loadModel("binOperatorDetectionModel")!!,
             swappedArgsModel = loadModel("swappedArgsDetectionModel")!!,
@@ -28,6 +25,10 @@ object ModelManager : StartupActivity, DumbAware {
             operatorMapping = loadMapping("operatorToVector.cbor"),
             tokenMapping = loadMapping("tokenToVector.cbor")
         )
+    }
+
+    override fun runActivity(project: Project) {
+        storage
     }
 
     private fun loadMapping(name: String): Mapping = Cbor.parse(File(modelFolder, name).readBytes(), Mapping.serializer())

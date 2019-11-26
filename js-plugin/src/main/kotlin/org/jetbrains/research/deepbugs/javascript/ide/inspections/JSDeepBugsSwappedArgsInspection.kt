@@ -8,7 +8,7 @@ import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBug
 class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
     override val keyMessage = "deepbugs.javascript.swapped.args.inspection.warning"
 
-    override fun getModel() = ModelManager.storage?.swappedArgsModel
+    override fun getModel() = ModelManager.storage.swappedArgsModel
     override fun getThreshold() = JSDeepBugsConfig.get().swappedArgsThreshold
 
     override fun getDisplayName() = JSResourceBundle.message("deepbugs.javascript.swapped.args.inspection.display")

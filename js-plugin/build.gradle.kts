@@ -1,4 +1,5 @@
 import org.jetbrains.intellij.tasks.*
+import tanvd.kosogor.defaults.configureIdea
 
 group = rootProject.group
 version = rootProject.version
@@ -8,7 +9,11 @@ intellij {
     version = "2019.2"
     type = "IU"
     downloadSources = true
-    setPlugins("JavaScriptLanguage")
+    setPlugins("JavaScriptLanguage", "CSS")
+}
+
+configureIdea {
+    exclude += file("src/test/testData")
 }
 
 tasks.withType<PrepareSandboxTask> {
@@ -19,6 +24,10 @@ tasks.withType<PrepareSandboxTask> {
 
 tasks.withType<RunIdeTask> {
     jvmArgs("-Xmx1g", "-Didea.is.internal=true")
+}
+
+tasks.withType<Test> {
+    useJUnit()
 }
 
 tasks.withType<PatchPluginXmlTask> {

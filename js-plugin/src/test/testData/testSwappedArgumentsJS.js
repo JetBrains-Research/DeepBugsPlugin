@@ -8,7 +8,7 @@ function setSize(xx, yy) {
 let width = 5;
 let height = 10;
 setSize(width, height);
-setSize(height, width);
+<error>setSize(height, width)</error>;
 
 
 let promise = new Promise((resolve, reject) => {
@@ -21,5 +21,5 @@ let promise = new Promise((resolve, reject) => {
 let onSuccess = (resolvedValue) => console.log(resolvedValue);
 let onError = (error) => console.log(error);
 
-promise.then(onError, onSuccess);
+<error>promise.then(onError, onSuccess)</error>;
 promise.then(onSuccess, onError);

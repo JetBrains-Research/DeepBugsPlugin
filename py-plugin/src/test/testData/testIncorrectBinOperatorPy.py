@@ -1,5 +1,5 @@
 text = "123"
 string = "456"
 
-text / string
+<error>text / string</error>
 text + string

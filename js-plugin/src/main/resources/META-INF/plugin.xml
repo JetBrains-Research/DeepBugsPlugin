@@ -29,8 +29,8 @@
     and could be set manually in <code>Preferences/Settings | Tools | DeepBugsJS</code>.
     ]]></description>
 
-    <depends>com.intellij.modules.lang</depends>
     <depends>JavaScript</depends>
+
     <extensionPoints>
         <extensionPoint qualifiedName="dbp.statistics.projectStateCollector"
                         interface="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.ProjectStateCollector"/>

@@ -34,7 +34,7 @@ class JSBinOp(
         }
     }
 
-    override fun vectorize() = ModelManager.storage?.let { storage ->
+    override fun vectorize() = ModelManager.storage.let { storage ->
         vectorize(storage.tokenMapping, storage.typeMapping, storage.nodeTypeMapping, storage.operatorMapping)
     }
 }

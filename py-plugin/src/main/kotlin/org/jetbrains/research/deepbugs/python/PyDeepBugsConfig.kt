@@ -8,7 +8,7 @@ class PyDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBug
     companion object {
         private val instance by lazy { ServiceManager.getService(PyDeepBugsConfig::class.java) }
 
-        val default = State(0.94f, 0.95f, 0.96f)
+        val default = State(0.8f, 0.8f, 0.8f)
 
         fun get() = instance.state
     }

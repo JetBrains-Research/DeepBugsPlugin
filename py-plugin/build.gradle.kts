@@ -1,4 +1,5 @@
 import org.jetbrains.intellij.tasks.*
+import tanvd.kosogor.defaults.configureIdea
 
 group = rootProject.group
 version = rootProject.version
@@ -11,6 +12,10 @@ intellij {
     setPlugins("PythonCore:2019.2.192.5728.98")
 }
 
+configureIdea {
+    exclude += file("src/test/testData")
+}
+
 tasks.withType<PrepareSandboxTask> {
     from("${projectDir}/src/main/models") {
         into("${pluginName}/models")
@@ -19,6 +24,10 @@ tasks.withType<PrepareSandboxTask> {
 
 tasks.withType<RunIdeTask> {
     jvmArgs("-Xmx1g", "-Didea.is.internal=true")
+}
+
+tasks.withType<Test> {
+    useJUnit()
 }
 
 tasks.withType<PatchPluginXmlTask> {
