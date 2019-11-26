@@ -12,7 +12,11 @@ class PyDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBug
 
         fun get() = instance.state
 
+        @Synchronized
         fun ignoreExpression(expr: String) = instance.disableCheck(expr)
+
+        @Synchronized
+        fun considerExpression(expr: String) = instance.enableCheck(expr)
 
         fun shouldIgnore(expr: String) = get().userDisabledChecks.contains(expr)
     }

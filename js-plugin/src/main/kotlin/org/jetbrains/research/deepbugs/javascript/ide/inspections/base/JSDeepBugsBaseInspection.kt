@@ -10,7 +10,7 @@ import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
-import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.IgnoreExpressionQuickfix
+import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickfix
 import org.tensorflow.Session
 
 abstract class JSDeepBugsBaseInspection : JSInspection() {
@@ -28,7 +28,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
                     node,
                     JSResourceBundle.message(keyMessage, result),
                     ProblemHighlightType.GENERIC_ERROR,
-                    IgnoreExpressionQuickfix(node.text)
+                    JSIgnoreExpressionQuickfix(node.text)
                 )
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }

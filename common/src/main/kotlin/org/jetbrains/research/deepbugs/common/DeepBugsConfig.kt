@@ -10,7 +10,14 @@ abstract class DeepBugsConfig(val configId: String, private val default: State) 
         @Property val binOperandThreshold: Float = 0.0f,
         @Property val swappedArgsThreshold: Float = 0.0f,
         @Property val userDisabledChecks: HashSet<String> = HashSet()
-    )
+    ) {
+        fun copy(): State = State (
+            binOperatorThreshold = binOperatorThreshold,
+            binOperandThreshold = binOperandThreshold,
+            swappedArgsThreshold = swappedArgsThreshold,
+            userDisabledChecks = HashSet(userDisabledChecks)
+        )
+    }
 
     private var myState: State? = null
 
@@ -27,6 +34,11 @@ abstract class DeepBugsConfig(val configId: String, private val default: State) 
 
     fun disableCheck(expr: String) {
         val newState = state.also { it.userDisabledChecks.add(expr) }
+        update(newState)
+    }
+
+    fun enableCheck(expr: String) {
+        val newState = state.also { it.userDisabledChecks.remove(expr) }
         update(newState)
     }
 

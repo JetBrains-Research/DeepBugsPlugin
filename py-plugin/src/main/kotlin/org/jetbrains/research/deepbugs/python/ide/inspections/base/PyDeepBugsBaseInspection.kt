@@ -9,7 +9,7 @@ import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
-import org.jetbrains.research.deepbugs.python.ide.quickfixes.IgnoreExpressionQuickfix
+import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyIgnoreExpressionQuickfix
 import org.tensorflow.Session
 
 abstract class PyDeepBugsBaseInspection : PyInspection() {
@@ -30,7 +30,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
                     node,
                     PyResourceBundle.message(keyMessage, result),
                     ProblemHighlightType.GENERIC_ERROR,
-                    IgnoreExpressionQuickfix(node.text)
+                    PyIgnoreExpressionQuickfix(node.text)
                 )
                 val project = session.file.project
                 InspectionReportCollector.logReport(project, shortName, result)
