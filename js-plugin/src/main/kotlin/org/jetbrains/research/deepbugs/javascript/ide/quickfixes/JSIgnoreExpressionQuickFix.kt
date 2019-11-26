@@ -1,28 +1,28 @@
-package org.jetbrains.research.deepbugs.python.ide.quickfixes
+package org.jetbrains.research.deepbugs.javascript.ide.quickfixes
 
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.openapi.command.undo.BasicUndoableAction
 import com.intellij.openapi.command.undo.UndoManager
 import com.intellij.openapi.project.Project
-import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
-import org.jetbrains.research.deepbugs.python.PyResourceBundle
+import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
+import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 
-class PyIgnoreExpressionQuickfix(private val expr: String) : LocalQuickFix {
+class JSIgnoreExpressionQuickFix(private val expr: String) : LocalQuickFix {
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val ignore = object : BasicUndoableAction(descriptor.psiElement?.containingFile?.virtualFile) {
-            override fun redo() = PyDeepBugsConfig.ignoreExpression(expr)
-            override fun undo() = PyDeepBugsConfig.considerExpression(expr)
+            override fun redo() = JSDeepBugsConfig.ignoreExpression(expr)
+            override fun undo() = JSDeepBugsConfig.considerExpression(expr)
         }
         ignore.redo()
         UndoManager.getInstance(project).undoableActionPerformed(ignore)
     }
 
     override fun getFamilyName(): String {
-        return PyResourceBundle.message("deepbugs.python.quickfixes.family")
+        return JSResourceBundle.message("deepbugs.javascript.quickfixes.family")
     }
 
     override fun getName(): String {
-        return PyResourceBundle.message("deepbugs.python.ignore.quickfix")
+        return JSResourceBundle.message("deepbugs.javascript.ignore.quickfix")
     }
 }
