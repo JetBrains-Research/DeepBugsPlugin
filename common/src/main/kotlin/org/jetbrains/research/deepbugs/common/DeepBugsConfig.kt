@@ -9,7 +9,7 @@ abstract class DeepBugsConfig(val configId: String, private val default: State) 
         @Property val binOperatorThreshold: Float = 0.0f,
         @Property val binOperandThreshold: Float = 0.0f,
         @Property val swappedArgsThreshold: Float = 0.0f,
-        @Property val userDisabledChecks: Set<String> = setOf()
+        @Property val userDisabledChecks: Set<String> = emptySet()
     )
 
     private var myState: State? = null
