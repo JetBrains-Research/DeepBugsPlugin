@@ -1,17 +1,18 @@
 package org.jetbrains.research.deepbugs.python.ide.ui
 
-import com.intellij.openapi.options.Configurable
-import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
-import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.SettingsStatsCollector
+import com.intellij.openapi.components.ServiceManager
+import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 import org.jetbrains.research.deepbugs.common.ide.ui.DeepBugsConfigurable
-import org.jetbrains.research.deepbugs.common.ide.ui.DeepBugsUI
+import org.jetbrains.research.deepbugs.common.ide.ui.DeepBugsSettingsPanel
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
+import org.jetbrains.research.deepbugs.python.PyResourceBundle
 
-class PyDeepBugsConfigurable(settings: PyDeepBugsConfig) : DeepBugsConfigurable(settings), Configurable {
-    override fun createUI(): DeepBugsUI {
-        SettingsStatsCollector.logSettingsInvoked(settings.configId)
-        return PyDeepBugsUI()
-    }
+class PyDeepBugsConfigurable : DeepBugsConfigurable(
+    PyDeepBugsConfig.default,
+    "deepbugs.py.configurable",
+    PyResourceBundle.message("deepbugs.python.display")
+) {
+    override fun createUi(): DeepBugsSettingsPanel = DeepBugsSettingsPanel(settings, default)
 
-    override fun getDisplayName(): String = DeepBugsPlugin.name
+    override fun getSettings(): DeepBugsConfig = ServiceManager.getService(PyDeepBugsConfig::class.java)
 }

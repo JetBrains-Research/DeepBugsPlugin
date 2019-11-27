@@ -8,13 +8,7 @@ import com.jetbrains.python.psi.PyCallExpression
 import org.jetbrains.research.deepbugs.python.datatypes.PyCall
 
 abstract class PyDeepBugsCallExprInspection : PyDeepBugsBaseInspection() {
-    override fun buildVisitor(
-        holder: ProblemsHolder,
-        isOnTheFly: Boolean,
-        session: LocalInspectionToolSession
-    ): PsiElementVisitor = PyDeepBugsCallVisitor(holder, session)
-
-    inner class PyDeepBugsCallVisitor(
+    abstract inner class PyDeepBugsCallVisitor(
         holder: ProblemsHolder,
         session: LocalInspectionToolSession
     ) : PyDeepBugsVisitor(holder, session) {

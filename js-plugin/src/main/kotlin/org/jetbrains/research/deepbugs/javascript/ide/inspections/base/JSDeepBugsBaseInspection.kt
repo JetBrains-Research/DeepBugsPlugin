@@ -9,24 +9,22 @@ import org.jetbrains.research.deepbugs.common.TensorFlowRunner
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
-import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
 import org.tensorflow.Session
 
 abstract class JSDeepBugsBaseInspection : JSInspection() {
-    protected abstract val keyMessage: String
-
-    protected abstract fun getModel(): Session?
-    protected abstract fun getThreshold(): Float
+    protected abstract val model: Session?
+    protected abstract val threshold: Float
 
     abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
+        protected abstract fun msg(node: NavigatablePsiElement): String?
 
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
-            if (result > getThreshold() && !JSDeepBugsConfig.shouldIgnore(node.text)) {
+            if (result > threshold && !JSDeepBugsConfig.shouldIgnore(node.text)) {
                 holder.registerProblem(
                     node,
-                    JSResourceBundle.message(keyMessage),
+                    msg(node) ?: "",
                     ProblemHighlightType.GENERIC_ERROR,
                     JSIgnoreExpressionQuickFix(node.text)
                 )
@@ -37,7 +35,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
         protected fun visitExpr(node: NavigatablePsiElement?) {
             node?.let {
                 collect(it)?.let { expr ->
-                    val result = TensorFlowRunner.inspectCodePiece(getModel(), expr) ?: return
+                    val result = TensorFlowRunner.inspectCodePiece(model, expr) ?: return
                     analyzeInspected(result, it)
                 }
             }

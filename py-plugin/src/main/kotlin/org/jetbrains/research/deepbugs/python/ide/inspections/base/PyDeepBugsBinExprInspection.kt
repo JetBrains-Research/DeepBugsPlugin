@@ -8,13 +8,7 @@ import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.deepbugs.python.datatypes.PyBinOp
 
 abstract class PyDeepBugsBinExprInspection : PyDeepBugsBaseInspection() {
-    override fun buildVisitor(
-        holder: ProblemsHolder,
-        isOnTheFly: Boolean,
-        session: LocalInspectionToolSession
-    ): PsiElementVisitor = PyDeepBugsBinOpVisitor(holder, session)
-
-    inner class PyDeepBugsBinOpVisitor(
+    abstract inner class PyDeepBugsBinOpVisitor(
         holder: ProblemsHolder,
         session: LocalInspectionToolSession
     ) : PyDeepBugsVisitor(holder, session) {

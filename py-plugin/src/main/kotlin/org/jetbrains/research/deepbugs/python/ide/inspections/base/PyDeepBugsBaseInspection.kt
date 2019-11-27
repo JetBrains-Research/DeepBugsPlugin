@@ -8,27 +8,25 @@ import org.jetbrains.research.deepbugs.common.TensorFlowRunner
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
-import org.jetbrains.research.deepbugs.python.PyResourceBundle
 import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyIgnoreExpressionQuickFix
 import org.tensorflow.Session
 
 abstract class PyDeepBugsBaseInspection : PyInspection() {
-    protected abstract val keyMessage: String
-
-    protected abstract fun getModel(): Session?
-    protected abstract fun getThreshold(): Float
+    protected abstract val model: Session?
+    protected abstract val threshold: Float
 
     abstract inner class PyDeepBugsVisitor(
         holder: ProblemsHolder,
         session: LocalInspectionToolSession
     ) : PyInspectionVisitor(holder, session) {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
+        protected abstract fun msg(node: NavigatablePsiElement): String
 
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
-            if (result > getThreshold() && !PyDeepBugsConfig.shouldIgnore(node.text)) {
+            if (result > threshold && !PyDeepBugsConfig.shouldIgnore(node.text)) {
                 holder?.registerProblem(
                     node,
-                    PyResourceBundle.message(keyMessage),
+                    msg(node),
                     ProblemHighlightType.GENERIC_ERROR,
                     PyIgnoreExpressionQuickFix(node.text)
                 )
@@ -40,7 +38,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
         protected fun visitExpr(node: NavigatablePsiElement?) {
             node?.let {
                 collect(it)?.let { expr ->
-                    val result = TensorFlowRunner.inspectCodePiece(getModel(), expr) ?: return
+                    val result = TensorFlowRunner.inspectCodePiece(model, expr) ?: return
                     analyzeInspected(result, node)
                 }
             }
