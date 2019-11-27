@@ -1,7 +1,6 @@
 package org.jetbrains.research.deepbugs.javascript
 
 import com.intellij.openapi.components.*
-import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 
 @State(name = "DeepBugsJS", storages = [Storage("deepbugs.js.xml")])
