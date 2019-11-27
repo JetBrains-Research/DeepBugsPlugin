@@ -12,6 +12,11 @@
 __DeepBugs for IntelliJ__ is a pair of plugins for  IntelliJ-based IDEs that provide semantics-aware bug detection in Python and JavaScript. The plugins use deep learning models inspired by the [DeepBugs framework](https://github.com/michaelpradel/DeepBugs) to extract the semantics of code and find bugs. 
 
 The plugins are available for download: [Python](https://plugins.jetbrains.com/plugin/12218-deepbugspython/), [JavaScript](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript/).
+
+<p align="center">
+  <img src="https://s3-eu-west-1.amazonaws.com/public-resources.ml-labs.aws.intellij.net/static/deep-bugs-demo.gif" width="75%" />
+</p>
+
 ## Getting started
 Code inspections in the plugins detect several types of bugs, including incorrect function arguments, incorrect comparison, and others, based on code semantics.
 
