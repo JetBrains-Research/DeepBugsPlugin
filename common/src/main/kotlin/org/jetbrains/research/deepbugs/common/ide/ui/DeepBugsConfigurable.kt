@@ -8,7 +8,5 @@ abstract class DeepBugsConfigurable(
     id: String,
     display: String
 ) : ConfigurableBase<DeepBugsSettingsPanel, DeepBugsConfig>(id, display, null) {
-    private lateinit var ui: DeepBugsSettingsPanel
-
-    override fun createUi(): DeepBugsSettingsPanel = DeepBugsSettingsPanel(settings, default).also { ui = it }
+    override fun createUi(): DeepBugsSettingsPanel = DeepBugsSettingsPanel(settings, default)
 }

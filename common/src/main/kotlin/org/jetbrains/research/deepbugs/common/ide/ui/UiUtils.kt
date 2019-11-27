@@ -12,5 +12,8 @@ fun panel(layout: LayoutManager = BorderLayout(0, 0), body: JPanel.() -> Unit) =
 fun Container.panel(layout: LayoutManager = BorderLayout(0, 0), constraint: Any,
     body: JPanel.() -> Unit): JPanel = JPanel(layout).apply(body).also { add(it, constraint) }
 
-fun wrapWithComment(component: JComponent, comment: String) = ComponentPanelBuilder(component).withComment(comment).moveCommentRight().resizeY(
-    true).createPanel()
+fun wrapWithComment(component: JComponent, comment: String) = ComponentPanelBuilder(component)
+    .withComment(comment)
+    .moveCommentRight()
+    .resizeY(true)
+    .createPanel()

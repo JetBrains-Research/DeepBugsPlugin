@@ -4,7 +4,7 @@ import com.intellij.openapi.components.*
 import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 
 @State(name = "DeepBugsPy", storages = [Storage("deepbugs.py.xml")])
-class PyDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBugsConfig("PyInspectionConfig", default) {
+class PyDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBugsConfig(default) {
     companion object {
         private val instance by lazy { ServiceManager.getService(PyDeepBugsConfig::class.java) }
 
