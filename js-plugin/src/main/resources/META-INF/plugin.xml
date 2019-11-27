@@ -13,7 +13,7 @@
     launched for the first time.
     <h4>Using inspections</h4>
     <ol>
-        <li>Select  <code>Analyze | Run inspection by name...</code>
+        <li>Select <code>Analyze | Run inspection by name...</code>
             or <code>Code | Run inspection by name...</code>menu item.</li>
         <li>Select the desired code inspection.</li>
         <li>Set inspection options and click OK.</li>
@@ -29,6 +29,7 @@
     and could be set manually in <code>Preferences/Settings | Tools | DeepBugsJS</code>.
     ]]></description>
 
+    <depends>com.intellij.modules.lang</depends>
     <depends>JavaScript</depends>
 
     <extensionPoints>
@@ -37,26 +38,21 @@
     </extensionPoints>
 
     <extensions defaultExtensionNs="dbp.statistics">
-        <jsProjectStateCollector
-                implementation="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.InspectionStateCollector"/>
+        <jsProjectStateCollector implementation="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.InspectionStateCollector"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationInitializedListener
-                implementation="org.jetbrains.research.deepbugs.common.ide.fus.service.scheduler.DeepBugsLoggingScheduler"/>
-        <applicationInitializedListener
-                implementation="org.jetbrains.research.deepbugs.common.utils.platform.PlatformInitializer"/>
-        <statistic.eventLog.eventLoggerProvider
-                implementation="org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLoggerProvider"/>
-        <inspectionToolProvider
-                implementation="org.jetbrains.research.deepbugs.javascript.ide.inspections.providers.JSDeepBugsProvider"/>
-        <errorHandler
-                implementation="org.jetbrains.research.deepbugs.common.utils.errors.GitHubErrorReporter"/>
-        <applicationService
-                serviceImplementation="org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig"/>
-        <applicationConfigurable groupId="tools"
-                                 instance="org.jetbrains.research.deepbugs.javascript.ide.ui.JSDeepBugsConfigurable"/>
-        <backgroundPostStartupActivity
-                implementation="org.jetbrains.research.deepbugs.common.model.ModelManager"/>
+        <applicationInitializedListener implementation="org.jetbrains.research.deepbugs.common.ide.fus.service.scheduler.DeepBugsLoggingScheduler"/>
+        <applicationInitializedListener implementation="org.jetbrains.research.deepbugs.common.utils.platform.PlatformInitializer"/>
+
+        <statistic.eventLog.eventLoggerProvider implementation="org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLoggerProvider"/>
+
+        <inspectionToolProvider implementation="org.jetbrains.research.deepbugs.javascript.ide.inspections.providers.JSDeepBugsProvider"/>
+
+        <errorHandler implementation="org.jetbrains.research.deepbugs.common.ide.error.DeepBugsErrorReporter"/>
+
+        <applicationService serviceImplementation="org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig"/>
+        <applicationConfigurable groupId="tools" instance="org.jetbrains.research.deepbugs.javascript.ide.ui.JSDeepBugsConfigurable"/>
+        <backgroundPostStartupActivity implementation="org.jetbrains.research.deepbugs.common.model.ModelManager"/>
     </extensions>
 </idea-plugin>

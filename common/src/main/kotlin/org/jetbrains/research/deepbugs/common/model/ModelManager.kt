@@ -10,7 +10,6 @@ import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.tensorflow.SavedModelBundle
 import org.tensorflow.Session
 import java.io.File
-import java.lang.Exception
 
 object ModelManager : StartupActivity, DumbAware {
     private val modelFolder by lazy { File(DeepBugsPlugin.installationFolder, "models") }

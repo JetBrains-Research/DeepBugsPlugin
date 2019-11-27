@@ -38,26 +38,19 @@
     </extensionPoints>
 
     <extensions defaultExtensionNs="dbp.statistics">
-        <pyProjectStateCollector
-                implementation="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.InspectionStateCollector"/>
+        <pyProjectStateCollector implementation="org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.InspectionStateCollector"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationInitializedListener
-                implementation="org.jetbrains.research.deepbugs.common.ide.fus.service.scheduler.DeepBugsLoggingScheduler"/>
-        <applicationInitializedListener
-                implementation="org.jetbrains.research.deepbugs.common.utils.platform.PlatformInitializer"/>
-        <statistic.eventLog.eventLoggerProvider
-                implementation="org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLoggerProvider"/>
-        <inspectionToolProvider
-                implementation="org.jetbrains.research.deepbugs.python.ide.inspections.providers.PyDeepBugsProvider"/>
-        <errorHandler
-                implementation="org.jetbrains.research.deepbugs.common.utils.errors.GitHubErrorReporter"/>
-        <applicationService
-                serviceImplementation="org.jetbrains.research.deepbugs.python.PyDeepBugsConfig"/>
-        <applicationConfigurable groupId="tools"
-                                 instance="org.jetbrains.research.deepbugs.python.ide.ui.PyDeepBugsConfigurable"/>
-        <backgroundPostStartupActivity
-                implementation="org.jetbrains.research.deepbugs.common.model.ModelManager"/>
+        <applicationInitializedListener implementation="org.jetbrains.research.deepbugs.common.ide.fus.service.scheduler.DeepBugsLoggingScheduler"/>
+        <applicationInitializedListener implementation="org.jetbrains.research.deepbugs.common.utils.platform.PlatformInitializer"/>
+        <statistic.eventLog.eventLoggerProvider implementation="org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLoggerProvider"/>
+        <inspectionToolProvider implementation="org.jetbrains.research.deepbugs.python.ide.inspections.providers.PyDeepBugsProvider"/>
+
+        <errorHandler implementation="org.jetbrains.research.deepbugs.common.ide.error.DeepBugsErrorReporter"/>
+
+        <applicationService serviceImplementation="org.jetbrains.research.deepbugs.python.PyDeepBugsConfig"/>
+        <applicationConfigurable groupId="tools" instance="org.jetbrains.research.deepbugs.python.ide.ui.PyDeepBugsConfigurable"/>
+        <backgroundPostStartupActivity implementation="org.jetbrains.research.deepbugs.common.model.ModelManager"/>
     </extensions>
 </idea-plugin>

@@ -4,7 +4,7 @@ import com.intellij.internal.statistic.beans.MetricEvent
 import com.intellij.internal.statistic.eventLog.EventLogGroup
 import com.intellij.internal.statistic.eventLog.FeatureUsageData
 import com.intellij.internal.statistic.utils.StatisticsUploadAssistant.LOCK
-import com.intellij.openapi.extensions.*
+import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.project.Project
 import org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLogger
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.state.ProjectStateCollector

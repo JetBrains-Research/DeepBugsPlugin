@@ -36,8 +36,8 @@ For example, it may detect the following bugs:
 The inspection detects misuse of binary operands (arguments of binary operations).
 
 For example:
-- `height - x` (in most cases it should be height - y)
-- `j < params` (should be params.length)
+- `height - x` (in most cases it should be `height - y`)
+- `j < params` (should be `params.length`)
 
 ### Incorrect function arguments
 The inspection detects misuse of function arguments (specifically, their order).

@@ -7,8 +7,6 @@ import com.intellij.internal.statistic.eventLog.FeatureUsageData
 import com.intellij.openapi.project.Project
 import com.intellij.profile.codeInspection.InspectionProjectProfileManager
 import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
-import java.lang.IllegalStateException
-
 import java.util.*
 
 class InspectionStateCollector : ProjectStateCollector {
@@ -22,7 +20,7 @@ class InspectionStateCollector : ProjectStateCollector {
             else -> throw IllegalStateException("Unsupported language")
         }
 
-    private fun isPython() = DeepBugsPlugin.dependentPlugins.any { it.idString.contains("com.intellij.modules.python")}
+    private fun isPython() = DeepBugsPlugin.dependentPlugins.any { it.idString.contains("com.intellij.modules.python") }
     private fun isJavaScript() = DeepBugsPlugin.dependentPlugins.any { it.idString.contains("JavaScript") }
 
     override fun getStates(project: Project): MutableSet<MetricEvent> {

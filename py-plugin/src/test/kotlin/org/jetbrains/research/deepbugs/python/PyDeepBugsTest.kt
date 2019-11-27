@@ -1,6 +1,6 @@
 package org.jetbrains.research.deepbugs.python
 
-class PyDeepBugsTest: DeepBugsTestBase() {
+class PyDeepBugsTest : DeepBugsTestBase() {
     fun `test bin operand`() {
         runHighlightTestForFile("testIncorrectBinOperandPy.py")
     }
