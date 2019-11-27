@@ -8,7 +8,7 @@ import java.io.File
 
 abstract class DeepBugsTestBase : BasePlatformTestCase() {
     init {
-        DeepBugsPlugin.setTestPlugin("DeepBugsJS")
+        DeepBugsPlugin.setTestPlugin("DeepBugsJavaScript")
     }
 
     override fun getTestDataPath(): String {

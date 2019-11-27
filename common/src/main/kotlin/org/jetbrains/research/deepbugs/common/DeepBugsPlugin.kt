@@ -11,11 +11,11 @@ object DeepBugsPlugin {
     private val classLoader: ClassLoader
         get() = this::class.java.classLoader
 
-    private var myTestPlugin: String? = null
+    private var myTestPluginId: String? = null
 
     val descriptor: IdeaPluginDescriptor
         get() = PluginManager.getLoadedPlugins().single {
-            (ApplicationManager.getApplication().isUnitTestMode && it.name == myTestPlugin) ||
+            (ApplicationManager.getApplication().isUnitTestMode && it.pluginId.idString == myTestPluginId) ||
                 (ApplicationManager.getApplication().isUnitTestMode.not() && it.pluginClassLoader == classLoader)
         }
 
@@ -29,7 +29,7 @@ object DeepBugsPlugin {
         get() = descriptor.dependentPluginIds
 
     @TestOnly
-    fun setTestPlugin(plugin: String) {
-        myTestPlugin = plugin
+    fun setTestPlugin(id: String) {
+        myTestPluginId = id
     }
 }
