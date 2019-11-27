@@ -1,17 +1,18 @@
 package org.jetbrains.research.deepbugs.javascript.ide.ui
 
-import com.intellij.openapi.options.Configurable
-import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
-import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.SettingsStatsCollector
+import com.intellij.openapi.components.ServiceManager
+import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 import org.jetbrains.research.deepbugs.common.ide.ui.DeepBugsConfigurable
-import org.jetbrains.research.deepbugs.common.ide.ui.DeepBugsUI
+import org.jetbrains.research.deepbugs.common.ide.ui.DeepBugsSettingsPanel
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
+import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 
-class JSDeepBugsConfigurable(settings: JSDeepBugsConfig) : DeepBugsConfigurable(settings), Configurable {
-    override fun createUI(): DeepBugsUI {
-        SettingsStatsCollector.logSettingsInvoked(settings.configId)
-        return JSDeepBugsUI()
-    }
+class JSDeepBugsConfigurable : DeepBugsConfigurable(
+    JSDeepBugsConfig.default,
+    "deepbugs.js.configurable",
+    JSResourceBundle.message("deepbugs.javascript.display")
+) {
+    override fun createUi(): DeepBugsSettingsPanel = DeepBugsSettingsPanel(settings, default)
 
-    override fun getDisplayName(): String = DeepBugsPlugin.name
+    override fun getSettings(): DeepBugsConfig = ServiceManager.getService(JSDeepBugsConfig::class.java)
 }

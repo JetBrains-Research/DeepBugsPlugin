@@ -18,11 +18,6 @@ class JSIgnoreExpressionQuickFix(private val expr: String) : LocalQuickFix {
         UndoManager.getInstance(project).undoableActionPerformed(ignore)
     }
 
-    override fun getFamilyName(): String {
-        return JSResourceBundle.message("deepbugs.javascript.quickfixes.family")
-    }
-
-    override fun getName(): String {
-        return JSResourceBundle.message("deepbugs.javascript.ignore.quickfix")
-    }
+    override fun getFamilyName(): String = JSResourceBundle.message("deepbugs.javascript.display")
+    override fun getName(): String = JSResourceBundle.message("deepbugs.javascript.ignore.quickfix", expr)
 }

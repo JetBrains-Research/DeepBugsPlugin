@@ -19,10 +19,10 @@ class PyIgnoreExpressionQuickFix(private val expr: String) : LocalQuickFix {
     }
 
     override fun getFamilyName(): String {
-        return PyResourceBundle.message("deepbugs.python.quickfixes.family")
+        return PyResourceBundle.message("deepbugs.python.display")
     }
 
     override fun getName(): String {
-        return PyResourceBundle.message("deepbugs.python.ignore.quickfix")
+        return PyResourceBundle.message("deepbugs.python.ignore.quickfix", expr)
     }
 }

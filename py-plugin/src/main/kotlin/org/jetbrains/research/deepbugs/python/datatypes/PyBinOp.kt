@@ -25,7 +25,7 @@ class PyBinOp(
          * @param node [PyBinaryExpression] that should be processed.
          * @return [String] with operator text or null if extraction is impossible.
          */
-        private fun extractOperatorText(node: PyBinaryExpression): String? {
+        fun extractOperatorText(node: PyBinaryExpression): String? {
             var firstElement = node.psiOperator ?: return null
             val lastElement = if (node.rightExpression?.prevSibling is PsiWhiteSpace) {
                 node.rightExpression?.prevSibling
