@@ -4,6 +4,7 @@ import com.intellij.application.subscribe
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.util.messages.Topic
 import org.jetbrains.research.deepbugs.common.DeepBugsConfig
+import org.jetbrains.research.deepbugs.common.ide.ui.DeepBugsSettingsPanel
 
 interface DeepBugsLifecycle {
     companion object {
@@ -12,6 +13,7 @@ interface DeepBugsLifecycle {
 
         init {
             topic.subscribe(ApplicationManager.getApplication(), InspectionStateHandler)
+            topic.subscribe(ApplicationManager.getApplication(), DeepBugsSettingsPanel)
         }
     }
 
