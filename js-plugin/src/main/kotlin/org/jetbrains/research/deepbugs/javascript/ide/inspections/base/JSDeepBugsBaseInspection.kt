@@ -18,15 +18,15 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
 
     abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
-        protected abstract fun msg(node: NavigatablePsiElement): String?
+        protected abstract fun msg(node: NavigatablePsiElement): String
 
-        private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
-            if (result > threshold && !JSDeepBugsConfig.shouldIgnore(node.text)) {
+        private fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
+            if (result > threshold && !JSDeepBugsConfig.shouldIgnore(data)) {
                 holder.registerProblem(
                     node,
-                    msg(node) ?: "",
+                    msg(node),
                     ProblemHighlightType.GENERIC_ERROR,
-                    JSIgnoreExpressionQuickFix(node.text)
+                    JSIgnoreExpressionQuickFix(data, node.text)
                 )
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
@@ -36,7 +36,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
             node?.let {
                 collect(it)?.let { expr ->
                     val result = TensorFlowRunner.inspectCodePiece(model, expr) ?: return
-                    analyzeInspected(result, it)
+                    analyzeInspected(result, it, expr)
                 }
             }
         }

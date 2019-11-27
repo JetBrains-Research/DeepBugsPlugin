@@ -14,6 +14,8 @@ abstract class BinOp(
     private val grandParent: String,
     @Suppress("unused") private val src: String
 ) : DataType {
+    override val text: String = "$left $op $right"
+
     protected fun vectorize(token: Mapping, type: Mapping, nodeType: Mapping, operator: Mapping): Tensor<Float>? {
         return TensorFlowRunner.vectorizeListOfArrays(listOf(
             token.get(left) ?: return null,

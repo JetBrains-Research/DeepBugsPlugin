@@ -22,13 +22,13 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
         protected abstract fun msg(node: NavigatablePsiElement): String
 
-        private fun analyzeInspected(result: Float, node: NavigatablePsiElement) {
-            if (result > threshold && !PyDeepBugsConfig.shouldIgnore(node.text)) {
+        private fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
+            if (result > threshold && !PyDeepBugsConfig.shouldIgnore(data)) {
                 holder?.registerProblem(
                     node,
                     msg(node),
                     ProblemHighlightType.GENERIC_ERROR,
-                    PyIgnoreExpressionQuickFix(node.text)
+                    PyIgnoreExpressionQuickFix(data, node.text)
                 )
                 val project = session.file.project
                 InspectionReportCollector.logReport(project, shortName, result)
@@ -39,7 +39,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
             node?.let {
                 collect(it)?.let { expr ->
                     val result = TensorFlowRunner.inspectCodePiece(model, expr) ?: return
-                    analyzeInspected(result, node)
+                    analyzeInspected(result, node, expr)
                 }
             }
         }

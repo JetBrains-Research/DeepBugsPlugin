@@ -2,6 +2,7 @@ package org.jetbrains.research.deepbugs.javascript
 
 import com.intellij.openapi.components.*
 import org.jetbrains.research.deepbugs.common.DeepBugsConfig
+import org.jetbrains.research.deepbugs.common.datatypes.DataType
 
 @State(name = "DeepBugsJS", storages = [Storage("deepbugs.js.xml")])
 class JSDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBugsConfig(default) {
@@ -17,11 +18,11 @@ class JSDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBug
         fun get() = instance.state
 
         @Synchronized
-        fun ignoreExpression(expr: String) = instance.disableCheck(expr)
+        fun ignoreExpression(expr: DataType) = instance.disableCheck(expr.text)
 
         @Synchronized
-        fun considerExpression(expr: String) = instance.enableCheck(expr)
+        fun considerExpression(expr: DataType) = instance.enableCheck(expr.text)
 
-        fun shouldIgnore(expr: String) = get().userDisabledChecks.contains(expr)
+        fun shouldIgnore(expr: DataType) = get().userDisabledChecks.contains(expr.text)
     }
 }

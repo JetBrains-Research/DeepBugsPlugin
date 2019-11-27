@@ -12,6 +12,8 @@ abstract class Call(
     private val parameters: List<String>,
     @Suppress("unused") private val src: String
 ) : DataType {
+    override val text: String = "$base.$callee(${arguments.joinToString(",")})"
+
     protected fun vectorize(token: Mapping, type: Mapping): Tensor<Float>? {
         val nameVector = token.get(callee) ?: return null
         val argVectors = arguments.map { arg -> token.get(arg) ?: return null }.reduce { acc, arg -> acc + arg }

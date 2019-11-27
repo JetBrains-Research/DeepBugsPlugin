@@ -21,7 +21,7 @@ class JSDeepBugsBinOperandInspection : JSDeepBugsBinExprInspection() {
         holder: ProblemsHolder,
         session: LocalInspectionToolSession
     ): PsiElementVisitor = object : JSDeepBugsBinOpVisitor(holder, session) {
-        override fun msg(node: NavigatablePsiElement): String? = (node as JSBinaryExpression).let {
+        override fun msg(node: NavigatablePsiElement): String = (node as JSBinaryExpression).let {
                 JSResourceBundle.message(
                     "deepbugs.javascript.binary.operand.inspection.warning",
                     it.lOperand?.text ?: "",
