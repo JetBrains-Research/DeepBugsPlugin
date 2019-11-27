@@ -28,7 +28,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
             if (result > getThreshold() && !PyDeepBugsConfig.shouldIgnore(node.text)) {
                 holder?.registerProblem(
                     node,
-                    PyResourceBundle.message(keyMessage, result),
+                    PyResourceBundle.message(keyMessage),
                     ProblemHighlightType.GENERIC_ERROR,
                     PyIgnoreExpressionQuickFix(node.text)
                 )

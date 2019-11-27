@@ -26,7 +26,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
             if (result > getThreshold() && !JSDeepBugsConfig.shouldIgnore(node.text)) {
                 holder.registerProblem(
                     node,
-                    JSResourceBundle.message(keyMessage, result),
+                    JSResourceBundle.message(keyMessage),
                     ProblemHighlightType.GENERIC_ERROR,
                     JSIgnoreExpressionQuickFix(node.text)
                 )
