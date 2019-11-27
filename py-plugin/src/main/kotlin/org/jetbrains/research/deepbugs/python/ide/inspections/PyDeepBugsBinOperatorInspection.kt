@@ -24,7 +24,7 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection() {
         isOnTheFly: Boolean,
         session: LocalInspectionToolSession
     ): PsiElementVisitor = object : PyDeepBugsBinOpVisitor(holder, session) {
-        override fun msg(node: NavigatablePsiElement): String = (node as? PyBinaryExpression)!!.let {
+        override fun msg(node: NavigatablePsiElement): String = (node as PyBinaryExpression).let {
             PyResourceBundle.message(
                 "deepbugs.python.binary.operator.inspection.warning",
                 PyBinOp.extractOperatorText(node) ?: ""
