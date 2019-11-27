@@ -1,32 +1,16 @@
 <idea-plugin url="https://github.com/JetBrains-Research/DeepBugsPlugin">
-    <name>DeepBugsPython</name>
+    <name>DeepBugs for Python</name>
     <id>DeepBugsPython</id>
-    <vendor url="https://research.jetbrains.org/ru/groups/ml_methods">
-        Machine Learning Methods in Software Engineering Research Group
-    </vendor>
+    <vendor url="https://research.jetbrains.org/">jetbrains-research</vendor>
     <description><![CDATA[
-    DeepBugsPython plugin provides several code inspections intended for detecting bugs and code quality issues.
-    <h4>Requirements</h4>
-    Currently available only for a 64-bit JVM.<br>
-    Plugin requires model files to perform code analysis.
-    It would be suggested to download required files when the plugin is
-    launched for the first time.
-    <h4>Using inspections</h4>
-    <ol>
-        <li>Select <code>Analyze | Run inspection by name...</code>
-            or <code>Code | Run inspection by name...</code>menu item.</li>
-        <li>Select the desired code inspection.</li>
-        <li>Set inspection options and click OK.</li>
-    </ol>
-    <h4>Available code inspections</h4>
-    <ul>
-        <li>DeepBugsPython: Possibly incorrect binary operator.</li>
-        <li>DeepBugsPython: Possibly incorrect binary operand.</li>
-        <li>DeepBugsPython: Possibly swapped function arguments.</li>
-    </ul>
-    <h4>Configuration</h4>
-    Each code inspection uses its own threshold value to distinguish correct from incorrect code. Thresholds are configurable
-    and could be set manually in <code>Preferences/Settings | Tools | DeepBugsPython</code>.
+    <p>Finds potential bugs and code quality issues for JavaScript/Python using deep learning models.</p>
+
+    <p>Detects several types of bugs, including incorrect function arguments, incorrect comparison, and others, based on extracted code semantics.
+    Provides inspection strictness configuration for each bug type.</p>
+
+    <p>Deep learning models are inspired by DeepBugs.</p>
+
+    <p>To configure, open <b>Preferences/Settings | Tools | DeepBugs for Python</b>.</p>
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
