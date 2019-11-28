@@ -2,7 +2,7 @@
 
 [![JB Research](https://jb.gg/badges/research-flat-square.svg)](https://research.jetbrains.org/)
 [![CircleCI](https://img.shields.io/circleci/build/github/JetBrains-Research/DeepBugsPlugin.svg?style=flat-square)](https://circleci.com/gh/JetBrains-Research/DeepBugsPlugin)
-[![Plugin Gitter](https://img.shields.io/static/v1?label=jb-platform&message=deepbugs&color=brightgreen&logo=gitter&style=flat-square)](https://gitter.im/deepbugs4intellij/community)
+[![Plugin Gitter](https://img.shields.io/static/v1?message=deepbugs&color=brightgreen&logo=gitter&style=flat-square)](https://gitter.im/deepbugs4intellij/community)
 [![JS Plugin](https://img.shields.io/jetbrains/plugin/v/12220-deepbugsjavascript.svg?style=flat-square&label=js%20plugin)](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript)
 [![JS Downloads](https://img.shields.io/jetbrains/plugin/d/12220-deepbugsjavascript.svg?style=flat-square&label=js%20downloads)](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript)
 [![Py Plugin](https://img.shields.io/jetbrains/plugin/v/12218-deepbugspython.svg?style=flat-square&label=py%20plugin)](https://plugins.jetbrains.com/plugin/12218-deepbugspython)
