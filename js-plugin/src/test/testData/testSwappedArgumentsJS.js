@@ -8,7 +8,7 @@ function setSize(xx, yy) {
 let width = 5;
 let height = 10;
 setSize(width, height);
-<warning descr="Possibly wrong order of function arguments">setSize(height, width)</warning>;
+<error>setSize(height, width)</error>;
 
 
 let promise = new Promise((resolve, reject) => {
@@ -21,5 +21,5 @@ reject(new Error('Error'));
 let onSuccess = (resolvedValue) => console.log(resolvedValue);
 let onError = (error) => console.log(error);
 
-<warning descr="Possibly wrong order of function arguments">promise.then(onError, onSuccess)</warning>;
+<error>promise.then(onError, onSuccess)</error>;
 promise.then(onSuccess, onError);
