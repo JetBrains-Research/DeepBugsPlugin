@@ -7,6 +7,7 @@ import com.intellij.internal.statistic.eventLog.FeatureUsageData
 import com.intellij.openapi.project.Project
 import com.intellij.profile.codeInspection.InspectionProjectProfileManager
 import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
+import java.lang.IllegalStateException
 import java.util.*
 
 class InspectionStateCollector : ProjectStateCollector {

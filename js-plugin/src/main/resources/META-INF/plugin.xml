@@ -3,7 +3,7 @@
     <id>DeepBugsJavaScript</id>
     <vendor url="https://research.jetbrains.org/">jetbrains-research</vendor>
     <description><![CDATA[
-    <p>Finds potential bugs and code quality issues for JavaScript/Python using deep learning models.</p>
+    <p>Finds potential bugs and code quality issues for JavaScript using deep learning models.</p>
 
     <p>Detects several types of bugs, including incorrect function arguments, incorrect comparison, and others, based on extracted code semantics.
     Provides inspection strictness configuration for each bug type.</p>
