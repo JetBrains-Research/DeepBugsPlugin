@@ -32,21 +32,18 @@
         <statistic.eventLog.eventLoggerProvider implementation="org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLoggerProvider"/>
 
         <localInspection language="Python" groupPath="Python"
-                         displayName="DeepBugs for Python: Possibly incorrect operand"
                          groupKey="deepbugs.python.group.name"
                          enabledByDefault="true"
                          bundle="DeepBugsPythonBundle"
                          implementationClass="org.jetbrains.research.deepbugs.python.ide.inspections.PyDeepBugsBinOperandInspection" />
 
         <localInspection language="Python" groupPath="Python"
-                         displayName="DeepBugs for Python: Possibly incorrect operator"
                          groupKey="deepbugs.python.group.name"
                          enabledByDefault="true"
                          bundle="DeepBugsPythonBundle"
                          implementationClass="org.jetbrains.research.deepbugs.python.ide.inspections.PyDeepBugsBinOperatorInspection" />
 
         <localInspection language="Python" groupPath="Python"
-                         displayName="DeepBugs for Python: Possibly wrong order of function arguments"
                          groupKey="deepbugs.python.group.name"
                          enabledByDefault="true"
                          bundle="DeepBugsPythonBundle"
