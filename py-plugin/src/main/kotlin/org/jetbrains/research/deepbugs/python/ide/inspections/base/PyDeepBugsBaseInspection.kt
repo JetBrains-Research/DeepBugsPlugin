@@ -1,6 +1,10 @@
 package org.jetbrains.research.deepbugs.python.ide.inspections.base
 
-import com.intellij.codeInspection.*
+import com.intellij.codeInspection.InspectionManager
+import com.intellij.codeInspection.LocalInspectionToolSession
+import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.codeInspection.ProblemsHolder
+import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.psi.NavigatablePsiElement
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
@@ -22,16 +26,16 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
         protected abstract fun msg(node: NavigatablePsiElement): String
 
+        private fun createDescriptor(node: NavigatablePsiElement, data: DataType) =
+            InspectionManager.getInstance(holder!!.project)
+                .createProblemDescriptor(node.navigationElement, msg(node), false,
+                    arrayOf(PyIgnoreExpressionQuickFix(data, node.text)), ProblemHighlightType.GENERIC_ERROR)
+                .also { it.setTextAttributes(CodeInsightColors.RUNTIME_ERROR) }
+
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
             if (result > threshold && !PyDeepBugsConfig.shouldIgnore(data)) {
-                holder?.registerProblem(
-                    node,
-                    msg(node),
-                    ProblemHighlightType.GENERIC_ERROR,
-                    PyIgnoreExpressionQuickFix(data, node.text)
-                )
-                val project = session.file.project
-                InspectionReportCollector.logReport(project, shortName, result)
+                holder?.registerProblem(createDescriptor(node ,data))
+                InspectionReportCollector.logReport(holder!!.project, shortName, result)
             }
         }
 
