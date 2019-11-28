@@ -12,6 +12,7 @@ object ErrorInfoCollector {
         logErrorWithStatus("reported")
     }
 
+    @Suppress("unused")
     fun logInitErrorSubmitted() {
         logErrorWithStatus("submitted")
     }
