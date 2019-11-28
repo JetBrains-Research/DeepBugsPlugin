@@ -25,7 +25,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
         private fun createDescriptor(node: NavigatablePsiElement, data: DataType) =
             InspectionManager.getInstance(holder.project)
             .createProblemDescriptor(node.navigationElement, msg(node), false,
-                arrayOf(JSIgnoreExpressionQuickFix(data, node.text)), ProblemHighlightType.GENERIC_ERROR)
+                arrayOf(JSIgnoreExpressionQuickFix(data, node.text)), ProblemHighlightType.WARNING)
             .also { it.setTextAttributes(CodeInsightColors.RUNTIME_ERROR) }
 
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {

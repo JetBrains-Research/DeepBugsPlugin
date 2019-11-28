@@ -9,7 +9,6 @@ import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
 import org.jetbrains.research.deepbugs.python.datatypes.PyBinOp
-import org.jetbrains.research.deepbugs.python.extraction.PyExtractor
 import org.jetbrains.research.deepbugs.python.ide.inspections.base.PyDeepBugsBinExprInspection
 import org.tensorflow.Session
 

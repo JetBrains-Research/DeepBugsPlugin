@@ -3,7 +3,6 @@ package org.jetbrains.research.deepbugs.python.ide.inspections.base
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.NavigatablePsiElement
-import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.python.psi.PyCallExpression
 import org.jetbrains.research.deepbugs.python.datatypes.PyCall
 
