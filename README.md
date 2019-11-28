@@ -14,7 +14,7 @@ __DeepBugs for IntelliJ__ is a pair of plugins for  IntelliJ-based IDEs that pro
 The plugins are available for download: [Python](https://plugins.jetbrains.com/plugin/12218-deepbugspython/), [JavaScript](https://plugins.jetbrains.com/plugin/12220-deepbugsjavascript/).
 
 <p align="center">
-  <img src="https://s3-eu-west-1.amazonaws.com/public-resources.ml-labs.aws.intellij.net/static/deep-bugs-demo.gif" width="75%" />
+  <img src="https://s3-eu-west-1.amazonaws.com/public-resources.ml-labs.aws.intellij.net/static/deep-bugs-demo.gif" width="70%" />
 </p>
 
 ## Getting started
