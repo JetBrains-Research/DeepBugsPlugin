@@ -1,2 +1,2 @@
 a = 1 + 6
-b = <error>1 / 0</error>
+b = <warning descr="Possibly incorrect operator: “/”">1 / 0</warning>

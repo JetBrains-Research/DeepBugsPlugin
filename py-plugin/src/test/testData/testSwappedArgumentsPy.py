@@ -2,4 +2,4 @@ def size(xx, yy):
     return xx, yy
 
 size(width, height)
-<error>size(height, width)</error>
+<warning descr="Possibly wrong order of function arguments">size(height, width)</warning>
