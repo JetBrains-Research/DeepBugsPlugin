@@ -1,10 +1,6 @@
 package org.jetbrains.research.deepbugs.python.ide.inspections.base
 
-import com.intellij.codeInspection.InspectionManager
-import com.intellij.codeInspection.LocalInspectionToolSession
-import com.intellij.codeInspection.ProblemHighlightType
-import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.openapi.editor.colors.CodeInsightColors
+import com.intellij.codeInspection.*
 import com.intellij.psi.NavigatablePsiElement
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
@@ -26,15 +22,9 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
         protected abstract fun msg(node: NavigatablePsiElement): String
 
-        private fun createDescriptor(node: NavigatablePsiElement, data: DataType) =
-            InspectionManager.getInstance(holder!!.project)
-                .createProblemDescriptor(node.navigationElement, msg(node), false,
-                    arrayOf(PyIgnoreExpressionQuickFix(data, node.text)), ProblemHighlightType.WARNING)
-                .also { it.setTextAttributes(CodeInsightColors.RUNTIME_ERROR) }
-
         private fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
             if (result > threshold && !PyDeepBugsConfig.shouldIgnore(data)) {
-                holder?.registerProblem(createDescriptor(node ,data))
+                holder?.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text))
                 InspectionReportCollector.logReport(holder!!.project, shortName, result)
             }
         }

@@ -28,7 +28,4 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
             )
         }
     }
-
-    override fun getDisplayName() = JSResourceBundle.message("deepbugs.javascript.binary.operator.inspection.display")
-    override fun getShortName() = "JSOperatorInspection"
 }

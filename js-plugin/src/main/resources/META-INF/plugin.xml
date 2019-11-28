@@ -31,7 +31,26 @@
 
         <statistic.eventLog.eventLoggerProvider implementation="org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLoggerProvider"/>
 
-        <inspectionToolProvider implementation="org.jetbrains.research.deepbugs.javascript.ide.inspections.providers.JSDeepBugsProvider"/>
+        <localInspection language="JavaScript" groupPath="JavaScript"
+                         displayName="DeepBugs for JavaScript: Possibly incorrect operand"
+                         groupKey="deepbugs.javascript.group.name"
+                         enabledByDefault="true"
+                         bundle="DeepBugsJavaScriptBundle"
+                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.JSDeepBugsBinOperandInspection" />
+
+        <localInspection language="JavaScript" groupPath="JavaScript"
+                         displayName="DeepBugs for JavaScript: Possibly incorrect operator"
+                         groupKey="deepbugs.javascript.group.name"
+                         enabledByDefault="true"
+                         bundle="DeepBugsJavaScriptBundle"
+                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.JSDeepBugsBinOperatorInspection" />
+
+        <localInspection language="JavaScript" groupPath="JavaScript"
+                         displayName="DeepBugs for JavaScript: Possibly wrong order of function arguments"
+                         groupKey="deepbugs.javascript.group.name"
+                         enabledByDefault="true"
+                         bundle="DeepBugsJavaScriptBundle"
+                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.JSDeepBugsSwappedArgsInspection" />
 
         <errorHandler implementation="org.jetbrains.research.deepbugs.common.ide.error.DeepBugsErrorReporter"/>
 

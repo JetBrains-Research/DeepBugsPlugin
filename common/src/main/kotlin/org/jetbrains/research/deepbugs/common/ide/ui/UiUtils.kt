@@ -1,10 +1,7 @@
 package org.jetbrains.research.deepbugs.common.ide.ui
 
 import com.intellij.ui.IdeBorderFactory
-import java.awt.BorderLayout
-import java.awt.Container
-import java.awt.Insets
-import java.awt.LayoutManager
+import java.awt.*
 import javax.swing.JPanel
 import javax.swing.border.Border
 
