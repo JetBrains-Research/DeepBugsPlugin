@@ -49,4 +49,4 @@ For example:
 ## Got any more questions?
 If you want to know more about the DeepBugs framework that these plugins are based on, please [refer to this paper](http://software-lab.org/publications/oopsla2018_DeepBugs.pdf).
 
-If you have any questions about the plugins themselves, please don’t hesitate to contact us on [Slack](https://app.slack.com/client/T5P9YATH9/CQWS6N3SL).
+If you have any questions about the plugins themselves, please don’t hesitate to contact us on [Gitter](https://gitter.im/deepbugs4intellij/community).
