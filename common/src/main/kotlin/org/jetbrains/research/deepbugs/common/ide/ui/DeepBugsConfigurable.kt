@@ -8,5 +8,5 @@ abstract class DeepBugsConfigurable(
     id: String,
     display: String
 ) : ConfigurableBase<DeepBugsSettingsPanel, DeepBugsConfig>(id, display, null) {
-    override fun createUi(): DeepBugsSettingsPanel = DeepBugsSettingsPanel(settings, default, displayName)
+    override fun createUi(): DeepBugsSettingsPanel = DeepBugsSettingsPanel(settings, default)
 }
