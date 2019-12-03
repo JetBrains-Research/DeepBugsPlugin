@@ -7,6 +7,7 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
+import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
@@ -29,7 +30,8 @@ class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
             if (result > threshold && !JSDeepBugsConfig.shouldIgnore(data)) {
-                holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, JSIgnoreExpressionQuickFix(data, node.text))
+                holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, JSIgnoreExpressionQuickFix(data, node.text),
+                    FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.display")))
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }

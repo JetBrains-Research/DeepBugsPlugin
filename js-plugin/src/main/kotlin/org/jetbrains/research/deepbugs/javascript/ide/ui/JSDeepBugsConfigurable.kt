@@ -8,7 +8,7 @@ import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 
 class JSDeepBugsConfigurable : DeepBugsConfigurable(
     JSDeepBugsConfig.default,
-    "deepbugs.js.configurable",
+    "JSPluginConfig",
     JSResourceBundle.message("deepbugs.javascript.display")
 ) {
     override fun getSettings(): DeepBugsConfig = ServiceManager.getService(JSDeepBugsConfig::class.java)

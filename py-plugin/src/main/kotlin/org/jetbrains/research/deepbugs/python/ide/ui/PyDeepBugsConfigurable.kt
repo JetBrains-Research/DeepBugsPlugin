@@ -8,7 +8,7 @@ import org.jetbrains.research.deepbugs.python.PyResourceBundle
 
 class PyDeepBugsConfigurable : DeepBugsConfigurable(
     PyDeepBugsConfig.default,
-    "deepbugs.py.configurable",
+    "PyPluginConfig",
     PyResourceBundle.message("deepbugs.python.display")
 ) {
     override fun getSettings(): DeepBugsConfig = ServiceManager.getService(PyDeepBugsConfig::class.java)

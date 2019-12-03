@@ -2,7 +2,7 @@ package org.jetbrains.research.deepbugs.javascript.ide.quickfixes.utils
 
 import com.intellij.lang.javascript.JSTokenTypes
 
-internal val operators by lazy {
+val operators by lazy {
     hashMapOf(
         JSTokenTypes.AND.toString() to "&",
         JSTokenTypes.ANDAND.toString() to "&&",

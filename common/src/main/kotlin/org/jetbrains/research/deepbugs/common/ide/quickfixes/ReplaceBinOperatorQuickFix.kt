@@ -18,13 +18,16 @@ import org.jetbrains.research.deepbugs.common.model.ModelManager
 import javax.swing.Icon
 import kotlin.math.min
 
-abstract class ReplaceBinOperatorQuickFix(
+class ReplaceBinOperatorQuickFix(
     private val data: BinOp,
     private val operatorRange: TextRange,
-    private val threshold: Float
+    private val threshold: Float,
+    private val displayName: String,
+    private val transform: (String) -> String = { it }
 ) : LocalQuickFix, Iconable {
     override fun getIcon(flags: Int): Icon = AllIcons.Actions.Edit
     override fun getName(): String = CommonResourceBundle.message("deepbugs.replace.operator.quickfix")
+    override fun getFamilyName(): String = displayName
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         DataManager.getInstance().dataContextFromFocusAsync.onSuccess { context ->
@@ -35,8 +38,6 @@ abstract class ReplaceBinOperatorQuickFix(
         }
     }
 
-    protected open val transformBinOp: (String) -> String = { it }
-
     private val lookups: List<LookupElementBuilder>
         get() = ModelManager.storage.operatorMapping.data.map {
             val newBinOp = data.replaceOperator(it.key)
@@ -44,5 +45,5 @@ abstract class ReplaceBinOperatorQuickFix(
             it.key to res
         }.filter { it.second != null && it.second!! < threshold }
             .sortedBy { it.second }
-            .map { LookupElementBuilder.create(transformBinOp(it.first)) }
+            .map { LookupElementBuilder.create(transform(it.first)) }
 }

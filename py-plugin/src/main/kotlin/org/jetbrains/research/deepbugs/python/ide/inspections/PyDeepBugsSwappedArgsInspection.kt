@@ -7,6 +7,7 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
+import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
@@ -30,7 +31,8 @@ class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection() {
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
             if (result > threshold && !PyDeepBugsConfig.shouldIgnore(data)) {
-                holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text))
+                holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text),
+                    FlipFunctionArgumentsQuickFix(PyResourceBundle.message("deepbugs.python.display")))
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }
