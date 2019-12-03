@@ -11,6 +11,7 @@ fun String.asIdentifierString() = "ID:$this"
 @Suppress("unused")
 fun String.asStandardString() = "STD:$this"
 
+@Suppress("ComplexMethod")
 object PyExtractor {
     fun extractPyNodeName(node: PyElement?): String? = when (node) {
         is PyNumericLiteralExpression -> node.text.asLiteralString()

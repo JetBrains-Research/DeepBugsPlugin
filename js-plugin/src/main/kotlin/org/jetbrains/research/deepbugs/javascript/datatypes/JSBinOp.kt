@@ -37,4 +37,6 @@ class JSBinOp(
     override fun vectorize() = ModelManager.storage.let { storage ->
         vectorize(storage.tokenMapping, storage.typeMapping, storage.nodeTypeMapping, storage.operatorMapping)
     }
+
+    override fun replaceOperator(newOp: String) = JSBinOp(left, right, newOp, leftType, rightType, parent, grandParent, src)
 }

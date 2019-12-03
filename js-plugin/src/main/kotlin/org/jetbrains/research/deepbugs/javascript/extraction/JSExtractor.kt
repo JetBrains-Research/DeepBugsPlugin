@@ -11,6 +11,7 @@ fun String.asIdentifierString() = "ID:$this"
 @Suppress("unused")
 fun String.asStandardString() = "STD:$this"
 
+@Suppress("ComplexMethod")
 object JSExtractor {
     fun extractJSNodeName(node: JSElement?): String? = when (node) {
         is JSLiteralExpression -> node.text.asLiteralString()

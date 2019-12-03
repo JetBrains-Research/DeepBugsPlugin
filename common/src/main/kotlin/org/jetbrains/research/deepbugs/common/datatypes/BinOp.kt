@@ -5,14 +5,14 @@ import org.jetbrains.research.deepbugs.common.utils.Mapping
 import org.tensorflow.Tensor
 
 abstract class BinOp(
-    private val left: String,
-    private val right: String,
-    private val op: String,
-    private val leftType: String,
-    private val rightType: String,
-    private val parent: String,
-    private val grandParent: String,
-    @Suppress("unused") private val src: String
+    protected val left: String,
+    protected val right: String,
+    protected val op: String,
+    protected val leftType: String,
+    protected val rightType: String,
+    protected val parent: String,
+    protected val grandParent: String,
+    @Suppress("unused") protected val src: String
 ) : DataType {
     override val text: String = "$left $op $right"
 
@@ -27,4 +27,6 @@ abstract class BinOp(
             nodeType.get(grandParent) ?: return null
         ))
     }
+
+    abstract fun replaceOperator(newOp: String): BinOp
 }
