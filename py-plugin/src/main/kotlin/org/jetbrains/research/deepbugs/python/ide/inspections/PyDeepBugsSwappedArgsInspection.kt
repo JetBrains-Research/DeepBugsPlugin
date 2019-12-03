@@ -26,4 +26,5 @@ class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection() {
     }
 
     override fun getDisplayName() = PyResourceBundle.message("deepbugs.python.swapped.args.inspection.display")
+    override fun getShortName(): String = "PyDeepBugsSwappedArgs"
 }

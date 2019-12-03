@@ -23,4 +23,6 @@ class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
         override fun msg(node: NavigatablePsiElement): String =
             JSResourceBundle.message("deepbugs.javascript.swapped.args.inspection.warning")
     }
+
+    override fun getShortName() = "JSDeepBugsSwappedArgs"
 }

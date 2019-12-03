@@ -32,4 +32,5 @@ class PyDeepBugsBinOperandInspection : PyDeepBugsBinExprInspection() {
     }
 
     override fun getDisplayName() = PyResourceBundle.message("deepbugs.python.binary.operand.inspection.display")
+    override fun getShortName(): String = "PyDeepBugsBinOperand"
 }
