@@ -34,4 +34,6 @@ class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
             }
         }
     }
+
+    override fun getShortName() = "JSDeepBugsSwappedArgs"
 }

@@ -20,7 +20,7 @@ The plugins are available for download: [Python](https://plugins.jetbrains.com/p
 ## Getting started
 Code inspections in the plugins detect several types of bugs, including incorrect function arguments, incorrect comparison, and others, based on code semantics.
 
-If the plugin provides too many false positives for your code, you can increase any specific threshold manually in __Preferences / Settings__ under __Tools | DeepBugsPython/DeepBugsJS__
+If the plugin provides too many false positives for your code, you can increase any specific threshold manually in __Preferences / Settings__ under __Tools | DeepBugs for Python/DeepBugs for JavaScript__
 
 To fall back to original precalculated values, you can use the __Default__ and __Default All__ buttons.
 
@@ -49,4 +49,4 @@ For example:
 ## Got any more questions?
 If you want to know more about the DeepBugs framework that these plugins are based on, please [refer to this paper](http://software-lab.org/publications/oopsla2018_DeepBugs.pdf).
 
-If you have any questions about the plugins themselves, please don’t hesitate to contact us on [Slack](https://app.slack.com/client/T5P9YATH9/CQWS6N3SL).
+If you have any questions about the plugins themselves, please don’t hesitate to contact us on [Gitter](https://gitter.im/deepbugs4intellij/community).

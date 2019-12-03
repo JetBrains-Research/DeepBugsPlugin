@@ -42,4 +42,6 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
             }
         }
     }
+
+    override fun getShortName() = "JSDeepBugsBinOperator"
 }

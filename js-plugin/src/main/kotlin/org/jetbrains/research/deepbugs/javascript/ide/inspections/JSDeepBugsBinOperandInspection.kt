@@ -40,4 +40,6 @@ class JSDeepBugsBinOperandInspection : JSDeepBugsBinExprInspection() {
             }
         }
     }
+
+    override fun getShortName() = "JSDeepBugsBinOperand"
 }
