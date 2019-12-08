@@ -18,6 +18,7 @@ plugins {
 allprojects {
     repositories {
         jcenter()
+        maven("https://dl.bintray.com/mipt-npm/scientifik")
     }
 }
 

@@ -42,4 +42,5 @@ tasks.withType<PatchPluginXmlTask> {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":keras-runner"))
 }

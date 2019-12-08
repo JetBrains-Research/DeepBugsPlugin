@@ -5,13 +5,13 @@ import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.research.deepbugs.common.model.ModelManager
+import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.Perceptron
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
 import org.jetbrains.research.deepbugs.python.ide.inspections.base.PyDeepBugsCallExprInspection
-import org.tensorflow.Session
 
 class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection() {
-    override val model: Session?
+    override val model: Perceptron?
         get() = ModelManager.storage.swappedArgsModel
     override val threshold: Float
         get() = PyDeepBugsConfig.get().swappedArgsThreshold

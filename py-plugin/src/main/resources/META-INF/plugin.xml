@@ -27,7 +27,6 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationInitializedListener implementation="org.jetbrains.research.deepbugs.common.ide.fus.service.scheduler.DeepBugsLoggingScheduler"/>
-        <applicationInitializedListener implementation="org.jetbrains.research.deepbugs.common.utils.platform.PlatformInitializer"/>
 
         <statistic.eventLog.eventLoggerProvider implementation="org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLoggerProvider"/>
 
