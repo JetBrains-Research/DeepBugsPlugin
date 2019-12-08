@@ -29,7 +29,7 @@ class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
             JSResourceBundle.message("deepbugs.javascript.swapped.args.inspection.warning")
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
-            if (result > threshold && !JSDeepBugsConfig.shouldIgnore(data)) {
+            if (JSDeepBugsConfig.isProblem(result, threshold, data)) {
                 holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, JSIgnoreExpressionQuickFix(data, node.text),
                     FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.display")))
                 InspectionReportCollector.logReport(holder.project, shortName, result)

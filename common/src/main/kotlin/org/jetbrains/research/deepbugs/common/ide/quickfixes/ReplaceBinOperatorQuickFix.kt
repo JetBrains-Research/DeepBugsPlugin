@@ -38,12 +38,13 @@ class ReplaceBinOperatorQuickFix(
         }
     }
 
-    private val lookups: List<LookupElementBuilder>
-        get() = ModelManager.storage.operatorMapping.data.map {
+    private val lookups: List<LookupElementBuilder> by lazy {
+        ModelManager.storage.operatorMapping.data.map {
             val newBinOp = data.replaceOperator(it.key)
             val res = TensorFlowRunner.inspectCodePiece(ModelManager.storage.binOperatorModel, newBinOp)
             it.key to res
         }.filter { it.second != null && it.second!! < threshold }
             .sortedBy { it.second }
             .map { LookupElementBuilder.create(transform(it.first)) }
+    }
 }

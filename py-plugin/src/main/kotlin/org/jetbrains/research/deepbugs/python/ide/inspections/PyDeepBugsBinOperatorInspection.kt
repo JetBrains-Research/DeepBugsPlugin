@@ -36,7 +36,7 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection() {
         }
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
-            if (result > threshold && !PyDeepBugsConfig.shouldIgnore(data)) {
+            if (PyDeepBugsConfig.isProblem(result, threshold, data)) {
                 val textRange = (node as PyBinaryExpression).psiOperator!!.textRange
                 holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text),
                     ReplaceBinOperatorQuickFix(data as PyBinOp, textRange, threshold, PyResourceBundle.message("deepbugs.python.display")))

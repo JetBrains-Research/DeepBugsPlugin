@@ -36,7 +36,7 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
         }
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
-            if (result > threshold && !JSDeepBugsConfig.shouldIgnore(data)) {
+            if (JSDeepBugsConfig.isProblem(result, threshold, data)) {
                 val textRange = (node as JSBinaryExpression).operationNode!!.textRange
                 holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, JSIgnoreExpressionQuickFix(data, node.text),
                     ReplaceBinOperatorQuickFix(data as JSBinOp, textRange, threshold, JSResourceBundle.message("deepbugs.javascript.display")) { operators[it] ?: "" })

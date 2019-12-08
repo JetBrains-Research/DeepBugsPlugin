@@ -35,7 +35,7 @@ class PyDeepBugsBinOperandInspection : PyDeepBugsBinExprInspection() {
         }
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
-            if (result > threshold && !PyDeepBugsConfig.shouldIgnore(data)) {
+            if (PyDeepBugsConfig.isProblem(result, threshold, data)) {
                 holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text))
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }

@@ -34,7 +34,7 @@ class JSDeepBugsBinOperandInspection : JSDeepBugsBinExprInspection() {
         }
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
-            if (result > threshold && !JSDeepBugsConfig.shouldIgnore(data)) {
+            if (JSDeepBugsConfig.isProblem(result, threshold, data)) {
                 holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, JSIgnoreExpressionQuickFix(data, node.text))
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
