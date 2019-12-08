@@ -5,7 +5,7 @@ import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.research.deepbugs.common.model.ModelManager
-import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.Perceptron
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
 import org.jetbrains.research.deepbugs.python.ide.inspections.base.PyDeepBugsCallExprInspection

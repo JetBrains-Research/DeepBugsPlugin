@@ -1,9 +1,9 @@
-package org.jetbrains.research.deepbugs.keras.runner.nn.layer.dense
+package org.jetbrains.research.keras.runner.nn.layer.dense
 
-import org.jetbrains.research.deepbugs.keras.runner.nn.activation.ActivatableVector
-import org.jetbrains.research.deepbugs.keras.runner.nn.activation.ActivationFunction
-import org.jetbrains.research.deepbugs.keras.runner.nn.layer.ActivatableLayer
-import org.jetbrains.research.deepbugs.keras.runner.nn.layer.DenseLayerParameters
+import org.jetbrains.research.keras.runner.nn.activation.ActivatableVector
+import org.jetbrains.research.keras.runner.nn.activation.ActivationFunction
+import org.jetbrains.research.keras.runner.nn.layer.ActivatableLayer
+import org.jetbrains.research.keras.runner.nn.layer.DenseLayerParameters
 import scientifik.kmath.linear.BufferMatrix
 import scientifik.kmath.linear.Point
 import scientifik.kmath.structures.Matrix

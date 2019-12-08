@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.keras.runner.nn.model
+package org.jetbrains.research.keras.runner.nn.model
 
 interface Model<in T, out V> {
     val name: String

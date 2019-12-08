@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.keras.runner.deserializer.json
+package org.jetbrains.research.keras.runner.deserializer.json
 
 import kotlinx.serialization.*
 

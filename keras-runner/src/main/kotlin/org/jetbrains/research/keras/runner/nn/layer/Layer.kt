@@ -1,9 +1,9 @@
-package org.jetbrains.research.deepbugs.keras.runner.nn.layer
+package org.jetbrains.research.keras.runner.nn.layer
 
-import org.jetbrains.research.deepbugs.keras.runner.deserializer.json.LayerConfig
-import org.jetbrains.research.deepbugs.keras.runner.deserializer.json.LayerConfigWrapper
-import org.jetbrains.research.deepbugs.keras.runner.nn.activation.ActivationFunction
-import org.jetbrains.research.deepbugs.keras.runner.nn.layer.dense.DenseLayer
+import org.jetbrains.research.keras.runner.deserializer.json.LayerConfig
+import org.jetbrains.research.keras.runner.deserializer.json.LayerConfigWrapper
+import org.jetbrains.research.keras.runner.nn.activation.ActivationFunction
+import org.jetbrains.research.keras.runner.nn.layer.dense.DenseLayer
 import scientifik.kmath.structures.NDStructure
 
 interface Layer<T : NDStructure<*>> {

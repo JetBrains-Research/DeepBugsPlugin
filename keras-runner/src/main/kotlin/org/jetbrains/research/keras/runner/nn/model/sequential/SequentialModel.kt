@@ -1,8 +1,8 @@
-package org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential
+package org.jetbrains.research.keras.runner.nn.model.sequential
 
-import org.jetbrains.research.deepbugs.keras.runner.nn.layer.Layer
-import org.jetbrains.research.deepbugs.keras.runner.nn.layer.dense.DenseLayer
-import org.jetbrains.research.deepbugs.keras.runner.nn.model.Model
+import org.jetbrains.research.keras.runner.nn.layer.Layer
+import org.jetbrains.research.keras.runner.nn.layer.dense.DenseLayer
+import org.jetbrains.research.keras.runner.nn.model.Model
 
 open class SequentialModel<in T, out V>(
     override val name: String,
@@ -13,6 +13,7 @@ open class SequentialModel<in T, out V>(
     override fun predict(input: T?): V? = null
 
     companion object {
+        @Suppress("UNCHECKED_CAST")
         fun createPerceptron(name: String, layers: List<Layer<*>>, batchInputShape: List<Int?>?): Perceptron {
             require(batchInputShape != null) { "Model input shape is unspecified" }
             require(batchInputShape.filterNotNull().size == 1) { "Input should be one-dimensional" }

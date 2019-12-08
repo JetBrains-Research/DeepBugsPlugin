@@ -1,6 +1,6 @@
 package org.jetbrains.research.deepbugs.common.model
 
-import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.Perceptron
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 import org.jetbrains.research.deepbugs.common.utils.Mapping
 
 data class ModelStorage(

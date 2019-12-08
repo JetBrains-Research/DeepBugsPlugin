@@ -9,7 +9,7 @@ import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
-import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.Perceptron
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
 abstract class JSDeepBugsBaseInspection : JSInspection() {
     protected abstract val model: Perceptron?

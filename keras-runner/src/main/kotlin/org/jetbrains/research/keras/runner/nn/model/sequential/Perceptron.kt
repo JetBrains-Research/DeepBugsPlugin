@@ -1,6 +1,6 @@
-package org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential
+package org.jetbrains.research.keras.runner.nn.model.sequential
 
-import org.jetbrains.research.deepbugs.keras.runner.nn.layer.dense.DenseLayer
+import org.jetbrains.research.keras.runner.nn.layer.dense.DenseLayer
 import scientifik.kmath.linear.Point
 import scientifik.kmath.linear.asPoint
 

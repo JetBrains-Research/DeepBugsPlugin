@@ -9,7 +9,7 @@ import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsBinExprInspection
-import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.Perceptron
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
 class JSDeepBugsBinOperandInspection : JSDeepBugsBinExprInspection() {
     override val model: Perceptron?

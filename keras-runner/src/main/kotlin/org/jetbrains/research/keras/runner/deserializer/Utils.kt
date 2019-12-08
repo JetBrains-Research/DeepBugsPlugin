@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.keras.runner.deserializer
+package org.jetbrains.research.keras.runner.deserializer
 
 import scientifik.kmath.linear.VirtualMatrix
 import scientifik.kmath.linear.transpose

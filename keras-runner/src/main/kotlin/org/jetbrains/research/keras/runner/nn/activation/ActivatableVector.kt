@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.keras.runner.nn.activation
+package org.jetbrains.research.keras.runner.nn.activation
 
 import scientifik.kmath.linear.*
 import scientifik.kmath.structures.Buffer

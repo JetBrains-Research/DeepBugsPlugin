@@ -1,4 +1,4 @@
-package org.jetbrains.research.deepbugs.keras.runner.nn.layer
+package org.jetbrains.research.keras.runner.nn.layer
 
 import scientifik.kmath.linear.RealMatrix
 import scientifik.kmath.structures.NDStructure

@@ -7,8 +7,8 @@ import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.ErrorInfoCollector
 import org.jetbrains.research.deepbugs.common.utils.Cbor
 import org.jetbrains.research.deepbugs.common.utils.Mapping
-import org.jetbrains.research.deepbugs.keras.runner.deserializer.ModelLoader
-import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.Perceptron
+import org.jetbrains.research.keras.runner.deserializer.ModelLoader
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 import java.io.File
 
 object ModelManager : StartupActivity, DumbAware {

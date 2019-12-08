@@ -1,13 +1,13 @@
-package org.jetbrains.research.deepbugs.keras.runner.deserializer
+package org.jetbrains.research.keras.runner.deserializer
 
 import io.jhdf.HdfFile
 import io.jhdf.api.Dataset
-import org.jetbrains.research.deepbugs.keras.runner.deserializer.json.ModelConfig
-import org.jetbrains.research.deepbugs.keras.runner.deserializer.json.ModelConfigWrapper
-import org.jetbrains.research.deepbugs.keras.runner.nn.layer.Layer
-import org.jetbrains.research.deepbugs.keras.runner.nn.layer.LayerParameters
-import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.Perceptron
-import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.SequentialModel
+import org.jetbrains.research.keras.runner.deserializer.json.ModelConfig
+import org.jetbrains.research.keras.runner.deserializer.json.ModelConfigWrapper
+import org.jetbrains.research.keras.runner.nn.layer.Layer
+import org.jetbrains.research.keras.runner.nn.layer.LayerParameters
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
+import org.jetbrains.research.keras.runner.nn.model.sequential.SequentialModel
 import java.io.File
 
 @Suppress("UNCHECKED_CAST")
