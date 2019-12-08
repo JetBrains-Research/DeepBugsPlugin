@@ -35,9 +35,7 @@ sealed class LayerConfig {
                 var useBias: Boolean? = null
                 mainLoop@ while (true) {
                     when (val index = compositeDecoder.decodeElementIndex(descriptor)) {
-                        CompositeDecoder.READ_DONE -> {
-                            break@mainLoop
-                        }
+                        CompositeDecoder.READ_DONE -> break@mainLoop
                         0 -> name = compositeDecoder.decodeStringElement(descriptor, index)
                         1 -> trainable = compositeDecoder.decodeBooleanElement(descriptor, index)
                         2 -> batchInputShape = compositeDecoder.decodeSerializableElement(descriptor, index, Int.serializer().nullable.list.nullable)
@@ -76,7 +74,6 @@ sealed class LayerConfig {
                 mainLoop@ while (true) {
                     when (val index = compositeDecoder.decodeElementIndex(descriptor)) {
                         CompositeDecoder.READ_DONE -> break@mainLoop
-                        CompositeDecoder.UNKNOWN_NAME -> continue@mainLoop
                         0 -> name = compositeDecoder.decodeStringElement(descriptor, index)
                         1 -> trainable = compositeDecoder.decodeBooleanElement(descriptor, index)
                         2 -> batchInputShape = compositeDecoder.decodeSerializableElement(descriptor, index, Int.serializer().nullable.list.nullable)
