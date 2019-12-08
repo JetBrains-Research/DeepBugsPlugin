@@ -1,6 +1,5 @@
-package org.jetbrains.research.deepbugs.keras.runner.nn.layer.dense
+package org.jetbrains.research.deepbugs.keras.runner.nn.activation
 
-import org.jetbrains.research.deepbugs.keras.runner.nn.activation.ActivationFunction
 import scientifik.kmath.linear.*
 import scientifik.kmath.structures.Buffer
 

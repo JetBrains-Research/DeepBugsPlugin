@@ -20,7 +20,7 @@ object ModelLoader {
             val layers = config.config.layers.mapNotNull { layer ->
                 val layerWeights = hdf.getByPath("model_weights/${layer.config.name}")
                 val weightNames =
-                    (layerWeights.getAttribute("weight_names").data as? Array<String?>)?.asList()?.filterNotNull()
+                    (layerWeights.getAttribute("weight_names").data as? Array<String?>)?.filterNotNull()
 
                 val (weights, biases) = weightNames?.map { weight ->
                     val data = hdf.getByPath("model_weights/${layer.config.name}/$weight") as Dataset

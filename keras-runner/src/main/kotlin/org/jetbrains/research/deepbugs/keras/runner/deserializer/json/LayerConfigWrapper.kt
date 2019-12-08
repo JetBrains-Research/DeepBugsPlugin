@@ -14,7 +14,7 @@ data class LayerConfigWrapper(
         private fun getLayerConfigSerializer(name: String) = when (name) {
             "Dense" -> LayerConfig.Dense.serializer()
             "Dropout" -> LayerConfig.Dropout.serializer()
-            else -> throw SerializationException("Not supported")
+            else -> throw SerializationException("$name layer is not supported")
         }
 
         override fun serialize(encoder: Encoder, obj: LayerConfigWrapper) = Unit

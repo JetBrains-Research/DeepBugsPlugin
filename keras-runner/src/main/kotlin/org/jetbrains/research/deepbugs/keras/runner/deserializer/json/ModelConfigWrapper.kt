@@ -18,7 +18,7 @@ data class ModelConfigWrapper(
 
         private fun getModelConfigSerializer(name: String) = when (name) {
             "Sequential" -> ModelConfig.Sequential.serializer()
-            else -> throw SerializationException("Not supported")
+            else -> throw SerializationException("$name model configuration is not supported")
         }
 
         override fun serialize(encoder: Encoder, obj: ModelConfigWrapper) = Unit

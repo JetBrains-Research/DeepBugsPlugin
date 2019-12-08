@@ -1,5 +1,6 @@
 package org.jetbrains.research.deepbugs.keras.runner.nn.layer.dense
 
+import org.jetbrains.research.deepbugs.keras.runner.nn.activation.ActivatableVector
 import org.jetbrains.research.deepbugs.keras.runner.nn.activation.ActivationFunction
 import org.jetbrains.research.deepbugs.keras.runner.nn.layer.ActivatableLayer
 import org.jetbrains.research.deepbugs.keras.runner.nn.layer.DenseLayerParameters
@@ -14,7 +15,8 @@ class DenseLayer(
 ) : ActivatableLayer<Matrix<Double>>(name) {
 
     lateinit var inputArray: Point<Double>
-    var outputArray: ActivatableVector = ActivatableVector(parameters.weights?.colNum ?: 0)
+    var outputArray: ActivatableVector = ActivatableVector(parameters.weights?.colNum
+        ?: 0)
 
     private val forwardHelper = DenseForwardHelper(this)
 

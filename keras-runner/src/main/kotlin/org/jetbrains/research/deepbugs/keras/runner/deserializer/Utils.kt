@@ -10,7 +10,7 @@ inline fun <reified T : Number> List<T>.toDoubleList(): List<Double> = map { it.
 fun FloatArray.toDoubleList() = asList().toDoubleList()
 fun Array<FloatArray>.toDoubleList() = map { it.toDoubleList() }
 
-inline fun <reified T> T.toMatrix(): Matrix<*> = when(this) {
+inline fun <reified T> T.toMatrix(): Matrix<*> = when (this) {
     is FloatArray -> VirtualMatrix(rowNum = size, colNum = 1, generator = { i, _ -> this[i] }).transpose()
     is Array<*> -> {
         val data = cast<Array<FloatArray>>(this)

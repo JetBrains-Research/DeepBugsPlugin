@@ -16,7 +16,7 @@ sealed class ActivationConfig {
         override fun deserialize(decoder: Decoder): ActivationConfig = when (val func = decoder.decodeString()) {
             "relu" -> ReLU(func)
             "sigmoid" -> Sigmoid(func)
-            else -> throw IllegalStateException("Unsupported function")
+            else -> throw SerializationException("$func activation function is not supported")
         }
     }
 }
