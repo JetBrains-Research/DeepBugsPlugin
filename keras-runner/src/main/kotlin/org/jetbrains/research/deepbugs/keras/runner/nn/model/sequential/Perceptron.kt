@@ -5,9 +5,9 @@ import scientifik.kmath.linear.Point
 import scientifik.kmath.linear.asPoint
 
 open class Perceptron(
-        name: String,
-        override val layers: List<DenseLayer>,
-        batchInputShape: List<Int?>
+    name: String,
+    override val layers: List<DenseLayer>,
+    batchInputShape: List<Int?>
 ) : SequentialModel<List<Float>, Float>(name, layers, batchInputShape) {
 
     override fun predict(input: List<Float>?): Float {

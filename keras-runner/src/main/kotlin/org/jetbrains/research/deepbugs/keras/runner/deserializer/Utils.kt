@@ -8,7 +8,7 @@ fun Array<FloatArray>.toDouble() = map { it.toDouble() }
 
 fun Any.toMatrix() = try {
     val data = cast<Array<FloatArray>>(this).toDouble()
-    VirtualMatrix(rowNum = data.size, colNum = data[0].size, generator = { i, j -> data[i][j]}).transpose()
+    VirtualMatrix(rowNum = data.size, colNum = data[0].size, generator = { i, j -> data[i][j] }).transpose()
 } catch (ex: Exception) {
     val data = cast<FloatArray>(this).toDouble()
     VirtualMatrix(rowNum = data.size, colNum = 1, generator = { i, _ -> data[i] }).transpose()

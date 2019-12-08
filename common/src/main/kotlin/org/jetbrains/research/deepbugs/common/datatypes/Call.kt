@@ -14,10 +14,10 @@ abstract class Call(
 
     protected fun vectorize(token: Mapping, type: Mapping): List<Float>? {
         val nameVector = token.get(callee) ?: return null
-        val argVectors = arguments.map { arg -> token.get(arg) ?: return null }.reduce { acc, arg -> acc + arg }
+        val argVectors = arguments.flatMap { arg -> token.get(arg) ?: return null }
         val baseVector = token.get(base) ?: (FloatArray(200) { 0.0f }).toList()
-        val typeVectors = argumentTypes.map { argType -> type.get(argType) ?: return null }.reduce { acc, argType -> acc + argType }
-        val paramVectors = parameters.map { param -> token.get(param) ?: FloatArray(200) { 0.0f }.toList() }.reduce { acc, param -> acc + param }
+        val typeVectors = argumentTypes.flatMap { argType -> type.get(argType) ?: return null }
+        val paramVectors = parameters.flatMap { param -> token.get(param) ?: FloatArray(200) { 0.0f }.toList() }
         return listOf(nameVector, argVectors, baseVector, typeVectors, paramVectors).flatten()
     }
 }

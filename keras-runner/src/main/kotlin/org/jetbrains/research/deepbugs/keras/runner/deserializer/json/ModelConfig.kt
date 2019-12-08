@@ -12,8 +12,8 @@ sealed class ModelConfig {
 
     @Serializable
     data class Sequential(
-            override var name: String,
-            override var layers: List<LayerConfigWrapper>
+        override var name: String,
+        override var layers: List<LayerConfigWrapper>
     ) : ModelConfig() {
         @Transient
         val batchInputShape = layers.first().config.batchInputShape

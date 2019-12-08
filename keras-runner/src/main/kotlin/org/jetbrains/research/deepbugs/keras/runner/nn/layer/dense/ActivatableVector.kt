@@ -2,7 +2,7 @@ package org.jetbrains.research.deepbugs.keras.runner.nn.layer.dense
 
 import org.jetbrains.research.deepbugs.keras.runner.nn.activation.ActivationFunction
 import scientifik.kmath.linear.*
-import scientifik.kmath.structures.*
+import scientifik.kmath.structures.Buffer
 
 class ActivatableVector(size: Int) {
     var values: RealMatrix = BufferMatrix(size, 1, Buffer.auto(size) { 0.0 })

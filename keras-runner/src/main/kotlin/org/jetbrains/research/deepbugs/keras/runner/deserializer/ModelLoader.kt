@@ -10,6 +10,7 @@ import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.Perceptr
 import org.jetbrains.research.deepbugs.keras.runner.nn.model.sequential.SequentialModel
 import java.io.File
 
+@Suppress("UNCHECKED_CAST")
 object ModelLoader {
     fun importSequentialModelAndWeights(modelFile: File): Pair<ModelConfig, List<Layer<*>>> {
         return HdfFile(modelFile).let { hdf ->
@@ -19,7 +20,7 @@ object ModelLoader {
             val layers = config.config.layers.mapNotNull { layer ->
                 val layerWeights = hdf.getByPath("model_weights/${layer.config.name}")
                 val weightNames =
-                        (layerWeights.getAttribute("weight_names").data as? Array<String?>)?.asList()?.filterNotNull()
+                    (layerWeights.getAttribute("weight_names").data as? Array<String?>)?.asList()?.filterNotNull()
 
                 val (weights, biases) = weightNames?.map { weight ->
                     val data = hdf.getByPath("model_weights/${layer.config.name}/$weight") as Dataset

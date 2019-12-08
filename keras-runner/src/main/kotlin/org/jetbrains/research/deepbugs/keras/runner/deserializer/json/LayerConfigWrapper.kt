@@ -6,12 +6,12 @@ import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class LayerConfigWrapper(
-        @SerialName("class_name") var className: String,
-        var config: LayerConfig
+    @SerialName("class_name") var className: String,
+    var config: LayerConfig
 ) {
     @Serializer(forClass = LayerConfigWrapper::class)
     companion object : KSerializer<LayerConfigWrapper> {
-        private fun getLayerConfigSerializer(name: String) = when(name) {
+        private fun getLayerConfigSerializer(name: String) = when (name) {
             "Dense" -> LayerConfig.Dense.serializer()
             "Dropout" -> LayerConfig.Dropout.serializer()
             else -> throw SerializationException("Not supported")

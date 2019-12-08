@@ -12,8 +12,8 @@ sealed class ActivationFunction(private val f: (Double) -> Double) {
         return BufferMatrix(array.size, 1, array.asIterable().map(f).asBuffer())
     }
 
-    class ReLU : ActivationFunction( f = { x -> if (x <= 0.0) 0.0 else x } )
-    class Sigmoid : ActivationFunction( f = { x -> 1.0 / (1.0 + exp(-x)) } )
+    class ReLU : ActivationFunction(f = { x -> if (x <= 0.0) 0.0 else x })
+    class Sigmoid : ActivationFunction(f = { x -> 1.0 / (1.0 + exp(-x)) })
 
     companion object {
         fun createActivationFunction(name: String?) = when (name) {

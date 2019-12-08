@@ -8,9 +8,9 @@ import scientifik.kmath.linear.Point
 import scientifik.kmath.structures.Matrix
 
 class DenseLayer(
-        name: String,
-        override val parameters: DenseLayerParameters,
-        override val activationFunction: ActivationFunction
+    name: String,
+    override val parameters: DenseLayerParameters,
+    override val activationFunction: ActivationFunction
 ) : ActivatableLayer<Matrix<Double>>(name) {
 
     lateinit var inputArray: Point<Double>

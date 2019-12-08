@@ -11,6 +11,7 @@ interface Layer<T : NDStructure<*>> {
     val parameters: LayerParameters<T>
 
     companion object {
+        @Suppress("UNCHECKED_CAST")
         fun createLayer(config: LayerConfigWrapper, params: LayerParameters<*>) = when (config.className) {
             "Dense" -> DenseLayer(
                 name = config.config.name,

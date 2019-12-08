@@ -13,7 +13,7 @@ sealed class ActivationConfig {
     companion object : KSerializer<ActivationConfig> {
         override fun serialize(encoder: Encoder, obj: ActivationConfig) = Unit
 
-        override fun deserialize(decoder: Decoder): ActivationConfig = when(val func = decoder.decodeString()) {
+        override fun deserialize(decoder: Decoder): ActivationConfig = when (val func = decoder.decodeString()) {
             "relu" -> ReLU(func)
             "sigmoid" -> Sigmoid(func)
             else -> throw IllegalStateException("Unsupported function")

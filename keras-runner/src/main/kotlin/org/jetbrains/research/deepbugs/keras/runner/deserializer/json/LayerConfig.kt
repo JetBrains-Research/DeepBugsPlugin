@@ -1,7 +1,7 @@
 package org.jetbrains.research.deepbugs.keras.runner.deserializer.json
 
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.*
+import kotlinx.serialization.internal.nullable
 import kotlinx.serialization.json.JsonObject
 
 sealed class LayerConfig {
@@ -12,13 +12,13 @@ sealed class LayerConfig {
 
     @Serializable
     data class Dense(
-            override var name: String,
-            override var trainable: Boolean,
-            @SerialName("batch_input_shape") override var batchInputShape: List<Int?>?,
-            override var dtype: String?,
-            var units: Int,
-            @Serializable(with= ActivationConfig.Companion::class) var activation: ActivationConfig,
-            @SerialName("use_bias") var useBias: Boolean
+        override var name: String,
+        override var trainable: Boolean,
+        @SerialName("batch_input_shape") override var batchInputShape: List<Int?>?,
+        override var dtype: String?,
+        var units: Int,
+        @Serializable(with = ActivationConfig.Companion::class) var activation: ActivationConfig,
+        @SerialName("use_bias") var useBias: Boolean
     ) : LayerConfig() {
         @Serializer(forClass = Dense::class)
         companion object : KSerializer<Dense> {
@@ -56,11 +56,11 @@ sealed class LayerConfig {
 
     @Serializable
     data class Dropout(
-            override var name: String,
-            override var trainable: Boolean,
-            @SerialName("batch_input_shape") override var batchInputShape: List<Int?>?,
-            override var dtype: String?,
-            var rate: Double
+        override var name: String,
+        override var trainable: Boolean,
+        @SerialName("batch_input_shape") override var batchInputShape: List<Int?>?,
+        override var dtype: String?,
+        var rate: Double
     ) : LayerConfig() {
         @Serializer(forClass = Dropout::class)
         companion object : KSerializer<Dropout> {

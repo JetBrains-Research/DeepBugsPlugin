@@ -8,15 +8,15 @@ import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class ModelConfigWrapper(
-        @SerialName("class_name") val className: String,
-        val config: ModelConfig
+    @SerialName("class_name") val className: String,
+    val config: ModelConfig
 ) {
     @Serializer(forClass = ModelConfigWrapper::class)
     companion object : KSerializer<ModelConfigWrapper> {
         fun parse(configString: String) =
             Json(JsonConfiguration.Stable.copy(strictMode = false)).parse(serializer(), configString)
 
-        private fun getModelConfigSerializer(name: String) = when(name) {
+        private fun getModelConfigSerializer(name: String) = when (name) {
             "Sequential" -> ModelConfig.Sequential.serializer()
             else -> throw SerializationException("Not supported")
         }

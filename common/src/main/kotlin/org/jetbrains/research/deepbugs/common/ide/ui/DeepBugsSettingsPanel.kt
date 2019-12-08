@@ -11,7 +11,7 @@ import org.jetbrains.research.deepbugs.common.ide.msg.DeepBugsLifecycle
 import javax.swing.JButton
 
 class DeepBugsSettingsPanel(private val settings: DeepBugsConfig, private val default: DeepBugsConfig.State) : ConfigurableUi<DeepBugsConfig> {
-    companion object: DeepBugsLifecycle {
+    companion object : DeepBugsLifecycle {
         private val resetButton = JButton(CommonResourceBundle.message("reset.button.text"))
 
         override fun init(init: DeepBugsConfig.State) {
