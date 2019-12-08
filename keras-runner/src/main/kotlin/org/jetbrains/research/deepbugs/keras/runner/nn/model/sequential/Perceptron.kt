@@ -13,7 +13,7 @@ open class Perceptron(
     override fun predict(input: List<Float>?): Float {
         input ?: return 0.0f
 
-        require(batchInputShape!!.filterNotNull().single() == input.size) { "Unmatched input sizes" }
+        require(batchInputShape!!.filterNotNull().single() == input.size) { "Unmatched input shapes" }
 
         layers.first().inputArray = Point.real(input.size) { input[it].toDouble() }
         var prevLayer: DenseLayer? = null

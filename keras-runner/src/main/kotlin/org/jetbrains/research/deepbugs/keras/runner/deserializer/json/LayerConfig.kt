@@ -17,7 +17,7 @@ sealed class LayerConfig {
         @SerialName("batch_input_shape") override var batchInputShape: List<Int?>?,
         override var dtype: String?,
         var units: Int,
-        @Serializable(with = ActivationConfig.Companion::class) var activation: ActivationConfig,
+        var activation: ActivationConfig,
         @SerialName("use_bias") var useBias: Boolean
     ) : LayerConfig() {
         @Serializer(forClass = Dense::class)

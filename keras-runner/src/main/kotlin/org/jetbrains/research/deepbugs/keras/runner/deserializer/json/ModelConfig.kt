@@ -5,7 +5,6 @@ import kotlinx.serialization.internal.ArrayListSerializer
 import kotlinx.serialization.internal.nullable
 import kotlinx.serialization.json.JsonObject
 
-@Serializable
 sealed class ModelConfig {
     abstract val name: String
     abstract val layers: List<LayerConfigWrapper>
