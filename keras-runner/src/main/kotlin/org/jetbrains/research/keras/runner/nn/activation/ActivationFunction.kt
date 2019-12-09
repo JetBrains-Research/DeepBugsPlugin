@@ -8,18 +8,18 @@ import scientifik.kmath.structures.asBuffer
 import scientifik.kmath.structures.asIterable
 import kotlin.math.exp
 
-sealed class ActivationFunction(private val f: (Double) -> Double) {
-    fun apply(array: Point<Double>): RealMatrix {
-        return BufferMatrix(array.size, 1, array.asIterable().map(f).asBuffer())
+sealed class ActivationFunction(private val func: (Double) -> Double) {
+    operator fun invoke(array: Point<Double>): RealMatrix {
+        return BufferMatrix(array.size, 1, array.asIterable().map(func).asBuffer())
     }
 
-    class ReLU : ActivationFunction(f = { x -> if (x <= 0.0) 0.0 else x })
-    class Sigmoid : ActivationFunction(f = { x -> 1.0 / (1.0 + exp(-x)) })
+    object ReLU : ActivationFunction(func = { x -> if (x <= 0.0) 0.0 else x })
+    object Sigmoid : ActivationFunction(func = { x -> 1.0 / (1.0 + exp(-x)) })
 
     companion object {
-        fun createActivationFunction(type: ActivationType) = when (type) {
-            ActivationType.relu -> ReLU()
-            ActivationType.sigmoid -> Sigmoid()
+        operator fun get(type: ActivationType) = when (type) {
+            ActivationType.relu -> ReLU
+            ActivationType.sigmoid -> Sigmoid
         }
     }
 }

@@ -9,9 +9,9 @@ class ActivatableVector(size: Int) {
 
     private var notActivatedValues: RealMatrix? = null
 
-    fun activate(f: ActivationFunction) {
+    fun activate(func: ActivationFunction) {
         if (notActivatedValues == null) notActivatedValues = values
-        values = f.apply(notActivatedValues!!.asPoint())
+        values = func(notActivatedValues!!.asPoint())
     }
 
     fun forward(weights: RealMatrix, bias: RealMatrix?, x: RealMatrix): RealMatrix {
