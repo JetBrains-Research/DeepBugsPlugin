@@ -18,7 +18,7 @@ sealed class LayerConfig {
         override val dtype: String? = null,
         val units: Int,
         val activation: ActivationType,
-        var use_bias: Boolean
+        val use_bias: Boolean
     ) : LayerConfig()
 
     @Serializable
