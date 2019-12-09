@@ -27,7 +27,6 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationInitializedListener implementation="org.jetbrains.research.deepbugs.common.ide.fus.service.scheduler.DeepBugsLoggingScheduler"/>
-        <applicationInitializedListener implementation="org.jetbrains.research.deepbugs.common.utils.platform.PlatformInitializer"/>
 
         <statistic.eventLog.eventLoggerProvider implementation="org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLoggerProvider"/>
 
@@ -35,19 +34,19 @@
                          groupKey="deepbugs.python.group.name"
                          enabledByDefault="true"
                          bundle="DeepBugsPythonBundle"
-                         implementationClass="org.jetbrains.research.deepbugs.python.ide.inspections.PyDeepBugsBinOperandInspection" />
+                         implementationClass="org.jetbrains.research.deepbugs.python.ide.inspections.PyDeepBugsBinOperandInspection"/>
 
         <localInspection language="Python" groupPath="Python"
                          groupKey="deepbugs.python.group.name"
                          enabledByDefault="true"
                          bundle="DeepBugsPythonBundle"
-                         implementationClass="org.jetbrains.research.deepbugs.python.ide.inspections.PyDeepBugsBinOperatorInspection" />
+                         implementationClass="org.jetbrains.research.deepbugs.python.ide.inspections.PyDeepBugsBinOperatorInspection"/>
 
         <localInspection language="Python" groupPath="Python"
                          groupKey="deepbugs.python.group.name"
                          enabledByDefault="true"
                          bundle="DeepBugsPythonBundle"
-                         implementationClass="org.jetbrains.research.deepbugs.python.ide.inspections.PyDeepBugsSwappedArgsInspection" />
+                         implementationClass="org.jetbrains.research.deepbugs.python.ide.inspections.PyDeepBugsSwappedArgsInspection"/>
 
 
         <errorHandler implementation="org.jetbrains.research.deepbugs.common.ide.error.DeepBugsErrorReporter"/>

@@ -11,13 +11,14 @@ plugins {
     id("tanvd.kosogor") version "1.0.7" apply true
     id("io.gitlab.arturbosch.detekt") version ("1.1.1") apply false
     id("org.jetbrains.intellij") version "0.4.13" apply true
-    kotlin("jvm") version "1.3.50" apply true
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.50" apply true
+    kotlin("jvm") version "1.3.61" apply true
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.61" apply true
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven("https://dl.bintray.com/mipt-npm/scientifik")
     }
 }
 
@@ -56,7 +57,7 @@ subprojects {
 
     dependencies {
         implementation(kotlin("stdlib"))
-        implementation("org.jetbrains.kotlinx", "kotlinx-serialization-runtime", "0.13.0")
+        implementation("org.jetbrains.kotlinx", "kotlinx-serialization-runtime", "0.14.0")
     }
 
     tasks.withType<KotlinJvmCompile> {

@@ -12,11 +12,11 @@ import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsCallExprInspection
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
-import org.tensorflow.Session
 
 class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
-    override val model: Session?
+    override val model: Perceptron?
         get() = ModelManager.storage.swappedArgsModel
     override val threshold: Float
         get() = JSDeepBugsConfig.get().swappedArgsThreshold

@@ -1,6 +1,9 @@
 package org.jetbrains.research.deepbugs.javascript
 
-import com.intellij.openapi.components.*
+import com.intellij.openapi.components.PersistentStateComponent
+import com.intellij.openapi.components.ServiceManager
+import com.intellij.openapi.components.State
+import com.intellij.openapi.components.Storage
 import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 import org.jetbrains.research.deepbugs.common.DeepBugsConfigHandler
 

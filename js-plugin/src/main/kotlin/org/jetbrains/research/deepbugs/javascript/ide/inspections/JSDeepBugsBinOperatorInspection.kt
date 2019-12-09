@@ -14,12 +14,12 @@ import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.jetbrains.research.deepbugs.javascript.datatypes.JSBinOp
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsBinExprInspection
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
 import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.utils.operators
-import org.tensorflow.Session
 
 class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
-    override val model: Session?
+    override val model: Perceptron?
         get() = ModelManager.storage.binOperatorModel
     override val threshold: Float
         get() = JSDeepBugsConfig.get().binOperatorThreshold

@@ -7,8 +7,8 @@ import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.ErrorInfoCollector
 import org.jetbrains.research.deepbugs.common.utils.Cbor
 import org.jetbrains.research.deepbugs.common.utils.Mapping
-import org.tensorflow.SavedModelBundle
-import org.tensorflow.Session
+import org.jetbrains.research.keras.runner.deserializer.ModelLoader
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 import java.io.File
 
 object ModelManager : StartupActivity, DumbAware {
@@ -16,9 +16,9 @@ object ModelManager : StartupActivity, DumbAware {
 
     val storage: ModelStorage by lazy {
         ModelStorage(
-            binOperandModel = loadModel("binOperandDetectionModel")!!,
-            binOperatorModel = loadModel("binOperatorDetectionModel")!!,
-            swappedArgsModel = loadModel("swappedArgsDetectionModel")!!,
+            binOperandModel = loadModel("binOperandDetectionModel.h5")!!,
+            binOperatorModel = loadModel("binOperatorDetectionModel.h5")!!,
+            swappedArgsModel = loadModel("swappedArgsDetectionModel.h5")!!,
             nodeTypeMapping = loadMapping("nodeTypeToVector.cbor"),
             typeMapping = loadMapping("typeToVector.cbor"),
             operatorMapping = loadMapping("operatorToVector.cbor"),
@@ -32,8 +32,8 @@ object ModelManager : StartupActivity, DumbAware {
 
     private fun loadMapping(name: String): Mapping = Cbor.parse(File(modelFolder, name).readBytes(), Mapping.serializer())
 
-    private fun loadModel(name: String): Session? = try {
-        SavedModelBundle.load(File(modelFolder, name).canonicalPath, "serve").session()
+    private fun loadModel(name: String): Perceptron? = try {
+        ModelLoader.loadPerceptronModel(File(modelFolder, name))
     } catch (ex: Exception) {
         ErrorInfoCollector.logInitErrorReported()
         null
