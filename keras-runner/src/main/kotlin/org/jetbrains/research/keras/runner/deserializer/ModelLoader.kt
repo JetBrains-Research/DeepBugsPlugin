@@ -3,7 +3,7 @@ package org.jetbrains.research.keras.runner.deserializer
 import io.jhdf.HdfFile
 import io.jhdf.api.Dataset
 import org.jetbrains.research.keras.runner.deserializer.json.ModelConfig
-import org.jetbrains.research.keras.runner.deserializer.json.ModelConfigWrapper
+import org.jetbrains.research.keras.runner.deserializer.json.ModelScheme
 import org.jetbrains.research.keras.runner.nn.layer.Layer
 import org.jetbrains.research.keras.runner.nn.layer.LayerParameters
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
@@ -45,9 +45,9 @@ object ModelLoader {
         Layer.createLayer(layer, params)
     }
 
-    private fun importModelConfig(hdf: HdfFile): ModelConfigWrapper {
+    private fun importModelConfig(hdf: HdfFile): ModelScheme {
         val configString = hdf.getAttribute("model_config").data as String
-        return ModelConfigWrapper.parse(configString)
+        return ModelScheme.parse(configString)
     }
 }
 

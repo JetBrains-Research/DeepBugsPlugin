@@ -3,7 +3,8 @@ package org.jetbrains.research.keras.runner.deserializer.json
 import kotlinx.serialization.*
 
 @Serializable
+@Suppress("EnumEntryName")
 enum class ActivationType {
-    @SerialName("relu") ReLU,
-    @SerialName("sigmoid") SIGMOID
+    relu,
+    sigmoid
 }

@@ -18,8 +18,8 @@ sealed class ActivationFunction(private val f: (Double) -> Double) {
 
     companion object {
         fun createActivationFunction(type: ActivationType) = when (type) {
-            ActivationType.ReLU -> ReLU()
-            ActivationType.SIGMOID -> Sigmoid()
+            ActivationType.relu -> ReLU()
+            ActivationType.sigmoid -> Sigmoid()
         }
     }
 }

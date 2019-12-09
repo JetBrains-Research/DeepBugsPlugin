@@ -6,13 +6,13 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 
 @Serializable
-sealed class ModelConfigWrapper {
+sealed class ModelScheme {
     abstract val config: ModelConfig
 
     @Serializable
     @SerialName("Sequential")
     @Suppress("UNUSED")
-    data class SequentialConfigWrapper(override val config: ModelConfig.Sequential) : ModelConfigWrapper()
+    data class SequentialScheme(override val config: ModelConfig.Sequential) : ModelScheme()
 
     companion object {
         private val json =

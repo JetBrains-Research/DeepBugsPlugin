@@ -5,25 +5,25 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
 @Serializable
-sealed class LayerConfigWrapper {
+sealed class LayerScheme {
     abstract val type: Type
     abstract val config: LayerConfig
 
     @Serializable
     @SerialName("Dense")
     @Suppress("UNUSED")
-    data class DenseLayerConfigWrapper(
+    data class DenseLayerScheme(
         @Transient override val type: Type = Type.DENSE,
         override val config: LayerConfig.Dense
-    ) : LayerConfigWrapper()
+    ) : LayerScheme()
 
     @Serializable
     @SerialName("Dropout")
     @Suppress("UNUSED")
-    data class DropoutLayerConfigWrapper(
+    data class DropoutLayerScheme(
         @Transient override val type: Type = Type.DROPOUT,
         override val config: LayerConfig.Dropout
-    ) : LayerConfigWrapper()
+    ) : LayerScheme()
 
     enum class Type {
         DENSE,
