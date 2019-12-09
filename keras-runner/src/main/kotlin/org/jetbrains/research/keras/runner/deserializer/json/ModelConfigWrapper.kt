@@ -32,7 +32,7 @@ data class ModelConfigWrapper(
                     CompositeDecoder.READ_DONE -> break@mainLoop
                     0 -> className = compositeDecoder.decodeStringElement(descriptor, index)
                     1 -> config = compositeDecoder.decodeSerializableElement(descriptor, index, getModelConfigSerializer(className!!))
-                    else -> compositeDecoder.decodeNullableSerializableElement(LayerConfig.Dropout.descriptor, index, JsonObject.serializer().nullable)
+                    else -> compositeDecoder.decodeNullableSerializableElement(descriptor, index, JsonObject.serializer().nullable)
                 }
             }
             compositeDecoder.endStructure(descriptor)

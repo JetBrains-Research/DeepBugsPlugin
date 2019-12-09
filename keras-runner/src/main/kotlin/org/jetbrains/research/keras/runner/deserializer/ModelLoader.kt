@@ -12,36 +12,42 @@ import java.io.File
 
 @Suppress("UNCHECKED_CAST")
 object ModelLoader {
-    fun importSequentialModelAndWeights(modelFile: File): Pair<ModelConfig, List<Layer<*>>> {
+    fun loadPerceptronModel(modelFile: File): Perceptron {
+        val (config, layers) = importSequentialModelParameters(modelFile)
+        config as ModelConfig.Sequential
+        return SequentialModel.createPerceptron(config.name, layers, config.batchInputShape)
+    }
+
+    private fun importSequentialModelParameters(modelFile: File): Pair<ModelConfig, List<Layer<*>>> {
         return HdfFile(modelFile).let { hdf ->
-            val configString = hdf.getAttribute("model_config").data as String
-            val config = ModelConfigWrapper.parse(configString)
+            val config = importSequentialModelConfig(hdf)
 
-            val layers = config.config.layers.mapNotNull { layer ->
-                val layerWeights = hdf.getByPath("model_weights/${layer.config.name}")
-                val weightNames =
-                    (layerWeights.getAttribute("weight_names").data as? Array<String?>)?.filterNotNull()
-
-                val (weights, biases) = weightNames?.map { weight ->
-                    val data = hdf.getByPath("model_weights/${layer.config.name}/$weight") as Dataset
-                    weight to data.data.toMatrix()
-                }?.partition { !it.first.contains("bias") } ?: null to null
-
-                val params = LayerParameters(
-                    weights?.map { it.second }?.singleOrNull(),
-                    biases?.map { it.second }?.singleOrNull()
-                )
-                Layer.createLayer(layer, params)
-            }
+            val layers = importSequentialModelLayers(hdf, config.config)
 
             config.config to layers
         }
     }
 
-    fun loadPerceptronModel(modelFile: File): Perceptron {
-        val (config, layers) = importSequentialModelAndWeights(modelFile)
-        config as ModelConfig.Sequential
-        return SequentialModel.createPerceptron(config.name, layers, config.batchInputShape)
+    private fun importSequentialModelLayers(hdf: HdfFile, config: ModelConfig) = config.layers.mapNotNull { layer ->
+        val layerWeights = hdf.getByPath("model_weights/${layer.config.name}")
+        val weightNames =
+            (layerWeights.getAttribute("weight_names").data as? Array<String?>)?.filterNotNull()
+
+        val (weights, biases) = weightNames?.map { weight ->
+            val data = hdf.getByPath("model_weights/${layer.config.name}/$weight") as Dataset
+            weight to data.data.toMatrix()
+        }?.partition { !it.first.contains("bias") } ?: null to null
+
+        val params = LayerParameters(
+            weights?.map { it.second }?.singleOrNull(),
+            biases?.map { it.second }?.singleOrNull()
+        )
+        Layer.createLayer(layer, params)
+    }
+
+    private fun importSequentialModelConfig(hdf: HdfFile): ModelConfigWrapper {
+        val configString = hdf.getAttribute("model_config").data as String
+        return ModelConfigWrapper.parse(configString)
     }
 }
 
