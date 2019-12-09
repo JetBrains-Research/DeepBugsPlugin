@@ -56,8 +56,11 @@ subprojects {
     }
 
     dependencies {
-        implementation(kotlin("stdlib"))
-        implementation("org.jetbrains.kotlinx", "kotlinx-serialization-runtime", "0.14.0")
+        compileOnly(kotlin("stdlib"))
+        compileOnly(kotlin("stdlib-jdk8"))
+        implementation("org.jetbrains.kotlinx", "kotlinx-serialization-runtime", "0.14.0") {
+            exclude("org.jetbrains.kotlin")
+        }
     }
 
     tasks.withType<KotlinJvmCompile> {

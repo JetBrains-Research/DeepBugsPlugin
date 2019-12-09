@@ -6,5 +6,7 @@ dependencies {
         // to avoid conflict with the dependency already included in IntelliJ Platform
         exclude("org.slf4j")
     }
-    api("scientifik", "kmath-core-jvm", "0.1.3")
+    api("scientifik", "kmath-core-jvm", "0.1.3") {
+        exclude("org.jetbrains.kotlin")
+    }
 }
