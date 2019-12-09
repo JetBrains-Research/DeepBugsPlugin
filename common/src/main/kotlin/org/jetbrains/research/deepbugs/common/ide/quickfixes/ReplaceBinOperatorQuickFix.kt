@@ -12,7 +12,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Iconable
 import com.intellij.openapi.util.TextRange
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
-import org.jetbrains.research.deepbugs.common.TensorFlowRunner
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.model.ModelManager
 import javax.swing.Icon
@@ -40,8 +39,8 @@ class ReplaceBinOperatorQuickFix(
 
     private val lookups: List<LookupElementBuilder> by lazy {
         ModelManager.storage.operatorMapping.data.map {
-            val newBinOp = data.replaceOperator(it.key)
-            val res = TensorFlowRunner.inspectCodePiece(ModelManager.storage.binOperatorModel, newBinOp)
+            val newBinOp = data.replaceOperator(it.key).vectorize()
+            val res = newBinOp?.let { op -> ModelManager.storage.binOperatorModel.predict(op) }
             it.key to res
         }.filter { it.second != null && it.second!! < threshold }
             .sortedBy { it.second }
