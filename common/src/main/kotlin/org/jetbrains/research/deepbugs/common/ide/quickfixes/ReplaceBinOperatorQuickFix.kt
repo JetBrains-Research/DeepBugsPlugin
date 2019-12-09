@@ -43,7 +43,7 @@ class ReplaceBinOperatorQuickFix(
             val res = newBinOp?.let { op -> ModelManager.storage.binOperatorModel.predict(op) }
             it.key to res
         }.filter { it.second != null && it.second!! < threshold }
-            .sortedBy { it.second }
+            .sortedBy { it.second }.take(5)
             .map { LookupElementBuilder.create(transform(it.first)) }
     }
 }
