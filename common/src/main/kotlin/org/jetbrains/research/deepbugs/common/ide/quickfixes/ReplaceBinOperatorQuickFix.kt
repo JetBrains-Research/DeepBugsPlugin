@@ -23,8 +23,7 @@ class ReplaceBinOperatorQuickFix(
     private val threshold: Float,
     private val displayName: String,
     private val transform: (String) -> String = { it }
-) : LocalQuickFix, Iconable {
-    override fun getIcon(flags: Int): Icon = AllIcons.Actions.Edit
+) : LocalQuickFix {
     override fun getName(): String = CommonResourceBundle.message("deepbugs.replace.operator.quickfix")
     override fun getFamilyName(): String = displayName
 
