@@ -1,5 +1,6 @@
 package org.jetbrains.research.keras.runner.nn.activation
 
+import org.jetbrains.research.keras.runner.deserializer.json.ActivationType
 import scientifik.kmath.linear.BufferMatrix
 import scientifik.kmath.linear.Point
 import scientifik.kmath.linear.RealMatrix
@@ -16,10 +17,9 @@ sealed class ActivationFunction(private val f: (Double) -> Double) {
     class Sigmoid : ActivationFunction(f = { x -> 1.0 / (1.0 + exp(-x)) })
 
     companion object {
-        fun createActivationFunction(name: String?) = when (name) {
-            "relu" -> ReLU()
-            "sigmoid" -> Sigmoid()
-            else -> null
+        fun createActivationFunction(type: ActivationType) = when (type) {
+            ActivationType.ReLU -> ReLU()
+            ActivationType.SIGMOID -> Sigmoid()
         }
     }
 }
