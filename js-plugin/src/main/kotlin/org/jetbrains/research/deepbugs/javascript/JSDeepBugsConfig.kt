@@ -5,27 +5,17 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import org.jetbrains.research.deepbugs.common.DeepBugsConfig
-import org.jetbrains.research.deepbugs.common.datatypes.DataType
+import org.jetbrains.research.deepbugs.common.DeepBugsConfigHandler
 
 @State(name = "DeepBugsJS", storages = [Storage("deepbugs.js.xml")])
 class JSDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBugsConfig(default) {
-    companion object {
-        private val instance by lazy { ServiceManager.getService(JSDeepBugsConfig::class.java) }
+    companion object : DeepBugsConfigHandler() {
+        override val instance: JSDeepBugsConfig by lazy { ServiceManager.getService(JSDeepBugsConfig::class.java) }
 
-        val default = State(
+        override val default = State(
             binOperatorThreshold = 0.8f,
             binOperandThreshold = 0.8f,
             swappedArgsThreshold = 0.8f
         )
-
-        fun get() = instance.state
-
-        @Synchronized
-        fun ignoreExpression(expr: DataType) = instance.disableCheck(expr.text)
-
-        @Synchronized
-        fun considerExpression(expr: DataType) = instance.enableCheck(expr.text)
-
-        fun shouldIgnore(expr: DataType) = get().userDisabledChecks.contains(expr.text)
     }
 }

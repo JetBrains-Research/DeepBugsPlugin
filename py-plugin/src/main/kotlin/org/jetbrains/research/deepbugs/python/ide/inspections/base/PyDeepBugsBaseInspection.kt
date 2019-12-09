@@ -5,10 +5,7 @@ import com.intellij.psi.NavigatablePsiElement
 import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
-import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
-import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
-import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyIgnoreExpressionQuickFix
 
 abstract class PyDeepBugsBaseInspection : PyInspection() {
     protected abstract val model: Perceptron?
@@ -21,12 +18,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
         protected abstract fun msg(node: NavigatablePsiElement): String
 
-        private fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
-            if (result > threshold && !PyDeepBugsConfig.shouldIgnore(data)) {
-                holder?.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text))
-                InspectionReportCollector.logReport(holder!!.project, shortName, result)
-            }
-        }
+        protected abstract fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType)
 
         protected fun visitExpr(node: NavigatablePsiElement?) {
             node?.let {
