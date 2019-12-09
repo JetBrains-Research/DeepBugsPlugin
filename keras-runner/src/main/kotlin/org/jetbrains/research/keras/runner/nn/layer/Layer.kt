@@ -2,7 +2,6 @@ package org.jetbrains.research.keras.runner.nn.layer
 
 import org.jetbrains.research.keras.runner.deserializer.json.LayerConfig
 import org.jetbrains.research.keras.runner.deserializer.json.LayerConfigWrapper
-import org.jetbrains.research.keras.runner.deserializer.json.LayerType
 import org.jetbrains.research.keras.runner.nn.activation.ActivationFunction
 import org.jetbrains.research.keras.runner.nn.layer.dense.DenseLayer
 import scientifik.kmath.structures.NDStructure
@@ -14,12 +13,12 @@ interface Layer<T : NDStructure<*>> {
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun createLayer(config: LayerConfigWrapper, params: LayerParameters<*>) = when (config.type) {
-            LayerType.DENSE -> DenseLayer(
+            LayerConfigWrapper.Type.DENSE -> DenseLayer(
                 name = config.config.name,
                 parameters = params as DenseLayerParameters,
                 activationFunction = ActivationFunction.createActivationFunction((config.config as LayerConfig.Dense).activation)
             )
-            LayerType.DROPOUT -> null
+            LayerConfigWrapper.Type.DROPOUT -> null
         }
     }
 }

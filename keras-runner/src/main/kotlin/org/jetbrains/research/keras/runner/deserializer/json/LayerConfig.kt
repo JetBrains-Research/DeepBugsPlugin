@@ -14,10 +14,10 @@ sealed class LayerConfig {
     data class Dense(
         override val name: String,
         override val trainable: Boolean,
-        @SerialName("batch_input_shape") override var batchInputShape: List<Int?>? = null,
+        @SerialName("batch_input_shape") override val batchInputShape: List<Int?>? = null,
         override val dtype: String? = null,
-        var units: Int,
-        var activation: ActivationType,
+        val units: Int,
+        val activation: ActivationType,
         @SerialName("use_bias") var useBias: Boolean
     ) : LayerConfig()
 
