@@ -1,4 +1,4 @@
-group = rootProject.group
+group = "org.jetbrains.research"
 version = rootProject.version
 
 dependencies {

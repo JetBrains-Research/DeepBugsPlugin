@@ -11,8 +11,8 @@ plugins {
     id("tanvd.kosogor") version "1.0.7" apply true
     id("io.gitlab.arturbosch.detekt") version ("1.1.1") apply false
     id("org.jetbrains.intellij") version "0.4.13" apply true
-    kotlin("jvm") version "1.3.60" apply true
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.60" apply true
+    kotlin("jvm") version "1.3.61" apply true
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.61" apply true
 }
 
 allprojects {
