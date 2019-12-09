@@ -5,7 +5,7 @@ import org.jetbrains.annotations.PropertyKey
 import java.util.*
 
 object CommonResourceBundle {
-    private const val BUNDLE_NAME = "DeepBugsPluginServicesBundle"
+    private const val BUNDLE_NAME = "DeepBugsCommonBundle"
 
     private val bundle by lazy { ResourceBundle.getBundle(BUNDLE_NAME) }
 

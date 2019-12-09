@@ -1,14 +1,18 @@
 package org.jetbrains.research.deepbugs.python.ide.inspections
 
 import com.intellij.codeInspection.LocalInspectionToolSession
+import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.python.psi.PyBinaryExpression
+import org.jetbrains.research.deepbugs.common.datatypes.DataType
+import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
 import org.jetbrains.research.deepbugs.python.ide.inspections.base.PyDeepBugsBinExprInspection
+import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyIgnoreExpressionQuickFix
 import org.tensorflow.Session
 
 class PyDeepBugsBinOperandInspection : PyDeepBugsBinExprInspection() {
@@ -28,6 +32,13 @@ class PyDeepBugsBinOperandInspection : PyDeepBugsBinExprInspection() {
                 it.leftExpression.text,
                 it.rightExpression?.text ?: ""
             )
+        }
+
+        override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
+            if (PyDeepBugsConfig.isProblem(result, threshold, data)) {
+                holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text))
+                InspectionReportCollector.logReport(holder.project, shortName, result)
+            }
         }
     }
 
