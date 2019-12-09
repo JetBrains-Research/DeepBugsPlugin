@@ -5,17 +5,17 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class LayerConfig {
-    abstract var name: String
-    abstract var trainable: Boolean
-    abstract var batchInputShape: List<Int?>?
-    abstract var dtype: String?
+    abstract val name: String
+    abstract val trainable: Boolean
+    abstract val batchInputShape: List<Int?>?
+    abstract val dtype: String?
 
     @Serializable
     data class Dense(
-        override var name: String,
-        override var trainable: Boolean,
+        override val name: String,
+        override val trainable: Boolean,
         @SerialName("batch_input_shape") override var batchInputShape: List<Int?>? = null,
-        override var dtype: String? = null,
+        override val dtype: String? = null,
         var units: Int,
         var activation: ActivationType,
         @SerialName("use_bias") var useBias: Boolean
@@ -23,10 +23,10 @@ sealed class LayerConfig {
 
     @Serializable
     data class Dropout(
-        override var name: String,
-        override var trainable: Boolean,
-        @SerialName("batch_input_shape") override var batchInputShape: List<Int?>? = null,
-        override var dtype: String? = null,
-        var rate: Double
+        override val name: String,
+        override val trainable: Boolean,
+        @SerialName("batch_input_shape") override val batchInputShape: List<Int?>? = null,
+        override val dtype: String? = null,
+        val rate: Double
     ) : LayerConfig()
 }
