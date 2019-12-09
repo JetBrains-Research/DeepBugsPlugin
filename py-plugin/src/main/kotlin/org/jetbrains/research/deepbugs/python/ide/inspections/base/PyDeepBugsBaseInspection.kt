@@ -31,7 +31,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
         protected fun visitExpr(node: NavigatablePsiElement?) {
             node?.let {
                 collect(it)?.let { expr ->
-                    val result = model?.predict(expr.vectorize()) ?: return
+                    val result = model?.predict(expr.vectorize() ?: return) ?: return
                     analyzeInspected(result, node, expr)
                 }
             }

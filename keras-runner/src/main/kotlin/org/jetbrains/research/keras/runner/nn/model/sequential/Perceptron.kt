@@ -10,20 +10,23 @@ open class Perceptron(
     batchInputShape: List<Int?>
 ) : SequentialModel<List<Float>, Float>(name, layers, batchInputShape) {
 
-    override fun predict(input: List<Float>?): Float {
-        input ?: return 0.0f
+    override fun predict(input: List<Float>): Float {
+        initInput(input)
 
-        require(batchInputShape!!.filterNotNull().single() == input.size) { "Unmatched input shapes" }
-
-        layers.first().inputArray = Point.real(input.size) { input[it].toDouble() }
-        var prevLayer: DenseLayer? = null
-        for (layer in layers) {
-            if (prevLayer != null) layer.inputArray = prevLayer.outputArray.values.asPoint()
-
-            layer.activate()
-            prevLayer = layer
+        layers.zipWithNext { prev, cur ->
+            cur.inputArray = prev.outputArray.values.asPoint()
+            cur.activate()
         }
 
         return layers.last().outputArray.values[0, 0].toFloat()
+    }
+
+    private fun initInput(input: List<Float>) {
+        require(batchInputShape!!.filterNotNull().single() == input.size) { "Unmatched input shapes" }
+
+        layers.first().let {
+            it.inputArray = Point.real(input.size) { i -> input[i].toDouble() }
+            it.activate()
+        }
     }
 }

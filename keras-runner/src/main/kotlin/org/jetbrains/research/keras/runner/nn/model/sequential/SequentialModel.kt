@@ -10,7 +10,7 @@ open class SequentialModel<in T, out V>(
     val batchInputShape: List<Int?>? = null
 ) : Model<T, V> {
 
-    override fun predict(input: T?): V? = null
+    override fun predict(input: T): V? = null
 
     companion object {
         @Suppress("UNCHECKED_CAST")
