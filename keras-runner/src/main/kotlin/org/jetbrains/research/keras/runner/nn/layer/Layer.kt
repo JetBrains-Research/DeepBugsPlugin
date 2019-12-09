@@ -17,7 +17,7 @@ interface Layer<T : NDStructure<*>> {
             LayerType.DENSE -> DenseLayer(
                 name = config.config.name,
                 parameters = params as DenseLayerParameters,
-                activationFunction = ActivationFunction.createActivationFunction((config.config as LayerConfig.Dense).activation)!!
+                activationFunction = ActivationFunction.createActivationFunction((config.config as LayerConfig.Dense).activation)
             )
             LayerType.DROPOUT -> null
         }

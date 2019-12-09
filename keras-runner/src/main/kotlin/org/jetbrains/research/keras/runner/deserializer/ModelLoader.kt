@@ -20,7 +20,7 @@ object ModelLoader {
 
     private fun importSequentialModelParameters(modelFile: File): Pair<ModelConfig, List<Layer<*>>> {
         return HdfFile(modelFile).let { hdf ->
-            val config = importSequentialModelConfig(hdf)
+            val config = importModelConfig(hdf)
 
             val layers = importSequentialModelLayers(hdf, config.config)
 
@@ -45,7 +45,7 @@ object ModelLoader {
         Layer.createLayer(layer, params)
     }
 
-    private fun importSequentialModelConfig(hdf: HdfFile): ModelConfigWrapper {
+    private fun importModelConfig(hdf: HdfFile): ModelConfigWrapper {
         val configString = hdf.getAttribute("model_config").data as String
         return ModelConfigWrapper.parse(configString)
     }

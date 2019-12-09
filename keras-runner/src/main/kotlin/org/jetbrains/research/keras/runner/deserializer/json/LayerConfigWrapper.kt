@@ -1,6 +1,8 @@
 package org.jetbrains.research.keras.runner.deserializer.json
 
-import kotlinx.serialization.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 enum class LayerType {
     DENSE,
@@ -14,15 +16,17 @@ sealed class LayerConfigWrapper {
 
     @Serializable
     @SerialName("Dense")
+    @Suppress("UNUSED")
     data class DenseLayerConfigWrapper(
         @Transient override val type: LayerType = LayerType.DENSE,
         override val config: LayerConfig.Dense
-    ): LayerConfigWrapper()
+    ) : LayerConfigWrapper()
 
     @Serializable
     @SerialName("Dropout")
+    @Suppress("UNUSED")
     data class DropoutLayerConfigWrapper(
         @Transient override val type: LayerType = LayerType.DROPOUT,
         override val config: LayerConfig.Dropout
-    ): LayerConfigWrapper()
+    ) : LayerConfigWrapper()
 }

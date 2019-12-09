@@ -15,8 +15,7 @@ class DenseLayer(
 ) : ActivatableLayer<Matrix<Double>>(name) {
 
     lateinit var inputArray: Point<Double>
-    var outputArray: ActivatableVector = ActivatableVector(parameters.weights?.colNum
-        ?: 0)
+    var outputArray: ActivatableVector = ActivatableVector(parameters.weights?.colNum ?: 0)
 
     private val forwardHelper = DenseForwardHelper(this)
 

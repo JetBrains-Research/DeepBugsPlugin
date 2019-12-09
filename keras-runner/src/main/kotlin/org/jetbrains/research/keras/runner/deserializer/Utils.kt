@@ -10,16 +10,12 @@ inline fun <reified T : Number> List<T>.toDoubleList(): List<Double> = map { it.
 fun FloatArray.toDoubleList() = asList().toDoubleList()
 fun Array<FloatArray>.toDoubleList() = map { it.toDoubleList() }
 
+@Suppress("UNCHECKED_CAST")
 inline fun <reified T> T.toMatrix(): Matrix<*> = when (this) {
     is FloatArray -> VirtualMatrix(rowNum = size, colNum = 1, generator = { i, _ -> this[i] }).transpose()
     is Array<*> -> {
-        val data = cast<Array<FloatArray>>(this)
-        VirtualMatrix(rowNum = data.size, colNum = data[0].size, generator = { i, j -> data[i][j] }).transpose()
+        this as Array<FloatArray>
+        VirtualMatrix(rowNum = size, colNum = this[0].size, generator = { i, j -> this[i][j] }).transpose()
     }
     else -> throw IllegalStateException("Cannot cast ${T::class} to matrix")
-}
-
-inline fun <reified T> cast(obj: Any): T {
-    check(obj is T) { "Expected ${T::class} but found ${obj::class}" }
-    return obj
 }

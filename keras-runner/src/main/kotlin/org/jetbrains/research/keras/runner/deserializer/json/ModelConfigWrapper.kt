@@ -11,7 +11,8 @@ sealed class ModelConfigWrapper {
 
     @Serializable
     @SerialName("Sequential")
-    data class SequentialConfigWrapper(override val config: ModelConfig.Sequential): ModelConfigWrapper()
+    @Suppress("UNUSED")
+    data class SequentialConfigWrapper(override val config: ModelConfig.Sequential) : ModelConfigWrapper()
 
     companion object {
         private val json =
