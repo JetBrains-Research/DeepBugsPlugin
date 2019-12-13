@@ -5,17 +5,15 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInsight.lookup.LookupManager
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
-import com.intellij.icons.AllIcons
 import com.intellij.ide.DataManager
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.Iconable
 import com.intellij.openapi.util.TextRange
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.model.ModelManager
-import javax.swing.Icon
+import kotlin.math.max
 import kotlin.math.min
 
 class ReplaceBinOperatorQuickFix(
@@ -25,7 +23,12 @@ class ReplaceBinOperatorQuickFix(
     private val displayName: String,
     private val transform: (String) -> String = { it }
 ) : LocalQuickFix, PriorityAction {
-    override fun getName(): String = CommonResourceBundle.message("deepbugs.replace.operator.quickfix")
+    override fun getName(): String = if (lookups.size == 1) {
+        CommonResourceBundle.message("deepbugs.replace.operator.single.quickfix", lookups.single().lookupString)
+    } else {
+        CommonResourceBundle.message("deepbugs.replace.operator.multiple.quickfix")
+    }
+
     override fun getFamilyName(): String = displayName
 
     override fun getPriority(): PriorityAction.Priority = PriorityAction.Priority.HIGH
@@ -34,7 +37,15 @@ class ReplaceBinOperatorQuickFix(
         DataManager.getInstance().dataContextFromFocusAsync.onSuccess { context ->
             val editor: Editor = CommonDataKeys.EDITOR.getData(context) ?: return@onSuccess
 
-            editor.selectionModel.setSelection(operatorRange.startOffset, min(operatorRange.endOffset, editor.document.textLength))
+            val endOff = min(operatorRange.endOffset, editor.document.textLength)
+
+            if (lookups.size == 1) {
+                val lookup = lookups.single().lookupString
+                editor.document.replaceString(operatorRange.startOffset, max(endOff, operatorRange.startOffset + lookup.length), lookup)
+                return@onSuccess
+            }
+
+            editor.selectionModel.setSelection(operatorRange.startOffset, endOff)
             LookupManager.getInstance(project).showLookup(editor, *lookups.toTypedArray())
         }
     }
