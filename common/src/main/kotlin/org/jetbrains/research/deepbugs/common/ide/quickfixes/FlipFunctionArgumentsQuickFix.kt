@@ -1,5 +1,6 @@
 package org.jetbrains.research.deepbugs.common.ide.quickfixes
 
+import com.intellij.codeInsight.intention.PriorityAction
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.ide.DataManager
@@ -10,9 +11,11 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 
-class FlipFunctionArgumentsQuickFix(private val displayName: String) : LocalQuickFix {
+class FlipFunctionArgumentsQuickFix(private val displayName: String) : LocalQuickFix, PriorityAction {
     override fun getName(): String = CommonResourceBundle.message("deepbugs.flip.arguments.quickfix")
     override fun getFamilyName(): String = displayName
+
+    override fun getPriority(): PriorityAction.Priority = PriorityAction.Priority.HIGH
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         DataManager.getInstance().dataContextFromFocusAsync.onSuccess { context ->

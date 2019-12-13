@@ -1,5 +1,6 @@
 package org.jetbrains.research.deepbugs.common.ide.quickfixes
 
+import com.intellij.codeInsight.intention.PriorityAction
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInsight.lookup.LookupManager
 import com.intellij.codeInspection.LocalQuickFix
@@ -23,9 +24,11 @@ class ReplaceBinOperatorQuickFix(
     private val threshold: Float,
     private val displayName: String,
     private val transform: (String) -> String = { it }
-) : LocalQuickFix {
+) : LocalQuickFix, PriorityAction {
     override fun getName(): String = CommonResourceBundle.message("deepbugs.replace.operator.quickfix")
     override fun getFamilyName(): String = displayName
+
+    override fun getPriority(): PriorityAction.Priority = PriorityAction.Priority.HIGH
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         DataManager.getInstance().dataContextFromFocusAsync.onSuccess { context ->
