@@ -39,7 +39,7 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection() {
             if (PyDeepBugsConfig.isProblem(result, threshold, data)) {
                 val textRange = (node as PyBinaryExpression).psiOperator!!.textRange
                 holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text),
-                    ReplaceBinOperatorQuickFix(data as PyBinOp, textRange, threshold, PyResourceBundle.message("deepbugs.python.display")))
+                    ReplaceBinOperatorQuickFix(data as PyBinOp, textRange, threshold, PyResourceBundle.message("deepbugs.python.replace.operator.family")))
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }

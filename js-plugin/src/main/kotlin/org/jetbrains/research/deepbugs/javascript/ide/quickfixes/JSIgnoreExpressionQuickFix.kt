@@ -26,6 +26,6 @@ class JSIgnoreExpressionQuickFix(private val expr: DataType, private val display
     override fun getIcon(flags: Int): Icon = AllIcons.Actions.Cancel
     override fun getPriority(): PriorityAction.Priority = PriorityAction.Priority.LOW
 
-    override fun getFamilyName(): String = JSResourceBundle.message("deepbugs.javascript.display")
+    override fun getFamilyName(): String = JSResourceBundle.message("deepbugs.javascript.ignore.family")
     override fun getName(): String = JSResourceBundle.message("deepbugs.javascript.ignore.quickfix", displayText)
 }

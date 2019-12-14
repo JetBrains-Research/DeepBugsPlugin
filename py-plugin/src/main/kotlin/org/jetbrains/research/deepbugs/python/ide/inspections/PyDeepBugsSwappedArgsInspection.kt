@@ -32,7 +32,7 @@ class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection() {
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
             if (PyDeepBugsConfig.isProblem(result, threshold, data)) {
                 holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text),
-                    FlipFunctionArgumentsQuickFix(PyResourceBundle.message("deepbugs.python.display")))
+                    FlipFunctionArgumentsQuickFix(PyResourceBundle.message("deepbugs.python.flip.args.family")))
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }

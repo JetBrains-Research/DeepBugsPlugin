@@ -26,6 +26,6 @@ class PyIgnoreExpressionQuickFix(private val expr: DataType, private val display
     override fun getIcon(flags: Int): Icon = AllIcons.Actions.Cancel
     override fun getPriority(): PriorityAction.Priority = PriorityAction.Priority.LOW
 
-    override fun getFamilyName(): String = PyResourceBundle.message("deepbugs.python.display")
+    override fun getFamilyName(): String = PyResourceBundle.message("deepbugs.python.ignore.family")
     override fun getName(): String = PyResourceBundle.message("deepbugs.python.ignore.quickfix", displayText)
 }

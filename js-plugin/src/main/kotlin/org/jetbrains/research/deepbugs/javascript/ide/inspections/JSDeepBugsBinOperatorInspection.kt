@@ -39,7 +39,7 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
             if (JSDeepBugsConfig.isProblem(result, threshold, data)) {
                 val textRange = (node as JSBinaryExpression).operationNode!!.textRange
                 holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, JSIgnoreExpressionQuickFix(data, node.text),
-                    ReplaceBinOperatorQuickFix(data as JSBinOp, textRange, threshold, JSResourceBundle.message("deepbugs.javascript.display")) { operators[it] ?: "" })
+                    ReplaceBinOperatorQuickFix(data as JSBinOp, textRange, threshold, JSResourceBundle.message("deepbugs.javascript.replace.operator.family")) { operators[it] ?: "" })
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }
