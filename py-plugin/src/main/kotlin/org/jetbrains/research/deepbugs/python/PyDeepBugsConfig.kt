@@ -10,8 +10,8 @@ class PyDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBug
         override val instance: PyDeepBugsConfig by lazy { ServiceManager.getService(PyDeepBugsConfig::class.java) }
 
         override val default = State(
-            binOperatorThreshold = 0.8f,
-            binOperandThreshold = 0.8f,
+            binOperatorThreshold = 0.88f,
+            binOperandThreshold = 0.9f,
             swappedArgsThreshold = 0.8f
         )
     }
