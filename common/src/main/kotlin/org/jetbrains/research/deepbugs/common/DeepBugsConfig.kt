@@ -9,6 +9,7 @@ abstract class DeepBugsConfig(private val default: State) : PersistentStateCompo
         @Property val binOperatorThreshold: Float = 0.0f,
         @Property val binOperandThreshold: Float = 0.0f,
         @Property val swappedArgsThreshold: Float = 0.0f,
+        @Property val quickFixesThreshold: Float = 0.3f,
         @Property val userDisabledChecks: Set<String> = emptySet()
     )
 
