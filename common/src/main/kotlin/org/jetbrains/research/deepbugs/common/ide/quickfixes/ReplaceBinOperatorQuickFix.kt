@@ -50,7 +50,7 @@ class ReplaceBinOperatorQuickFix(
         }
     }
 
-    private val lookups: List<LookupElementBuilder> by lazy {
+    val lookups: List<LookupElementBuilder> by lazy {
         ModelManager.storage.operatorMapping.data.map {
             val newBinOp = data.replaceOperator(it.key).vectorize()
             val res = newBinOp?.let { op -> ModelManager.storage.binOperatorModel.predict(op) }

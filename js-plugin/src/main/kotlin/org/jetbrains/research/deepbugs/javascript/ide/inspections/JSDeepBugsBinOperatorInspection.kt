@@ -1,5 +1,6 @@
 package org.jetbrains.research.deepbugs.javascript.ide.inspections
 
+import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
@@ -28,19 +29,25 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
         holder: ProblemsHolder,
         session: LocalInspectionToolSession
     ): PsiElementVisitor = object : JSDeepBugsBinOpVisitor(holder, session) {
-        override fun msg(node: NavigatablePsiElement): String = (node as JSBinaryExpression).let {
-            JSResourceBundle.message(
-                "deepbugs.javascript.binary.operator.inspection.warning",
-                it.operationNode?.text ?: ""
-            )
+        override fun msg(node: NavigatablePsiElement, vararg params: Any): String {
+            val operatorText = (node as JSBinaryExpression).operationNode?.text ?: ""
+            return params.singleOrNull()?.let {
+                JSResourceBundle.message(
+                    "deepbugs.javascript.binary.operator.inspection.warning.single",
+                    (it as LookupElementBuilder).lookupString,
+                    operatorText
+                )
+            } ?: JSResourceBundle.message("deepbugs.javascript.binary.operator.inspection.warning", operatorText)
         }
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
             if (JSDeepBugsConfig.isProblem(result, threshold, data)) {
                 val textRange = (node as JSBinaryExpression).operationNode!!.textRange
-                holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, JSIgnoreExpressionQuickFix(data, node.text),
-                    ReplaceBinOperatorQuickFix(data as JSBinOp, textRange, JSDeepBugsConfig.get().quickFixesThreshold,
-                        JSResourceBundle.message("deepbugs.javascript.replace.operator.family")) { operators[it] ?: "" })
+                val replaceQuickFix = ReplaceBinOperatorQuickFix(data as JSBinOp, textRange, JSDeepBugsConfig.get().quickFixesThreshold,
+                    JSResourceBundle.message("deepbugs.javascript.replace.operator.family")) { operators[it] ?: "" }
+
+                holder.registerProblem(node, msg(node, *replaceQuickFix.lookups.toTypedArray()), ProblemHighlightType.GENERIC_ERROR,
+                    JSIgnoreExpressionQuickFix(data, node.text), replaceQuickFix)
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }
