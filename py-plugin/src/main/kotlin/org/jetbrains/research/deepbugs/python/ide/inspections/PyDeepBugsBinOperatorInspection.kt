@@ -1,5 +1,6 @@
 package org.jetbrains.research.deepbugs.python.ide.inspections
 
+import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
@@ -28,19 +29,26 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection() {
         isOnTheFly: Boolean,
         session: LocalInspectionToolSession
     ): PsiElementVisitor = object : PyDeepBugsBinOpVisitor(holder, session) {
-        override fun msg(node: NavigatablePsiElement): String = (node as PyBinaryExpression).let {
-            PyResourceBundle.message(
-                "deepbugs.python.binary.operator.inspection.warning",
-                PyBinOp.extractOperatorText(node) ?: ""
-            )
+
+        override fun msg(node: NavigatablePsiElement, vararg params: Any): String {
+            val operatorText = PyBinOp.extractOperatorText(node as PyBinaryExpression) ?: ""
+            return params.singleOrNull()?.let {
+                PyResourceBundle.message(
+                    "deepbugs.python.binary.operator.inspection.warning.single",
+                    (it as LookupElementBuilder).lookupString,
+                    operatorText
+                )
+            } ?: PyResourceBundle.message("deepbugs.python.binary.operator.inspection.warning", operatorText)
         }
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
             if (PyDeepBugsConfig.isProblem(result, threshold, data)) {
                 val textRange = (node as PyBinaryExpression).psiOperator!!.textRange
-                holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text),
-                    ReplaceBinOperatorQuickFix(data as PyBinOp, textRange, PyDeepBugsConfig.get().quickFixesThreshold,
-                        PyResourceBundle.message("deepbugs.python.replace.operator.family")))
+                val replaceQuickFix = ReplaceBinOperatorQuickFix(data as PyBinOp, textRange, PyDeepBugsConfig.get().quickFixesThreshold,
+                    PyResourceBundle.message("deepbugs.python.replace.operator.family"))
+
+                holder.registerProblem(node, msg(node, *replaceQuickFix.lookups.toTypedArray()), ProblemHighlightType.GENERIC_ERROR,
+                    PyIgnoreExpressionQuickFix(data, node.text), replaceQuickFix)
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }

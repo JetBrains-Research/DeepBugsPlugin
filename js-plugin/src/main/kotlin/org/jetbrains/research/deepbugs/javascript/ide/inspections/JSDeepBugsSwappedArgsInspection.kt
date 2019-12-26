@@ -25,7 +25,7 @@ class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
         holder: ProblemsHolder,
         session: LocalInspectionToolSession
     ): PsiElementVisitor = object : JSDeepBugsCallVisitor(holder, session) {
-        override fun msg(node: NavigatablePsiElement): String =
+        override fun msg(node: NavigatablePsiElement, vararg params: Any): String =
             JSResourceBundle.message("deepbugs.javascript.swapped.args.inspection.warning")
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {

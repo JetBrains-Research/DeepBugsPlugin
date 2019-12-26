@@ -16,7 +16,7 @@ abstract class PyDeepBugsBaseInspection : PyInspection() {
         session: LocalInspectionToolSession
     ) : PyInspectionVisitor(holder, session) {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
-        protected abstract fun msg(node: NavigatablePsiElement): String
+        protected abstract fun msg(node: NavigatablePsiElement, vararg params: Any): String
 
         protected abstract fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType)
 

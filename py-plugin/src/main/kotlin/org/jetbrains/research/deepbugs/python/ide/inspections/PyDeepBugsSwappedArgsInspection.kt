@@ -26,7 +26,7 @@ class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection() {
         isOnTheFly: Boolean,
         session: LocalInspectionToolSession
     ): PsiElementVisitor = object : PyDeepBugsCallVisitor(holder, session) {
-        override fun msg(node: NavigatablePsiElement): String =
+        override fun msg(node: NavigatablePsiElement, vararg params: Any): String =
             PyResourceBundle.message("deepbugs.python.swapped.args.inspection.warning")
 
         override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {

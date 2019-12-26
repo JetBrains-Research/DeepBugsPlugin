@@ -13,7 +13,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
 
     abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {
         protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
-        protected abstract fun msg(node: NavigatablePsiElement): String
+        protected abstract fun msg(node: NavigatablePsiElement, vararg params: Any): String
 
         protected abstract fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType)
 
