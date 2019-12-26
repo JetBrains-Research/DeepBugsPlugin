@@ -1,7 +1,7 @@
 <idea-plugin url="https://github.com/JetBrains-Research/DeepBugsPlugin">
     <name>DeepBugs for Python</name>
     <id>DeepBugsPython</id>
-    <vendor url="https://research.jetbrains.org/">jetbrains-research</vendor>
+    <vendor url="https://research.jetbrains.org/">Jetbrains-Research</vendor>
     <description><![CDATA[
     <p>Finds potential bugs and code quality issues for Python using deep learning models.</p>
 
