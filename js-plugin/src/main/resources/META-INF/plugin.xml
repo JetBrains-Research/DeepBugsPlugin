@@ -13,6 +13,21 @@
     <p>To configure, open <b>Preferences/Settings | Tools | DeepBugs for JavaScript</b>.</p>
     ]]></description>
 
+    <change-notes><![CDATA[
+        <h4>0.3</h4>
+        <ul>
+            <li>Significantly reduce plugin size</li>
+            <li>Add several quick-fixes for detected bugs</li>
+            <li>Fully rework settings UI and inspections tooltips</li>
+            <li>A lot of bug fixes and stability improvements</li>
+        </ul>
+
+        <h4>0.2</h4>
+        <ul>
+            <li>Minor improvements</li>
+        </ul>
+    ]]>
+    </change-notes>
     <depends>com.intellij.modules.lang</depends>
     <depends>JavaScript</depends>
 

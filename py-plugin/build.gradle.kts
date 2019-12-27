@@ -37,7 +37,6 @@ tasks.withType<Test> {
 tasks.withType<PatchPluginXmlTask> {
     sinceBuild("192.5728")
     untilBuild("")
-    changeNotes("Minor improvements. Usage statistics.")
 }
 
 dependencies {
