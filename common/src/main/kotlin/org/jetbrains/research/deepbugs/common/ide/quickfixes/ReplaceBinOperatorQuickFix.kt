@@ -3,13 +3,14 @@ package org.jetbrains.research.deepbugs.common.ide.quickfixes
 import com.intellij.codeInsight.intention.PriorityAction
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInsight.lookup.LookupManager
-import com.intellij.codeInspection.LocalQuickFix
+import com.intellij.codeInspection.IntentionAndQuickFixAction
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.ide.DataManager
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiFile
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.model.ModelManager
@@ -22,7 +23,7 @@ class ReplaceBinOperatorQuickFix(
     private val threshold: Float,
     private val displayName: String,
     private val transform: (String) -> String = { it }
-) : LocalQuickFix, PriorityAction {
+) : IntentionAndQuickFixAction(), PriorityAction {
     override fun getName(): String = if (lookups.size == 1) {
         CommonResourceBundle.message("deepbugs.replace.operator.single.quickfix", lookups.single().lookupString)
     } else {
@@ -33,21 +34,23 @@ class ReplaceBinOperatorQuickFix(
 
     override fun getPriority(): PriorityAction.Priority = PriorityAction.Priority.HIGH
 
-    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        DataManager.getInstance().dataContextFromFocusAsync.onSuccess { context ->
-            val editor: Editor = CommonDataKeys.EDITOR.getData(context) ?: return@onSuccess
+    override fun startInWriteAction(): Boolean = true
 
-            val endOff = min(operatorRange.endOffset, editor.document.textLength)
+    override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?): Boolean = !lookups.isEmpty()
 
-            if (lookups.size == 1) {
-                val lookup = lookups.single().lookupString
-                editor.document.replaceString(operatorRange.startOffset, max(endOff, operatorRange.startOffset + lookup.length), lookup)
-                return@onSuccess
-            }
+    override fun applyFix(project: Project, file: PsiFile, editor: Editor?) {
+        editor ?: return
 
-            editor.selectionModel.setSelection(operatorRange.startOffset, endOff)
-            LookupManager.getInstance(project).showLookup(editor, *lookups.toTypedArray())
+        val endOff = min(operatorRange.endOffset, editor.document.textLength)
+
+        if (lookups.size == 1) {
+            val lookup = lookups.single().lookupString
+            editor.document.replaceString(operatorRange.startOffset, max(endOff, operatorRange.startOffset + lookup.length), lookup)
+            return
         }
+
+        editor.selectionModel.setSelection(operatorRange.startOffset, endOff)
+        LookupManager.getInstance(project).showLookup(editor, *lookups.toTypedArray())
     }
 
     val lookups: List<LookupElementBuilder> by lazy {
