@@ -33,7 +33,7 @@ class ReplaceBinOperatorQuickFix(
 
     override fun startInWriteAction(): Boolean = true
 
-    override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?): Boolean = !lookups.isEmpty()
+    override fun isAvailable(project: Project, editor: Editor?, file: PsiFile?): Boolean = lookups.isNotEmpty()
 
     override fun applyFix(project: Project, file: PsiFile, editor: Editor?) {
         editor ?: return
@@ -42,7 +42,8 @@ class ReplaceBinOperatorQuickFix(
 
         if (lookups.size == 1) {
             val lookup = lookups.single().lookupString
-            editor.document.replaceString(operatorRange.startOffset, max(endOff, operatorRange.startOffset + lookup.length), lookup)
+            val newEnd = operatorRange.startOffset + lookup.length
+            editor.document.replaceString(operatorRange.startOffset, max(endOff, newEnd), lookup)
             return
         }
 
