@@ -4,9 +4,6 @@ import com.intellij.codeInsight.intention.PriorityAction
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInsight.lookup.LookupManager
 import com.intellij.codeInspection.IntentionAndQuickFixAction
-import com.intellij.codeInspection.ProblemDescriptor
-import com.intellij.ide.DataManager
-import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
