@@ -8,7 +8,7 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
-import org.jetbrains.research.deepbugs.common.model.ModelManager
+import org.jetbrains.research.deepbugs.common.model.ModelStorage
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsBinExprInspection
@@ -17,7 +17,7 @@ import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpress
 
 class JSDeepBugsBinOperandInspection : JSDeepBugsBinExprInspection() {
     override val model: Perceptron?
-        get() = ModelManager.storage.binOperandModel
+        get() = ModelStorage["binOperandDetectionModel"]
     override val threshold: Float
         get() = JSDeepBugsConfig.get().binOperandThreshold
 

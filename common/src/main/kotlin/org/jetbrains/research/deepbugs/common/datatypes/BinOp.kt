@@ -1,6 +1,6 @@
 package org.jetbrains.research.deepbugs.common.datatypes
 
-import org.jetbrains.research.deepbugs.common.utils.Mapping
+import org.jetbrains.research.deepbugs.common.model.Vocabulary
 
 abstract class BinOp(
     protected val left: String,
@@ -14,15 +14,15 @@ abstract class BinOp(
 ) : DataType {
     override val text: String = "$left $op $right"
 
-    protected fun vectorize(token: Mapping, type: Mapping, nodeType: Mapping, operator: Mapping): List<Float>? {
+    override fun vectorize(): List<Float>? {
         return listOf(
-            token.get(left) ?: return null,
-            token.get(right) ?: return null,
-            operator.get(op) ?: return null,
-            type.get(leftType) ?: return null,
-            type.get(rightType) ?: return null,
-            nodeType.get(parent) ?: return null,
-            nodeType.get(grandParent) ?: return null
+            Vocabulary["tokenToVector"]?.get(left) ?: return null,
+            Vocabulary["tokenToVector"]?.get(right) ?: return null,
+            Vocabulary["operatorToVector"]?.get(op) ?: return null,
+            Vocabulary["typeToVector"]?.get(leftType) ?: return null,
+            Vocabulary["typeToVector"]?.get(rightType) ?: return null,
+            Vocabulary["nodeTypeToVector"]?.get(parent) ?: return null,
+            Vocabulary["nodeTypeToVector"]?.get(grandParent) ?: return null
         ).flatten()
     }
 

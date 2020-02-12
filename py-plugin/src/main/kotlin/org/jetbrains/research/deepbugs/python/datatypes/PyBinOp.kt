@@ -4,7 +4,6 @@ import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
-import org.jetbrains.research.deepbugs.common.model.ModelManager
 import org.jetbrains.research.deepbugs.python.extraction.PyExtractor
 
 class PyBinOp(
@@ -59,10 +58,6 @@ class PyBinOp(
             val grandParent = node.parent.parent.javaClass.simpleName ?: ""
             return PyBinOp(leftName, rightName, op, leftType, rightType, parent, grandParent, src)
         }
-    }
-
-    override fun vectorize() = ModelManager.storage.let { storage ->
-        vectorize(storage.tokenMapping, storage.typeMapping, storage.nodeTypeMapping, storage.operatorMapping)
     }
 
     override fun replaceOperator(newOp: String) = PyBinOp(left, right, newOp, leftType, rightType, parent, grandParent, src)
