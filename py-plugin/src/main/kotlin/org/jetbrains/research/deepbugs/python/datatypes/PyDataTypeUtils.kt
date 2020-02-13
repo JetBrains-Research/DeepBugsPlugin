@@ -7,24 +7,25 @@ import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.datatypes.Call
-import org.jetbrains.research.deepbugs.python.extraction.PyExtractor
+import org.jetbrains.research.deepbugs.python.extraction.extractNodeBase
+import org.jetbrains.research.deepbugs.python.extraction.extractNodeName
+import org.jetbrains.research.deepbugs.python.extraction.extractNodeType
 
 private const val SUPPORTED_ARGS_NUM = 2
 
-fun PyCallExpression.collectFromPyNode(): Call? {
-    if (arguments.size != SUPPORTED_ARGS_NUM)
-        return null
+fun PyCallExpression.collect(): Call? {
+    if (arguments.size != SUPPORTED_ARGS_NUM) return null
 
-    val name = PyExtractor.extractPyNodeName(callee) ?: return null
+    val name= callee?.extractNodeName() ?: return null
 
     val args = mutableListOf<String>()
     val argTypes = mutableListOf<String>()
     arguments.forEach { arg ->
-        PyExtractor.extractPyNodeName(arg)?.let { argName -> args.add(argName) } ?: return null
-        PyExtractor.extractPyNodeType(arg).let { argType -> argTypes.add(argType) }
+        arg.extractNodeName()?.let { argName -> args.add(argName) } ?: return null
+        arg.extractNodeType().let { argType -> argTypes.add(argType) }
     }
 
-    val base = PyExtractor.extractPyNodeBase(this)
+    val base = extractNodeBase()
 
     val resolved = multiResolveCalleeFunction(PyResolveContext.defaultContext()).firstOrNull()
     var params = resolved?.parameterList?.parameters?.toList()
@@ -32,17 +33,17 @@ fun PyCallExpression.collectFromPyNode(): Call? {
         params = params.drop(1)
     val paramNames = MutableList(args.size) { "" }
     paramNames.forEachIndexed { idx, _ ->
-        paramNames[idx] = PyExtractor.extractPyNodeName(params?.getOrNull(idx)) ?: ""
+        paramNames[idx] = params?.getOrNull(idx)?.extractNodeName() ?: ""
     }
     return Call(name, args, base, argTypes, paramNames)
 }
 
-fun PyBinaryExpression.collectFromPyNode(): BinOp? {
-    val leftName = PyExtractor.extractPyNodeName(leftExpression) ?: return null
-    val rightName = PyExtractor.extractPyNodeName(rightExpression) ?: return null
+fun PyBinaryExpression.collect(): BinOp? {
+    val leftName = leftExpression?.extractNodeName() ?: return null
+    val rightName = rightExpression?.extractNodeName() ?: return null
     val op = extractOperatorText() ?: return null
-    val leftType = PyExtractor.extractPyNodeType(leftExpression)
-    val rightType = PyExtractor.extractPyNodeType(rightExpression)
+    val leftType = leftExpression?.extractNodeType() ?: return null
+    val rightType = rightExpression?.extractNodeType() ?: return null
     val parent = parent.javaClass.simpleName ?: ""
     val grandParent = this.parent.parent.javaClass.simpleName ?: ""
     return BinOp(leftName, rightName, op, leftType, rightType, parent, grandParent)
