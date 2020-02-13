@@ -3,6 +3,7 @@ package org.jetbrains.research.deepbugs.javascript.extraction
 import com.intellij.lang.javascript.JSNumberParser
 import com.intellij.lang.javascript.JSTokenTypes
 import com.intellij.lang.javascript.psi.*
+import com.intellij.psi.util.PsiTreeUtil
 
 fun String.asLiteralString() = "LIT:$this"
 
@@ -20,12 +21,14 @@ object JSExtractor {
         is JSPrefixExpression -> {
             val operand = node.expression
             if (node.operationSign == JSTokenTypes.MINUS && operand is JSLiteralExpression && operand.isNumericLiteral)
-                JSNumberParser.tryParseBigInt(operand.significantValue.toString())?.negate()?.toString()?.asLiteralString()
+                JSNumberParser.tryParseNumericValue(operand.significantValue.toString(), false)
+                    ?.unaryMinus()?.toString()?.asLiteralString()
             else extractJSNodeName(operand)
         }
         is JSCallExpression -> extractJSNodeName(node.methodExpression)
         is JSParameter -> node.text.takeWhile { it != ':' }.asIdentifierString()
-        is JSArrayLiteralExpression -> node.text.toString()
+        is JSArrayLiteralExpression -> node.text.toString().asIdentifierString()
+        is JSIndexedPropertyAccessExpression -> PsiTreeUtil.getChildOfType(node, JSReferenceExpression::class.java)?.text?.asIdentifierString()
         else -> null
     }
 
@@ -41,13 +44,23 @@ object JSExtractor {
                 else -> "unknown"
             }
         }
-        is JSReferenceExpression -> if (node.referenceName.toString() == "undefined") "undefined" else "unknown"
+        is JSReferenceExpression ->
+            if (node.node.elementType.toString() == JSTokenTypes.UNDEFINED_KEYWORD.toString()) "undefined" else "unknown"
         is JSPrefixExpression -> extractJSNodeType(node.expression)
         else -> "unknown"
     }
 
     fun extractJSNodeBase(node: JSElement?): String = when (node) {
-        is JSCallExpression -> (node.methodExpression as? JSReferenceExpression)?.qualifier?.lastChild?.text?.toString() ?: ""
+        is JSCallExpression -> extractJSNodeBase(node.methodExpression as? JSReferenceExpression)
+        is JSReferenceExpression -> {
+            val base = node.qualifier?.lastChild
+            val toExtract = if (base is JSArgumentList) base.prevSibling as? JSElement else base
+            when (toExtract?.node?.elementType) {
+                JSTokenTypes.LITERALS -> toExtract?.text?.asLiteralString()
+                JSTokenTypes.IDENTIFIER -> toExtract?.text?.asIdentifierString()
+                else -> extractJSNodeName(toExtract as? JSElement)
+            } ?: ""
+        }
         else -> ""
     }
 }

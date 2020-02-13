@@ -9,8 +9,11 @@ class JSDeepBugsTest : DeepBugsTestBase() {
         runHighlightTestForFile("testIncorrectBinOperatorJS.js")
     }
 
-
-    fun `test swapped argument`() {
+    fun `test swapped arguments`() {
         runHighlightTestForFile("testSwappedArgumentsJS.js")
+    }
+
+    fun `test swapped arguments math`() {
+        runHighlightTestForFile("testSwappedArgumentsMathJS.js")
     }
 }

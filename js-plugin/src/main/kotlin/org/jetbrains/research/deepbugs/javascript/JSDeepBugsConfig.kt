@@ -11,11 +11,6 @@ import org.jetbrains.research.deepbugs.common.DeepBugsConfigHandler
 class JSDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBugsConfig(default) {
     companion object : DeepBugsConfigHandler() {
         override val instance: JSDeepBugsConfig by lazy { ServiceManager.getService(JSDeepBugsConfig::class.java) }
-
-        override val default = State(
-            binOperatorThreshold = 0.8f,
-            binOperandThreshold = 0.8f,
-            swappedArgsThreshold = 0.8f
-        )
+        override val default = State()
     }
 }

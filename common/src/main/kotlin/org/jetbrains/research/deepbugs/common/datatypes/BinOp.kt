@@ -1,30 +1,29 @@
 package org.jetbrains.research.deepbugs.common.datatypes
 
-import org.jetbrains.research.deepbugs.common.model.Vocabulary
+import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 
-abstract class BinOp(
-    protected val left: String,
-    protected val right: String,
-    protected val op: String,
-    protected val leftType: String,
-    protected val rightType: String,
-    protected val parent: String,
-    protected val grandParent: String,
-    @Suppress("unused") protected val src: String
-) : DataType {
+class BinOp(
+    private val left: String,
+    private val right: String,
+    private val op: String,
+    private val leftType: String,
+    private val rightType: String,
+    private val parent: String,
+    private val grandParent: String
+) : DataType() {
     override val text: String = "$left $op $right"
 
-    override fun vectorize(): List<Float>? {
-        return listOf(
-            Vocabulary["tokenToVector"]?.get(left) ?: return null,
-            Vocabulary["tokenToVector"]?.get(right) ?: return null,
-            Vocabulary["operatorToVector"]?.get(op) ?: return null,
-            Vocabulary["typeToVector"]?.get(leftType) ?: return null,
-            Vocabulary["typeToVector"]?.get(rightType) ?: return null,
-            Vocabulary["nodeTypeToVector"]?.get(parent) ?: return null,
-            Vocabulary["nodeTypeToVector"]?.get(grandParent) ?: return null
+    override fun vectorize(): List<Float>? = CommonModelStorage.vocabulary.let { vocab ->
+        listOf(
+            vocab.tokens.get(left) ?: return null,
+            vocab.tokens.get(right) ?: return null,
+            vocab.operators.get(op) ?: return null,
+            vocab.types.get(leftType) ?: return null,
+            vocab.types.get(rightType) ?: return null,
+            vocab.nodeTypes.get(parent) ?: return null,
+            vocab.nodeTypes.get(grandParent) ?: return null
         ).flatten()
     }
 
-    abstract fun replaceOperator(newOp: String): BinOp
+    fun replaceOperator(newOp: String) = BinOp(left, right, newOp, leftType, rightType, parent, grandParent)
 }

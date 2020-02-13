@@ -8,11 +8,6 @@ import org.jetbrains.research.deepbugs.common.DeepBugsConfigHandler
 class PyDeepBugsConfig : PersistentStateComponent<DeepBugsConfig.State>, DeepBugsConfig(default) {
     companion object : DeepBugsConfigHandler() {
         override val instance: PyDeepBugsConfig by lazy { ServiceManager.getService(PyDeepBugsConfig::class.java) }
-
-        override val default = State(
-            binOperatorThreshold = 0.85f,
-            binOperandThreshold = 0.86f,
-            swappedArgsThreshold = 0.8f
-        )
+        override val default = State()
     }
 }

@@ -25,9 +25,6 @@ object DeepBugsPlugin {
     val installationFolder: File
         get() = descriptor.path
 
-    val modelsFolder: File
-        get() = File(installationFolder, "models")
-
     val dependentPlugins: Array<PluginId>
         get() = descriptor.dependentPluginIds
 

@@ -10,8 +10,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiFile
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
-import org.jetbrains.research.deepbugs.common.model.ModelStorage
-import org.jetbrains.research.deepbugs.common.model.Vocabulary
+import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import kotlin.math.max
 import kotlin.math.min
 
@@ -53,9 +52,9 @@ class ReplaceBinOperatorQuickFix(
     }
 
     val lookups: List<LookupElementBuilder> by lazy {
-        Vocabulary["operatorToVector"]!!.data.map {
+        CommonModelStorage.vocabulary.operators.data.map {
             val newBinOp = data.replaceOperator(it.key).vectorize()
-            val res = newBinOp?.let { op -> ModelStorage["binOperatorDetectionModel"]?.predict(op) }
+            val res = newBinOp?.let { op -> CommonModelStorage.common.binOperatorModel.predict(op) }
             it.key to res
         }.filter { it.second != null && it.second!! < threshold }
             .sortedBy { it.second }.take(5)

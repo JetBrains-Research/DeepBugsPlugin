@@ -4,14 +4,17 @@ import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.lang.javascript.psi.JSBinaryExpression
 import com.intellij.psi.NavigatablePsiElement
-import org.jetbrains.research.deepbugs.javascript.datatypes.JSBinOp
+import com.intellij.psi.PsiElementVisitor
+import org.jetbrains.research.deepbugs.javascript.datatypes.collectFromJSNode
 
 abstract class JSDeepBugsBinExprInspection : JSDeepBugsBaseInspection() {
-    abstract inner class JSDeepBugsBinOpVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : JSDeepBugsVisitor(holder) {
-        override fun collect(node: NavigatablePsiElement, src: String) = JSBinOp.collectFromJSNode(node as JSBinaryExpression)
+    override fun createVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession): PsiElementVisitor = JSDeepBugsBinOpVisitor(holder, session)
+
+    open inner class JSDeepBugsBinOpVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : JSDeepBugsVisitor(holder) {
+        override fun collect(node: NavigatablePsiElement, src: String) = (node as JSBinaryExpression).collectFromJSNode()
 
         override fun visitJSBinaryExpression(node: JSBinaryExpression?) {
-            visitExpr(node)
+            visitExpr(node ?: return)
             super.visitJSBinaryExpression(node)
         }
     }

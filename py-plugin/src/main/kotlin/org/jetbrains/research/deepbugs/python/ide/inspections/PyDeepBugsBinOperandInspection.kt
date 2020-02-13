@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
-import org.jetbrains.research.deepbugs.common.model.ModelStorage
+import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
@@ -17,9 +17,9 @@ import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyIgnoreExpressionQ
 
 class PyDeepBugsBinOperandInspection : PyDeepBugsBinExprInspection() {
     override val model: Perceptron?
-        get() = ModelStorage["binOperandDetectionModel"]
-    override val threshold: Float
-        get() = PyDeepBugsConfig.get().binOperandThreshold
+        get() = CommonModelStorage.common.binOperandModel
+
+    override val threshold: Float = 0.86f
 
     override fun buildVisitor(
         holder: ProblemsHolder,
