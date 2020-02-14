@@ -19,7 +19,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
     protected abstract fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String
 
     abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {
-        protected abstract fun collect(node: NavigatablePsiElement, src: String = ""): DataType?
+        protected abstract fun collect(node: NavigatablePsiElement): DataType?
 
         protected fun visitExpr(node: NavigatablePsiElement) {
             if (skip(node)) return

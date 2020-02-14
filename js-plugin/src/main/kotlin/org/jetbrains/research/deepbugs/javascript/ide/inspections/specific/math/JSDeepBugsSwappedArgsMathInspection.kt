@@ -29,7 +29,7 @@ class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsSwappedArgsInspection() {
         get() = JSModelStorage.specific.math.swappedArgsModel
 
     override fun skip(node: NavigatablePsiElement): Boolean = (node as? JSCallExpression)?.methodExpression?.let {
-        node.arguments.size != argumentsNum && (!isBuiltIn(it) || !isLibCall(it))
+        node.arguments.size != argumentsNum || !isBuiltIn(it) && !isLibCall(it)
     } ?: true
 
     override fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String =

@@ -11,7 +11,7 @@ abstract class JSDeepBugsBinExprInspection : JSDeepBugsBaseInspection() {
     override fun createVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession): PsiElementVisitor = JSDeepBugsBinOpVisitor(holder, session)
 
     open inner class JSDeepBugsBinOpVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : JSDeepBugsVisitor(holder) {
-        override fun collect(node: NavigatablePsiElement, src: String) = (node as JSBinaryExpression).collect()
+        override fun collect(node: NavigatablePsiElement) = (node as JSBinaryExpression).collect()
 
         override fun visitJSBinaryExpression(node: JSBinaryExpression?) {
             visitExpr(node ?: return)

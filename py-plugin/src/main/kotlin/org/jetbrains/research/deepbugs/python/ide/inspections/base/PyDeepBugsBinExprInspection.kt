@@ -11,7 +11,7 @@ abstract class PyDeepBugsBinExprInspection : PyDeepBugsBaseInspection() {
         holder: ProblemsHolder,
         session: LocalInspectionToolSession
     ) : PyDeepBugsVisitor(holder, session) {
-        override fun collect(node: NavigatablePsiElement, src: String) = (node as PyBinaryExpression).collect()
+        override fun collect(node: NavigatablePsiElement) = (node as PyBinaryExpression).collect()
 
         override fun visitPyBinaryExpression(node: PyBinaryExpression?) {
             visitExpr(node)
