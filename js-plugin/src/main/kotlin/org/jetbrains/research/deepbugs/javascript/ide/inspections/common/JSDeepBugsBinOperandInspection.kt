@@ -4,7 +4,7 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.lang.javascript.psi.JSBinaryExpression
 import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
-import org.jetbrains.research.deepbugs.common.ide.problem.BugReport
+import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsBinExprInspection
@@ -16,7 +16,7 @@ class JSDeepBugsBinOperandInspection : JSDeepBugsBinExprInspection() {
         get() = CommonModelStorage.common.binOperandModel
 
     override fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor =
-        BugReport(node, createTooltip(node), listOf(JSIgnoreExpressionQuickFix(data, node.text))).toDescriptor()
+        BugDescriptor(node, createTooltip(node), listOf(JSIgnoreExpressionQuickFix(data, node.text)))
 
     override fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String = (node as JSBinaryExpression).let {
         JSResourceBundle.message(

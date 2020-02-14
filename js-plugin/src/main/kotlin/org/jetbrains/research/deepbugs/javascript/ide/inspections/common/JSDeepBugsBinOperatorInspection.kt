@@ -6,7 +6,7 @@ import com.intellij.lang.javascript.psi.JSBinaryExpression
 import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
-import org.jetbrains.research.deepbugs.common.ide.problem.BugReport
+import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.ReplaceBinOperatorQuickFix
 import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
@@ -25,11 +25,11 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
         val replaceQuickFix = ReplaceBinOperatorQuickFix(data as BinOp, textRange, JSDeepBugsConfig.get().quickFixesThreshold,
             JSResourceBundle.message("deepbugs.javascript.replace.operator.family")) { operators[it] ?: "" }
 
-        return BugReport(
+        return BugDescriptor(
             node,
             createTooltip(node, *replaceQuickFix.lookups.toTypedArray()),
             listOf(JSIgnoreExpressionQuickFix(data, node.text), replaceQuickFix)
-        ).toDescriptor()
+        )
     }
 
     override fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String {
