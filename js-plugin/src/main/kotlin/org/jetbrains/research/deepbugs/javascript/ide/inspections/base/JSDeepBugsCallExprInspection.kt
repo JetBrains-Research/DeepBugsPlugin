@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElementVisitor
 import org.jetbrains.research.deepbugs.javascript.datatypes.collect
 
 abstract class JSDeepBugsCallExprInspection : JSDeepBugsBaseInspection() {
-    protected open val argumentsNum: Int? = null
+    protected open val requiredArgumentsNum: Int? = null
 
     override fun createVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession): PsiElementVisitor = JSDeepBugsCallVisitor(holder, session)
 

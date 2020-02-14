@@ -8,19 +8,19 @@ import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
-import org.jetbrains.research.deepbugs.javascript.ide.inspections.DeepBugsInspectionHandler
+import org.jetbrains.research.deepbugs.javascript.ide.inspections.DeepBugsInspectionManager
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsCallExprInspection
 import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
 open class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
-    override val argumentsNum: Int? = 2
+    override val requiredArgumentsNum: Int? = 2
 
     override val model: Perceptron?
         get() = CommonModelStorage.common.swappedArgsModel
 
     override fun skip(node: NavigatablePsiElement): Boolean = (node as JSCallExpression).methodExpression?.let {
-        node.arguments.size != argumentsNum || DeepBugsInspectionHandler.isSpecific(it)
+        node.arguments.size != requiredArgumentsNum || DeepBugsInspectionManager.isSpecific(it)
     } ?: true
 
     override fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor =

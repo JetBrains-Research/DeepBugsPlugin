@@ -7,7 +7,7 @@ import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
-import org.jetbrains.research.deepbugs.javascript.ide.inspections.DeepBugsInspectionHandler
+import org.jetbrains.research.deepbugs.javascript.ide.inspections.DeepBugsInspectionManager
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.common.JSDeepBugsSwappedArgsInspection
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.SpecificInspectionDescriptor
 import org.jetbrains.research.deepbugs.javascript.model.JSModelStorage
@@ -15,7 +15,7 @@ import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
 class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsSwappedArgsInspection() {
     init {
-        DeepBugsInspectionHandler.register(
+        DeepBugsInspectionManager.register(
             object : SpecificInspectionDescriptor {
                 override fun shouldProcess(element: PsiElement): Boolean {
                     if (element !is JSReferenceExpression) return false
@@ -29,7 +29,7 @@ class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsSwappedArgsInspection() {
         get() = JSModelStorage.specific.math.swappedArgsModel
 
     override fun skip(node: NavigatablePsiElement): Boolean = (node as? JSCallExpression)?.methodExpression?.let {
-        node.arguments.size != argumentsNum || !isBuiltIn(it) && !isLibCall(it)
+        node.arguments.size != requiredArgumentsNum || !isBuiltIn(it) && !isLibCall(it)
     } ?: true
 
     override fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String =
