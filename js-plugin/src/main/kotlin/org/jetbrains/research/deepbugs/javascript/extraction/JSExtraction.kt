@@ -1,6 +1,5 @@
 package org.jetbrains.research.deepbugs.javascript.extraction
 
-import com.intellij.lang.javascript.JSNumberParser
 import com.intellij.lang.javascript.JSTokenTypes
 import com.intellij.lang.javascript.psi.*
 import com.intellij.psi.util.PsiTreeUtil
@@ -15,11 +14,10 @@ fun JSElement.extractNodeName(): String? = when (this) {
     is JSThisExpression -> text.asLiteralString()
     is JSReferenceExpression -> referenceName?.asIdentifierString()
     is JSPrefixExpression -> {
-        val operand = expression
-        if (operationSign == JSTokenTypes.MINUS && operand is JSLiteralExpression && operand.isNumericLiteral)
-            JSNumberParser.tryParseNumericValue(operand.significantValue.toString(), false)
-                ?.unaryMinus()?.toString()?.asLiteralString()
-        else operand?.extractNodeName()
+        val operand = expression as? JSLiteralExpression
+        if (operand != null && operand.isNumericLiteral && operationSign == JSTokenTypes.MINUS)
+            text.asLiteralString()
+        else expression?.extractNodeName()
     }
     is JSCallExpression -> methodExpression?.extractNodeName()
     is JSParameter -> text.takeWhile { it != ':' }.asIdentifierString()

@@ -16,12 +16,8 @@ fun PyElement.extractNodeName(): String? = when (this) {
     is PyNoneLiteralExpression -> text.asLiteralString()
     is PyReferenceExpression -> referencedName?.asIdentifierString()
     is PyPrefixExpression -> {
-        var value: String? = null
-        if (operator == PyTokenTypes.MINUS && operand is PyNumericLiteralExpression) {
-            val intValue = (operand as PyNumericLiteralExpression).bigDecimalValue
-            if (intValue != null) value = intValue.negate().toString().asLiteralString()
-        }
-        value
+        if (operator == PyTokenTypes.MINUS && operand is PyNumericLiteralExpression) text.asLiteralString()
+        operand?.extractNodeName()
     }
     is PyCallExpression -> callee?.extractNodeName()
     is PySubscriptionExpression -> operand.extractNodeName()
