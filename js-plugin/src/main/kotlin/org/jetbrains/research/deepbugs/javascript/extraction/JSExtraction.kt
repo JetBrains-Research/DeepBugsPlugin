@@ -3,7 +3,6 @@ package org.jetbrains.research.deepbugs.javascript.extraction
 import com.intellij.lang.javascript.JSNumberParser
 import com.intellij.lang.javascript.JSTokenTypes
 import com.intellij.lang.javascript.psi.*
-import com.intellij.lang.javascript.psi.types.JSLiteralType
 import com.intellij.psi.util.PsiTreeUtil
 
 fun String.asLiteralString() = "LIT:$this"
@@ -25,7 +24,7 @@ fun JSElement.extractNodeName(): String? = when (this) {
     is JSCallExpression -> methodExpression?.extractNodeName()
     is JSParameter -> text.takeWhile { it != ':' }.asIdentifierString()
     is JSArrayLiteralExpression -> text.asIdentifierString()
-    is JSIndexedPropertyAccessExpression -> PsiTreeUtil.getChildOfType(this, JSReferenceExpression::class.java)?.text?.asIdentifierString()
+    is JSIndexedPropertyAccessExpression -> PsiTreeUtil.getChildOfType(this, JSReferenceExpression::class.java)?.referenceName?.asIdentifierString()
     else -> null
 }
 
@@ -50,12 +49,6 @@ fun JSElement.extractNodeType(): String = when (this) {
 
 fun JSElement.extractNodeBase(): String = when (this) {
     is JSCallExpression -> (methodExpression as? JSReferenceExpression)?.extractNodeBase() ?: ""
-    is JSReferenceExpression -> {
-        val toExtract = when (val base = qualifier?.lastChild) {
-            is JSArgumentList -> base.prevSibling
-            else -> base
-        }
-        (toExtract as? JSElement)?.extractNodeName() ?: ""
-    }
+    is JSReferenceExpression -> qualifier?.extractNodeName() ?: ""
     else -> ""
 }

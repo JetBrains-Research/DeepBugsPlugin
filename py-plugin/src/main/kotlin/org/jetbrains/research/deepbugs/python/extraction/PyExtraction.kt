@@ -47,13 +47,7 @@ fun PyElement.extractNodeType(): String = when (this) {
 
 fun PyElement.extractNodeBase(): String = when (this) {
     is PyCallExpression -> (callee as? PyReferenceExpression)?.extractNodeBase() ?: ""
-    is PyReferenceExpression -> {
-        val toExtract = when (val base = qualifier?.lastChild) {
-            is PyArgumentList -> base.prevSibling as? PyElement
-            else -> base
-        }
-        (toExtract as? PyElement)?.extractNodeName() ?: ""
-    }
+    is PyReferenceExpression -> qualifier?.extractNodeName() ?: ""
     is PySubscriptionExpression -> operand.extractNodeName() ?: ""
     else -> ""
 }
