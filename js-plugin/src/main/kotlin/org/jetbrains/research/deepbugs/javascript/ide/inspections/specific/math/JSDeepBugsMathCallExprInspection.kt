@@ -21,9 +21,11 @@ abstract class JSDeepBugsMathCallExprInspection : JSDeepBugsCallExprInspection()
         )
     }
 
+    protected open val ignoredExprs: List<String> = emptyList()
+
     override fun skip(node: NavigatablePsiElement): Boolean = (node as? JSCallExpression)?.methodExpression?.let {
         if (it !is JSReferenceExpression) return@let true
-        node.arguments.size != requiredArgumentsNum || !it.isBuiltIn() && !it.isLibCall()
+        node.arguments.size != requiredArgumentsNum || ignoredExprs.contains(it.referenceName) || !it.isBuiltIn() && !it.isLibCall()
     } ?: true
 
     companion object {
