@@ -23,7 +23,7 @@ fun JSBinaryExpression.collect(): BinOp? {
 }
 
 fun JSCallExpression.collect(): Call? {
-    val callee = ObjectUtils.tryCast(methodExpression, JSReferenceExpression::class.java) ?: return null
+    val callee = methodExpression as? JSReferenceExpression ?: return null
     val name = callee.extractNodeName() ?: return null
 
     val args = mutableListOf<String>()

@@ -16,4 +16,8 @@ class JSDeepBugsTest : DeepBugsTestBase() {
     fun `test swapped arguments math`() {
         runHighlightTestForFile("testSwappedArgumentsMathJS.js")
     }
+
+    fun `test incorrect argument math`() {
+        runHighlightTestForFile("testIncorrectArgumentMathJS.js")
+    }
 }

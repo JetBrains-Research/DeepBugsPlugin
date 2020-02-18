@@ -6,7 +6,9 @@ import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
+import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
+import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
 abstract class JSDeepBugsBaseInspection : JSInspection() {
@@ -15,7 +17,9 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
 
     protected open fun skip(node: NavigatablePsiElement): Boolean = false
 
-    protected abstract fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor
+    protected open fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor =
+        BugDescriptor(node, createTooltip(node), listOf(JSIgnoreExpressionQuickFix(data, node.text)))
+
     protected abstract fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String
 
     abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {

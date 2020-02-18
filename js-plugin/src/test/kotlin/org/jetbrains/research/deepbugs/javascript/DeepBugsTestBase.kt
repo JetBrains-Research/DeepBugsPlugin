@@ -4,6 +4,7 @@ import com.intellij.testFramework.fixtures.BasePlatformTestCase
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl
 import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.common.*
+import org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.math.JSDeepBugsIncorrectArgMathInspection
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.math.JSDeepBugsSwappedArgsMathInspection
 import java.io.File
 
@@ -33,7 +34,8 @@ abstract class DeepBugsTestBase : BasePlatformTestCase() {
                 JSDeepBugsBinOperandInspection(),
                 JSDeepBugsBinOperatorInspection(),
                 JSDeepBugsSwappedArgsInspection(),
-                JSDeepBugsSwappedArgsMathInspection()
+                JSDeepBugsSwappedArgsMathInspection(),
+                JSDeepBugsIncorrectArgMathInspection()
             )
         }
     }

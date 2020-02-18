@@ -4,5 +4,10 @@ import org.jetbrains.research.deepbugs.common.model.ModelHandler
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
 data class MathModel(
-    val swappedArgsModel: Perceptron = ModelHandler.loadModel("swappedArgsDetectionModelMath.h5", "math")!!
-)
+    val swappedArgsModel: Perceptron = loadModel("swappedArgsDetectionModelMath.h5"),
+    val incorrectArgModel: Perceptron = loadModel("incorrectFuncArgDetectionModelMath.h5")
+) {
+    companion object {
+        private fun loadModel(model: String) = ModelHandler.loadModel(model, "math")!!
+    }
+}

@@ -15,9 +15,6 @@ class JSDeepBugsBinOperandInspection : JSDeepBugsBinExprInspection() {
     override val model: Perceptron?
         get() = CommonModelStorage.common.binOperandModel
 
-    override fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor =
-        BugDescriptor(node, createTooltip(node), listOf(JSIgnoreExpressionQuickFix(data, node.text)))
-
     override fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String = (node as JSBinaryExpression).let {
         JSResourceBundle.message(
             "deepbugs.javascript.binary.operand.inspection.warning",

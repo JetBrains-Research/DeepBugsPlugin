@@ -20,7 +20,7 @@ open class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
         get() = CommonModelStorage.common.swappedArgsModel
 
     override fun skip(node: NavigatablePsiElement): Boolean = (node as JSCallExpression).methodExpression?.let {
-        node.arguments.size != requiredArgumentsNum || DeepBugsInspectionManager.isSpecific(it)
+        node.arguments.size != requiredArgumentsNum || DeepBugsInspectionManager.isSpecific(node)
     } ?: true
 
     override fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor =
