@@ -8,7 +8,7 @@ import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 class JSDeepBugsIncorrectArgMathInspection : JSDeepBugsMathCallExprInspection() {
     override val requiredArgumentsNum: Int? = 1
     //TODO: should it really be that low?
-    override val threshold: Float = 0.2f
+    override val threshold: Float = 0.5f
 
     override val model: Perceptron?
         get() = JSModelStorage.specific.math.incorrectArgModel
