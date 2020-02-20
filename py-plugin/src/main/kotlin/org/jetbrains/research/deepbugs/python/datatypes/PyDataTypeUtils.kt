@@ -16,7 +16,7 @@ private const val SUPPORTED_ARGS_NUM = 2
 fun PyCallExpression.collect(): Call? {
     if (arguments.size != SUPPORTED_ARGS_NUM) return null
 
-    val name= callee?.extractNodeName() ?: return null
+    val name = callee?.extractNodeName() ?: return null
 
     val args = mutableListOf<String>()
     val argTypes = mutableListOf<String>()

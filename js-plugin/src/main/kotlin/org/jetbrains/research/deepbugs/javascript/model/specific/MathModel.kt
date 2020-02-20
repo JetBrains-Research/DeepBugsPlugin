@@ -8,6 +8,6 @@ data class MathModel(
     val incorrectArgModel: Perceptron = loadModel("incorrectFuncArgDetectionModelMath.h5")
 ) {
     companion object {
-        private fun loadModel(model: String) = ModelHandler.loadModel(model, "math")!!
+        private fun loadModel(model: String): Perceptron = ModelHandler.loadModel(model, "math")!!
     }
 }

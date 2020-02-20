@@ -2,6 +2,7 @@ package org.jetbrains.research.deepbugs.javascript.ide.inspections.base
 
 import com.intellij.codeInspection.*
 import com.intellij.lang.javascript.inspections.JSInspection
+import com.intellij.lang.javascript.psi.JSElement
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
@@ -23,9 +24,9 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
     protected abstract fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String
 
     abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {
-        protected abstract fun collect(node: NavigatablePsiElement): DataType?
+        protected abstract fun collect(node: JSElement): DataType?
 
-        protected fun visitExpr(node: NavigatablePsiElement) {
+        protected fun visit(node: JSElement) {
             if (skip(node)) return
             collect(node)?.let {
                 val result = model?.predict(it.vectorize() ?: return) ?: return
@@ -33,7 +34,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
             }
         }
 
-        private fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
+        private fun analyzeInspected(result: Float, node: JSElement, data: DataType) {
             if (JSDeepBugsConfig.isProblem(result, threshold, data)) {
                 holder.registerProblem(createProblemDescriptor(node, data))
                 InspectionReportCollector.logReport(holder.project, shortName, result)

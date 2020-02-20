@@ -6,7 +6,6 @@ import org.jetbrains.research.keras.runner.deserializer.json.ModelConfig
 import org.jetbrains.research.keras.runner.deserializer.json.ModelScheme
 import org.jetbrains.research.keras.runner.nn.layer.Layer
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
-import org.jetbrains.research.keras.runner.nn.model.sequential.SequentialModel
 import java.io.File
 
 @Suppress("UNCHECKED_CAST")

@@ -16,7 +16,7 @@ class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsMathCallExprInspection() {
     override val model: Perceptron?
         get() = JSModelStorage.specific.math.swappedArgsModel
 
-    override val ignoredExprs: List<String> = listOf("min", "max").map { it.asIdentifierString() }
+    override val ignore: List<String> = listOf("min", "max").map { it.asIdentifierString() }
 
     override fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(

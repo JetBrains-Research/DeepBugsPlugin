@@ -1,6 +1,6 @@
 package org.jetbrains.research.keras.runner.deserializer.json
 
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 
 @Serializable
 @Suppress("EnumEntryName")

@@ -15,7 +15,10 @@ class JSDeepBugsIncorrectArgMathInspection : JSDeepBugsMathCallExprInspection() 
         get() = JSModelStorage.specific.math.incorrectArgModel
 
     override fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String =
-        JSResourceBundle.message("deepbugs.javascript.math.incorrect.arg.inspection.warning", (node as JSCallExpression).arguments.first().text)
+        JSResourceBundle.message(
+            "deepbugs.javascript.math.incorrect.arg.inspection.warning",
+            (node as JSCallExpression).arguments.first().text
+        )
 
     override fun getShortName() = "JSDeepBugsIncorrectArgMath"
 }

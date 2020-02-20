@@ -9,6 +9,6 @@ data class CommonModel(
     val swappedArgsModel: Perceptron = loadModel("swappedArgsDetectionModel.h5")
 ) {
     companion object {
-        fun loadModel(model: String) = ModelHandler.loadModel(model, "common")!!
+        fun loadModel(model: String): Perceptron = ModelHandler.loadModel(model, "common")!!
     }
 }
