@@ -25,11 +25,11 @@ fun JSCallExpression.collect(): Call? {
     val callee = methodExpression as? JSReferenceExpression ?: return null
     val name = callee.extractNodeName() ?: return null
 
-    val args = mutableListOf<String>()
-    val argTypes = mutableListOf<String>()
+    val args = ArrayList<String>()
+    val argTypes = ArrayList<String>()
     arguments.forEach { arg ->
-        arg?.extractNodeName()?.let { argName -> args.add(argName) } ?: return null
-        arg.extractNodeType().let { argType -> argTypes.add(argType) }
+        args.add(arg.extractNodeName() ?: return null)
+        argTypes.add(arg.extractNodeType())
     }
 
     val base = extractNodeBase()
