@@ -5,6 +5,7 @@ import com.intellij.lang.javascript.inspections.JSInspection
 import com.intellij.lang.javascript.psi.JSElement
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiElement
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
@@ -16,7 +17,7 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
     protected abstract val model: Perceptron?
     protected open val threshold: Float = 0.8f
 
-    protected open fun skip(node: NavigatablePsiElement): Boolean = false
+    protected open fun skip(node: PsiElement): Boolean = false
 
     protected open fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(JSIgnoreExpressionQuickFix(data, node.text)))

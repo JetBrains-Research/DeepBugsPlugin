@@ -1,9 +1,6 @@
 package org.jetbrains.research.deepbugs.javascript.datatypes
 
-import com.intellij.lang.javascript.psi.JSBinaryExpression
-import com.intellij.lang.javascript.psi.JSCallExpression
-import com.intellij.lang.javascript.psi.JSFunction
-import com.intellij.lang.javascript.psi.JSReferenceExpression
+import com.intellij.lang.javascript.psi.*
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.javascript.extraction.extractNodeBase
@@ -16,9 +13,9 @@ fun JSBinaryExpression.collect(): BinOp? {
     val op = operationSign?.toString() ?: return null
     val leftType = lOperand?.extractNodeType() ?: return null
     val rightType = rOperand?.extractNodeType() ?: return null
-    val parent = parent.javaClass.simpleName ?: ""
-    val grandParent = this.parent.parent.javaClass.simpleName ?: ""
-    return BinOp(leftName, rightName, op, leftType, rightType, parent, grandParent)
+    val parentNode = parent.javaClass.simpleName ?: ""
+    val grandParentNode = parent.parent.javaClass.simpleName ?: ""
+    return BinOp(leftName, rightName, op, leftType, rightType, parentNode, grandParentNode)
 }
 
 fun JSCallExpression.collect(): Call? {
@@ -27,7 +24,7 @@ fun JSCallExpression.collect(): Call? {
 
     val args = ArrayList<String>()
     val argTypes = ArrayList<String>()
-    arguments.forEach { arg ->
+    for (arg in arguments) {
         args.add(arg.extractNodeName() ?: return null)
         argTypes.add(arg.extractNodeType())
     }
@@ -35,7 +32,7 @@ fun JSCallExpression.collect(): Call? {
     val base = extractNodeBase()
 
     val resolved = try {
-        callee.multiResolve(false).map { it.element }.firstOrNull { it is JSFunction } as? JSFunction
+        callee.multiResolve(false).firstOrNull { (it.element) is JSFunction }?.element as? JSFunction
     } catch (ex: Exception) {
         null
     }

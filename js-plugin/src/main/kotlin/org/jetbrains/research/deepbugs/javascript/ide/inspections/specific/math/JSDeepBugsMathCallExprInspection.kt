@@ -3,30 +3,25 @@ package org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.math
 import com.intellij.lang.javascript.library.JSLibraryUtil
 import com.intellij.lang.javascript.psi.JSCallExpression
 import com.intellij.lang.javascript.psi.JSReferenceExpression
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
-import org.jetbrains.research.deepbugs.javascript.ide.inspections.DeepBugsInspectionManager
+import org.jetbrains.research.deepbugs.common.ide.inspections.DeepBugsInspectionManager
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsCallExprInspection
-import org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.SpecificInspectionDescriptor
+import org.jetbrains.research.deepbugs.common.ide.inspections.specific.SpecificInspectionDescriptor
 
 abstract class JSDeepBugsMathCallExprInspection : JSDeepBugsCallExprInspection() {
     init {
         DeepBugsInspectionManager.register(
-            object : SpecificInspectionDescriptor {
-                override fun shouldProcess(element: PsiElement): Boolean {
-                    if (element !is JSReferenceExpression) return false
-                    return !skip(element)
-                }
-            }
+            SpecificInspectionDescriptor { (it is JSReferenceExpression) && !skip(it) }
         )
     }
 
     protected open val ignore: List<String> = emptyList()
 
-    override fun skip(node: NavigatablePsiElement): Boolean = (node as? JSCallExpression)?.methodExpression?.let {
-        if (it !is JSReferenceExpression) return@let true
-        node.arguments.size != requiredArgumentsNum || ignore.contains(it.referenceName) || !it.isBuiltIn() && !it.isLibCall()
-    } ?: true
+    override fun skip(node: PsiElement): Boolean {
+        if (node !is JSCallExpression || node.arguments.size != requiredArgumentsNum) return true
+        val call = node.methodExpression as? JSReferenceExpression ?: return true
+        return ignore.contains(call.referenceName) || !call.isBuiltIn() && !call.isLibCall()
+    }
 
     companion object {
         private val libsToConsider: List<String> = listOf("mathjs")

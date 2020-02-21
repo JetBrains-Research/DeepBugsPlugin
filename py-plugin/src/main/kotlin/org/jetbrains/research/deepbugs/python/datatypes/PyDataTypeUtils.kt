@@ -20,7 +20,7 @@ fun PyCallExpression.collect(): Call? {
 
     val args = ArrayList<String>()
     val argTypes = ArrayList<String>()
-    arguments.forEach { arg ->
+    for (arg in arguments) {
         args.add(arg.extractNodeName() ?: return null)
         argTypes.add(arg.extractNodeType())
     }
@@ -44,9 +44,9 @@ fun PyBinaryExpression.collect(): BinOp? {
     val op = extractOperatorText() ?: return null
     val leftType = leftExpression?.extractNodeType() ?: return null
     val rightType = rightExpression?.extractNodeType() ?: return null
-    val parent = parent.javaClass.simpleName ?: ""
-    val grandParent = this.parent.parent.javaClass.simpleName ?: ""
-    return BinOp(leftName, rightName, op, leftType, rightType, parent, grandParent)
+    val parentNode = parent.javaClass.simpleName ?: ""
+    val grandParentNode = parent.parent.javaClass.simpleName ?: ""
+    return BinOp(leftName, rightName, op, leftType, rightType, parentNode, grandParentNode)
 }
 
 fun PyBinaryExpression.extractOperatorText(): String? {
