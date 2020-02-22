@@ -5,8 +5,8 @@ import com.intellij.lang.javascript.psi.JSCallExpression
 import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.psi.PsiElement
 import org.jetbrains.research.deepbugs.common.ide.inspections.DeepBugsInspectionManager
-import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsCallExprInspection
 import org.jetbrains.research.deepbugs.common.ide.inspections.specific.SpecificInspectionDescriptor
+import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsCallExprInspection
 
 abstract class JSDeepBugsMathCallExprInspection : JSDeepBugsCallExprInspection() {
     init {

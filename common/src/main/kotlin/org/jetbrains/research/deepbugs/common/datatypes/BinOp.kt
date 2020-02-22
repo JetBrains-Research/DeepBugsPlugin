@@ -15,13 +15,13 @@ class BinOp(
 
     override fun vectorize(): List<Float>? = CommonModelStorage.vocabulary.let { vocab ->
         listOf(
-            vocab.tokens.get(left) ?: return null,
-            vocab.tokens.get(right) ?: return null,
-            vocab.operators.get(op) ?: return null,
-            vocab.types.get(leftType) ?: return null,
-            vocab.types.get(rightType) ?: return null,
-            vocab.nodeTypes.get(parent) ?: return null,
-            vocab.nodeTypes.get(grandParent) ?: return null
+            vocab.tokens[left] ?: return null,
+            vocab.tokens[right] ?: return null,
+            vocab.operators[op] ?: return null,
+            vocab.types[leftType] ?: return null,
+            vocab.types[rightType] ?: return null,
+            vocab.nodeTypes[parent] ?: return null,
+            vocab.nodeTypes[grandParent] ?: return null
         ).flatten()
     }
 

@@ -3,7 +3,7 @@ package org.jetbrains.research.deepbugs.javascript.ide.inspections.common
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.lang.javascript.psi.JSBinaryExpression
-import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiElement
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
@@ -20,7 +20,7 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
     override val model: Perceptron?
         get() = CommonModelStorage.common.binOperatorModel
 
-    override fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor {
+    override fun createProblemDescriptor(node: PsiElement, data: DataType): ProblemDescriptor {
         val textRange = (node as JSBinaryExpression).operationNode!!.textRange
         val replaceQuickFix = ReplaceBinOperatorQuickFix(data as BinOp, textRange, JSDeepBugsConfig.get().quickFixesThreshold,
             JSResourceBundle.message("deepbugs.javascript.replace.operator.family")) { operators[it] ?: "" }
@@ -32,7 +32,7 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
         )
     }
 
-    override fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String {
+    override fun createTooltip(node: PsiElement, vararg params: Any): String {
         val operatorText = (node as JSBinaryExpression).operationNode?.text ?: ""
         return params.singleOrNull()?.let {
             JSResourceBundle.message(

@@ -1,7 +1,7 @@
 package org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.math
 
 import com.intellij.codeInspection.ProblemDescriptor
-import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiElement
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
@@ -18,13 +18,13 @@ class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsMathCallExprInspection() {
 
     override val ignore: List<String> = listOf("min", "max").map { it.asIdentifierString() }
 
-    override fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor =
+    override fun createProblemDescriptor(node: PsiElement, data: DataType): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(
             JSIgnoreExpressionQuickFix(data, node.text),
             FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.flip.args.family"))
         ))
 
-    override fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String =
+    override fun createTooltip(node: PsiElement, vararg params: Any): String =
         JSResourceBundle.message("deepbugs.javascript.math.swapped.args.inspection.warning")
 
     override fun getShortName() = "JSDeepBugsSwappedArgsMath"

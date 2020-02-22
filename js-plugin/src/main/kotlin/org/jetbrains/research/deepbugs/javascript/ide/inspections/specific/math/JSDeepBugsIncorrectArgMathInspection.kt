@@ -1,7 +1,7 @@
 package org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.math
 
 import com.intellij.lang.javascript.psi.JSCallExpression
-import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiElement
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.jetbrains.research.deepbugs.javascript.model.specific.JSSpecificModel
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
@@ -14,7 +14,7 @@ class JSDeepBugsIncorrectArgMathInspection : JSDeepBugsMathCallExprInspection() 
     override val model: Perceptron?
         get() = JSSpecificModel.math.incorrectArgModel
 
-    override fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String =
+    override fun createTooltip(node: PsiElement, vararg params: Any): String =
         JSResourceBundle.message(
             "deepbugs.javascript.math.incorrect.arg.inspection.warning",
             (node as JSCallExpression).arguments.first().text

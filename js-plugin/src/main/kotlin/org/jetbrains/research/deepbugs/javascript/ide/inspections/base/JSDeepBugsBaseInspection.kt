@@ -4,7 +4,6 @@ import com.intellij.codeInspection.*
 import com.intellij.lang.javascript.inspections.JSInspection
 import com.intellij.lang.javascript.psi.JSElement
 import com.intellij.lang.javascript.psi.JSElementVisitor
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
@@ -19,17 +18,15 @@ abstract class JSDeepBugsBaseInspection : JSInspection() {
 
     protected open fun skip(node: PsiElement): Boolean = false
 
-    protected open fun createProblemDescriptor(node: NavigatablePsiElement, data: DataType): ProblemDescriptor =
+    protected open fun createProblemDescriptor(node: PsiElement, data: DataType): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(JSIgnoreExpressionQuickFix(data, node.text)))
 
-    protected abstract fun createTooltip(node: NavigatablePsiElement, vararg params: Any): String
+    protected abstract fun createTooltip(node: PsiElement, vararg params: Any): String
 
     abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {
-        protected abstract fun collect(node: JSElement): DataType?
-
-        protected fun visit(node: JSElement) {
+        protected fun visit(node: JSElement, collect: JSElement.() -> DataType?) {
             if (skip(node)) return
-            collect(node)?.let {
+            node.collect()?.let {
                 val result = model?.predict(it.vectorize() ?: return) ?: return
                 analyzeInspected(result, node, it)
             }
