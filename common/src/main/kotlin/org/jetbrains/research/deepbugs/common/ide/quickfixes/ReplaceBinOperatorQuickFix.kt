@@ -1,8 +1,7 @@
 package org.jetbrains.research.deepbugs.common.ide.quickfixes
 
 import com.intellij.codeInsight.intention.PriorityAction
-import com.intellij.codeInsight.lookup.LookupElementBuilder
-import com.intellij.codeInsight.lookup.LookupManager
+import com.intellij.codeInsight.lookup.*
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.ide.DataManager
@@ -13,7 +12,6 @@ import com.intellij.openapi.util.TextRange
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
-import kotlin.math.max
 import kotlin.math.min
 
 class ReplaceBinOperatorQuickFix(
@@ -47,12 +45,18 @@ class ReplaceBinOperatorQuickFix(
 
             if (lookups.size == 1) {
                 val lookup = lookups.single().lookupString
-                val newEnd = operatorRange.startOffset + lookup.length
-                editor.document.replaceString(operatorRange.startOffset, max(endOff, newEnd), lookup)
+                editor.document.replaceString(operatorRange.startOffset, endOff, lookup)
+                editor.selectionModel.removeSelection(false)
                 return@onSuccess
             }
 
-            LookupManager.getInstance(project).showLookup(editor, *lookups.toTypedArray())
+            LookupManager.getInstance(project).showLookup(editor, *lookups.toTypedArray())?.addLookupListener(
+                object : LookupListener {
+                    override fun itemSelected(event: LookupEvent) {
+                        editor.selectionModel.removeSelection(false)
+                    }
+                }
+            )
         }
     }
 
