@@ -13,8 +13,10 @@ class BinOp(
 ) : DataType() {
     override val text: String = "$left $op $right"
 
-    override fun vectorize(): FloatArray? = CommonModelStorage.vocabulary.let { vocab ->
-        listOf(
+    override fun vectorize(): FloatArray? {
+        val vocab = CommonModelStorage.vocabulary
+
+        return listOf(
             vocab.tokens[left] ?: return null,
             vocab.tokens[right] ?: return null,
             vocab.operators[op] ?: return null,

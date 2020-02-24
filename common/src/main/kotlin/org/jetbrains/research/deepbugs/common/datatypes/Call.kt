@@ -11,12 +11,15 @@ class Call(
 ) : DataType() {
     override val text: String = "$base.$callee(${arguments.joinToString(",")})"
 
-    override fun vectorize(): FloatArray? = CommonModelStorage.vocabulary.let { vocab ->
+    override fun vectorize(): FloatArray? {
+        val vocab = CommonModelStorage.vocabulary
+
         val nameVector = vocab.tokens[callee] ?: return null
         val argVectors = arguments.map { arg -> vocab.tokens[arg] ?: return null }.reduce(FloatArray::plus)
         val baseVector = vocab.tokens[base] ?: FloatArray(200) { 0.0f }
         val typeVectors = argumentTypes.map { argType -> vocab.types[argType] ?: return null }.reduce(FloatArray::plus)
         val paramVectors = parameters.map { param -> vocab.tokens[param] ?: FloatArray(200) { 0.0f } }.reduce(FloatArray::plus)
-        nameVector + argVectors + baseVector + typeVectors + paramVectors
+
+        return nameVector + argVectors + baseVector + typeVectors + paramVectors
     }
 }
