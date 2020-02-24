@@ -22,7 +22,7 @@ class BinOp(
             vocab.types[rightType] ?: return null,
             vocab.nodeTypes[parent] ?: return null,
             vocab.nodeTypes[grandParent] ?: return null
-        ).reduce { acc, floats -> acc + floats }
+        ).reduce(FloatArray::plus)
     }
 
     fun replaceOperator(newOp: String) = BinOp(left, right, newOp, leftType, rightType, parent, grandParent)

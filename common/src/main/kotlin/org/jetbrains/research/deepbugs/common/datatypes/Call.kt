@@ -13,10 +13,10 @@ class Call(
 
     override fun vectorize(): FloatArray? = CommonModelStorage.vocabulary.let { vocab ->
         val nameVector = vocab.tokens[callee] ?: return null
-        val argVectors = arguments.fold(FloatArray(0)) { acc, arg -> acc + (vocab.tokens[arg] ?: return null) }
+        val argVectors = arguments.map { arg -> vocab.tokens[arg] ?: return null }.reduce(FloatArray::plus)
         val baseVector = vocab.tokens[base] ?: FloatArray(200) { 0.0f }
-        val typeVectors = argumentTypes.fold(FloatArray(0)) { acc, argType -> acc + (vocab.types[argType] ?: return null) }
-        val paramVectors = parameters.fold(FloatArray(0)) { acc, param -> acc + (vocab.tokens[param] ?: FloatArray(200) { 0.0f }) }
+        val typeVectors = argumentTypes.map { argType -> vocab.types[argType] ?: return null }.reduce(FloatArray::plus)
+        val paramVectors = parameters.map { param -> vocab.tokens[param] ?: FloatArray(200) { 0.0f } }.reduce(FloatArray::plus)
         nameVector + argVectors + baseVector + typeVectors + paramVectors
     }
 }
