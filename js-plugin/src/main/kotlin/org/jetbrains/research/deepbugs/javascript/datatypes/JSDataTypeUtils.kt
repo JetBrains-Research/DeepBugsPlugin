@@ -3,9 +3,7 @@ package org.jetbrains.research.deepbugs.javascript.datatypes
 import com.intellij.lang.javascript.psi.*
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.datatypes.Call
-import org.jetbrains.research.deepbugs.javascript.extraction.extractNodeBase
-import org.jetbrains.research.deepbugs.javascript.extraction.extractNodeName
-import org.jetbrains.research.deepbugs.javascript.extraction.extractNodeType
+import org.jetbrains.research.deepbugs.javascript.extraction.*
 
 fun JSBinaryExpression.collect(): BinOp? {
     val leftName = lOperand?.extractNodeName() ?: return null

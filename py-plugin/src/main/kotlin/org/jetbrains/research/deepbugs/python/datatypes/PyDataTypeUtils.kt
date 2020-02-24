@@ -7,15 +7,10 @@ import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.datatypes.Call
-import org.jetbrains.research.deepbugs.python.extraction.extractNodeBase
-import org.jetbrains.research.deepbugs.python.extraction.extractNodeName
-import org.jetbrains.research.deepbugs.python.extraction.extractNodeType
+import org.jetbrains.research.deepbugs.python.extraction.*
 
-private const val SUPPORTED_ARGS_NUM = 2
 
 fun PyCallExpression.collect(): Call? {
-    if (arguments.size != SUPPORTED_ARGS_NUM) return null
-
     val name = callee?.extractNodeName() ?: return null
 
     val args = ArrayList<String>()
