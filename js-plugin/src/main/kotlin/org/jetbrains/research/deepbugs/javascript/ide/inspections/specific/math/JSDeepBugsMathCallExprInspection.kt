@@ -3,29 +3,28 @@ package org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.math
 import com.intellij.lang.javascript.library.JSLibraryUtil
 import com.intellij.lang.javascript.psi.JSCallExpression
 import com.intellij.lang.javascript.psi.JSReferenceExpression
-import com.intellij.psi.PsiElement
 import org.jetbrains.research.deepbugs.common.ide.inspections.DeepBugsInspectionManager
 import org.jetbrains.research.deepbugs.common.ide.inspections.specific.SpecificInspectionDescriptor
 import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBugsCallExprInspection
 
-abstract class JSDeepBugsMathCallExprInspection : JSDeepBugsCallExprInspection() {
+abstract class JSDeepBugsMathCallExprInspection(requiredArgsNum: Int, threshold: Float = 0.8f) : JSDeepBugsCallExprInspection(requiredArgsNum, threshold) {
     init {
         DeepBugsInspectionManager.register(
-            SpecificInspectionDescriptor { (it is JSReferenceExpression) && !skip(it) }
+            SpecificInspectionDescriptor { (it is JSCallExpression) && !skip(it) }
         )
     }
 
     protected open val ignore: List<String> = emptyList()
 
-    override fun skip(node: PsiElement): Boolean {
-        if (node !is JSCallExpression || node.arguments.size != requiredArgumentsNum) return true
+    override fun skip(node: JSCallExpression): Boolean {
+        if (node.arguments.size != requiredArgumentsNum) return true
         val call = node.methodExpression as? JSReferenceExpression ?: return true
         return ignore.contains(call.referenceName) || !call.isBuiltIn() && !call.isLibCall()
     }
 
     companion object {
-        private val libsToConsider: List<String> = listOf("mathjs")
-        private val modulesToConsider: List<String> = listOf("Math")
+        private val libsToConsider: Set<String> = setOf("mathjs")
+        private val modulesToConsider: Set<String> = setOf("Math")
 
         private fun JSReferenceExpression.isBuiltIn(): Boolean {
             val first = qualifier?.text?.split('.')?.firstOrNull() ?: return false

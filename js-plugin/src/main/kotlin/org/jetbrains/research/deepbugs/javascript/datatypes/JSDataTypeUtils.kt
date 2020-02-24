@@ -32,7 +32,7 @@ fun JSCallExpression.collect(): Call? {
     val base = extractNodeBase()
 
     val resolved = try {
-        callee.multiResolve(false).firstOrNull { (it.element) is JSFunction }?.element as? JSFunction
+        callee.multiResolve(false).asSequence().mapNotNull { it.element as? JSFunction }.firstOrNull()
     } catch (ex: Exception) {
         null
     }

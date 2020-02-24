@@ -2,7 +2,6 @@ package org.jetbrains.research.deepbugs.javascript.ide.inspections.common
 
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.lang.javascript.psi.JSCallExpression
-import com.intellij.psi.PsiElement
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.inspections.DeepBugsInspectionManager
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
@@ -13,24 +12,23 @@ import org.jetbrains.research.deepbugs.javascript.ide.inspections.base.JSDeepBug
 import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
-open class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection() {
-    override val requiredArgumentsNum: Int? = 2
+open class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection(2) {
 
     override val model: Perceptron?
         get() = CommonModelStorage.common.swappedArgsModel
 
-    override fun skip(node: PsiElement): Boolean {
-        if (node !is JSCallExpression || node.arguments.size != requiredArgumentsNum) return true
+    override fun skip(node: JSCallExpression): Boolean {
+        if (node.arguments.size != requiredArgumentsNum) return true
         return DeepBugsInspectionManager.isSpecific(node)
     }
 
-    override fun createProblemDescriptor(node: PsiElement, data: DataType): ProblemDescriptor =
+    override fun createProblemDescriptor(node: JSCallExpression, data: DataType): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(
             JSIgnoreExpressionQuickFix(data, node.text),
             FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.flip.args.family"))
         ))
 
-    override fun createTooltip(node: PsiElement, vararg params: Any): String =
+    override fun createTooltip(node: JSCallExpression, vararg params: Any): String =
         JSResourceBundle.message("deepbugs.javascript.swapped.args.inspection.warning")
 
     override fun getShortName() = "JSDeepBugsSwappedArgs"

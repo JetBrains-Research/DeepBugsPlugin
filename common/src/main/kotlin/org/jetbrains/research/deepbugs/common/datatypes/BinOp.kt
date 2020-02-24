@@ -13,7 +13,7 @@ class BinOp(
 ) : DataType() {
     override val text: String = "$left $op $right"
 
-    override fun vectorize(): List<Float>? = CommonModelStorage.vocabulary.let { vocab ->
+    override fun vectorize(): FloatArray? = CommonModelStorage.vocabulary.let { vocab ->
         listOf(
             vocab.tokens[left] ?: return null,
             vocab.tokens[right] ?: return null,
@@ -22,7 +22,7 @@ class BinOp(
             vocab.types[rightType] ?: return null,
             vocab.nodeTypes[parent] ?: return null,
             vocab.nodeTypes[grandParent] ?: return null
-        ).flatten()
+        ).reduce { acc, floats -> acc + floats }
     }
 
     fun replaceOperator(newOp: String) = BinOp(left, right, newOp, leftType, rightType, parent, grandParent)
