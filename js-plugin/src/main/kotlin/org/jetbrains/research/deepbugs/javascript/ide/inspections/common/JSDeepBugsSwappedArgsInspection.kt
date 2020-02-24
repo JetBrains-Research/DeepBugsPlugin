@@ -2,7 +2,7 @@ package org.jetbrains.research.deepbugs.javascript.ide.inspections.common
 
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.lang.javascript.psi.JSCallExpression
-import org.jetbrains.research.deepbugs.common.datatypes.DataType
+import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.common.ide.inspections.DeepBugsInspectionManager
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
@@ -21,7 +21,7 @@ open class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection(2) {
         return DeepBugsInspectionManager.isSpecific(node)
     }
 
-    override fun createProblemDescriptor(node: JSCallExpression, data: DataType): ProblemDescriptor =
+    override fun createProblemDescriptor(node: JSCallExpression, data: Call): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(
             JSIgnoreExpressionQuickFix(data, node.text),
             FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.flip.args.family"))

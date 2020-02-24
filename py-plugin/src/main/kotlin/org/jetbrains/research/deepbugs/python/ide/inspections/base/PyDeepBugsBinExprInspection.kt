@@ -3,9 +3,10 @@ package org.jetbrains.research.deepbugs.python.ide.inspections.base
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
 import com.jetbrains.python.psi.PyBinaryExpression
+import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.python.datatypes.collect
 
-abstract class PyDeepBugsBinExprInspection(threshold: Float) : PyDeepBugsBaseInspection<PyBinaryExpression>(threshold) {
+abstract class PyDeepBugsBinExprInspection(threshold: Float) : PyDeepBugsBaseInspection<PyBinaryExpression, BinOp>(threshold) {
     override fun buildVisitor(
         holder: ProblemsHolder,
         isOnTheFly: Boolean,

@@ -4,12 +4,13 @@ import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.lang.javascript.psi.JSCallExpression
 import com.intellij.psi.PsiElementVisitor
+import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.javascript.datatypes.collect
 
 abstract class JSDeepBugsCallExprInspection(
     protected val requiredArgumentsNum: Int,
     threshold: Float = 0.8f
-) : JSDeepBugsBaseInspection<JSCallExpression>(threshold) {
+) : JSDeepBugsBaseInspection<JSCallExpression, Call>(threshold) {
     override fun createVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession): PsiElementVisitor = JSDeepBugsCallVisitor(holder)
 
     inner class JSDeepBugsCallVisitor(holder: ProblemsHolder) : JSDeepBugsVisitor(holder) {

@@ -2,7 +2,7 @@ package org.jetbrains.research.deepbugs.python.ide.inspections
 
 import com.intellij.codeInspection.ProblemDescriptor
 import com.jetbrains.python.psi.PyCallExpression
-import org.jetbrains.research.deepbugs.common.datatypes.DataType
+import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
@@ -17,7 +17,7 @@ class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection(2, 0.8f) {
 
     override fun skip(node: PyCallExpression): Boolean = node.arguments.size != requiredArgsNum
 
-    override fun createProblemDescriptor(node: PyCallExpression, data: DataType): ProblemDescriptor =
+    override fun createProblemDescriptor(node: PyCallExpression, data: Call): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(
             PyIgnoreExpressionQuickFix(data, node.text),
             FlipFunctionArgumentsQuickFix(PyResourceBundle.message("deepbugs.python.flip.args.family"))

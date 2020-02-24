@@ -3,7 +3,6 @@ package org.jetbrains.research.deepbugs.python.ide.inspections
 import com.intellij.codeInspection.ProblemDescriptor
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
-import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.ReplaceBinOperatorQuickFix
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.ReplaceBinOperatorQuickFix.Companion.toLookups
@@ -20,9 +19,9 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection(0.85f) {
     override val model: Perceptron?
         get() = CommonModelStorage.common.binOperatorModel
 
-    override fun createProblemDescriptor(node: PyBinaryExpression, data: DataType): ProblemDescriptor {
+    override fun createProblemDescriptor(node: PyBinaryExpression, data: BinOp): ProblemDescriptor {
         val textRange = node.findOperatorTextRange()!!
-        val replaceQuickFix = ReplaceBinOperatorQuickFix(data as BinOp, textRange, PyDeepBugsConfig.get().quickFixesThreshold,
+        val replaceQuickFix = ReplaceBinOperatorQuickFix(data, textRange, PyDeepBugsConfig.get().quickFixesThreshold,
             PyResourceBundle.message("deepbugs.python.replace.operator.family")).takeIf { it.isAvailable() }
         return BugDescriptor(
             node,

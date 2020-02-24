@@ -2,7 +2,7 @@ package org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.math
 
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.lang.javascript.psi.JSCallExpression
-import org.jetbrains.research.deepbugs.common.datatypes.DataType
+import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
@@ -17,7 +17,7 @@ class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsMathCallExprInspection(2) 
 
     override val ignore: List<String> = listOf("min", "max").map { it.asIdentifierString() }
 
-    override fun createProblemDescriptor(node: JSCallExpression, data: DataType): ProblemDescriptor =
+    override fun createProblemDescriptor(node: JSCallExpression, data: Call): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(
             JSIgnoreExpressionQuickFix(data, node.text),
             FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.flip.args.family"))

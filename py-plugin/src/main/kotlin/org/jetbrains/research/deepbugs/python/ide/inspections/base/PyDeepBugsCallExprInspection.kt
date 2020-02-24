@@ -4,9 +4,12 @@ import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.python.psi.PyCallExpression
+import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.python.datatypes.collect
 
-abstract class PyDeepBugsCallExprInspection(protected val requiredArgsNum: Int, threshold: Float) : PyDeepBugsBaseInspection<PyCallExpression>(threshold) {
+abstract class PyDeepBugsCallExprInspection(
+    protected val requiredArgsNum: Int, threshold: Float
+) : PyDeepBugsBaseInspection<PyCallExpression, Call>(threshold) {
     override fun buildVisitor(
         holder: ProblemsHolder,
         isOnTheFly: Boolean,

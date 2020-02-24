@@ -19,7 +19,7 @@ abstract class JSDeepBugsMathCallExprInspection(requiredArgsNum: Int, threshold:
     override fun skip(node: JSCallExpression): Boolean {
         if (node.arguments.size != requiredArgumentsNum) return true
         val call = node.methodExpression as? JSReferenceExpression ?: return true
-        return ignore.contains(call.referenceName) || !call.isBuiltIn() && !call.isLibCall()
+        return ignore.contains(call.referenceName) || (!call.isBuiltIn() && !call.isLibCall())
     }
 
     companion object {
