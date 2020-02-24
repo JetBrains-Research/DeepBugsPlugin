@@ -1,7 +1,5 @@
 package org.jetbrains.research.deepbugs.python.datatypes
 
-import com.intellij.psi.PsiComment
-import com.intellij.psi.PsiWhiteSpace
 import com.jetbrains.python.psi.PyBinaryExpression
 import com.jetbrains.python.psi.PyCallExpression
 import com.jetbrains.python.psi.resolve.PyResolveContext
@@ -43,24 +41,3 @@ fun PyBinaryExpression.collect(): BinOp? {
     val grandParentNode = parent.parent.javaClass.simpleName ?: ""
     return BinOp(leftName, rightName, op, leftType, rightType, parentNode, grandParentNode)
 }
-
-fun PyBinaryExpression.extractOperatorText(): String? {
-    var firstElement = psiOperator ?: return null
-    val lastElement = if (rightExpression?.prevSibling is PsiWhiteSpace) {
-        rightExpression?.prevSibling
-    } else {
-        rightExpression
-    } ?: return firstElement.text
-
-    var result = ""
-    while (firstElement != lastElement) {
-        if (firstElement !is PsiWhiteSpace && firstElement !is PsiComment) {
-            if (result != "") result += " "
-            result += firstElement.text
-        }
-        firstElement = firstElement.nextSibling
-    }
-    return result
-}
-
-

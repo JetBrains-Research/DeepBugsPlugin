@@ -27,5 +27,4 @@ class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsMathCallExprInspection(2) 
         JSResourceBundle.message("deepbugs.javascript.math.swapped.args.inspection.warning")
 
     override fun getShortName() = "JSDeepBugsSwappedArgsMath"
-
 }

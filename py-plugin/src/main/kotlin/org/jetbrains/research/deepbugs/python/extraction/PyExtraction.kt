@@ -1,7 +1,10 @@
 package org.jetbrains.research.deepbugs.python.extraction
 
-import com.jetbrains.python.PyNames
-import com.jetbrains.python.PyTokenTypes
+import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiWhiteSpace
+import com.intellij.psi.util.siblings
+import com.jetbrains.python.*
 import com.jetbrains.python.psi.*
 
 fun String.asLiteralString() = "LIT:$this"
@@ -47,3 +50,30 @@ fun PyElement.extractNodeBase(): String = when (this) {
     is PySubscriptionExpression -> operand.extractNodeName() ?: ""
     else -> ""
 }
+
+fun PyBinaryExpression.extractOperatorText(): String? {
+    operatorRange ?: return null
+    if (operatorRange!!.first == operatorRange!!.second) return operatorRange!!.first.text
+
+    return findOperatorElements().toList().asReversed().joinToString(" ") { it.text }
+}
+
+fun PyBinaryExpression.findOperatorTextRange(): TextRange? {
+    operatorRange ?: return null
+    return TextRange(operatorRange!!.first.textRange.startOffset, operatorRange!!.second.textRange.endOffset)
+}
+
+private fun PyBinaryExpression.findOperatorElements(): Sequence<PsiElement> {
+    operatorRange ?: emptySequence<PsiElement>()
+    if (operatorRange!!.first == operatorRange!!.second) return sequenceOf(operatorRange!!.first)
+
+    val siblings = rightExpression?.prevSibling?.siblings(forward = false) ?: emptySequence()
+    return siblings.takeWhile { it != operatorRange!!.first.prevSibling }.filter { it !is PsiWhiteSpace }
+}
+
+private val PyBinaryExpression.operatorRange: Pair<PsiElement, PsiElement>?
+    get() {
+        val firstElement = psiOperator ?: return null
+        val lastElement = rightExpression?.prevSibling?.siblings(forward = false)?.firstOrNull { it !is PsiWhiteSpace }
+        return firstElement to (lastElement ?: firstElement)
+    }

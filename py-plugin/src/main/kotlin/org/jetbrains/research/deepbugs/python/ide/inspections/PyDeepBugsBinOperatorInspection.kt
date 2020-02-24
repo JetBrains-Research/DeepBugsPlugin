@@ -10,7 +10,8 @@ import org.jetbrains.research.deepbugs.common.ide.quickfixes.ReplaceBinOperatorQ
 import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
-import org.jetbrains.research.deepbugs.python.datatypes.extractOperatorText
+import org.jetbrains.research.deepbugs.python.extraction.extractOperatorText
+import org.jetbrains.research.deepbugs.python.extraction.findOperatorTextRange
 import org.jetbrains.research.deepbugs.python.ide.inspections.base.PyDeepBugsBinExprInspection
 import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyIgnoreExpressionQuickFix
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
@@ -20,7 +21,7 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection(0.85f) {
         get() = CommonModelStorage.common.binOperatorModel
 
     override fun createProblemDescriptor(node: PyBinaryExpression, data: DataType): ProblemDescriptor {
-        val textRange = node.psiOperator?.textRange!!
+        val textRange = node.findOperatorTextRange()!!
         val replaceQuickFix = ReplaceBinOperatorQuickFix(data as BinOp, textRange, PyDeepBugsConfig.get().quickFixesThreshold,
             PyResourceBundle.message("deepbugs.python.replace.operator.family")).takeIf { it.isAvailable() }
         return BugDescriptor(
