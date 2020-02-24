@@ -13,7 +13,6 @@ import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpress
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
 open class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection(2) {
-
     override val model: Perceptron?
         get() = CommonModelStorage.common.swappedArgsModel
 
