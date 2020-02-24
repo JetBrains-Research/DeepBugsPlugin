@@ -20,7 +20,7 @@ The plugins are available for download: [Python](https://plugins.jetbrains.com/p
 ## Getting started
 Code inspections in the plugins detect several types of bugs, including incorrect function arguments, incorrect comparison, and others, based on code semantics.
 
-If the plugin provides some warnings that you consider as a false positives, you can disable check on any particular piece of code with a quick-fix.
+If the plugin provides some warnings that you consider as false positives, you can disable check on any particular piece of code with a quick-fix.
 All the ignored expressions can be reset in __Preferences / Settings__ under __Tools | DeepBugs for Python/DeepBugs for JavaScript__.
 
 ## Supported code inspections
@@ -31,7 +31,7 @@ For example, it may detect the following bugs:
 - `i <= length` (index is less or equal to length, but should be less)
 - `text + binary` (concatenated non-compatible types)
 
-This inspection provides a quick-fix allowing to replace misused operator with more appropriate one.
+This inspection provides a quick-fix that allows replacing misused operator with more appropriate one.
 ### Incorrect binary operand
 The inspection detects misuse of binary operands (arguments of binary operations).
 
