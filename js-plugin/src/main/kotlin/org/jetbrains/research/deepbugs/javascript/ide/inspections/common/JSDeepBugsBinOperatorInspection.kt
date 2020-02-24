@@ -1,6 +1,5 @@
 package org.jetbrains.research.deepbugs.javascript.ide.inspections.common
 
-import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.lang.javascript.psi.JSBinaryExpression
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
@@ -31,14 +30,10 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
         )
     }
 
-    override fun createTooltip(node: JSBinaryExpression, vararg params: Any): String {
+    override fun createTooltip(node: JSBinaryExpression, vararg params: String): String {
         val operatorText = node.operationNode?.text ?: ""
         return params.singleOrNull()?.let {
-            JSResourceBundle.message(
-                "deepbugs.javascript.binary.operator.inspection.warning.single",
-                (it as LookupElementBuilder).lookupString,
-                operatorText
-            )
+            JSResourceBundle.message("deepbugs.javascript.binary.operator.inspection.warning.single", it, operatorText)
         } ?: JSResourceBundle.message("deepbugs.javascript.binary.operator.inspection.warning", operatorText)
     }
 

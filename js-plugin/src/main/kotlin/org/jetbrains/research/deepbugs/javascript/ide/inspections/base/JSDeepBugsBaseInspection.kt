@@ -20,7 +20,7 @@ abstract class JSDeepBugsBaseInspection<T : JSElement>(private val threshold: Fl
     protected open fun createProblemDescriptor(node: T, data: DataType): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(JSIgnoreExpressionQuickFix(data, node.text)))
 
-    protected abstract fun createTooltip(node: T, vararg params: Any): String
+    protected abstract fun createTooltip(node: T, vararg params: String): String
 
     abstract inner class JSDeepBugsVisitor(private val holder: ProblemsHolder) : JSElementVisitor() {
         protected fun visit(node: T, collect: T.() -> DataType?) {

@@ -1,6 +1,5 @@
 package org.jetbrains.research.deepbugs.python.ide.inspections
 
-import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInspection.ProblemDescriptor
 import com.jetbrains.python.psi.PyBinaryExpression
 import org.jetbrains.research.deepbugs.common.datatypes.BinOp
@@ -31,14 +30,10 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection(0.85f) {
         )
     }
 
-    override fun createTooltip(node: PyBinaryExpression, vararg params: Any): String {
+    override fun createTooltip(node: PyBinaryExpression, vararg params: String): String {
         val operatorText = node.extractOperatorText() ?: ""
         return params.singleOrNull()?.let {
-            PyResourceBundle.message(
-                "deepbugs.python.binary.operator.inspection.warning.single",
-                (it as LookupElementBuilder).lookupString,
-                operatorText
-            )
+            PyResourceBundle.message("deepbugs.python.binary.operator.inspection.warning.single", it, operatorText)
         } ?: PyResourceBundle.message("deepbugs.python.binary.operator.inspection.warning", operatorText)
     }
 

@@ -9,7 +9,7 @@ class JSDeepBugsIncorrectArgMathInspection : JSDeepBugsMathCallExprInspection(1,
     override val model: Perceptron?
         get() = JSSpecificModel.math.incorrectArgModel
 
-    override fun createTooltip(node: JSCallExpression, vararg params: Any): String =
+    override fun createTooltip(node: JSCallExpression, vararg params: String): String =
         JSResourceBundle.message(
             "deepbugs.javascript.math.incorrect.arg.inspection.warning",
             node.arguments.first().text

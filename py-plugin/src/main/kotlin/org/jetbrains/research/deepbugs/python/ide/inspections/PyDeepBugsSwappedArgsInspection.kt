@@ -23,7 +23,7 @@ class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection(2, 0.8f) {
             FlipFunctionArgumentsQuickFix(PyResourceBundle.message("deepbugs.python.flip.args.family"))
         ))
 
-    override fun createTooltip(node: PyCallExpression, vararg params: Any): String =
+    override fun createTooltip(node: PyCallExpression, vararg params: String): String =
         PyResourceBundle.message("deepbugs.python.swapped.args.inspection.warning")
 
     override fun getDisplayName() = PyResourceBundle.message("deepbugs.python.swapped.args.inspection.display")

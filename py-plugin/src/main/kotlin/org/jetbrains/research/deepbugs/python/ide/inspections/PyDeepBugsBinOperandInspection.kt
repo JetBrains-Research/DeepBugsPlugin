@@ -10,7 +10,7 @@ class PyDeepBugsBinOperandInspection : PyDeepBugsBinExprInspection(0.86f) {
     override val model: Perceptron?
         get() = CommonModelStorage.common.binOperandModel
 
-    override fun createTooltip(node: PyBinaryExpression, vararg params: Any): String =
+    override fun createTooltip(node: PyBinaryExpression, vararg params: String): String =
         PyResourceBundle.message(
             "deepbugs.python.binary.operand.inspection.warning",
             node.leftExpression.text,

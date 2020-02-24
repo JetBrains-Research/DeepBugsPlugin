@@ -67,6 +67,6 @@ class ReplaceBinOperatorQuickFix(
     }
 
     companion object {
-        fun ReplaceBinOperatorQuickFix?.toLookups() = if (this == null) emptyArray() else lookups.toTypedArray()
+        fun ReplaceBinOperatorQuickFix?.toLookups() = if (this == null) emptyArray() else lookups.map { it.lookupString }.toTypedArray()
     }
 }

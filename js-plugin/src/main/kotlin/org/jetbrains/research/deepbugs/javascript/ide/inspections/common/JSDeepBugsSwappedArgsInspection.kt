@@ -28,7 +28,7 @@ open class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection(2) {
             FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.flip.args.family"))
         ))
 
-    override fun createTooltip(node: JSCallExpression, vararg params: Any): String =
+    override fun createTooltip(node: JSCallExpression, vararg params: String): String =
         JSResourceBundle.message("deepbugs.javascript.swapped.args.inspection.warning")
 
     override fun getShortName() = "JSDeepBugsSwappedArgs"

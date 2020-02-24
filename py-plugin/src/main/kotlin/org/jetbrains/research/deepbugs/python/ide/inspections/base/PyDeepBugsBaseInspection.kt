@@ -19,7 +19,7 @@ abstract class PyDeepBugsBaseInspection<T : PyElement>(private val threshold: Fl
     protected open fun createProblemDescriptor(node: T, data: DataType): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), listOf(PyIgnoreExpressionQuickFix(data, node.text)))
 
-    protected abstract fun createTooltip(node: T, vararg params: Any): String
+    protected abstract fun createTooltip(node: T, vararg params: String): String
 
     abstract inner class PyDeepBugsVisitor(
         holder: ProblemsHolder,
