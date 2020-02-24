@@ -1,23 +1,25 @@
 package org.jetbrains.research.deepbugs.common.datatypes
 
-import org.jetbrains.research.deepbugs.common.utils.Mapping
+import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 
-abstract class Call(
+class Call(
     private val callee: String,
     private val arguments: List<String>,
     private val base: String,
     private val argumentTypes: List<String>,
-    private val parameters: List<String>,
-    @Suppress("unused") private val src: String
-) : DataType {
+    private val parameters: List<String>
+) : DataType() {
     override val text: String = "$base.$callee(${arguments.joinToString(",")})"
 
-    protected fun vectorize(token: Mapping, type: Mapping): List<Float>? {
-        val nameVector = token.get(callee) ?: return null
-        val argVectors = arguments.flatMap { arg -> token.get(arg) ?: return null }
-        val baseVector = token.get(base) ?: (FloatArray(200) { 0.0f }).toList()
-        val typeVectors = argumentTypes.flatMap { argType -> type.get(argType) ?: return null }
-        val paramVectors = parameters.flatMap { param -> token.get(param) ?: FloatArray(200) { 0.0f }.toList() }
-        return listOf(nameVector, argVectors, baseVector, typeVectors, paramVectors).flatten()
+    override fun vectorize(): FloatArray? {
+        val vocab = CommonModelStorage.vocabulary
+
+        val nameVector = vocab.tokens[callee] ?: return null
+        val argVectors = arguments.map { arg -> vocab.tokens[arg] ?: return null }.reduce(FloatArray::plus)
+        val baseVector = vocab.tokens[base] ?: FloatArray(200) { 0.0f }
+        val typeVectors = argumentTypes.map { argType -> vocab.types[argType] ?: return null }.reduce(FloatArray::plus)
+        val paramVectors = parameters.map { param -> vocab.tokens[param] ?: FloatArray(200) { 0.0f } }.reduce(FloatArray::plus)
+
+        return nameVector + argVectors + baseVector + typeVectors + paramVectors
     }
 }

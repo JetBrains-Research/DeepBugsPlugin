@@ -1,6 +1,10 @@
 group = "org.jetbrains.research"
 version = rootProject.version
 
+intellij {
+    version = "2019.2"
+}
+
 dependencies {
     implementation("io.jhdf", "jhdf", "0.5.3") {
         // to avoid conflict with the dependency already included in IntelliJ Platform

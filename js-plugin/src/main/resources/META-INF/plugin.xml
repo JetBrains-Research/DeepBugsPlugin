@@ -50,26 +50,39 @@
                          groupKey="deepbugs.javascript.group.name"
                          enabledByDefault="true"
                          bundle="DeepBugsJavaScriptBundle"
-                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.JSDeepBugsBinOperandInspection"/>
+                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.common.JSDeepBugsBinOperandInspection"/>
 
         <localInspection language="JavaScript" groupPath="JavaScript"
                          displayName="DeepBugs for JavaScript: Possibly incorrect operator"
                          groupKey="deepbugs.javascript.group.name"
                          enabledByDefault="true"
                          bundle="DeepBugsJavaScriptBundle"
-                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.JSDeepBugsBinOperatorInspection"/>
+                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.common.JSDeepBugsBinOperatorInspection"/>
 
         <localInspection language="JavaScript" groupPath="JavaScript"
                          displayName="DeepBugs for JavaScript: Possibly wrong order of function arguments"
                          groupKey="deepbugs.javascript.group.name"
                          enabledByDefault="true"
                          bundle="DeepBugsJavaScriptBundle"
-                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.JSDeepBugsSwappedArgsInspection"/>
+                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.common.JSDeepBugsSwappedArgsInspection"/>
+
+        <localInspection language="JavaScript" groupPath="JavaScript"
+                         displayName="DeepBugs for JavaScript: Possibly wrong order of math function arguments"
+                         groupKey="deepbugs.javascript.group.name"
+                         enabledByDefault="true"
+                         bundle="DeepBugsJavaScriptBundle"
+                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.math.JSDeepBugsSwappedArgsMathInspection"/>
+
+        <localInspection language="JavaScript" groupPath="JavaScript"
+                         displayName="DeepBugs for JavaScript: Possibly incorrect argument in math function call"
+                         groupKey="deepbugs.javascript.group.name"
+                         enabledByDefault="true"
+                         bundle="DeepBugsJavaScriptBundle"
+                         implementationClass="org.jetbrains.research.deepbugs.javascript.ide.inspections.specific.math.JSDeepBugsIncorrectArgMathInspection"/>
 
         <errorHandler implementation="org.jetbrains.research.deepbugs.common.ide.error.DeepBugsErrorReporter"/>
 
         <applicationService serviceImplementation="org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig"/>
         <applicationConfigurable groupId="tools" instance="org.jetbrains.research.deepbugs.javascript.ide.ui.JSDeepBugsConfigurable"/>
-        <backgroundPostStartupActivity implementation="org.jetbrains.research.deepbugs.common.model.ModelManager"/>
     </extensions>
 </idea-plugin>

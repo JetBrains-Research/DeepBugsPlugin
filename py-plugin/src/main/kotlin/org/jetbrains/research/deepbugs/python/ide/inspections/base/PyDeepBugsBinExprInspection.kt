@@ -2,19 +2,20 @@ package org.jetbrains.research.deepbugs.python.ide.inspections.base
 
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.psi.NavigatablePsiElement
 import com.jetbrains.python.psi.PyBinaryExpression
-import org.jetbrains.research.deepbugs.python.datatypes.PyBinOp
+import org.jetbrains.research.deepbugs.common.datatypes.BinOp
+import org.jetbrains.research.deepbugs.python.datatypes.collect
 
-abstract class PyDeepBugsBinExprInspection : PyDeepBugsBaseInspection() {
-    abstract inner class PyDeepBugsBinOpVisitor(
+abstract class PyDeepBugsBinExprInspection(threshold: Float) : PyDeepBugsBaseInspection<PyBinaryExpression, BinOp>(threshold) {
+    override fun buildVisitor(
         holder: ProblemsHolder,
+        isOnTheFly: Boolean,
         session: LocalInspectionToolSession
-    ) : PyDeepBugsVisitor(holder, session) {
-        override fun collect(node: NavigatablePsiElement, src: String) = PyBinOp.collectFromPyNode(node as PyBinaryExpression)
+    ) = PyDeepBugsBinOpVisitor(holder, session)
 
+    inner class PyDeepBugsBinOpVisitor(holder: ProblemsHolder, session: LocalInspectionToolSession) : PyDeepBugsVisitor(holder, session) {
         override fun visitPyBinaryExpression(node: PyBinaryExpression?) {
-            visitExpr(node)
+            visit(node ?: return) { node.collect() }
             super.visitPyBinaryExpression(node)
         }
     }

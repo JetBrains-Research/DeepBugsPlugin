@@ -1,7 +1,6 @@
 package org.jetbrains.research.deepbugs.common.datatypes
 
-interface DataType {
-    val text: String
-
-    fun vectorize(): List<Float>?
+abstract class DataType {
+    abstract val text: String
+    abstract fun vectorize(): FloatArray?
 }

@@ -9,7 +9,7 @@ open class Perceptron(
     name: String,
     override val layers: List<DenseLayer>,
     batchInputShape: List<Int?>
-) : SequentialModel<List<Float>, Float>(name, layers, batchInputShape) {
+) : SequentialModel<FloatArray, Float>(name, layers, batchInputShape) {
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun create(name: String, layers: List<Layer<*>>, batchInputShape: List<Int?>?): Perceptron {
@@ -22,7 +22,7 @@ open class Perceptron(
         }
     }
 
-    override fun predict(input: List<Float>): Float {
+    override fun predict(input: FloatArray): Float {
         require(batchInputShape!!.filterNotNull().single() == input.size) { "Unmatched input shapes" }
 
         layers.first().let {

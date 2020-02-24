@@ -1,30 +1,31 @@
 package org.jetbrains.research.deepbugs.common.datatypes
 
-import org.jetbrains.research.deepbugs.common.utils.Mapping
+import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 
-abstract class BinOp(
-    protected val left: String,
-    protected val right: String,
-    protected val op: String,
-    protected val leftType: String,
-    protected val rightType: String,
-    protected val parent: String,
-    protected val grandParent: String,
-    @Suppress("unused") protected val src: String
-) : DataType {
+class BinOp(
+    private val left: String,
+    private val right: String,
+    private val op: String,
+    private val leftType: String,
+    private val rightType: String,
+    private val parent: String,
+    private val grandParent: String
+) : DataType() {
     override val text: String = "$left $op $right"
 
-    protected fun vectorize(token: Mapping, type: Mapping, nodeType: Mapping, operator: Mapping): List<Float>? {
+    override fun vectorize(): FloatArray? {
+        val vocab = CommonModelStorage.vocabulary
+
         return listOf(
-            token.get(left) ?: return null,
-            token.get(right) ?: return null,
-            operator.get(op) ?: return null,
-            type.get(leftType) ?: return null,
-            type.get(rightType) ?: return null,
-            nodeType.get(parent) ?: return null,
-            nodeType.get(grandParent) ?: return null
-        ).flatten()
+            vocab.tokens[left] ?: return null,
+            vocab.tokens[right] ?: return null,
+            vocab.operators[op] ?: return null,
+            vocab.types[leftType] ?: return null,
+            vocab.types[rightType] ?: return null,
+            vocab.nodeTypes[parent] ?: return null,
+            vocab.nodeTypes[grandParent] ?: return null
+        ).reduce(FloatArray::plus)
     }
 
-    abstract fun replaceOperator(newOp: String): BinOp
+    fun replaceOperator(newOp: String) = BinOp(left, right, newOp, leftType, rightType, parent, grandParent)
 }

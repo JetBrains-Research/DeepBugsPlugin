@@ -6,9 +6,6 @@ import org.jetbrains.research.deepbugs.common.ide.msg.DeepBugsLifecycle
 
 abstract class DeepBugsConfig(private val default: State) : PersistentStateComponent<DeepBugsConfig.State> {
     data class State(
-        @Property val binOperatorThreshold: Float = 0.0f,
-        @Property val binOperandThreshold: Float = 0.0f,
-        @Property val swappedArgsThreshold: Float = 0.0f,
         @Property val quickFixesThreshold: Float = 0.3f,
         @Property val userDisabledChecks: Set<String> = emptySet()
     )
@@ -28,9 +25,6 @@ abstract class DeepBugsConfig(private val default: State) : PersistentStateCompo
 
     fun disableCheck(expr: String) {
         val newState = State(
-            binOperatorThreshold = state.binOperatorThreshold,
-            binOperandThreshold = state.binOperandThreshold,
-            swappedArgsThreshold = state.swappedArgsThreshold,
             userDisabledChecks = state.userDisabledChecks + expr
         )
         update(newState)
@@ -38,9 +32,6 @@ abstract class DeepBugsConfig(private val default: State) : PersistentStateCompo
 
     fun enableCheck(expr: String) {
         val newState = State(
-            binOperatorThreshold = state.binOperatorThreshold,
-            binOperandThreshold = state.binOperandThreshold,
-            swappedArgsThreshold = state.swappedArgsThreshold,
             userDisabledChecks = state.userDisabledChecks - expr
         )
         update(newState)

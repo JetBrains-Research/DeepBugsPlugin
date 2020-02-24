@@ -1,6 +1,6 @@
 package org.jetbrains.research.deepbugs.javascript.ide.ui
 
-import com.intellij.openapi.components.ServiceManager
+import com.intellij.openapi.components.service
 import org.jetbrains.research.deepbugs.common.DeepBugsConfig
 import org.jetbrains.research.deepbugs.common.ide.ui.DeepBugsConfigurable
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
@@ -11,5 +11,5 @@ class JSDeepBugsConfigurable : DeepBugsConfigurable(
     "JSPluginConfig",
     JSResourceBundle.message("deepbugs.javascript.display")
 ) {
-    override fun getSettings(): DeepBugsConfig = ServiceManager.getService(JSDeepBugsConfig::class.java)
+    override fun getSettings(): DeepBugsConfig = service<JSDeepBugsConfig>()
 }

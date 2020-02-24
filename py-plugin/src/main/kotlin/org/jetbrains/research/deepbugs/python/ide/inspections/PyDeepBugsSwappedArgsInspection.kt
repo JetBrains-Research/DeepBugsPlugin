@@ -1,42 +1,30 @@
 package org.jetbrains.research.deepbugs.python.ide.inspections
 
-import com.intellij.codeInspection.LocalInspectionToolSession
-import com.intellij.codeInspection.ProblemHighlightType
-import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.psi.NavigatablePsiElement
-import com.intellij.psi.PsiElementVisitor
-import org.jetbrains.research.deepbugs.common.datatypes.DataType
-import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
+import com.intellij.codeInspection.ProblemDescriptor
+import com.jetbrains.python.psi.PyCallExpression
+import org.jetbrains.research.deepbugs.common.datatypes.Call
+import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
-import org.jetbrains.research.deepbugs.common.model.ModelManager
-import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
-import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
+import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
 import org.jetbrains.research.deepbugs.python.ide.inspections.base.PyDeepBugsCallExprInspection
 import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyIgnoreExpressionQuickFix
+import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
-class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection() {
+class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection(2, 0.8f) {
     override val model: Perceptron?
-        get() = ModelManager.storage.swappedArgsModel
-    override val threshold: Float
-        get() = PyDeepBugsConfig.get().swappedArgsThreshold
+        get() = CommonModelStorage.common.swappedArgsModel
 
-    override fun buildVisitor(
-        holder: ProblemsHolder,
-        isOnTheFly: Boolean,
-        session: LocalInspectionToolSession
-    ): PsiElementVisitor = object : PyDeepBugsCallVisitor(holder, session) {
-        override fun msg(node: NavigatablePsiElement, vararg params: Any): String =
-            PyResourceBundle.message("deepbugs.python.swapped.args.inspection.warning")
+    override fun skip(node: PyCallExpression): Boolean = node.arguments.size != requiredArgsNum
 
-        override fun analyzeInspected(result: Float, node: NavigatablePsiElement, data: DataType) {
-            if (PyDeepBugsConfig.isProblem(result, threshold, data)) {
-                holder.registerProblem(node, msg(node), ProblemHighlightType.GENERIC_ERROR, PyIgnoreExpressionQuickFix(data, node.text),
-                    FlipFunctionArgumentsQuickFix(PyResourceBundle.message("deepbugs.python.flip.args.family")))
-                InspectionReportCollector.logReport(holder.project, shortName, result)
-            }
-        }
-    }
+    override fun createProblemDescriptor(node: PyCallExpression, data: Call): ProblemDescriptor =
+        BugDescriptor(node, createTooltip(node), listOf(
+            PyIgnoreExpressionQuickFix(data, node.text),
+            FlipFunctionArgumentsQuickFix(PyResourceBundle.message("deepbugs.python.flip.args.family"))
+        ))
+
+    override fun createTooltip(node: PyCallExpression, vararg params: String): String =
+        PyResourceBundle.message("deepbugs.python.swapped.args.inspection.warning")
 
     override fun getDisplayName() = PyResourceBundle.message("deepbugs.python.swapped.args.inspection.display")
     override fun getShortName(): String = "PyDeepBugsSwappedArgs"
