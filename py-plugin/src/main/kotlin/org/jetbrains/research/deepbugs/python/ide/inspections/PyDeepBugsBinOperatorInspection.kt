@@ -2,6 +2,7 @@ package org.jetbrains.research.deepbugs.python.ide.inspections
 
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInspection.LocalInspectionToolSession
+import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.NavigatablePsiElement
@@ -11,6 +12,7 @@ import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.ReplaceBinOperatorQuickFix
+import org.jetbrains.research.deepbugs.common.ide.quickfixes.ReplaceBinOperatorQuickFix.Companion.toLookups
 import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
@@ -46,10 +48,9 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection() {
             if (PyDeepBugsConfig.isProblem(result, threshold, data)) {
                 val textRange = (node as PyBinaryExpression).psiOperator!!.textRange
                 val replaceQuickFix = ReplaceBinOperatorQuickFix(data as BinOp, textRange, PyDeepBugsConfig.get().quickFixesThreshold,
-                    PyResourceBundle.message("deepbugs.python.replace.operator.family"))
-
-                holder.registerProblem(node, msg(node, *replaceQuickFix.lookups.toTypedArray()), ProblemHighlightType.GENERIC_ERROR,
-                    PyIgnoreExpressionQuickFix(data, node.text), replaceQuickFix)
+                    PyResourceBundle.message("deepbugs.python.replace.operator.family")).takeIf { it.isAvailable() }
+                val fixes = listOfNotNull<LocalQuickFix>(PyIgnoreExpressionQuickFix(data, node.text), replaceQuickFix)
+                holder.registerProblem(node, msg(node, *replaceQuickFix.toLookups()), ProblemHighlightType.GENERIC_ERROR, *fixes.toTypedArray())
                 InspectionReportCollector.logReport(holder.project, shortName, result)
             }
         }

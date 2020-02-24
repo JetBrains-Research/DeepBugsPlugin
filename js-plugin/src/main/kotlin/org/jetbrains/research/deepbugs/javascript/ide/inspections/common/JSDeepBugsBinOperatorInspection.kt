@@ -7,6 +7,7 @@ import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.ReplaceBinOperatorQuickFix
+import org.jetbrains.research.deepbugs.common.ide.quickfixes.ReplaceBinOperatorQuickFix.Companion.toLookups
 import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import org.jetbrains.research.deepbugs.javascript.JSDeepBugsConfig
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
@@ -22,12 +23,11 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
     override fun createProblemDescriptor(node: JSBinaryExpression, data: DataType): ProblemDescriptor {
         val textRange = node.operationNode!!.textRange
         val replaceQuickFix = ReplaceBinOperatorQuickFix(data as BinOp, textRange, JSDeepBugsConfig.get().quickFixesThreshold,
-            JSResourceBundle.message("deepbugs.javascript.replace.operator.family")) { operators[it] ?: "" }
-
+            JSResourceBundle.message("deepbugs.javascript.replace.operator.family")) { operators[it] ?: "" }.takeIf { it.isAvailable() }
         return BugDescriptor(
             node,
-            createTooltip(node, *replaceQuickFix.lookups.toTypedArray()),
-            listOf(JSIgnoreExpressionQuickFix(data, node.text), replaceQuickFix)
+            createTooltip(node, *(replaceQuickFix.toLookups())),
+            listOfNotNull(JSIgnoreExpressionQuickFix(data, node.text), replaceQuickFix)
         )
     }
 
