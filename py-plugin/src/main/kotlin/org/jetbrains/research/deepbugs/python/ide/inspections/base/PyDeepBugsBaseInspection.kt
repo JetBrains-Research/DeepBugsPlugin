@@ -5,7 +5,7 @@ import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyElement
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
-import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.InspectionReportCollector
+import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.DeepBugsCounterCollector
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyIgnoreExpressionQuickFix
@@ -28,14 +28,16 @@ abstract class PyDeepBugsBaseInspection<T : PyElement, in V : DataType>(private 
         protected fun visit(node: T, collect: T.() -> V?) {
             if (skip(node)) return
             val data = node.collect() ?: return
-            val result = model?.predict(data.vectorize() ?: return) ?: return
+            val vectorized = data.vectorize()
+            DeepBugsCounterCollector.embeddingMatched(holder?.project ?: return, shortName, vectorized == null)
+            val result = model?.predict(vectorized ?: return) ?: return
             analyzeInspected(result, node, data)
         }
 
         private fun analyzeInspected(result: Float, node: T, data: V) {
             if (!PyDeepBugsConfig.isProblem(result, threshold, data)) return
             holder?.registerProblem(createProblemDescriptor(node, data))
-            InspectionReportCollector.logReport(holder?.project ?: return, shortName, result)
+            DeepBugsCounterCollector.problemFound(holder?.project ?: return, shortName, result)
         }
     }
 }
