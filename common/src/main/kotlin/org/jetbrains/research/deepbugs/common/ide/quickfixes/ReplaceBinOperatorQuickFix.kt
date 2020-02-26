@@ -73,6 +73,7 @@ class ReplaceBinOperatorQuickFix(
             addLookupListener(
                 object : LookupListener {
                     override fun itemSelected(event: LookupEvent) = DeepBugsCounterCollector.quickFixApplied(project, "replace.operator")
+                    override fun lookupCanceled(event: LookupEvent) = DeepBugsCounterCollector.quickFixApplied(project, "replace.operator", true)
                 }
             )
             return this
