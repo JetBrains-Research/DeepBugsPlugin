@@ -4,7 +4,10 @@ import com.intellij.internal.statistic.eventLog.*
 
 object DeepBugsEventLogger {
     private val loggerProvider: StatisticsEventLoggerProvider = getEventLogProvider("DBP")
+
     val version: Int = loggerProvider.version
+
+    val counterGroups = setOf("dbp.inspections", "dbp.settings")
 
     fun log(group: EventLogGroup, action: String) {
         return loggerProvider.logger.log(group, action, false)

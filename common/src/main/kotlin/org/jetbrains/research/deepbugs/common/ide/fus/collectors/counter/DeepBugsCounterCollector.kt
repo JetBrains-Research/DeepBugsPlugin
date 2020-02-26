@@ -13,12 +13,10 @@ object DeepBugsCounterCollector {
     private const val LOG_DELAY_MIN = 24 * 60
     private const val LOG_INITIAL_DELAY_MIN = 10
 
-    private val groups: Set<String> = setOf("dbp.inspections", "dbp.settings")
-
     private val eventGroups = HashMap<String, EventLogGroup>()
 
     init {
-        for (group in groups) register(group)
+        for (group in DeepBugsEventLogger.counterGroups) register(group)
 
         JobScheduler.getScheduler().scheduleWithFixedDelay(
             { trackRegisteredGroups() },
