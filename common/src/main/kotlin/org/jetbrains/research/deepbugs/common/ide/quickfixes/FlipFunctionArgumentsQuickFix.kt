@@ -25,7 +25,7 @@ class FlipFunctionArgumentsQuickFix(private val displayName: String) : LocalQuic
             val file: PsiFile = CommonDataKeys.PSI_FILE.getData(context) ?: return@onSuccess
 
             FlipCommaIntention().invoke(project, editor, file)
-            DeepBugsCounterCollector.quickFixApplied(project, "flip.arguments")
+            DeepBugsCounterCollector.quickFixApplied(project, "flip.arguments", cancelled = false)
         }
     }
 }

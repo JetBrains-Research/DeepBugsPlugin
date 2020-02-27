@@ -38,7 +38,7 @@ object DeepBugsCounterCollector {
         addData("matched", matched)
     }
 
-    fun quickFixApplied(project: Project, quickFixId: String, cancelled: Boolean = false) = log("dbp.inspections", "quickfix.applied") {
+    fun quickFixApplied(project: Project, quickFixId: String, cancelled: Boolean) = log("dbp.inspections", "quickfix.applied") {
         addProject(project)
         addData("plugin", DeepBugsPlugin.pluginId)
         addData("quickfix", quickFixId)
