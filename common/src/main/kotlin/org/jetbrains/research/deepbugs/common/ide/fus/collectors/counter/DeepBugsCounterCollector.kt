@@ -32,7 +32,7 @@ object DeepBugsCounterCollector {
         addData("result", result)
     }
 
-    fun embeddingMatched(project: Project, inspection: String, matched: Boolean) = log("dbp.inspections", "embedding.match") {
+    fun embeddingMatched(project: Project, inspection: String, matched: Boolean) = log("dbp.inspections", "embedding.matched") {
         addProject(project)
         addData("inspection", inspection)
         addData("matched", matched)
