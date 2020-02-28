@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import tanvd.kosogor.defaults.configureIdea
 
 group = "org.jetbrains.research.deepbugs"
-version = "0.3"
+version = "0.4"
 
 
 plugins {
