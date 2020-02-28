@@ -36,7 +36,7 @@ tasks.withType<Test> {
 
 tasks.withType<PatchPluginXmlTask> {
     sinceBuild("192.5728")
-    untilBuild("")
+    untilBuild("201.*")
 }
 
 dependencies {
