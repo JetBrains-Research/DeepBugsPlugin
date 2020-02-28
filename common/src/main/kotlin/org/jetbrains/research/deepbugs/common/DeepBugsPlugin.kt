@@ -2,6 +2,8 @@ package org.jetbrains.research.deepbugs.common
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor
 import com.intellij.ide.plugins.PluginManager
+import com.intellij.internal.statistic.utils.PluginInfo
+import com.intellij.internal.statistic.utils.getPluginInfoById
 import com.intellij.openapi.application.ApplicationManager
 import org.jetbrains.annotations.TestOnly
 import java.io.File
@@ -26,6 +28,9 @@ object DeepBugsPlugin {
 
     val pluginId: String
         get() = descriptor.pluginId.idString
+
+    val info: PluginInfo
+        get() = getPluginInfoById(descriptor.pluginId)
 
     @TestOnly
     fun setTestPlugin(id: String) {

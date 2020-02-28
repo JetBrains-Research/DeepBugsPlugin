@@ -6,63 +6,58 @@ import com.intellij.internal.statistic.eventLog.FeatureUsageData
 import com.intellij.openapi.project.Project
 import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
 import org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLogger
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 object DeepBugsCounterCollector {
     private const val LOG_DELAY_MIN = 24 * 60
     private const val LOG_INITIAL_DELAY_MIN = 10
 
-    private val eventGroups = HashMap<String, EventLogGroup>()
+    private val eventGroup = EventLogGroup("dbp.count", DeepBugsEventLogger.version)
 
     init {
-        for (group in DeepBugsEventLogger.counterGroups) register(group)
-
         JobScheduler.getScheduler().scheduleWithFixedDelay(
-            { trackRegisteredGroups() },
+            { trackRegistered() },
             LOG_INITIAL_DELAY_MIN.toLong(),
             LOG_DELAY_MIN.toLong(),
             TimeUnit.MINUTES
         )
     }
 
-    fun problemFound(project: Project, inspection: String, result: Float) = log("dbp.inspections", "report") {
+    fun problemFound(project: Project, inspection: String, result: Float) = log("report") {
+        addPluginInfo(DeepBugsPlugin.info)
         addProject(project)
         addData("inspection", inspection)
         addData("result", result)
     }
 
-    fun embeddingMatched(project: Project, inspection: String, matched: Boolean) = log("dbp.inspections", "embedding.matched") {
+    fun tokensMatched(project: Project, inspection: String, matched: Boolean) = log("tokens.matched") {
+        addPluginInfo(DeepBugsPlugin.info)
         addProject(project)
         addData("inspection", inspection)
         addData("matched", matched)
     }
 
-    fun quickFixApplied(project: Project, quickFixId: String, cancelled: Boolean) = log("dbp.inspections", "quickfix.applied") {
+    fun quickFixApplied(project: Project, quickFixId: String, cancelled: Boolean) = log("quickfix.applied") {
+        addPluginInfo(DeepBugsPlugin.info)
         addProject(project)
-        addData("plugin", DeepBugsPlugin.pluginId)
         addData("quickfix", quickFixId)
         addData("cancelled", cancelled)
     }
 
-    fun checkDisabled(project: Project, total: Int) = log("dbp.settings", "check.disabled") {
+    fun checkDisabled(project: Project, total: Int) = log("check.disabled") {
+        addPluginInfo(DeepBugsPlugin.info)
         addProject(project)
-        addData("plugin", DeepBugsPlugin.pluginId)
         addData("total", total)
     }
 
-    fun modelReset(total: Int) = log("dbp.settings", "model.reset") {
-        addData("plugin", DeepBugsPlugin.pluginId)
+    fun modelReset(total: Int) = log("model.reset") {
+        addPluginInfo(DeepBugsPlugin.info)
         addData("total", total)
     }
 
-    private fun log(groupId: String, eventId: String, body: FeatureUsageData.() -> Unit) {
-        return DeepBugsEventLogger.log(eventGroups[groupId] ?: return, eventId, FeatureUsageData().apply(body))
+    private fun log(eventId: String, body: FeatureUsageData.() -> Unit) {
+        return DeepBugsEventLogger.log(eventGroup, eventId, FeatureUsageData().apply(body))
     }
 
-    private fun register(groupId: String) {
-        eventGroups[groupId] = EventLogGroup(groupId, DeepBugsEventLogger.version)
-    }
-
-    private fun trackRegisteredGroups() = eventGroups.values.forEach { group -> DeepBugsEventLogger.log(group, "registered") }
+    private fun trackRegistered() = DeepBugsEventLogger.log(eventGroup, "registered")
 }

@@ -7,8 +7,6 @@ object DeepBugsEventLogger {
 
     val version: Int = loggerProvider.version
 
-    val counterGroups = setOf("dbp.inspections", "dbp.settings")
-
     fun log(group: EventLogGroup, action: String) {
         return loggerProvider.logger.log(group, action, false)
     }

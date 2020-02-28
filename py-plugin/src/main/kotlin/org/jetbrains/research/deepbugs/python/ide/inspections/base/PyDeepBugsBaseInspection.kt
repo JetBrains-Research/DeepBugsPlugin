@@ -29,7 +29,7 @@ abstract class PyDeepBugsBaseInspection<T : PyElement, in V : DataType>(private 
             if (skip(node)) return
             val data = node.collect() ?: return
             val vectorized = data.vectorize()
-            DeepBugsCounterCollector.embeddingMatched(holder?.project ?: return, shortName, matched = vectorized == null)
+            DeepBugsCounterCollector.tokensMatched(holder?.project ?: return, shortName, matched = vectorized == null)
             val result = model?.predict(vectorized ?: return) ?: return
             analyzeInspected(result, node, data)
         }
