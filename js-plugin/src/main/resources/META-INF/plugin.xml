@@ -14,6 +14,16 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h4>0.4</h4>
+        <ul>
+            <li>Support specific inspections for math (built-in Math object) function calls</li>
+             <ul>
+                <li>Misused function argument</li>
+                <li>Incorrect order of function arguments (also available for mathjs library)</li>
+             </ul>
+            <li>Minor bug fixes</li>
+        </ul>
+
         <h4>0.3</h4>
         <ul>
             <li>Significantly reduce plugin size</li>
