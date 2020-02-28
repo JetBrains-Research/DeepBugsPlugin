@@ -14,6 +14,7 @@ abstract class JSDeepBugsMathCallExprInspection(requiredArgsNum: Int, threshold:
         )
     }
 
+    protected open val libsToConsider: Set<String> = emptySet()
     protected open val ignore: List<String> = emptyList()
 
     override fun skip(node: JSCallExpression): Boolean {
@@ -22,23 +23,22 @@ abstract class JSDeepBugsMathCallExprInspection(requiredArgsNum: Int, threshold:
         return ignore.contains(call.referenceName) || (!call.isBuiltIn() && !call.isLibCall())
     }
 
+    private fun JSReferenceExpression.isLibCall(): Boolean {
+        val resolvedFiles = try {
+            multiResolve(false).mapNotNull { it.element?.containingFile }
+        } catch (ex: Exception) {
+            return false
+        }
+        val libs = resolvedFiles.mapNotNull { JSLibraryUtil.getLibraryFolder(it.virtualFile)?.name }
+        return libsToConsider.intersect(libs).isNotEmpty()
+    }
+
     companion object {
-        private val libsToConsider: Set<String> = setOf("mathjs")
         private val modulesToConsider: Set<String> = setOf("Math")
 
         private fun JSReferenceExpression.isBuiltIn(): Boolean {
             val first = qualifier?.text?.split('.')?.firstOrNull() ?: return false
             return modulesToConsider.contains(first)
-        }
-
-        private fun JSReferenceExpression.isLibCall(): Boolean {
-            val resolvedFiles = try {
-                multiResolve(false).mapNotNull { it.element?.containingFile }
-            } catch (ex: Exception) {
-                return false
-            }
-            val libs = resolvedFiles.mapNotNull { JSLibraryUtil.getLibraryFolder(it.virtualFile)?.name }
-            return libsToConsider.intersect(libs).isNotEmpty()
         }
     }
 }

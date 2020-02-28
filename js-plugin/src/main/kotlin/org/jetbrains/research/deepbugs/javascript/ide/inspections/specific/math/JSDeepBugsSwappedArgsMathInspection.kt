@@ -15,6 +15,7 @@ class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsMathCallExprInspection(2) 
     override val model: Perceptron?
         get() = JSSpecificModel.math.swappedArgsModel
 
+    override val libsToConsider: Set<String> = setOf("mathjs")
     override val ignore: List<String> = listOf("min", "max").map { it.asIdentifierString() }
 
     override fun createProblemDescriptor(node: JSCallExpression, data: Call): ProblemDescriptor =
