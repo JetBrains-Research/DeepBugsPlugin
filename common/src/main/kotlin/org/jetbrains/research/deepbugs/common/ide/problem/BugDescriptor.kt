@@ -6,7 +6,7 @@ import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.psi.PsiElement
 import com.intellij.util.containers.toArray
 
-class BugDescriptor(element: PsiElement, description: String, fixes: List<LocalQuickFix> = emptyList()) : ProblemDescriptorBase(
+class BugDescriptor(element: PsiElement, description: String, onTheFly: Boolean, fixes: List<LocalQuickFix> = emptyList()) : ProblemDescriptorBase(
     element,
     element,
     description,
@@ -15,5 +15,5 @@ class BugDescriptor(element: PsiElement, description: String, fixes: List<LocalQ
     false,
     null,
     true,
-    false
+    onTheFly
 )

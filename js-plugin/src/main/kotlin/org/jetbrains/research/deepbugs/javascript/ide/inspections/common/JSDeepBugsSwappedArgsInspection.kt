@@ -22,7 +22,7 @@ open class JSDeepBugsSwappedArgsInspection : JSDeepBugsCallExprInspection(2) {
     }
 
     override fun createProblemDescriptor(node: JSCallExpression, data: Call): ProblemDescriptor =
-        BugDescriptor(node, createTooltip(node), listOf(
+        BugDescriptor(node, createTooltip(node), myOnTheFly, listOf(
             JSIgnoreExpressionQuickFix(data, node.text),
             FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.flip.args.family"))
         ))

@@ -25,6 +25,7 @@ class JSDeepBugsBinOperatorInspection : JSDeepBugsBinExprInspection() {
         return BugDescriptor(
             node,
             createTooltip(node, *(replaceQuickFix.toLookups())),
+            myOnTheFly,
             listOfNotNull(JSIgnoreExpressionQuickFix(data, node.text), replaceQuickFix)
         )
     }

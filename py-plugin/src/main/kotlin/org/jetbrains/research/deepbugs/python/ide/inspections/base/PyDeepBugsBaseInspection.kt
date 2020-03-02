@@ -16,8 +16,8 @@ abstract class PyDeepBugsBaseInspection<T : PyElement, in V : DataType>(private 
 
     protected open fun skip(node: T): Boolean = false
 
-    protected open fun createProblemDescriptor(node: T, data: V): ProblemDescriptor =
-        BugDescriptor(node, createTooltip(node), listOf(PyIgnoreExpressionQuickFix(data, node.text)))
+    protected open fun createProblemDescriptor(node: T, data: V, onTheFly: Boolean): ProblemDescriptor =
+        BugDescriptor(node, createTooltip(node), onTheFly, listOf(PyIgnoreExpressionQuickFix(data, node.text)))
 
     protected abstract fun createTooltip(node: T, vararg params: String): String
 
@@ -34,7 +34,7 @@ abstract class PyDeepBugsBaseInspection<T : PyElement, in V : DataType>(private 
 
         private fun analyzeInspected(result: Float, node: T, data: V) {
             if (!PyDeepBugsConfig.isProblem(result, threshold, data)) return
-            holder?.registerProblem(createProblemDescriptor(node, data))
+            holder?.registerProblem(createProblemDescriptor(node, data, holder!!.isOnTheFly))
             InspectionReportCollector.logReport(holder?.project ?: return, shortName, result)
         }
     }

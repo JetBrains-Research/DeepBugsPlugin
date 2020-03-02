@@ -17,8 +17,8 @@ class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection(2, 0.8f) {
 
     override fun skip(node: PyCallExpression): Boolean = node.arguments.size != requiredArgsNum
 
-    override fun createProblemDescriptor(node: PyCallExpression, data: Call): ProblemDescriptor =
-        BugDescriptor(node, createTooltip(node), listOf(
+    override fun createProblemDescriptor(node: PyCallExpression, data: Call, onTheFly: Boolean): ProblemDescriptor =
+        BugDescriptor(node, createTooltip(node), onTheFly, listOf(
             PyIgnoreExpressionQuickFix(data, node.text),
             FlipFunctionArgumentsQuickFix(PyResourceBundle.message("deepbugs.python.flip.args.family"))
         ))

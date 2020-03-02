@@ -15,7 +15,7 @@ abstract class JSDeepBugsMathCallExprInspection(requiredArgsNum: Int, threshold:
     }
 
     protected open val libsToConsider: Set<String> = emptySet()
-    protected open val ignore: List<String> = emptyList()
+    protected open val ignore: Set<String> = emptySet()
 
     override fun skip(node: JSCallExpression): Boolean {
         if (node.arguments.size != requiredArgumentsNum) return true
