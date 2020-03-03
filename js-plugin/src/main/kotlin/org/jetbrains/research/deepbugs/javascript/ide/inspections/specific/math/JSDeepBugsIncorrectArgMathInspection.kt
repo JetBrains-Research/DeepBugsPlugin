@@ -5,7 +5,7 @@ import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
 import org.jetbrains.research.deepbugs.javascript.model.specific.JSSpecificModel
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
-class JSDeepBugsIncorrectArgMathInspection : JSDeepBugsMathCallExprInspection(1, 0.72f) {
+class JSDeepBugsIncorrectArgMathInspection : JSDeepBugsMathCallExprInspection(requiredArgsNum = 1, threshold = 0.72f) {
     override val model: Perceptron?
         get() = JSSpecificModel.math.incorrectArgModel
 

@@ -10,7 +10,7 @@ import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpress
 import org.jetbrains.research.deepbugs.javascript.model.specific.JSSpecificModel
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
-class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsMathCallExprInspection(2) {
+class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsMathCallExprInspection(requiredArgsNum = 2) {
     override val model: Perceptron?
         get() = JSSpecificModel.math.swappedArgsModel
 
