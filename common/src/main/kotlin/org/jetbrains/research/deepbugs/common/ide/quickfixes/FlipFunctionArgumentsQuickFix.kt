@@ -10,6 +10,8 @@ import com.intellij.openapi.editor.actions.FlipCommaIntention
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import org.jetbrains.research.deepbugs.common.CommonResourceBundle
+import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
+import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.DeepBugsCounterCollector
 
 class FlipFunctionArgumentsQuickFix(private val displayName: String) : LocalQuickFix, PriorityAction {
     override fun getName(): String = CommonResourceBundle.message("deepbugs.flip.arguments.quickfix")
@@ -23,6 +25,7 @@ class FlipFunctionArgumentsQuickFix(private val displayName: String) : LocalQuic
             val file: PsiFile = CommonDataKeys.PSI_FILE.getData(context) ?: return@onSuccess
 
             FlipCommaIntention().invoke(project, editor, file)
+            DeepBugsCounterCollector.quickFixApplied(project, "flip.arguments", cancelled = false)
         }
     }
 }

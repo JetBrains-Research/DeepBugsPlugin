@@ -5,8 +5,8 @@ import com.intellij.ui.layout.migLayout.createLayoutConstraints
 import net.miginfocom.layout.AC
 import net.miginfocom.layout.CC
 import net.miginfocom.swing.MigLayout
-import org.jetbrains.research.deepbugs.common.CommonResourceBundle
-import org.jetbrains.research.deepbugs.common.DeepBugsConfig
+import org.jetbrains.research.deepbugs.common.*
+import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.DeepBugsCounterCollector
 import org.jetbrains.research.deepbugs.common.ide.msg.DeepBugsLifecycle
 import javax.swing.JButton
 
@@ -27,6 +27,7 @@ class DeepBugsSettingsPanel(private val settings: DeepBugsConfig, private val de
 
     init {
         resetButton.addActionListener {
+            DeepBugsCounterCollector.modelReset(settings.state.userDisabledChecks.size)
             settings.update(default)
         }
     }

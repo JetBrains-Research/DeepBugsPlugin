@@ -9,6 +9,7 @@ import com.intellij.openapi.command.undo.UndoManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Iconable
 import org.jetbrains.research.deepbugs.common.datatypes.DataType
+import org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter.DeepBugsCounterCollector
 import org.jetbrains.research.deepbugs.python.PyDeepBugsConfig
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
 import javax.swing.Icon
@@ -20,6 +21,7 @@ class PyIgnoreExpressionQuickFix(private val expr: DataType, private val display
             override fun undo() = PyDeepBugsConfig.considerExpression(expr)
         }
         ignore.redo()
+        DeepBugsCounterCollector.checkDisabled(project, PyDeepBugsConfig.get().userDisabledChecks.size)
         UndoManager.getInstance(project).undoableActionPerformed(ignore)
     }
 
