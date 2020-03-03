@@ -5,8 +5,7 @@
     <description><![CDATA[
     <p>Finds potential bugs and code quality issues for JavaScript using deep learning models.</p>
 
-    <p>Detects several types of bugs, including incorrect function arguments, incorrect comparison, and others, based on extracted code semantics.
-    Provides inspection strictness configuration for each bug type.</p>
+    <p>Detects several types of bugs, including incorrect function arguments, incorrect comparison, and others, based on extracted code semantics.</p>
 
     <p>Deep learning models are inspired by DeepBugs.</p>
 
@@ -14,6 +13,16 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h4>0.4</h4>
+        <ul>
+            <li>Support specific inspections for math (built-in Math object) function calls</li>
+             <ul>
+                <li>Misused function argument</li>
+                <li>Incorrect order of function arguments (also available for mathjs library)</li>
+             </ul>
+            <li>Minor bug fixes</li>
+        </ul>
+
         <h4>0.3</h4>
         <ul>
             <li>Significantly reduce plugin size</li>

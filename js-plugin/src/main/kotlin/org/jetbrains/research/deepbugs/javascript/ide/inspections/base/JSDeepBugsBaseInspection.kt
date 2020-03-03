@@ -18,7 +18,7 @@ abstract class JSDeepBugsBaseInspection<T : JSElement, in V : DataType>(private 
     protected open fun skip(node: T): Boolean = false
 
     protected open fun createProblemDescriptor(node: T, data: V): ProblemDescriptor =
-        BugDescriptor(node, createTooltip(node), listOf(JSIgnoreExpressionQuickFix(data, node.text)))
+        BugDescriptor(node, createTooltip(node), myOnTheFly, listOf(JSIgnoreExpressionQuickFix(data, node.text)))
 
     protected abstract fun createTooltip(node: T, vararg params: String): String
 

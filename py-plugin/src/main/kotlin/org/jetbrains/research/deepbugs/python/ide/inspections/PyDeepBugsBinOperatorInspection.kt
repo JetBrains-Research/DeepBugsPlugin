@@ -19,13 +19,14 @@ class PyDeepBugsBinOperatorInspection : PyDeepBugsBinExprInspection(0.85f) {
     override val model: Perceptron?
         get() = CommonModelStorage.common.binOperatorModel
 
-    override fun createProblemDescriptor(node: PyBinaryExpression, data: BinOp): ProblemDescriptor {
+    override fun createProblemDescriptor(node: PyBinaryExpression, data: BinOp, onTheFly: Boolean): ProblemDescriptor {
         val textRange = node.findOperatorTextRange()!!
         val replaceQuickFix = ReplaceBinOperatorQuickFix(data, textRange, PyDeepBugsConfig.get().quickFixesThreshold,
             PyResourceBundle.message("deepbugs.python.replace.operator.family")).takeIf { it.isAvailable() }
         return BugDescriptor(
             node,
             createTooltip(node, *(replaceQuickFix.toLookups())),
+            onTheFly,
             listOfNotNull(PyIgnoreExpressionQuickFix(data, node.text), replaceQuickFix)
         )
     }

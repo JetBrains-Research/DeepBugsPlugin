@@ -6,7 +6,6 @@ import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
 import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
-import org.jetbrains.research.deepbugs.javascript.extraction.asIdentifierString
 import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
 import org.jetbrains.research.deepbugs.javascript.model.specific.JSSpecificModel
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
@@ -15,10 +14,11 @@ class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsMathCallExprInspection(2) 
     override val model: Perceptron?
         get() = JSSpecificModel.math.swappedArgsModel
 
-    override val ignore: List<String> = listOf("min", "max").map { it.asIdentifierString() }
+    override val libsToConsider: Set<String> = setOf("mathjs")
+    override val ignore: Set<String> = setOf("min", "max")
 
     override fun createProblemDescriptor(node: JSCallExpression, data: Call): ProblemDescriptor =
-        BugDescriptor(node, createTooltip(node), listOf(
+        BugDescriptor(node, createTooltip(node), myOnTheFly, listOf(
             JSIgnoreExpressionQuickFix(data, node.text),
             FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.flip.args.family"))
         ))
