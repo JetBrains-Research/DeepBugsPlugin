@@ -4,10 +4,10 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.jetbrains.python.psi.PyCallExpression
 import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
-import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.common.model.CommonModelStorage
 import org.jetbrains.research.deepbugs.python.PyResourceBundle
 import org.jetbrains.research.deepbugs.python.ide.inspections.base.PyDeepBugsCallExprInspection
+import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyFlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.python.ide.quickfixes.PyIgnoreExpressionQuickFix
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
 
@@ -20,7 +20,7 @@ class PyDeepBugsSwappedArgsInspection : PyDeepBugsCallExprInspection(2, 0.8f) {
     override fun createProblemDescriptor(node: PyCallExpression, data: Call, onTheFly: Boolean): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), onTheFly, listOf(
             PyIgnoreExpressionQuickFix(data, node.text),
-            FlipFunctionArgumentsQuickFix(PyResourceBundle.message("deepbugs.python.flip.args.family"))
+            PyFlipFunctionArgumentsQuickFix()
         ))
 
     override fun createTooltip(node: PyCallExpression, vararg params: String): String =

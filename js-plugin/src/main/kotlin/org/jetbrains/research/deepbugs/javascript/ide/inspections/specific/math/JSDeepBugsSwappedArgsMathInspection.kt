@@ -4,8 +4,8 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.lang.javascript.psi.JSCallExpression
 import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.common.ide.problem.BugDescriptor
-import org.jetbrains.research.deepbugs.common.ide.quickfixes.FlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.javascript.JSResourceBundle
+import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSFlipFunctionArgumentsQuickFix
 import org.jetbrains.research.deepbugs.javascript.ide.quickfixes.JSIgnoreExpressionQuickFix
 import org.jetbrains.research.deepbugs.javascript.model.specific.JSSpecificModel
 import org.jetbrains.research.keras.runner.nn.model.sequential.Perceptron
@@ -20,7 +20,7 @@ class JSDeepBugsSwappedArgsMathInspection : JSDeepBugsMathCallExprInspection(req
     override fun createProblemDescriptor(node: JSCallExpression, data: Call): ProblemDescriptor =
         BugDescriptor(node, createTooltip(node), myOnTheFly, listOf(
             JSIgnoreExpressionQuickFix(data, node.text),
-            FlipFunctionArgumentsQuickFix(JSResourceBundle.message("deepbugs.javascript.flip.args.family"))
+            JSFlipFunctionArgumentsQuickFix()
         ))
 
     override fun createTooltip(node: JSCallExpression, vararg params: String): String =
