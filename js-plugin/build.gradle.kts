@@ -9,7 +9,7 @@ intellij {
     version = rootProject.intellij.version
     type = "IU"
     downloadSources = true
-    setPlugins("JavaScriptLanguage", "CSS")
+    setPlugins("JavaScriptLanguage", "CSS", "platform-images")
 }
 
 configureIdea {
@@ -29,6 +29,7 @@ tasks.withType<RunIdeTask> {
 tasks.withType<Test> {
     useJUnit()
 
+    jvmArgs("-Xmx1g", "-Didea.is.internal=true")
     testLogging {
         events("passed", "skipped", "failed")
     }
