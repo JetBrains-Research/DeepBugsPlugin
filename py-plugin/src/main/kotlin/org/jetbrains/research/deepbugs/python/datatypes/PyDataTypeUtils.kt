@@ -7,7 +7,6 @@ import org.jetbrains.research.deepbugs.common.datatypes.BinOp
 import org.jetbrains.research.deepbugs.common.datatypes.Call
 import org.jetbrains.research.deepbugs.python.extraction.*
 
-
 fun PyCallExpression.collect(): Call? {
     val name = callee?.extractNodeName() ?: return null
 

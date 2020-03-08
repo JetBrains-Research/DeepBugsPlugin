@@ -5,8 +5,8 @@ group = rootProject.group
 version = rootProject.version
 
 intellij {
-    pluginName = "DeepBugsJavaScript"
-    version = "2019.2"
+    pluginName = "DeepBugs for JavaScript"
+    version = rootProject.intellij.version
     type = "IU"
     downloadSources = true
     setPlugins("JavaScriptLanguage", "CSS")
@@ -35,8 +35,8 @@ tasks.withType<Test> {
 }
 
 tasks.withType<PatchPluginXmlTask> {
-    sinceBuild("192.5728")
-    untilBuild("201.*")
+    sinceBuild("201")
+    untilBuild("")
 }
 
 dependencies {
