@@ -6,6 +6,9 @@ import tanvd.kosogor.defaults.configureIdea
 group = "org.jetbrains.research.deepbugs"
 version = "0.4"
 
+intellij {
+    version = "2019.2"
+}
 
 plugins {
     id("tanvd.kosogor") version "1.0.7" apply true
