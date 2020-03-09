@@ -54,7 +54,9 @@ object DeepBugsCounterCollector {
 
     private fun log(eventId: String, body: FeatureUsageData.() -> Unit) {
         return try {
-            val data = FeatureUsageData().addPluginInfo(DeepBugsPlugin.info).apply(body)
+            val data = FeatureUsageData()
+                .addPluginInfo(DeepBugsPlugin.info ?: return)
+                .apply(body)
             DeepBugsEventLogger.log(eventGroup, eventId, data)
         } catch (ex: Exception) {
             LOG.warn(ex.message)
