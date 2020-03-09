@@ -3,16 +3,16 @@ package org.jetbrains.research.deepbugs.common.ide.fus.collectors.counter
 import com.intellij.concurrency.JobScheduler
 import com.intellij.internal.statistic.eventLog.EventLogGroup
 import com.intellij.internal.statistic.eventLog.FeatureUsageData
-import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import org.jetbrains.research.deepbugs.common.DeepBugsPlugin
 import org.jetbrains.research.deepbugs.common.ide.fus.DeepBugsEventLogger
+import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
 
 object DeepBugsCounterCollector {
     private const val LOG_DELAY_MIN = 24 * 60
     private const val LOG_INITIAL_DELAY_MIN = 10
-    private val LOG = Logger.getInstance("#com.intellij.internal.statistic.eventLog.StatisticsEventLogger")
+    private val LOG = LoggerFactory.getLogger(DeepBugsCounterCollector::class.java)
 
     private val eventGroup = EventLogGroup("dbp.count", DeepBugsEventLogger.version)
 
@@ -59,7 +59,7 @@ object DeepBugsCounterCollector {
                 .apply(body)
             DeepBugsEventLogger.log(eventGroup, eventId, data)
         } catch (ex: Exception) {
-            LOG.warn(ex.message)
+            LOG.warn("Failed to get PluginInfo for ${DeepBugsPlugin.name}")
         }
     }
 
