@@ -24,8 +24,12 @@ object DeepBugsPlugin {
     val installationFolder: File
         get() = descriptor.pluginPath.toFile()
 
-    val info: PluginInfo
-        get() = getPluginInfoByDescriptor(descriptor)
+    val info: PluginInfo?
+        get() = try {
+            getPluginInfoByDescriptor(descriptor)
+        } catch (ex: Exception) {
+            null
+        }
 
     @TestOnly
     fun setTestPlugin(id: String) {
