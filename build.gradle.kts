@@ -18,6 +18,10 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.3.61" apply true
 }
 
+intellij {
+    version = "201-EAP-SNAPSHOT"
+}
+
 allprojects {
     repositories {
         jcenter()

@@ -5,11 +5,11 @@ group = rootProject.group
 version = rootProject.version
 
 intellij {
-    pluginName = "DeepBugsPython"
-    version = "2019.2"
+    pluginName = "DeepBugs for Python"
+    version = rootProject.intellij.version
     type = "IC"
     downloadSources = true
-    setPlugins("PythonCore:2019.2.192.5728.98")
+    setPlugins("PythonCore:201.6073.28", "java")
 }
 
 configureIdea {
@@ -35,8 +35,8 @@ tasks.withType<Test> {
 }
 
 tasks.withType<PatchPluginXmlTask> {
-    sinceBuild("192.5728")
-    untilBuild("193.*")
+    sinceBuild("201")
+    untilBuild("")
 }
 
 dependencies {

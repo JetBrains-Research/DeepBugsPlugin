@@ -2,7 +2,7 @@ group = "org.jetbrains.research"
 version = rootProject.version
 
 intellij {
-    version = "2019.2"
+    version = rootProject.intellij.version
 }
 
 dependencies {

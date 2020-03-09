@@ -1,9 +1,7 @@
 package org.jetbrains.research.deepbugs.common
 
-import com.intellij.ide.plugins.IdeaPluginDescriptor
-import com.intellij.ide.plugins.PluginManager
-import com.intellij.internal.statistic.utils.PluginInfo
-import com.intellij.internal.statistic.utils.getPluginInfoById
+import com.intellij.ide.plugins.*
+import com.intellij.internal.statistic.utils.*
 import com.intellij.openapi.application.ApplicationManager
 import org.jetbrains.annotations.TestOnly
 import java.io.File
@@ -14,8 +12,8 @@ object DeepBugsPlugin {
 
     private var myTestPluginId: String? = null
 
-    val descriptor: IdeaPluginDescriptor
-        get() = PluginManager.getLoadedPlugins().single {
+    private val descriptor: IdeaPluginDescriptor
+        get() = PluginManagerCore.getLoadedPlugins().single {
             (ApplicationManager.getApplication().isUnitTestMode && it.pluginId.idString == myTestPluginId) ||
                 (ApplicationManager.getApplication().isUnitTestMode.not() && it.pluginClassLoader == classLoader)
         }
@@ -24,13 +22,14 @@ object DeepBugsPlugin {
         get() = descriptor.name
 
     val installationFolder: File
-        get() = descriptor.path
+        get() = descriptor.pluginPath.toFile()
 
-    val pluginId: String
-        get() = descriptor.pluginId.idString
-
-    val info: PluginInfo
-        get() = getPluginInfoById(descriptor.pluginId)
+    val info: PluginInfo?
+        get() = try {
+            getPluginInfoByDescriptor(descriptor)
+        } catch (ex: Exception) {
+            null
+        }
 
     @TestOnly
     fun setTestPlugin(id: String) {

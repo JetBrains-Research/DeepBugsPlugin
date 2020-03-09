@@ -22,7 +22,8 @@ fun JSElement.extractNodeName(): String? = when (this) {
     is JSCallExpression -> methodExpression?.extractNodeName()
     is JSParameter -> text.takeWhile { it != ':' }.asIdentifierString()
     is JSArrayLiteralExpression -> text.asIdentifierString()
-    is JSIndexedPropertyAccessExpression -> PsiTreeUtil.getChildOfType(this, JSReferenceExpression::class.java)?.referenceName?.asIdentifierString()
+    is JSIndexedPropertyAccessExpression ->
+        PsiTreeUtil.getChildOfType(this, JSReferenceExpression::class.java)?.referenceName?.asIdentifierString()
     else -> null
 }
 

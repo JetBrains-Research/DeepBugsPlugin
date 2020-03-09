@@ -5,11 +5,11 @@ group = rootProject.group
 version = rootProject.version
 
 intellij {
-    pluginName = "DeepBugsJavaScript"
-    version = "2019.2"
+    pluginName = "DeepBugs for JavaScript"
+    version = rootProject.intellij.version
     type = "IU"
     downloadSources = true
-    setPlugins("JavaScriptLanguage", "CSS")
+    setPlugins("JavaScriptLanguage", "CSS", "platform-images")
 }
 
 configureIdea {
@@ -29,14 +29,15 @@ tasks.withType<RunIdeTask> {
 tasks.withType<Test> {
     useJUnit()
 
+    jvmArgs("-Xmx1g", "-Didea.is.internal=true")
     testLogging {
         events("passed", "skipped", "failed")
     }
 }
 
 tasks.withType<PatchPluginXmlTask> {
-    sinceBuild("192.5728")
-    untilBuild("193.*")
+    sinceBuild("201")
+    untilBuild("")
 }
 
 dependencies {
