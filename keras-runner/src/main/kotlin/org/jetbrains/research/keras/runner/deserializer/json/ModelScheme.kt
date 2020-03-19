@@ -15,7 +15,7 @@ sealed class ModelScheme {
     data class SequentialScheme(override val config: ModelConfig.Sequential) : ModelScheme()
 
     companion object {
-        private val json = Json(configuration = JsonConfiguration.Stable.copy(strictMode = false, classDiscriminator = "class_name"))
+        private val json = Json(configuration = JsonConfiguration.Stable.copy(ignoreUnknownKeys = true, classDiscriminator = "class_name"))
 
         fun parse(config: String) = json.parse(serializer(), config)
     }
