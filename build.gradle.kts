@@ -57,9 +57,6 @@ subprojects {
     dependencies {
         compileOnly(kotlin("stdlib"))
         compileOnly(kotlin("stdlib-jdk8"))
-        implementation("org.jetbrains.kotlinx", "kotlinx-serialization-runtime", "0.20.0") {
-            exclude("org.jetbrains.kotlin")
-        }
         implementation("org.jetbrains.kotlinx", "kotlinx-serialization-cbor", "0.20.0") {
             exclude("org.jetbrains.kotlin")
         }

@@ -13,4 +13,7 @@ dependencies {
     api("scientifik", "kmath-core-jvm", "0.1.3") {
         exclude("org.jetbrains.kotlin")
     }
+    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-runtime", "0.20.0") {
+        exclude("org.jetbrains.kotlin")
+    }
 }
