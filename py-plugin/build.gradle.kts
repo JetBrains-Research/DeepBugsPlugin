@@ -9,7 +9,7 @@ intellij {
     version = rootProject.intellij.version
     type = "IC"
     downloadSources = true
-    setPlugins("PythonCore:201.6487.11", "java")
+    setPlugins("PythonCore:201.6668.13", "java")
 }
 
 configureIdea {
