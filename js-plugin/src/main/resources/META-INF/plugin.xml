@@ -1,7 +1,7 @@
 <idea-plugin url="https://github.com/JetBrains-Research/DeepBugsPlugin">
     <name>DeepBugs for JavaScript</name>
     <id>DeepBugsJavaScript</id>
-    <vendor url="https://research.jetbrains.org/">Jetbrains-Research</vendor>
+    <vendor>JetBrains</vendor>
     <description><![CDATA[
     <p>Finds potential bugs and code quality issues for JavaScript using deep learning models.</p>
 
@@ -13,6 +13,9 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h4>0.5</h4>
+        Update for 201.* builds
+
         <h4>0.4</h4>
         <ul>
             <li>Support specific inspections for math (built-in Math object) function calls</li>

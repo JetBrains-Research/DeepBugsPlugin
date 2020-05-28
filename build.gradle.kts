@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import tanvd.kosogor.defaults.configureIdea
 
 group = "org.jetbrains.research.deepbugs"
-version = "0.4"
+version = "0.5"
 
 plugins {
     id("tanvd.kosogor") version "1.0.7" apply true
@@ -15,7 +15,7 @@ plugins {
 }
 
 intellij {
-    version = "201-EAP-SNAPSHOT"
+    version = "2020.1"
 }
 
 allprojects {
